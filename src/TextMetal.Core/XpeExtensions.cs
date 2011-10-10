@@ -7,7 +7,6 @@ using System;
 
 using TextMetal.Core.AssociativeModel;
 using TextMetal.Core.ExpressionModel;
-using TextMetal.Core.QueryModel;
 using TextMetal.Core.SortModel;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.XmlModel;
@@ -61,13 +60,6 @@ namespace TextMetal.Core
 			xpe.RegisterKnownXmlObject<TemplateContainerConstruct>();
 			xpe.RegisterKnownXmlObject<TemplateConstruct>();
 			xpe.RegisterKnownXmlObject<WriteConstruct>();
-
-			xpe.RegisterKnownXmlObject<JoinSourceContainerConstruct>();
-			xpe.RegisterKnownXmlObject<ProjectionConstruct>();
-			xpe.RegisterKnownXmlObject<ProjectionContainerConstruct>();
-			xpe.RegisterKnownXmlObject<QueryContainerConstruct>();
-			xpe.RegisterKnownXmlObject<SelectConstruct>();
-			xpe.RegisterKnownXmlObject<TableConstruct>();
 		}
 
 		#endregion
