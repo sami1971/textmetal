@@ -1,0 +1,26 @@
+# directory specs
+obj
+bin
+debug
+release
+clientbin
+output
+pkg
+_ReSharper.*
+
+# file specs
+thumbs.db
+desktop.ini
+
+# file extension specs
+*.suo
+*.user
+*.cache
+*.resharper
+*.visualstate.xml
+*.pidb
+*.userprefs
+
+testresult*
+coverage*
+[\!]git*

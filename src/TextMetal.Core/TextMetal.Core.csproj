@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0FC50A3F-54C4-4112-80D9-42D68234574A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.Core</RootNamespace>
+    <AssemblyName>TextMetal.Core</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\PowerShell\System.Management.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AssemblyInformation.cs" />
+    <Compile Include="AssociativeModel\ArrayConstruct.cs" />
+    <Compile Include="AssociativeModel\AssociativeXmlObject.cs" />
+    <Compile Include="AssociativeModel\IActualThing.cs" />
+    <Compile Include="AssociativeModel\IAssociativeMechanism.cs" />
+    <Compile Include="AssociativeModel\IAssociativeXmlObject.cs" />
+    <Compile Include="AssociativeModel\ModelConstruct.cs" />
+    <Compile Include="AssociativeModel\ObjectConstruct.cs" />
+    <Compile Include="AssociativeModel\PropertyConstruct.cs" />
+    <Compile Include="AssociativeModel\ProxyConstruct.cs" />
+    <Compile Include="AssociativeModel\AssModContainerConstruct.cs" />
+    <Compile Include="ComparableComparer.cs" />
+    <Compile Include="ContravariantListAdapter~2.cs" />
+    <Compile Include="DebuggerBreakpointConstruct.cs" />
+    <Compile Include="ExpressionModel\BinaryExpressionConstruct.cs" />
+    <Compile Include="ExpressionModel\Operators\BinaryOperator.cs" />
+    <Compile Include="ExpressionModel\AspectConstruct.cs" />
+    <Compile Include="ExpressionModel\Operators\INullaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\IUnaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\IBinaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\IOperator.cs" />
+    <Compile Include="ExpressionModel\SurfaceConstruct.cs" />
+    <Compile Include="ExpressionModel\PowerShellConstruct.cs" />
+    <Compile Include="ExpressionModel\ExpressionContainerConstruct.cs" />
+    <Compile Include="ExpressionModel\ExpressionVisitor.cs" />
+    <Compile Include="ExpressionModel\FacetConstruct.cs" />
+    <Compile Include="ExpressionModel\IExpressionMechanism.cs" />
+    <Compile Include="ExpressionModel\IExpressionXmlObject.cs" />
+    <Compile Include="ExpressionModel\NullaryExpressionConstruct.cs" />
+    <Compile Include="ExpressionModel\Operators\Operator.cs" />
+    <Compile Include="ExpressionModel\PrintExpressionVisitor.cs" />
+    <Compile Include="QueryModel\JoinSourceContainerConstruct.cs" />
+    <Compile Include="QueryModel\JoinType.cs" />
+    <Compile Include="QueryModel\TableConstruct.cs" />
+    <Compile Include="QueryModel\ProjectionContainerConstruct.cs" />
+    <Compile Include="QueryModel\ProjectionConstruct.cs" />
+    <Compile Include="QueryModel\SelectConstruct.cs" />
+    <Compile Include="QueryModel\IQueryMechanism.cs" />
+    <Compile Include="QueryModel\IQueryXmlObject.cs" />
+    <Compile Include="QueryModel\QueryContainerConstruct.cs" />
+    <Compile Include="QueryModel\SqlExpressionVisitor.cs" />
+    <Compile Include="ExpressionModel\UnaryExpressionConstruct.cs" />
+    <Compile Include="ExpressionModel\Operators\UnaryOperator.cs" />
+    <Compile Include="ExpressionModel\ValueConstruct.cs" />
+    <Compile Include="InputOutputModel\FileInputMechanism.cs" />
+    <Compile Include="InputOutputModel\FileOutputMechanism.cs" />
+    <Compile Include="InputOutputModel\IInputMechanism.cs" />
+    <Compile Include="InputOutputModel\InputMechanism.cs" />
+    <Compile Include="InputOutputModel\IOutputMechanism.cs" />
+    <Compile Include="InputOutputModel\NullInputMechanism.cs" />
+    <Compile Include="InputOutputModel\OutputMechanism.cs" />
+    <Compile Include="InputOutputModel\StringOutputMechanism.cs" />
+    <Compile Include="InputOutputModel\TextWriterOutputMechanism.cs" />
+    <Compile Include="CovariantListAdapter~2.cs" />
+    <Compile Include="Name.cs" />
+    <Compile Include="Plumbing\AdoNetHelper.cs" />
+    <Compile Include="Plumbing\AppConfig.cs" />
+    <Compile Include="Plumbing\Cerealization.cs" />
+    <Compile Include="Plumbing\IModelState.cs" />
+    <Compile Include="Plumbing\DataType.cs" />
+    <Compile Include="Plumbing\DataType.IntImpl.cs" />
+    <Compile Include="Plumbing\ExecutionPathStorage.cs" />
+    <Compile Include="Plumbing\Reflexion.cs" />
+    <Compile Include="Plumbing\SqlQuery.cs" />
+    <Compile Include="Plumbing\UnitOfWorkContext.cs" />
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="SortModel\AscendingConstruct.cs" />
+    <Compile Include="SortModel\DescendingConstruct.cs" />
+    <Compile Include="SortModel\ISortMechanism.cs" />
+    <Compile Include="SortModel\ISortXmlObject.cs" />
+    <Compile Include="SortModel\OrderConstruct.cs" />
+    <Compile Include="SortModel\SortContainerConstruct.cs" />
+    <Compile Include="SourceModel\SourceStrategy.cs" />
+    <Compile Include="SourceModel\ISourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\AssociativeXmlSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\NullSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\ReflectionSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\SqlDataSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\TextSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\XmlPersistEngineSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\XmlSchemaSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\XmlSerializerSourceStrategy.cs" />
+    <Compile Include="SourceModel\SqlServer\Catalog.cs" />
+    <Compile Include="SourceModel\SqlServer\Column.cs" />
+    <Compile Include="SourceModel\SqlServer\Database.cs" />
+    <Compile Include="SourceModel\SqlServer\ForeignKey.cs" />
+    <Compile Include="SourceModel\SqlServer\ForeignKeyColumnRef.cs" />
+    <Compile Include="SourceModel\SqlServer\Parameter.cs" />
+    <Compile Include="SourceModel\SqlServer\Procedure.cs" />
+    <Compile Include="SourceModel\SqlServer\Schema.cs" />
+    <Compile Include="SourceModel\SqlServer\SqlServerSchemaSourceStrategy.cs" />
+    <Compile Include="SourceModel\SqlServer\Table.cs" />
+    <Compile Include="SourceModel\SqlServer\UniqueKey.cs" />
+    <Compile Include="SourceModel\SqlServer\UniqueKeyColumnRef.cs" />
+    <Compile Include="TemplateModel\AllocConstruct.cs" />
+    <Compile Include="TemplateModel\AssignConstruct.cs" />
+    <Compile Include="TemplateModel\ReferenceConstruct.cs" />
+    <Compile Include="TemplateModel\ForConstruct.cs" />
+    <Compile Include="TemplateModel\ForEachConstruct.cs" />
+    <Compile Include="TemplateModel\FreeConstruct.cs" />
+    <Compile Include="TemplateModel\IfConstruct.cs" />
+    <Compile Include="TemplateModel\ImportConstruct.cs" />
+    <Compile Include="TemplateModel\IncludeConstruct.cs" />
+    <Compile Include="TemplateModel\InvokeSourceStrategyConstruct.cs" />
+    <Compile Include="TemplateModel\ITemplateMechanism.cs" />
+    <Compile Include="TemplateModel\ITemplateXmlObject.cs" />
+    <Compile Include="TemplateModel\LogConstruct.cs" />
+    <Compile Include="TemplateModel\OutputScopeConstruct.cs" />
+    <Compile Include="TemplateModel\TemplateConstruct.cs" />
+    <Compile Include="TemplateModel\TemplateContainerConstruct.cs" />
+    <Compile Include="TemplateModel\TemplateXmlTextObject.cs" />
+    <Compile Include="TemplateModel\TemplatingContext.cs" />
+    <Compile Include="TemplateModel\WriteConstruct.cs" />
+    <Compile Include="TokenModel\DynamicValueTokenReplacementStrategy.cs" />
+    <Compile Include="TokenModel\DynamicWildcardTokenReplacementStrategy.cs" />
+    <Compile Include="TokenModel\ITokenReplacementStrategy.cs" />
+    <Compile Include="TokenModel\IWildcardTokenReplacementStrategy.cs" />
+    <Compile Include="TokenModel\StaticValueTokenReplacementStrategy.cs" />
+    <Compile Include="TokenModel\Tokenizer.cs" />
+    <Compile Include="XmlModel\ChildElementType.cs" />
+    <Compile Include="XmlModel\IXmlSterileObject.cs" />
+    <Compile Include="XmlModel\XmlSterileObject~1.cs" />
+    <Compile Include="XmlModel\IXmlSterileObject~1.cs" />
+    <Compile Include="XmlModel\IXmlContentObject.cs" />
+    <Compile Include="XmlModel\IXmlItemsObject.cs" />
+    <Compile Include="XmlModel\IXmlContentObject~2.cs" />
+    <Compile Include="XmlModel\IXmlItemsObject~2.cs" />
+    <Compile Include="XmlModel\XmlItemsObject~2.cs" />
+    <Compile Include="XmlModel\XmlContentObject~2.cs" />
+    <Compile Include="XmlModel\XmlObject.cs" />
+    <Compile Include="XmlModel\IXmlObject.cs" />
+    <Compile Include="XmlModel\IXmlPersistEngine.cs" />
+    <Compile Include="XmlModel\IXmlTextObject.cs" />
+    <Compile Include="XmlModel\XmlAttributeMappingAttribute.cs" />
+    <Compile Include="XmlModel\XmlChildElementMappingAttribute.cs" />
+    <Compile Include="XmlModel\XmlElementMappingAttribute.cs" />
+    <Compile Include="XmlModel\XmlName.cs" />
+    <Compile Include="XmlModel\XmlPersistEngine.cs" />
+    <Compile Include="Severity.cs" />
+    <Compile Include="XpeExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SourceModel\Oracle\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\Columns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\Database.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\ForeignKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\ForeignKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\Parameters.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\Procedures.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\Schemas.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\Tables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\UniqueKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\SqlServer\DML\UniqueKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExpressionModel\Operators\Binary\" />
+    <Folder Include="ExpressionModel\Operators\Nullary\" />
+    <Folder Include="ExpressionModel\Operators\Unary\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

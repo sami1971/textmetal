@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+		
+	<!--<DebuggerBreakpoint />-->
+	
+	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Or">
+				<BinaryExpression.LeftExpression>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ColumnIsPrimaryKey" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="True" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="IsView" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="True" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>
+<![CDATA[			value = !DataType.ObjectsEqualValueSemantics(${TableNameSingularCamelCase}Query.${ColumnNamePascalCase}, default(${ColumnCSharpClrNullableType})) ? ${TableNameSingularCamelCase}Query.${ColumnNamePascalCase} : null;
+			
+			if ((object)value != null && (object)${TableNameSingularCamelCase}Query.IsNull${ColumnNamePascalCase} == null)												
+			{
+				predicateFragment += " AND [${ColumnName}] = @${ColumnNamePascalCase}";
+			}
+			else if ((object)${TableNameSingularCamelCase}Query.IsNull${ColumnNamePascalCase} != null)
+			{
+				predicateFragment += string.Format(" AND [${ColumnName}] IS {0} NULL", (bool)${TableNameSingularCamelCase}Query.IsNull${ColumnNamePascalCase} ? "" : "NOT");
+			}
+			else
+			{
+				predicateFragment += "";
+			}				
+]]>
+			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[
+]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	 </ForEach>
+
+</Template>

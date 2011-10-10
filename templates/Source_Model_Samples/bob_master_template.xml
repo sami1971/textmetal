@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+	<Alloc token="test" />
+
+	<Assign token="test">
+		<Assign.Expression>
+			<Value data="1234.56789" type="System.Double" />
+		</Assign.Expression>
+	</Assign>
+
+	<Write newline="true">
+		<Write.Text>
+			<Value data="${test}" type="System.String" />
+		</Write.Text>
+	</Write>
+	
+	<Assign token="test">
+		<Assign.Expression>
+			<UnaryExpression operator="Neg">
+				<UnaryExpression.TheExpression>
+					<Facet name="test" />
+				</UnaryExpression.TheExpression>
+			</UnaryExpression>			
+		</Assign.Expression>
+	</Assign>
+
+	<Include name="bob_include_content.txt" />
+
+	<Import name="bob_import_template.xml" />
+	
+	<![CDATA[
+	
+	${ToolVersion}
+	
+	]]>
+	
+	<If>
+		<If.Condition>
+			<BinaryExpression operator="And">
+				<BinaryExpression.LeftExpression>
+					<Value type="System.Boolean" data="false" />
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<DebuggerBreakpoint />
+					<Value type="System.Boolean" data="true" />
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</If.Condition>
+		<If.True>
+<![CDATA[TRUE]]>
+		</If.True>
+		<If.False>
+<![CDATA[FALSE]]>
+		</If.False>
+	</If>
+	
+	<Assign token="test">
+		<Assign.Expression>
+			<PowerShell>
+				<Script>										
+					$x = $__tm__.Get("test");
+					return $x
+				</Script>
+			</PowerShell>			
+		</Assign.Expression>
+	</Assign>
+	
+	<![CDATA[	
+${test}
+***	
+]]>
+	
+		
+	<Assign token="test">
+		<Assign.Expression>
+			<UnaryExpression operator="Incr">
+				<UnaryExpression.TheExpression>
+					<Value data="100" type="System.Byte" />
+				</UnaryExpression.TheExpression>
+			</UnaryExpression>	
+		</Assign.Expression>
+	</Assign>
+	
+	<![CDATA[	
+${test}
+***	
+]]>
+
+	<Free token="test" />
+</Template>

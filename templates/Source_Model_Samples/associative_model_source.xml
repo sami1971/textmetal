@@ -1,0 +1,25 @@
+﻿<Model name="" xmlns="http://code.google.com/p/textmetal/rev3">	
+	<Property name="mono" type="" value="no" />
+	
+	<Array name="TextFileLines">
+		<Property name="nomo" type="" value="yes" />
+		
+		<Object name="">
+			<Property name="RECORD_TYPE" type="" value="U" />
+			<Property name="UNIQUE_ID" type="" value="A000001" />
+			<Property name="SOR" type="" value="AD" />
+			<Property name="ID_LOCATION" type="" value="AD-MSFT" />
+			<Property name="NAME" type="" value="BILL SMITH" />
+			<Property name="STATUS" type="" value="" />
+			<Property name="PRIV_IND" type="" value="" />
+			<Property name="CERT_TYPE" type="" value="" />
+			<Property name="CERT_ENTITY" type="" value="" />
+			<Property name="LAST_NAME" type="" value="" />
+			<Property name="EMP_ID" type="" value="A000001" />
+			<Property name="TID" type="" value="" />
+			<Property name="AU" type="" value="" />
+			<Property name="OWNING_APPL" type="" value="" />
+			<Property name="LAST_LOGIN" type="" value="" />
+		</Object>		
+	</Array>
+</Model>

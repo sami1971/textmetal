@@ -1,0 +1,636 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+
+	<OutputScope name="${ClrNamespace}\Repository.sp.g.cs">
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data;
+
+using TextMetal.Core.Plumbing;
+]]>
+		<If>
+			<If.Condition>
+				<UnaryExpression operator="IsDef">
+					<UnaryExpression.TheExpression>
+						<Aspect name="ClrUsingNamespaces" />
+					</UnaryExpression.TheExpression>
+				</UnaryExpression>
+			</If.Condition>
+			<If.True>
+				<ForEach in="ClrUsingNamespaces" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+					<ForEach.Body>
+						<![CDATA[using ${#item};
+]]>
+					</ForEach.Body>
+				</ForEach>
+			</If.True>
+		</If>
+
+		<If>
+			<If.Condition>
+				<BinaryExpression operator="Or">
+					<BinaryExpression.LeftExpression>
+						<Value type="System.Boolean" data="True" />
+					</BinaryExpression.LeftExpression>
+					<BinaryExpression.RightExpression>
+						<Facet name="HasProcedures" />
+					</BinaryExpression.RightExpression>
+				</BinaryExpression>
+			</If.Condition>
+			<If.True>
+				<![CDATA[
+]]>
+			</If.True>
+		</If>
+
+		<If>
+			<If.Condition>
+				<BinaryExpression operator="Eq">
+					<BinaryExpression.LeftExpression>
+						<Value type="System.Boolean" data="True" />
+					</BinaryExpression.LeftExpression>
+					<BinaryExpression.RightExpression>
+						<Facet name="HasProcedures" />
+					</BinaryExpression.RightExpression>
+				</BinaryExpression>
+			</If.Condition>
+			<If.True>
+				<![CDATA[using ${ClrNamespace}.Procedures;
+]]>
+			</If.True>
+		</If>
+		<![CDATA[
+namespace ${ClrNamespace}
+{
+	public partial class Repository
+	{		
+		#region Methods/Operators
+		
+		protected TResponse ExecuteReReRe<TRequest, TResult, TResponse>(UnitOfWorkContext unitOfWorkContext, TRequest request, string commandText, IEnumerable<IDataParameter> commandParameters, bool executeAsCud, int thisOrThatRecordsAffected, Action<IDictionary<string, object>, TResult> mapToCallback)
+			where TRequest : class, new()
+			where TResult : class, new()
+			where TResponse : class, new()
+		{
+			TResponse response;
+			TResult result;
+			int recordsAffected;
+			IList<IDictionary<string, object>> results;
+			IList<TResult> list = null;
+			object value;
+
+			if ((object)unitOfWorkContext == null)
+				throw new ArgumentNullException("unitOfWorkContext");
+
+			if ((object)request == null)
+				throw new ArgumentNullException("request");
+
+			if ((object)commandText == null)
+				throw new ArgumentNullException("commandText");
+
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+
+			if ((object)mapToCallback == null)
+				throw new ArgumentNullException("mapToCallback");
+
+			if (DataType.IsNullOrWhiteSpace(commandText))
+				throw new ArgumentOutOfRangeException("commandText");
+
+			results = unitOfWorkContext.ExecuteDictionary(CommandType.StoredProcedure, commandText, commandParameters, out recordsAffected);
+
+			if (executeAsCud && recordsAffected <= thisOrThatRecordsAffected)
+			{
+				// concurrency failure
+				unitOfWorkContext.Divergent();
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+			}
+			else if (!executeAsCud && recordsAffected != thisOrThatRecordsAffected)
+			{
+				// idempotency failure
+				unitOfWorkContext.Divergent();
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+			}
+
+			if ((object)results == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+
+			response = new TResponse();
+
+			if (Reflexion.GetLogicalPropertyValue(response, "Results", out value))
+				list = value as IList<TResult>;
+
+			if ((object)list != null)
+				list.Clear();
+
+			foreach (IDictionary<string, object> _result in results)
+			{
+				result = new TResult();
+
+				mapToCallback(_result, result);
+
+				if ((object)list != null)
+					list.Add(result);
+			}
+
+			return response;
+		}
+		
+]]>
+
+		<ForEach in="Schemas" var-ct="#LoopCount" var-ix="#LoopIndex">
+			<ForEach.Filter></ForEach.Filter>
+			<ForEach.Body>
+
+				<ForEach in="Procedures" var-ct="#LoopCount" var-ix="#LoopIndex">
+					<ForEach.Filter></ForEach.Filter>
+					<ForEach.Body>
+						<![CDATA[		public ${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase})
+		{
+			${ProcedureNameSingularPascalCase}_Response retval;
+			
+			if ((object)UnitOfWorkContext.Current == null)
+			{
+				using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
+				{
+					retval = this.Execute_${ProcedureNameSingularPascalCase}(unitOfWorkContext, request${ProcedureNameSingularPascalCase});
+						
+					unitOfWorkContext.Complete();
+					
+					return retval;
+				}
+			}			
+			else
+			{
+				return this.Execute_${ProcedureNameSingularPascalCase}(UnitOfWorkContext.Current, request${ProcedureNameSingularPascalCase});
+			}
+		}
+						
+		public ${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase})
+		{	
+			${ProcedureNameSingularPascalCase}_Response response${ProcedureNameSingularPascalCase};						
+			IDataParameter commandParameter;
+			List<IDataParameter> commandParameters;			
+			string commandText;
+			object value;
+			bool executeAsCud;
+			int thisOrThatRecordsAffected;
+			
+			if ((object)unitOfWorkContext == null)
+				throw new ArgumentNullException("unitOfWorkContext");
+				
+			if ((object)request${ProcedureNameSingularPascalCase} == null)
+				throw new ArgumentNullException("request${ProcedureNameSingularPascalCase}");
+
+			this.OnPreExecute${ProcedureNameSingularPascalCase}(unitOfWorkContext, request${ProcedureNameSingularPascalCase});
+			
+			commandParameters = new List<IDataParameter>();
+
+]]>
+	<ForEach in="Parameters" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Eq">
+				<BinaryExpression.LeftExpression>
+					<Facet name="ParameterIsReadOnly" />
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<Value type="System.Boolean" data="False" />
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, "@${ParameterNamePascalCase}", request${ProcedureNameSingularPascalCase}.${ParameterNamePascalCase});
+			commandParameters.Add(commandParameter);]]>
+			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[
+
+]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	 </ForEach>
+
+<![CDATA[
+
+]]>
+	 
+	 <ForEach in="Parameters" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Ne">
+				<BinaryExpression.LeftExpression>
+					<Facet name="ParameterIsReadOnly" />
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<Value type="System.Boolean" data="False" />
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, "@${ParameterNamePascalCase}", null);
+			commandParameters.Add(commandParameter);]]>
+			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[
+
+]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	 </ForEach>
+			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="HasResults" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="False" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[		
+	
+			executeAsCud = true;
+			ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(unitOfWorkContext, commandParameters, out commandText, out thisOrThatRecordsAffected);
+]]>
+				</If.True>
+				<If.False>
+<![CDATA[
+
+			executeAsCud = false;
+			ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(unitOfWorkContext, commandParameters, out commandText, out thisOrThatRecordsAffected);
+]]>
+				</If.False>
+			</If>			
+			
+<![CDATA[
+			response${ProcedureNameSingularPascalCase} = this.ExecuteReReRe<${ProcedureNameSingularPascalCase}_Request, ${ProcedureNameSingularPascalCase}_Result, ${ProcedureNameSingularPascalCase}_Response>(unitOfWorkContext, request${ProcedureNameSingularPascalCase}, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected, MapTo${ProcedureNameSingularPascalCase}_Result);	
+			
+			foreach (${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase}2 in response${ProcedureNameSingularPascalCase}.Results)
+				this.OnExecuteResult${ProcedureNameSingularPascalCase}(unitOfWorkContext, result${ProcedureNameSingularPascalCase}2);
+			
+]]>
+	
+<ForEach in="Parameters" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Or">
+				<BinaryExpression.LeftExpression>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ParameterIsOutput" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="True" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ParameterIsReadOnly" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="True" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>
+			<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ParameterNamePascalCase}");
+			
+			if ((object)commandParameter == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
+				
+			response${ProcedureNameSingularPascalCase}.${ParameterNamePascalCase} = commandParameter.Value.ChangeType<${ParameterCSharpClrType}>();]]>
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[
+
+]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	 </ForEach>
+
+<![CDATA[				
+			
+			this.OnPostExecute${ProcedureNameSingularPascalCase}(unitOfWorkContext, response${ProcedureNameSingularPascalCase});
+			
+			return response${ProcedureNameSingularPascalCase};
+		}
+		
+		private static void MapTo${ProcedureNameSingularPascalCase}_Result(IDictionary<string, object> result, ${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase})
+		{
+			object value;
+			
+			if ((object)result == null)
+				throw new ArgumentNullException("result");
+				
+			if ((object)result${ProcedureNameSingularPascalCase} == null)
+				throw new ArgumentNullException("result${ProcedureNameSingularPascalCase}");
+			
+]]>
+	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>			
+		</ForEach.Filter>
+		<ForEach.Body>
+			<![CDATA[			if (result.TryGetValue("${ColumnNamePascalCase}", out value))
+				result${ProcedureNameSingularPascalCase}.${ColumnNamePascalCase} = value.ChangeType<${ColumnCSharpClrNullableType}>();
+]]>
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+					<![CDATA[
+]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	 </ForEach>
+<![CDATA[		}
+
+		private static void ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
+		{
+			if ((object)unitOfWorkContext == null)
+				throw new ArgumentNullException("unitOfWorkContext");
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
+			{
+				case "sqlconnection":
+					SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
+					break;
+				case "sqlceconnection":
+					SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
+					break;
+				case "sqliteconnection":
+					SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
+					break;
+				default:
+					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
+			}
+		}
+		
+		private static void SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
+		{
+			IDataParameter commandParameter;
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+]]>			
+	<ForEach in="Parameters" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Body>
+		
+<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ParameterNamePascalCase}");
+
+			if ((object)commandParameter == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
+		
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ParameterSqlType" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.String" data="ntext" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[			
+			
+			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
+				</If.True>
+			</If>
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ParameterSqlType" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.String" data="text" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[			
+			
+			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
+				</If.True>
+			</If>
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ParameterSqlType" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.String" data="image" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[			
+			
+			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
+				</If.True>
+			</If>
+			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+<![CDATA[
+
+]]>
+				</If.True>
+			</If>
+			
+		</ForEach.Body>
+	 </ForEach>
+			
+<![CDATA[
+
+			commandText = @"]]><Import name="import_execute_sqlserver.xml" /><![CDATA[";
+			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+		}
+		
+		private static void SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
+		{
+			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			commandText = @"]]><Import name="import_execute_sqlce.xml" /><![CDATA[";
+			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+		}
+		
+		private static void SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
+		{
+			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			commandText = @"]]><Import name="import_execute_sqlite.xml" /><![CDATA[";
+			persistNotExpectedRecordsAffected = SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+		}
+		
+		private static void ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
+		{
+			if ((object)unitOfWorkContext == null)
+				throw new ArgumentNullException("unitOfWorkContext");
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
+			{
+				case "sqlconnection":
+					SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
+					break;
+				case "sqlceconnection":
+					SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
+					break;
+				case "sqliteconnection":
+					SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
+					break;
+				default:
+					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
+			}
+		}
+		
+		private static void SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
+		{
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			commandText = @"]]><Import name="import_execute_sqlserver.xml" /><![CDATA[";
+			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
+		}
+		
+		private static void SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
+		{
+			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			commandText = @"]]><Import name="import_execute_sqlce.xml" /><![CDATA[";
+			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
+		}
+		
+		private static void SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
+		{
+			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
+			
+			if ((object)commandParameters == null)
+				throw new ArgumentNullException("commandParameters");
+				
+			commandText = @"]]><Import name="import_execute_sqlite.xml" /><![CDATA[";
+			queryExpectedRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
+		}
+		
+		partial void OnPreExecute${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase});
+		
+		partial void OnExecuteResult${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase});
+		
+		partial void OnPostExecute${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Response response${ProcedureNameSingularPascalCase});
+]]>
+
+						<If>
+							<If.Condition>
+								<BinaryExpression operator="Ne">
+									<BinaryExpression.LeftExpression>
+										<Facet name="#LoopCount" />
+									</BinaryExpression.LeftExpression>
+									<BinaryExpression.RightExpression>
+										<Facet name="#LoopIndex" />
+									</BinaryExpression.RightExpression>
+								</BinaryExpression>
+							</If.Condition>
+							<If.True>
+								<![CDATA[
+]]>
+							</If.True>
+						</If>
+					</ForEach.Body>
+				</ForEach>
+
+			</ForEach.Body>
+		</ForEach>
+
+		<![CDATA[
+		#endregion
+	}
+}
+]]>
+	</OutputScope>
+
+</Template>

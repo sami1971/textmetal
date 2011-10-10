@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+
+	<Alloc token="FolderName" />
+
+	<Assign token="FolderName">
+		<Assign.Expression>
+			<Value data="Procedures" />
+		</Assign.Expression>
+	</Assign>
+
+	<ForEach in="Schemas" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter></ForEach.Filter>
+		<ForEach.Body>
+
+			<ForEach in="Procedures" var-ct="#LoopCount" var-ix="#LoopIndex">
+				<ForEach.Filter></ForEach.Filter>
+				<ForEach.Body>
+
+					<OutputScope name="${ClrNamespace}\${FolderName}\${ProcedureNameSingularPascalCase}_Result.g.cs">
+						<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+
+using System;
+]]>
+						<If>
+							<If.Condition>
+								<UnaryExpression operator="IsDef">
+									<UnaryExpression.TheExpression>
+										<Aspect name="ClrUsingNamespaces" />
+									</UnaryExpression.TheExpression>
+								</UnaryExpression>
+							</If.Condition>
+							<If.True>
+								<ForEach in="ClrUsingNamespaces" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+									<ForEach.Body>
+										<![CDATA[using ${#item};
+]]>
+									</ForEach.Body>
+								</ForEach>
+							</If.True>
+						</If>
+						<![CDATA[
+namespace ${ClrNamespace}.${FolderName}
+{
+	public sealed class ${ProcedureNameSingularPascalCase}_Result
+	{		
+		#region Constructors/Destructors
+		
+		public ${ProcedureNameSingularPascalCase}_Result()
+		{
+		}
+		
+		#endregion
+		
+		#region Fields/Constants
+			
+]]>
+
+						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+							<ForEach.Filter></ForEach.Filter>
+							<ForEach.Body>
+
+								<![CDATA[		private ${ColumnCSharpClrNullableType} @${ColumnNameCamelCase};]]>
+
+								<If>
+									<If.Condition>
+										<BinaryExpression operator="Ne">
+											<BinaryExpression.LeftExpression>
+												<Facet name="#LoopCount" />
+											</BinaryExpression.LeftExpression>
+											<BinaryExpression.RightExpression>
+												<Facet name="#LoopIndex" />
+											</BinaryExpression.RightExpression>
+										</BinaryExpression>
+									</If.Condition>
+									<If.True>
+										<![CDATA[
+]]>
+									</If.True>
+								</If>
+							</ForEach.Body>
+						</ForEach>
+
+						<![CDATA[
+
+		#endregion
+			
+		#region Properties/Indexers/Events
+]]>
+						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+							<ForEach.Filter></ForEach.Filter>
+							<ForEach.Body>
+
+								<![CDATA[
+		public ${ColumnCSharpClrNullableType} ${ColumnNamePascalCase}
+		{
+			get
+			{
+				return this.@${ColumnNameCamelCase};
+			}
+			set
+			{
+				this.@${ColumnNameCamelCase} = value;
+			}
+		}
+		]]>
+							</ForEach.Body>
+						</ForEach>
+						<![CDATA[
+		#endregion			
+	}
+}
+]]>
+					</OutputScope>
+				</ForEach.Body>
+			</ForEach>
+
+		</ForEach.Body>
+	</ForEach>
+
+</Template>

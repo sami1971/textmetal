@@ -1,0 +1,17 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head id="Head1" runat="server">
+		<title><%=this.Page.Title%> | TextMetalWebHostSample</title>
+	
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="no-cache" content="no-cache" />
+		<meta http-equiv="Expires" content="-1" />
+		<meta http-equiv="Cache-Control" content="no-cache" />	
+
+	</head>
+	<body>	
+		TEST PAGE
+	</body>
+</html>

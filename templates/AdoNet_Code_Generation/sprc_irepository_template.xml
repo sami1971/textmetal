@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+
+	<OutputScope name="${ClrNamespace}\IRepository.sp.g.cs">
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+
+using TextMetal.Core.Plumbing;
+]]>
+		<If>
+			<If.Condition>
+				<UnaryExpression operator="IsDef">
+					<UnaryExpression.TheExpression>
+						<Aspect name="ClrUsingNamespaces" />
+					</UnaryExpression.TheExpression>
+				</UnaryExpression>
+			</If.Condition>
+			<If.True>
+				<ForEach in="ClrUsingNamespaces" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+					<ForEach.Body>
+						<![CDATA[using ${#item};
+]]>
+					</ForEach.Body>
+				</ForEach>
+			</If.True>
+		</If>
+		<If>
+			<If.Condition>
+				<BinaryExpression operator="Eq">
+					<BinaryExpression.LeftExpression>
+						<Value type="System.Boolean" data="True" />
+					</BinaryExpression.LeftExpression>
+					<BinaryExpression.RightExpression>
+						<Facet name="HasProcedures" />
+					</BinaryExpression.RightExpression>
+				</BinaryExpression>
+			</If.Condition>
+			<If.True>
+				<![CDATA[using ${ClrNamespace}.Procedures;
+]]>
+			</If.True>
+		</If>
+		<![CDATA[
+namespace ${ClrNamespace}
+{
+	public partial interface IRepository
+	{		
+		#region Methods/Operators
+		
+]]>
+
+		<ForEach in="Schemas" var-ct="#LoopCount" var-ix="#LoopIndex">
+			<ForEach.Filter></ForEach.Filter>
+			<ForEach.Body>
+
+				<ForEach in="Procedures" var-ct="#LoopCount" var-ix="#LoopIndex">
+					<ForEach.Filter></ForEach.Filter>
+					<ForEach.Body>
+						<![CDATA[		${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(${ProcedureNameSingularPascalCase}_Request request);
+						
+		${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request);
+]]>
+						<If>
+							<If.Condition>
+								<BinaryExpression operator="Ne">
+									<BinaryExpression.LeftExpression>
+										<Facet name="#LoopCount" />
+									</BinaryExpression.LeftExpression>
+									<BinaryExpression.RightExpression>
+										<Facet name="#LoopIndex" />
+									</BinaryExpression.RightExpression>
+								</BinaryExpression>
+							</If.Condition>
+							<If.True>
+								<![CDATA[
+]]>
+							</If.True>
+						</If>
+					</ForEach.Body>
+				</ForEach>
+
+			</ForEach.Body>
+		</ForEach>
+
+		<![CDATA[
+		#endregion
+	}
+}
+]]>
+	</OutputScope>
+
+</Template>

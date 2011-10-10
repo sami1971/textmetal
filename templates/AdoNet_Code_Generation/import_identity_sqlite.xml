@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+		
+	<!--<DebuggerBreakpoint />-->
+	
+	<Write newline="false">
+		<Write.Text>
+			<Value data="SELECT LAST_INSERT_ROWID() AS " />
+			<!-- mono??? <Value data="SELECT LAST_INSERT_ID() AS " />-->			
+		</Write.Text>
+	</Write>
+
+	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Eq">
+				<BinaryExpression.LeftExpression>
+					<Facet name="ColumnIsIdentity" />
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<Value type="System.Boolean" data="True" />
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Int32" data="1" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+					<Write newline="false">
+						<Write.Text>
+							<Value data="${ColumnName}" />
+						</Write.Text>
+					</Write>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	</ForEach>
+
+</Template>
