@@ -101,7 +101,6 @@
     <Compile Include="Plumbing\AdoNetHelper.cs" />
     <Compile Include="Plumbing\AppConfig.cs" />
     <Compile Include="Plumbing\Cerealization.cs" />
-    <Compile Include="Plumbing\IModelState.cs" />
     <Compile Include="Plumbing\DataType.cs" />
     <Compile Include="Plumbing\DataType.IntImpl.cs" />
     <Compile Include="Plumbing\ExecutionPathStorage.cs" />
