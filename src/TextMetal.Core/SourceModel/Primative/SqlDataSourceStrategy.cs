@@ -58,7 +58,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			{
 				arrayConstruct = new ArrayConstruct();
 				arrayConstruct.Name = sqlQuery.Key;
-				parentAssociativeXmlObject.AnonymousChildren.Add(arrayConstruct);
+				parentAssociativeXmlObject.Items.Add(arrayConstruct);
 
 				commandText = tokenizer.ExpandTokens(sqlQuery.Text, new DynamicWildcardTokenReplacementStrategy(new object[] { parentAssociativeXmlObject }));
 

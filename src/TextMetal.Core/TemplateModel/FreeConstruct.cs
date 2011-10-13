@@ -10,8 +10,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Free", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class FreeConstruct : XmlSterileObject<ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "Free", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class FreeConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -46,7 +46,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			string token;
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;

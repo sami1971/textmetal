@@ -12,7 +12,13 @@ namespace TextMetal.Core.XmlModel
 	{
 		#region Properties/Indexers/Events
 
-		IList<IXmlObject> AnonymousChildren
+		IXmlObject Content
+		{
+			get;
+			set;
+		}
+
+		IList<IXmlObject> Items
 		{
 			get;
 		}
@@ -27,7 +33,7 @@ namespace TextMetal.Core.XmlModel
 
 		#region Methods/Operators
 
-		Type GetAllowedAnonymousChildrenTypes();
+		Type GetAllowedChildTypes();
 
 		Type GetAllowedParentTypes();
 

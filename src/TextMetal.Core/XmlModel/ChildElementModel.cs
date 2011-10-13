@@ -5,16 +5,12 @@
 
 namespace TextMetal.Core.XmlModel
 {
-	public interface IXmlContentObject : IXmlObject
+	public enum ChildElementModel
 	{
-		#region Properties/Indexers/Events
+		Sterile = 0,
 
-		IXmlObject Content
-		{
-			get;
-			set;
-		}
+		Content = 1,
 
-		#endregion
+		Items = 2
 	}
 }

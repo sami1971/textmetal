@@ -12,8 +12,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.ExpressionModel
 {
-	[XmlElementMapping(LocalName = "Value", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class ValueConstruct : XmlSterileObject<IExpressionXmlObject>, IExpressionXmlObject
+	[XmlElementMapping(LocalName = "Value", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class ValueConstruct : ExpressionXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -74,7 +74,7 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Methods/Operators
 
-		public object EvaluateExpression(TemplatingContext templatingContext)
+		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 

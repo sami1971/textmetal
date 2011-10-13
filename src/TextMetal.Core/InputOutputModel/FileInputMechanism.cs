@@ -60,7 +60,7 @@ namespace TextMetal.Core.InputOutputModel
 
 		#region Methods/Operators
 
-		public override Assembly LoadAssembly(string assembluName)
+		protected override Assembly CoreLoadAssembly(string assembluName)
 		{
 			Assembly assembly;
 
@@ -73,7 +73,7 @@ namespace TextMetal.Core.InputOutputModel
 			return assembly;
 		}
 
-		public override string LoadContent(string resourceName)
+		protected override string CoreLoadContent(string resourceName)
 		{
 			string fullFilePath;
 			string value;
@@ -93,7 +93,7 @@ namespace TextMetal.Core.InputOutputModel
 			return value;
 		}
 
-		public override ITemplateXmlObject LoadFragment(string resourceName)
+		protected override ITemplateXmlObject CoreLoadFragment(string resourceName)
 		{
 			string fullFilePath;
 			ITemplateXmlObject value;

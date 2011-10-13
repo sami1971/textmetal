@@ -4,15 +4,7 @@
 */
 
 using System;
-using System.IO;
-using System.Text;
 using System.Web.Mvc;
-using System.Xml;
-
-using TextMetal.Core;
-using TextMetal.Core.ExpressionModel;
-using TextMetal.Core.SortModel;
-using TextMetal.Core.XmlModel;
 
 namespace TextMetal.WebHostSample.Controllers
 {

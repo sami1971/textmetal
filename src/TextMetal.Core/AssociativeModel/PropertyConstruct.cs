@@ -4,14 +4,15 @@
 */
 
 using System;
+using System.Collections;
 
 using TextMetal.Core.Plumbing;
 using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
 {
-	[XmlElementMapping(LocalName = "Property", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class PropertyConstruct : AssociativeXmlObject<IAssociativeXmlObject>
+	[XmlElementMapping(LocalName = "Property", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class PropertyConstruct : AssociativeXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -60,24 +61,63 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Methods/Operators
 
-		public override bool Equals(object obj)
+		public static bool CommonEquals(IAssociativeXmlObject lhs, object rhs)
 		{
 			object thisValue, thatValue;
+			PropertyConstruct propertyConstruct;
 
-			thisValue = this.GetAssociativeObjectValue();
+			if ((object)lhs == null)
+				throw new ArgumentNullException("rhs");
 
-			if ((object)obj == null)
+			thisValue = lhs.GetAssociativeObjectValue();
+
+			if ((object)rhs == null)
 				return (object)thisValue == null;
-			else if (obj is PropertyConstruct)
-			{
-				thatValue = ((PropertyConstruct)obj).GetAssociativeObjectValue();
-				return DataType.ObjectsEqualValueSemantics(thisValue, thatValue);
-			}
+
+			if ((propertyConstruct = rhs as PropertyConstruct) != null)
+				thatValue = propertyConstruct.GetAssociativeObjectValue();
 			else
-				return obj.SafeToString() == this.Value; // string comparison fallback			
+				thatValue = rhs;
+
+			return DataType.ObjectsEqualValueSemantics(thisValue, thatValue);
 		}
 
-		public override object GetAssociativeObjectValue()
+		public static int CommonGetHashCode(IAssociativeXmlObject lhs)
+		{
+			object value;
+
+			if ((object)lhs == null)
+				throw new ArgumentNullException("rhs");
+
+			value = lhs.GetAssociativeObjectValue();
+
+			if ((object)value == null)
+				return 0;
+
+			return value.GetHashCode();
+		}
+
+		public static string CommonToString(IAssociativeXmlObject lhs)
+		{
+			object value;
+
+			if ((object)lhs == null)
+				throw new ArgumentNullException("rhs");
+
+			value = lhs.GetAssociativeObjectValue();
+
+			if ((object)value == null)
+				return null;
+
+			return value.SafeToString();
+		}
+
+		protected override IEnumerator CoreGetAssociativeObjectEnumerator()
+		{
+			return null;
+		}
+
+		protected override object CoreGetAssociativeObjectValue()
 		{
 			object value;
 			Type valueType;
@@ -96,14 +136,19 @@ namespace TextMetal.Core.AssociativeModel
 			return value;
 		}
 
+		public override bool Equals(object obj)
+		{
+			return CommonEquals(this, obj);
+		}
+
 		public override int GetHashCode()
 		{
-			return this.Value.GetHashCode();
+			return CommonGetHashCode(this);
 		}
 
 		public override string ToString()
 		{
-			return this.Value;
+			return CommonToString(this);
 		}
 
 		#endregion

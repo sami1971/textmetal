@@ -9,7 +9,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.SortModel
 {
-	[XmlElementMapping(LocalName = "Ascending", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
+	[XmlElementMapping(LocalName = "Ascending", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class AscendingConstruct : OrderConstruct
 	{
 		#region Constructors/Destructors

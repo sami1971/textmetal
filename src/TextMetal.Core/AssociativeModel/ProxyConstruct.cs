@@ -4,8 +4,8 @@
 */
 
 using System;
+using System.Collections;
 
-using TextMetal.Core.Plumbing;
 using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
@@ -13,8 +13,8 @@ namespace TextMetal.Core.AssociativeModel
 	/// <summary>
 	/// DO NOT SERIALIZE (e.g. no XmlElementMapping)
 	/// </summary>
-	[XmlElementMapping(LocalName = "Proxy", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class ProxyConstruct : AssociativeXmlObject<IAssociativeXmlObject>, IActualThing
+	[XmlElementMapping(LocalName = "Proxy", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class ProxyConstruct : AssociativeXmlObject, IActualThing
 	{
 		#region Constructors/Destructors
 
@@ -48,36 +48,29 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Methods/Operators
 
-		public override bool Equals(object obj)
+		protected override IEnumerator CoreGetAssociativeObjectEnumerator()
 		{
-			object thisValue, thatValue;
-
-			thisValue = this.GetAssociativeObjectValue();
-
-			if ((object)obj == null)
-				return (object)thisValue == null;
-			else if (obj is PropertyConstruct)
-			{
-				thatValue = ((PropertyConstruct)obj).GetAssociativeObjectValue();
-				return DataType.ObjectsEqualValueSemantics(thisValue, thatValue);
-			}
-			else
-				return obj.SafeToString() == this.Value.SafeToString(); // string comparison fallback			
+			return null;
 		}
 
-		public override object GetAssociativeObjectValue()
+		protected override object CoreGetAssociativeObjectValue()
 		{
 			return this.Value;
 		}
 
+		public override bool Equals(object obj)
+		{
+			return PropertyConstruct.CommonEquals(this, obj);
+		}
+
 		public override int GetHashCode()
 		{
-			return this.Value.GetHashCode();
+			return PropertyConstruct.CommonGetHashCode(this);
 		}
 
 		public override string ToString()
 		{
-			return this.Value.SafeToString();
+			return PropertyConstruct.CommonToString(this);
 		}
 
 		#endregion

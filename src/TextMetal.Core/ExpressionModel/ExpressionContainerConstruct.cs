@@ -11,8 +11,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.ExpressionModel
 {
-	[XmlElementMapping(LocalName = "ExpressionContainer", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(IExpressionXmlObject))]
-	public sealed class ExpressionContainerConstruct : XmlContentObject<IXmlObject, IExpressionXmlObject>, IExpressionXmlObject
+	[XmlElementMapping(LocalName = "ExpressionContainer", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Content)]
+	public sealed class ExpressionContainerConstruct : ExpressionXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -47,7 +47,7 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Methods/Operators
 
-		public object EvaluateExpression(TemplatingContext templatingContext)
+		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
 		{
 			object ovalue;
 			string svalue;
@@ -59,7 +59,7 @@ namespace TextMetal.Core.ExpressionModel
 			dynamicWildcardTokenReplacementStrategy = templatingContext.GetDynamicWildcardTokenReplacementStrategy();
 
 			if ((object)this.Content != null)
-				ovalue = this.Content.EvaluateExpression(templatingContext);
+				ovalue = ((IExpressionXmlObject)this.Content).EvaluateExpression(templatingContext);
 			else
 				ovalue = null;
 

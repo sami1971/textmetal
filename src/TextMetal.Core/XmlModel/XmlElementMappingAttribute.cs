@@ -20,7 +20,7 @@ namespace TextMetal.Core.XmlModel
 
 		#region Fields/Constants
 
-		private Type anonymousChildrenAllowedType;
+		private ChildElementModel childElementModel;
 		private string localName;
 		private string namespaceUri;
 
@@ -28,27 +28,15 @@ namespace TextMetal.Core.XmlModel
 
 		#region Properties/Indexers/Events
 
-		public bool AllowAnonymousChildren
+		public ChildElementModel ChildElementModel
 		{
 			get
 			{
-				return (object)this.anonymousChildrenAllowedType != null;
+				return this.childElementModel;
 			}
 			set
 			{
-				this.anonymousChildrenAllowedType = value ? typeof(IXmlObject) : null;
-			}
-		}
-
-		public Type AnonymousChildrenAllowedType
-		{
-			get
-			{
-				return this.anonymousChildrenAllowedType;
-			}
-			set
-			{
-				this.anonymousChildrenAllowedType = value;
+				this.childElementModel = value;
 			}
 		}
 

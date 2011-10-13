@@ -4,53 +4,30 @@
 */
 
 using System;
+using System.Collections.Generic;
 
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(ChildElementModel = ChildElementModel.Sterile)]
-	public sealed class TemplateXmlTextObject : TemplateXmlObject, IXmlTextObject
+	public abstract class TemplateXmlObject : XmlObject, ITemplateXmlObject
 	{
 		#region Constructors/Destructors
 
-		public TemplateXmlTextObject()
+		protected TemplateXmlObject()
 		{
 		}
-
-		#endregion
-
-		#region Fields/Constants
-
-		private XmlName name;
-		private string text;
 
 		#endregion
 
 		#region Properties/Indexers/Events
 
-		public XmlName Name
+		protected virtual bool IsScopeBlock
 		{
 			get
 			{
-				return this.name;
-			}
-			set
-			{
-				this.name = value;
-			}
-		}
-
-		public string Text
-		{
-			get
-			{
-				return this.text;
-			}
-			set
-			{
-				this.text = value;
+				return false;
 			}
 		}
 
@@ -58,9 +35,10 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
+		protected abstract void CoreExpandTemplate(TemplatingContext templatingContext);
+
+		public void ExpandTemplate(TemplatingContext templatingContext)
 		{
-			string text;
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 
 			if ((object)templatingContext == null)
@@ -68,9 +46,13 @@ namespace TextMetal.Core.TemplateModel
 
 			dynamicWildcardTokenReplacementStrategy = templatingContext.GetDynamicWildcardTokenReplacementStrategy();
 
-			text = templatingContext.Tokenizer.ExpandTokens(this.Text, dynamicWildcardTokenReplacementStrategy);
+			if (this.IsScopeBlock)
+				templatingContext.VariableTables.Push(new Dictionary<string, object>());
 
-			templatingContext.Output.CurrentTextWriter.Write(text);
+			this.CoreExpandTemplate(templatingContext);
+
+			if (this.IsScopeBlock)
+				templatingContext.VariableTables.Pop();
 		}
 
 		#endregion

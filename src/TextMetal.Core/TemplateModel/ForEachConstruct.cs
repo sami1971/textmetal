@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 using TextMetal.Core.ExpressionModel;
 using TextMetal.Core.Plumbing;
@@ -15,8 +14,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "ForEach", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class ForEachConstruct : XmlSterileObject<ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "ForEach", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class ForEachConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -79,6 +78,14 @@ namespace TextMetal.Core.TemplateModel
 			}
 		}
 
+		protected override bool IsScopeBlock
+		{
+			get
+			{
+				return true;
+			}
+		}
+
 		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "Sort", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
 		public SortContainerConstruct Sort
 		{
@@ -135,7 +142,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		public void CoreExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			string @in, varCt, varItem, varIx;
 			uint count = 0, index = 1; // one-based
@@ -336,22 +343,6 @@ namespace TextMetal.Core.TemplateModel
 					}.ExpandTemplate(templatingContext);
 				}
 			}
-		}
-
-		public void ExpandTemplate(TemplatingContext templatingContext)
-		{
-			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
-
-			if ((object)templatingContext == null)
-				throw new ArgumentNullException("templatingContext");
-
-			dynamicWildcardTokenReplacementStrategy = templatingContext.GetDynamicWildcardTokenReplacementStrategy();
-
-			templatingContext.VariableTables.Push(new Dictionary<string, object>());
-
-			this.CoreExpandTemplate(templatingContext);
-
-			templatingContext.VariableTables.Pop();
 		}
 
 		#endregion

@@ -4,12 +4,15 @@
 */
 
 using System;
+using System.Collections;
 
 namespace TextMetal.Core.AssociativeModel
 {
 	public interface IAssociativeMechanism
 	{
 		#region Methods/Operators
+
+		IEnumerator GetAssociativeObjectEnumerator();
 
 		object GetAssociativeObjectValue();
 

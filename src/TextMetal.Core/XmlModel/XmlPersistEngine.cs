@@ -321,20 +321,24 @@ namespace TextMetal.Core.XmlModel
 				if (!Reflexion.SetLogicalPropertyValue(parentXmlObject, parentPropertyToChildElementMapping.Value.Key.Name, currentXmlObject))
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
-			else if ((object)parentXmlElementMappingAttribute != null &&
-			         parentXmlElementMappingAttribute.AllowAnonymousChildren)
+			else if ((object)parentXmlElementMappingAttribute != null)
 			{
 				if ((object)parentXmlObject == null)
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-				if ((object)parentXmlObject.AnonymousChildren == null)
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				if (parentXmlElementMappingAttribute.ChildElementModel == ChildElementModel.Content)
+					parentXmlObject.Content = currentXmlObject;
+				else if (parentXmlElementMappingAttribute.ChildElementModel == ChildElementModel.Items)
+				{
+					if ((object)parentXmlObject.Items == null)
+						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-				// new collection type check
-				if (!parentXmlElementMappingAttribute.AnonymousChildrenAllowedType.IsAssignableFrom(currentType))
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+					// new collection type check
+					//if (!parentXmlElementMappingAttribute.AnonymousChildrenAllowedType.IsAssignableFrom(currentType))
+					//throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-				parentXmlObject.AnonymousChildren.Add(currentXmlObject);
+					parentXmlObject.Items.Add(currentXmlObject);
+				}
 			}
 
 			return currentXmlObject;
@@ -491,19 +495,19 @@ namespace TextMetal.Core.XmlModel
 			if ((object)parentXmlElementMappingAttribute == null)
 				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-			// do we need these checks; it is ok to have text element and not allow anonymous children?
-			//if (!parentXmlElementMappingAttribute.AllowAnonymousChildren)
-			//    throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+			// we indeed need these checks; it is not ok to have text element and not allow anonymous children
+			if (parentXmlElementMappingAttribute.ChildElementModel != ChildElementModel.Items)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-			//if ((object)parentXmlObject.AnonymousChildren == null)
-			//    throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+			if ((object)parentXmlObject.Items == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
 			if ((object)xmlName != null)
 				currentXmlTextObject.Name = xmlName;
 			else
 			{
 				currentXmlTextObject.Parent = parentXmlObject;
-				parentXmlObject.AnonymousChildren.Add(currentXmlTextObject);
+				parentXmlObject.Items.Add(currentXmlTextObject);
 			}
 
 			return currentXmlTextObject;
@@ -889,15 +893,15 @@ namespace TextMetal.Core.XmlModel
 			}
 
 			// write anonymous child elements
-			if ((object)currentXmlObject.AnonymousChildren != null)
+			if (currentXmlElementMappingAttribute.ChildElementModel == ChildElementModel.Items &&
+			    (object)currentXmlObject.Items != null)
 			{
-				if (!currentXmlElementMappingAttribute.AllowAnonymousChildren &&
-				    currentXmlObject.AnonymousChildren.Count > 0)
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-				foreach (IXmlObject childElement in currentXmlObject.AnonymousChildren)
+				foreach (IXmlObject childElement in currentXmlObject.Items)
 					this.SerializeToXml(xmlTextWriter, childElement, null);
 			}
+			else if (currentXmlElementMappingAttribute.ChildElementModel == ChildElementModel.Content &&
+			         (object)currentXmlObject.Content != null)
+				this.SerializeToXml(xmlTextWriter, currentXmlObject.Content, null);
 
 			// end current element
 			xmlTextWriter.WriteEndElement();

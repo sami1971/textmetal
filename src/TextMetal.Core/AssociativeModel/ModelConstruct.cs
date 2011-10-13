@@ -9,7 +9,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
 {
-	[XmlElementMapping(LocalName = "Model", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(IAssociativeXmlObject))]
+	[XmlElementMapping(LocalName = "Model", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Items)]
 	public sealed class ModelConstruct : ObjectConstruct
 	{
 		#region Constructors/Destructors

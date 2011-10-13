@@ -16,7 +16,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core
 {
-	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
+	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class DebuggerBreakpointConstruct : ITemplateXmlObject, IExpressionXmlObject, IAssociativeXmlObject, ISortXmlObject
 	{
 		#region Constructors/Destructors
@@ -29,7 +29,19 @@ namespace TextMetal.Core
 
 		#region Properties/Indexers/Events
 
-		IList<IXmlObject> IXmlObject.AnonymousChildren
+		public IXmlObject Content
+		{
+			get
+			{
+				return null;
+			}
+			set
+			{
+				// do nothing
+			}
+		}
+
+		public IList<IXmlObject> Items
 		{
 			get
 			{
@@ -37,7 +49,7 @@ namespace TextMetal.Core
 			}
 		}
 
-		string IAssociativeXmlObject.Name
+		public string Name
 		{
 			get
 			{
@@ -45,7 +57,7 @@ namespace TextMetal.Core
 			}
 		}
 
-		IXmlObject IXmlObject.Parent
+		public IXmlObject Parent
 		{
 			get
 			{
@@ -61,7 +73,7 @@ namespace TextMetal.Core
 
 		#region Methods/Operators
 
-		object IExpressionMechanism.EvaluateExpression(TemplatingContext templatingContext)
+		public object EvaluateExpression(TemplatingContext templatingContext)
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();
@@ -69,7 +81,7 @@ namespace TextMetal.Core
 			return null;
 		}
 
-		IEnumerable ISortMechanism.EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
+		public IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();
@@ -77,13 +89,13 @@ namespace TextMetal.Core
 			return values;
 		}
 
-		void ITemplateMechanism.ExpandTemplate(TemplatingContext templatingContext)
+		public void ExpandTemplate(TemplatingContext templatingContext)
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();
 		}
 
-		public Type GetAllowedAnonymousChildrenTypes()
+		public Type GetAllowedChildTypes()
 		{
 			return null;
 		}
@@ -93,7 +105,12 @@ namespace TextMetal.Core
 			return null;
 		}
 
-		object IAssociativeMechanism.GetAssociativeObjectValue()
+		public IEnumerator GetAssociativeObjectEnumerator()
+		{
+			return null;
+		}
+
+		public object GetAssociativeObjectValue()
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();

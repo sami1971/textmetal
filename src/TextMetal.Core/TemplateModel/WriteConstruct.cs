@@ -12,8 +12,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Write", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class WriteConstruct : XmlSterileObject<ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "Write", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class WriteConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -104,7 +104,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			object valueObj = null, defaultObj = null;
 			string output;

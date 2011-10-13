@@ -12,8 +12,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "InvokeSourceStrategy", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class InvokeSourceStrategyConstruct : XmlSterileObject<ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "InvokeSourceStrategy", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class InvokeSourceStrategyConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -48,7 +48,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			string aqtn;
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;

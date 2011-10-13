@@ -11,8 +11,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "If", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class IfConstruct : XmlSterileObject<ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "If", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class IfConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -58,6 +58,14 @@ namespace TextMetal.Core.TemplateModel
 			}
 		}
 
+		protected override bool IsScopeBlock
+		{
+			get
+			{
+				return true;
+			}
+		}
+
 		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "True", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
 		public TemplateContainerConstruct True
 		{
@@ -75,7 +83,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			object obj;
 			bool conditional;

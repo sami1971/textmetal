@@ -15,7 +15,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.SortModel
 {
-	public abstract class OrderConstruct : XmlSterileObject<SortContainerConstruct>, ISortXmlObject
+	public abstract class OrderConstruct : SortXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -60,7 +60,7 @@ namespace TextMetal.Core.SortModel
 
 		#region Methods/Operators
 
-		public IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
+		protected override IEnumerable CoreEvaluateSort(TemplatingContext templatingContext, IEnumerable values)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object obj;

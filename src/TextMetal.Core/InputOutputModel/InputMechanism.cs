@@ -47,6 +47,12 @@ namespace TextMetal.Core.InputOutputModel
 
 		#region Methods/Operators
 
+		protected abstract Assembly CoreLoadAssembly(string assembluName);
+
+		protected abstract string CoreLoadContent(string resourceName);
+
+		protected abstract ITemplateXmlObject CoreLoadFragment(string resourceName);
+
 		/// <summary>
 		/// Dispose of the data source transaction.
 		/// </summary>
@@ -65,11 +71,20 @@ namespace TextMetal.Core.InputOutputModel
 			}
 		}
 
-		public abstract Assembly LoadAssembly(string assembluName);
+		public Assembly LoadAssembly(string assembluName)
+		{
+			return this.CoreLoadAssembly(assembluName);
+		}
 
-		public abstract string LoadContent(string resourceName);
+		public string LoadContent(string resourceName)
+		{
+			return this.CoreLoadContent(resourceName);
+		}
 
-		public abstract ITemplateXmlObject LoadFragment(string resourceName);
+		public ITemplateXmlObject LoadFragment(string resourceName)
+		{
+			return this.CoreLoadFragment(resourceName);
+		}
 
 		#endregion
 	}

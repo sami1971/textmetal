@@ -15,8 +15,8 @@ namespace TextMetal.Core.ExpressionModel
 	/// <summary>
 	/// This class uses the C# compiler style of numeric promotions.
 	/// </summary>
-	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
-	public sealed class UnaryExpressionConstruct : XmlSterileObject<IExpressionXmlObject>, IExpressionXmlObject
+	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	public sealed class UnaryExpressionConstruct : ExpressionXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -65,7 +65,7 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Methods/Operators
 
-		public object EvaluateExpression(TemplatingContext templatingContext)
+		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object theObj = null;

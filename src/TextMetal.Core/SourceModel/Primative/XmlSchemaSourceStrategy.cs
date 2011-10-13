@@ -44,7 +44,7 @@ namespace TextMetal.Core.SourceModel.Primative
 
 			arrayConstruct = new ArrayConstruct();
 			arrayConstruct.Name = "XmlSchemaElements";
-			parentAssociativeXmlObject.AnonymousChildren.Add(arrayConstruct);
+			parentAssociativeXmlObject.Items.Add(arrayConstruct);
 
 			foreach (XmlSchemaObject xmlSchemaObject in currentXmlSchemaObjectCollection)
 			{

@@ -5,12 +5,11 @@
 
 using System;
 
-using TextMetal.Core.TemplateModel;
 using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.ExpressionModel
 {
-	public abstract class SurfaceConstruct : XmlSterileObject<ExpressionContainerConstruct>, IExpressionXmlObject
+	public abstract class SurfaceConstruct : ExpressionXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -40,12 +39,6 @@ namespace TextMetal.Core.ExpressionModel
 				this.name = value;
 			}
 		}
-
-		#endregion
-
-		#region Methods/Operators
-
-		public abstract object EvaluateExpression(TemplatingContext templatingContext);
 
 		#endregion
 	}

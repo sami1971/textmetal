@@ -4,15 +4,14 @@
 */
 
 using System;
-using System.Collections.Generic;
 
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Template", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(ITemplateXmlObject))]
-	public sealed class TemplateConstruct : XmlItemsObject<ITemplateXmlObject, ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "Template", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Items)]
+	public sealed class TemplateConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -22,9 +21,21 @@ namespace TextMetal.Core.TemplateModel
 
 		#endregion
 
+		#region Properties/Indexers/Events
+
+		protected override bool IsScopeBlock
+		{
+			get
+			{
+				return true;
+			}
+		}
+
+		#endregion
+
 		#region Methods/Operators
 
-		public void CoreExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 
@@ -38,22 +49,6 @@ namespace TextMetal.Core.TemplateModel
 				foreach (ITemplateMechanism templateMechanism in this.Items)
 					templateMechanism.ExpandTemplate(templatingContext);
 			}
-		}
-
-		public void ExpandTemplate(TemplatingContext templatingContext)
-		{
-			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
-
-			if ((object)templatingContext == null)
-				throw new ArgumentNullException("templatingContext");
-
-			dynamicWildcardTokenReplacementStrategy = templatingContext.GetDynamicWildcardTokenReplacementStrategy();
-
-			templatingContext.VariableTables.Push(new Dictionary<string, object>());
-
-			this.CoreExpandTemplate(templatingContext);
-
-			templatingContext.VariableTables.Pop();
 		}
 
 		#endregion

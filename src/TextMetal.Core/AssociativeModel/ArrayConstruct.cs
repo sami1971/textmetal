@@ -11,8 +11,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
 {
-	[XmlElementMapping(LocalName = "Array", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(IAssociativeXmlObject))]
-	public sealed class ArrayConstruct : AssociativeXmlObject<IAssociativeXmlObject>, IEnumerable, IActualThing
+	[XmlElementMapping(LocalName = "Array", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Items)]
+	public sealed class ArrayConstruct : AssociativeXmlObject, IActualThing
 	{
 		#region Constructors/Destructors
 
@@ -24,7 +24,7 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Methods/Operators
 
-		IEnumerator IEnumerable.GetEnumerator()
+		protected override IEnumerator CoreGetAssociativeObjectEnumerator()
 		{
 			return this.Items.OfType<IActualThing>().GetEnumerator();
 		}

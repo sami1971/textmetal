@@ -12,8 +12,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
 {
-	public abstract class AssociativeXmlObject<TParent> : XmlItemsObject<TParent, IAssociativeXmlObject>, IAssociativeXmlObject, IDictionary, IDictionary<string, object>
-		where TParent : class, IXmlObject
+	public abstract class AssociativeXmlObject : XmlObject, IAssociativeXmlObject, IDictionary, IDictionary<string, object>
 	{
 		#region Constructors/Destructors
 
@@ -242,10 +241,26 @@ namespace TextMetal.Core.AssociativeModel
 			((IDictionary<string, object>)this.InnerAsDictionary).CopyTo(array, arrayIndex);
 		}
 
-		public virtual object GetAssociativeObjectValue()
+		protected virtual IEnumerator CoreGetAssociativeObjectEnumerator()
 		{
-			// default (except for Property)
+			// default (except for Array)
+			return ((IEnumerable)this).GetEnumerator();
+		}
+
+		protected virtual object CoreGetAssociativeObjectValue()
+		{
+			// default
 			return this;
+		}
+
+		public IEnumerator GetAssociativeObjectEnumerator()
+		{
+			return this.CoreGetAssociativeObjectEnumerator();
+		}
+
+		public object GetAssociativeObjectValue()
+		{
+			return this.CoreGetAssociativeObjectValue();
 		}
 
 		IDictionaryEnumerator IDictionary.GetEnumerator()

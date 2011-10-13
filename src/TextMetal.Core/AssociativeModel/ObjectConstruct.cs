@@ -9,8 +9,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
 {
-	[XmlElementMapping(LocalName = "Object", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(IAssociativeXmlObject))]
-	public class ObjectConstruct : AssociativeXmlObject<IAssociativeXmlObject>, IActualThing
+	[XmlElementMapping(LocalName = "Object", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Items)]
+	public class ObjectConstruct : AssociativeXmlObject, IActualThing
 	{
 		#region Constructors/Destructors
 

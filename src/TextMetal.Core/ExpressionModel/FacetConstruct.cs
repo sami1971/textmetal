@@ -11,7 +11,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.ExpressionModel
 {
-	[XmlElementMapping(LocalName = "Facet", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AllowAnonymousChildren = false)]
+	[XmlElementMapping(LocalName = "Facet", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class FacetConstruct : SurfaceConstruct
 	{
 		#region Constructors/Destructors
@@ -24,7 +24,7 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Methods/Operators
 
-		public override object EvaluateExpression(TemplatingContext templatingContext)
+		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object obj;

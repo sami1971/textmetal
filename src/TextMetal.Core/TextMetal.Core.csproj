@@ -74,6 +74,7 @@
     <Compile Include="ExpressionModel\Operators\IUnaryOperator.cs" />
     <Compile Include="ExpressionModel\Operators\IBinaryOperator.cs" />
     <Compile Include="ExpressionModel\Operators\IOperator.cs" />
+    <Compile Include="ExpressionModel\ExpressionXmlObject.cs" />
     <Compile Include="ExpressionModel\SurfaceConstruct.cs" />
     <Compile Include="ExpressionModel\PowerShellConstruct.cs" />
     <Compile Include="ExpressionModel\ExpressionContainerConstruct.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Plumbing\UnitOfWorkContext.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="SortModel\AscendingConstruct.cs" />
+    <Compile Include="SortModel\SortXmlObject.cs" />
     <Compile Include="SortModel\DescendingConstruct.cs" />
     <Compile Include="SortModel\ISortMechanism.cs" />
     <Compile Include="SortModel\ISortXmlObject.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="TemplateModel\ITemplateXmlObject.cs" />
     <Compile Include="TemplateModel\LogConstruct.cs" />
     <Compile Include="TemplateModel\OutputScopeConstruct.cs" />
+    <Compile Include="TemplateModel\TemplateXmlObject.cs" />
     <Compile Include="TemplateModel\TemplateConstruct.cs" />
     <Compile Include="TemplateModel\TemplateContainerConstruct.cs" />
     <Compile Include="TemplateModel\TemplateXmlTextObject.cs" />
@@ -162,15 +165,7 @@
     <Compile Include="TokenModel\StaticValueTokenReplacementStrategy.cs" />
     <Compile Include="TokenModel\Tokenizer.cs" />
     <Compile Include="XmlModel\ChildElementType.cs" />
-    <Compile Include="XmlModel\IXmlSterileObject.cs" />
-    <Compile Include="XmlModel\XmlSterileObject~1.cs" />
-    <Compile Include="XmlModel\IXmlSterileObject~1.cs" />
-    <Compile Include="XmlModel\IXmlContentObject.cs" />
-    <Compile Include="XmlModel\IXmlItemsObject.cs" />
-    <Compile Include="XmlModel\IXmlContentObject~2.cs" />
-    <Compile Include="XmlModel\IXmlItemsObject~2.cs" />
-    <Compile Include="XmlModel\XmlItemsObject~2.cs" />
-    <Compile Include="XmlModel\XmlContentObject~2.cs" />
+    <Compile Include="XmlModel\ChildElementModel.cs" />
     <Compile Include="XmlModel\XmlObject.cs" />
     <Compile Include="XmlModel\IXmlObject.cs" />
     <Compile Include="XmlModel\IXmlPersistEngine.cs" />

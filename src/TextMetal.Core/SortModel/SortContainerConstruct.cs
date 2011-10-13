@@ -12,8 +12,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.SortModel
 {
-	[XmlElementMapping(LocalName = "SortContainer", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(ISortXmlObject))]
-	public sealed class SortContainerConstruct : XmlItemsObject<IXmlObject, ISortXmlObject>, ISortXmlObject
+	[XmlElementMapping(LocalName = "SortContainer", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Content)]
+	public sealed class SortContainerConstruct : SortXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -48,7 +48,7 @@ namespace TextMetal.Core.SortModel
 
 		#region Methods/Operators
 
-		public IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
+		protected override IEnumerable CoreEvaluateSort(TemplatingContext templatingContext, IEnumerable values)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 

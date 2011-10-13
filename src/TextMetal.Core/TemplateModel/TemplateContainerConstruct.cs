@@ -10,8 +10,8 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "TemplateContainer", NamespaceUri = "http://code.google.com/p/textmetal/rev3", AnonymousChildrenAllowedType = typeof(ITemplateXmlObject))]
-	public sealed class TemplateContainerConstruct : XmlItemsObject<IXmlObject, ITemplateXmlObject>, ITemplateXmlObject
+	[XmlElementMapping(LocalName = "TemplateContainer", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Items)]
+	public sealed class TemplateContainerConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -23,7 +23,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Methods/Operators
 
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 

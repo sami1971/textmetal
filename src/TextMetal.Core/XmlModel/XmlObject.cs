@@ -20,22 +20,35 @@ namespace TextMetal.Core.XmlModel
 
 		#region Fields/Constants
 
-		private readonly IList<IXmlObject> anonymousChildren = new List<IXmlObject>();
+		private readonly IList<IXmlObject> items = new List<IXmlObject>();
+		private IXmlObject content;
 		private IXmlObject parent;
 
 		#endregion
 
 		#region Properties/Indexers/Events
 
-		IList<IXmlObject> IXmlObject.AnonymousChildren
+		public IXmlObject Content
 		{
 			get
 			{
-				return this.anonymousChildren;
+				return this.content;
+			}
+			set
+			{
+				this.content = value;
 			}
 		}
 
-		IXmlObject IXmlObject.Parent
+		public IList<IXmlObject> Items
+		{
+			get
+			{
+				return this.items;
+			}
+		}
+
+		public IXmlObject Parent
 		{
 			get
 			{
@@ -51,7 +64,7 @@ namespace TextMetal.Core.XmlModel
 
 		#region Methods/Operators
 
-		Type IXmlObject.GetAllowedAnonymousChildrenTypes()
+		Type IXmlObject.GetAllowedChildTypes()
 		{
 			return typeof(IXmlObject);
 		}
