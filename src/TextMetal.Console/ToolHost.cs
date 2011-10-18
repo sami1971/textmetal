@@ -88,6 +88,9 @@ namespace TextMetal.Console
 			template = (TemplateConstruct)xpe.DeserializeFromXml(templateFilePath);
 			source = sourceStrategy.GetSourceObject(sourceFilePath, properties);
 
+			if ((object)source == null)
+				return;
+
 			modelConstruct = source as ModelConstruct;
 
 			xpe.SerializeToXml(template, Path.Combine(baseDirectoryPath, "#template.xml"));

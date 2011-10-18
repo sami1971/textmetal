@@ -15,7 +15,7 @@ using TextMetal.Core.Plumbing;
 
 namespace TextMetal.Core.SourceModel.SqlServer
 {
-	public class SqlServerSchemaSourceStrategy : SourceStrategy
+	public class SqlServerSchemaSourceStrategy : DataConnectionSourceStrategy
 	{
 		#region Constructors/Destructors
 
@@ -185,27 +185,24 @@ namespace TextMetal.Core.SourceModel.SqlServer
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
 		{
-			return this.GetSchemaModel(sourceFilePath);
+			if ((object)base.CoreGetSourceObject(sourceFilePath, properties) == null)
+				return null;
+
+			return this.GetSchemaModel();
 		}
 
-		private object GetSchemaModel(string connectionString)
+		private object GetSchemaModel()
 		{
-			Type connectionType;
 			Database database;
 			int recordsAffected;
 
-			if ((object)connectionString == null)
-				throw new ArgumentNullException("connectionString");
+			if (this.ConnectionType != typeof(SqlConnection))
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-			if (DataType.IsWhiteSpace(connectionString))
-				throw new ArgumentOutOfRangeException("connectionString");
-
-			connectionType = typeof(SqlConnection);
-
-			using (UnitOfWorkContext unitOfWorkContext = UnitOfWorkContext.Create(connectionType, connectionString, false))
+			using (UnitOfWorkContext unitOfWorkContext = UnitOfWorkContext.Create(this.ConnectionType, this.ConnectionString, false))
 			{
 				database = new Database();
-				database.ConnectionString = connectionString;
+				database.ConnectionString = this.ConnectionString;
 
 				var dataReaderDatabase = unitOfWorkContext.ExecuteDictionary(CommandType.Text, GetAllAssemblyResourceFileText("Database"), null, out recordsAffected);
 				{

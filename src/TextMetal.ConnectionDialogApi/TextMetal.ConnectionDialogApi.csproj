@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CE56E49E-2D02-4246-9F91-888CABCE41A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.ConnectionDialogApi</RootNamespace>
+    <AssemblyName>TextMetal.ConnectionDialogApi</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.ConnectionDialogApi.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.ConnectionDialogApi.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServerCe.Client">
+      <HintPath>..\..\lib\SqlCe\v3.5-sp2\Microsoft.SqlServerCe.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AccessConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AccessConnectionUIControl.Designer.cs">
+      <DependentUpon>AccessConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPropertyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPropertyDialog.Designer.cs">
+      <DependentUpon>AddPropertyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdoDotNetConnectionProperties.cs" />
+    <Compile Include="ContextHelpEventArgs.cs" />
+    <Compile Include="DataConnectionAdvancedDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataConnectionAdvancedDialog.Designer.cs">
+      <DependentUpon>DataConnectionAdvancedDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataConnectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataConnectionDialog.Designer.cs">
+      <DependentUpon>DataConnectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataConnectionDialogContext.cs" />
+    <Compile Include="DataConnectionSourceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataConnectionSourceDialog.Designer.cs">
+      <DependentUpon>DataConnectionSourceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider.cs" />
+    <Compile Include="DataSource.cs" />
+    <Compile Include="DynamicPropertyDescriptor.cs" />
+    <Compile Include="HelpUtils.cs" />
+    <Compile Include="IDataConnectionProperties.cs" />
+    <Compile Include="IDataConnectionUIControl.cs" />
+    <Compile Include="LayoutUtils.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="OdbcConnectionProperties.cs" />
+    <Compile Include="OdbcConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OdbcConnectionUIControl.Designer.cs">
+      <DependentUpon>OdbcConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OleDBConnectionProperties.cs" />
+    <Compile Include="OleDBConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OleDBConnectionUIControl.Designer.cs">
+      <DependentUpon>OleDBConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OracleConnectionProperties.cs" />
+    <Compile Include="OracleConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OracleConnectionUIControl.Designer.cs">
+      <DependentUpon>OracleConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs" />
+    <Compile Include="RTLAwareMessageBox.cs" />
+    <Compile Include="SqlCeConnection.cs" />
+    <Compile Include="SqlCeConnectionProperties.cs" />
+    <Compile Include="SqlCeConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqlCeConnectionUIControl.Designer.cs">
+      <DependentUpon>SqlCeConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlConnectionProperties.cs" />
+    <Compile Include="SqlConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqlConnectionUIControl.Designer.cs">
+      <DependentUpon>SqlConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SqlExpressConnectionUIControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SqlExpressConnectionUIControl.Designer.cs">
+      <DependentUpon>SqlExpressConnectionUIControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Strings.Designer.cs" />
+    <Compile Include="UserPreferencedChangedHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AccessConnectionUIControl.resx">
+      <DependentUpon>AccessConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddPropertyDialog.resx">
+      <DependentUpon>AddPropertyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataConnectionAdvancedDialog.resx">
+      <DependentUpon>DataConnectionAdvancedDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataConnectionDialog.resx">
+      <DependentUpon>DataConnectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataConnectionSourceDialog.resx">
+      <DependentUpon>DataConnectionSourceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OdbcConnectionUIControl.resx">
+      <DependentUpon>OdbcConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OleDBConnectionUIControl.resx">
+      <DependentUpon>OleDBConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OracleConnectionUIControl.resx">
+      <DependentUpon>OracleConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx" />
+    <EmbeddedResource Include="SqlCeConnectionUIControl.resx">
+      <DependentUpon>SqlCeConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlConnectionUIControl.resx">
+      <DependentUpon>SqlConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlExpressConnectionUIControl.resx">
+      <DependentUpon>SqlExpressConnectionUIControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

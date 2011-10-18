@@ -28,10 +28,13 @@ namespace TextMetal.Core.SourceModel
 			{
 				return this.CoreGetSourceObject(sourceFilePath, properties);
 			}
-			catch (Exception ex)
+			finally
+			{
+			}
+			/*catch (Exception ex)
 			{
 				throw new InvalidOperationException("The source strategy failed (see inner exception).", ex);
-			}
+			}*/
 		}
 
 		#endregion

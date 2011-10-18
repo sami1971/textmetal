@@ -495,12 +495,12 @@ namespace TextMetal.Core.XmlModel
 			if ((object)parentXmlElementMappingAttribute == null)
 				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
-			// we indeed need these checks; it is not ok to have text element and not allow anonymous children
-			if (parentXmlElementMappingAttribute.ChildElementModel != ChildElementModel.Items)
+			// it is OK to have text element and not allow anonymous children
+			/*if (parentXmlElementMappingAttribute.ChildElementModel != ChildElementModel.Items)
 				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
 			if ((object)parentXmlObject.Items == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");*/
 
 			if ((object)xmlName != null)
 				currentXmlTextObject.Name = xmlName;
