@@ -123,7 +123,7 @@ namespace TextMetal.Core.TokenModel
 			{
 				foreach (object target in this.Targets)
 				{
-					if (Reflexion.SetLogicalPropertyValue(target, path, value))
+					if (Reflexion.SetLogicalPropertyValue(target, path, value, false, false))
 						return true;
 				}
 			}

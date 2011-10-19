@@ -16,26 +16,21 @@ namespace TextMetal.Core.SourceModel
 	{
 		#region Constructors/Destructors
 
-		protected DataConnectionSourceStrategy()
+		protected DataConnectionSourceStrategy(Type connectionType)
 		{
+			this.connectionType = connectionType;
 		}
 
 		#endregion
 
-		private Type connectionType;
-		private string connectionString;
+		#region Fields/Constants
 
-		protected Type ConnectionType
-		{
-			get
-			{
-				return this.connectionType;
-			}
-			private set
-			{
-				this.connectionType = value;
-			}
-		}
+		private string connectionString;
+		private Type connectionType;
+
+		#endregion
+
+		#region Properties/Indexers/Events
 
 		protected string ConnectionString
 		{
@@ -49,6 +44,20 @@ namespace TextMetal.Core.SourceModel
 			}
 		}
 
+		protected Type ConnectionType
+		{
+			get
+			{
+				return this.connectionType;
+			}
+			private set
+			{
+				this.connectionType = value;
+			}
+		}
+
+		#endregion
+
 		#region Methods/Operators
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
@@ -60,11 +69,13 @@ namespace TextMetal.Core.SourceModel
 				throw new ArgumentOutOfRangeException("sourceFilePath");
 
 			this.ConnectionString = sourceFilePath;
-			
+
 			if (this.ConnectionString == "?")
-				if(!GetConnectionStringInteractive())
+			{
+				if (!this.GetConnectionStringInteractive())
 					return null;
-			
+			}
+
 			if (DataType.IsNullOrWhiteSpace(this.ConnectionString))
 				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 

@@ -20,6 +20,7 @@ namespace TextMetal.Core.SourceModel.SqlServer
 		#region Constructors/Destructors
 
 		public SqlServerSchemaSourceStrategy()
+			: base(typeof(SqlConnection))
 		{
 		}
 

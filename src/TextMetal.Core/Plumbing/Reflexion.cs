@@ -344,6 +344,11 @@ namespace TextMetal.Core.Plumbing
 
 		public static bool SetLogicalPropertyValue(object targetInstance, string propertyName, object propertyValue)
 		{
+			return SetLogicalPropertyValue(targetInstance, propertyName, propertyValue, false, true);
+		}
+
+		public static bool SetLogicalPropertyValue(object targetInstance, string propertyName, object propertyValue, bool stayHard, bool makeSoft)
+		{
 			bool trigger = false;
 			Type targetType;
 			PropertyInfo propertyInfo;
@@ -372,12 +377,15 @@ namespace TextMetal.Core.Plumbing
 			}
 
 			// STRATEGY: attempt association
-			if (!trigger)
+			if (!trigger && !stayHard)
 			{
 				targetDictionary = targetInstance as IDictionary;
 
 				if ((object)targetDictionary != null)
 				{
+					if (!makeSoft && !targetDictionary.Contains(propertyName))
+						return false;
+
 					if (targetDictionary.Contains(propertyName))
 						targetDictionary.Remove(propertyName);
 

@@ -44,7 +44,7 @@ namespace TextMetal.Core.Plumbing
 			dbDataParameter.Value = value;
 			dbDataParameter.Direction = direction;
 			dbDataParameter.DbType = type;
-			Reflexion.SetLogicalPropertyValue(dbDataParameter, "IsNullable", nullable);
+			Reflexion.SetLogicalPropertyValue(dbDataParameter, "IsNullable", nullable, true, false);
 			dbDataParameter.Precision = precision;
 			dbDataParameter.Scale = scale;
 
