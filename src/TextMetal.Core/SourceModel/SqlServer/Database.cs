@@ -26,6 +26,7 @@ namespace TextMetal.Core.SourceModel.SqlServer
 
 		private readonly List<Schema> schemas = new List<Schema>();
 		private string connectionString;
+		private string connectionType;
 		private string initialCatalogName;
 		private string initialCatalogNameCamelCase;
 		private string initialCatalogNameConstantCase;
@@ -56,6 +57,19 @@ namespace TextMetal.Core.SourceModel.SqlServer
 			set
 			{
 				this.connectionString = value;
+			}
+		}
+
+		[XmlAttribute]
+		public string ConnectionType
+		{
+			get
+			{
+				return this.connectionType;
+			}
+			set
+			{
+				this.connectionType = value;
 			}
 		}
 

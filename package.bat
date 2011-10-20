@@ -90,8 +90,8 @@ IF %ERRORLEVEL% NEQ 0 goto pkgError
 copy ".\src\TextMetal.Console\bin\%BUILD_FLAVOR_DIR%\TextMetal.exe" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
-rem copy ".\src\TextMetal.Console\bin\%BUILD_FLAVOR_DIR%\TextMetal.xml" "%PACKAGE_DIR%\."
-rem IF %ERRORLEVEL% NEQ 0 goto pkgError
+copy ".\src\TextMetal.Console\bin\%BUILD_FLAVOR_DIR%\TextMetal.xml" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 copy ".\src\TextMetal.Console\bin\%BUILD_FLAVOR_DIR%\TextMetal.pdb" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError

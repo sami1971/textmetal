@@ -13,7 +13,7 @@ namespace TextMetal.Core.SourceModel
 		#region Methods/Operators
 
 		object GetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties);
-
+		
 		#endregion
 	}
 }

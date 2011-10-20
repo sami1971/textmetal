@@ -101,6 +101,7 @@ echo *** adonet_codegen_execute ***
 	-basedir:".\output\src" ^
 	-sourcestrategy:"TextMetal.Core.SourceModel.SqlServer.SqlServerSchemaSourceStrategy, TextMetal.Core" ^
 	-strict:"true" ^
+	-interactivesource:"databaseconnection" ^
 	-property:"ClrNamespace=TextMetal.WebHostSample.Objects.Model" ^
 	-property:"ClrSuperType=Object"
 	rem -property:"ClrUsingNamespaces=Test1" ^

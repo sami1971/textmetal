@@ -15,12 +15,11 @@ using TextMetal.Core.Plumbing;
 
 namespace TextMetal.Core.SourceModel.SqlServer
 {
-	public class SqlServerSchemaSourceStrategy : DataConnectionSourceStrategy
+	public class SqlServerSchemaSourceStrategy : SourceStrategy
 	{
 		#region Constructors/Destructors
 
 		public SqlServerSchemaSourceStrategy()
-			: base(typeof(SqlConnection))
 		{
 		}
 
@@ -186,24 +185,20 @@ namespace TextMetal.Core.SourceModel.SqlServer
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
 		{
-			if ((object)base.CoreGetSourceObject(sourceFilePath, properties) == null)
-				return null;
-
-			return this.GetSchemaModel();
+			return this.GetSchemaModel(sourceFilePath);
 		}
 
-		private object GetSchemaModel()
+		private object GetSchemaModel(string connectionString)
 		{
+			Type connectionType = typeof(SqlConnection);
 			Database database;
 			int recordsAffected;
 
-			if (this.ConnectionType != typeof(SqlConnection))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			using (UnitOfWorkContext unitOfWorkContext = UnitOfWorkContext.Create(this.ConnectionType, this.ConnectionString, false))
+			using (UnitOfWorkContext unitOfWorkContext = UnitOfWorkContext.Create(connectionType, connectionString, false))
 			{
 				database = new Database();
-				database.ConnectionString = this.ConnectionString;
+				database.ConnectionString = connectionString;
+				database.ConnectionType = connectionType.FullName;
 
 				var dataReaderDatabase = unitOfWorkContext.ExecuteDictionary(CommandType.Text, GetAllAssemblyResourceFileText("Database"), null, out recordsAffected);
 				{

@@ -47,7 +47,6 @@
       <HintPath>..\..\lib\PowerShell\System.Management.Automation.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +109,17 @@
     <Compile Include="Plumbing\SqlQuery.cs" />
     <Compile Include="Plumbing\UnitOfWorkContext.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="QueryModel\IQueryMechanism.cs" />
+    <Compile Include="QueryModel\IQueryXmlObject.cs" />
+    <Compile Include="QueryModel\JoinSourceContainerConstruct.cs" />
+    <Compile Include="QueryModel\JoinType.cs" />
+    <Compile Include="QueryModel\ProjectionConstruct.cs" />
+    <Compile Include="QueryModel\ProjectionContainerConstruct.cs" />
+    <Compile Include="QueryModel\QueryContainerConstruct.cs" />
+    <Compile Include="QueryModel\SelectConstruct.cs" />
+    <Compile Include="QueryModel\QueryXmlObject.cs" />
+    <None Include="QueryModel\SqlExpressionVisitor.cs" />
+    <Compile Include="QueryModel\TableConstruct.cs" />
     <Compile Include="SortModel\AscendingConstruct.cs" />
     <Compile Include="SortModel\SortXmlObject.cs" />
     <Compile Include="SortModel\DescendingConstruct.cs" />
@@ -117,7 +127,6 @@
     <Compile Include="SortModel\ISortXmlObject.cs" />
     <Compile Include="SortModel\OrderConstruct.cs" />
     <Compile Include="SortModel\SortContainerConstruct.cs" />
-    <Compile Include="SourceModel\DataConnectionSourceStrategy.cs" />
     <Compile Include="SourceModel\SourceStrategy.cs" />
     <Compile Include="SourceModel\ISourceStrategy.cs" />
     <Compile Include="SourceModel\Primative\AssociativeXmlSourceStrategy.cs" />
@@ -231,12 +240,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SourceModel\SqlCe\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TextMetal.ConnectionDialogApi\TextMetal.ConnectionDialogApi.csproj">
-      <Project>{CE56E49E-2D02-4246-9F91-888CABCE41A6}</Project>
-      <Name>TextMetal.ConnectionDialogApi</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

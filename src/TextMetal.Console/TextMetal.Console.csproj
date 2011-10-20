@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core">
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +64,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TextMetal.ConnectionDialogApi\TextMetal.ConnectionDialogApi.csproj">
+      <Project>{CE56E49E-2D02-4246-9F91-888CABCE41A6}</Project>
+      <Name>TextMetal.ConnectionDialogApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TextMetal.Core\TextMetal.Core.csproj">
       <Project>{0FC50A3F-54C4-4112-80D9-42D68234574A}</Project>
       <Name>TextMetal.Core</Name>

@@ -10,6 +10,7 @@ using System.Diagnostics;
 
 using TextMetal.Core.AssociativeModel;
 using TextMetal.Core.ExpressionModel;
+using TextMetal.Core.QueryModel;
 using TextMetal.Core.SortModel;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.XmlModel;
@@ -17,7 +18,7 @@ using TextMetal.Core.XmlModel;
 namespace TextMetal.Core
 {
 	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
-	public sealed class DebuggerBreakpointConstruct : ITemplateXmlObject, IExpressionXmlObject, IAssociativeXmlObject, ISortXmlObject
+	public sealed class DebuggerBreakpointConstruct : ITemplateXmlObject, IExpressionXmlObject, IAssociativeXmlObject, ISortXmlObject, IQueryXmlObject
 	{
 		#region Constructors/Destructors
 
