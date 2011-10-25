@@ -36,6 +36,9 @@ namespace TextMetal.Core.Plumbing
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
 
+			if ((object)unitOfWorkContext.Connection == null)
+				throw new InvalidOperationException("There is not a valid connection associated with the current unit of work context.");
+
 			using (IDbCommand dbCommand = unitOfWorkContext.Connection.CreateCommand())
 				dbDataParameter = dbCommand.CreateParameter();
 
@@ -60,6 +63,9 @@ namespace TextMetal.Core.Plumbing
 
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
+
+			if ((object)unitOfWorkContext.Connection == null)
+				throw new InvalidOperationException("There is not a valid connection associated with the current unit of work context.");
 
 			objs = new List<IDictionary<string, object>>();
 
@@ -170,6 +176,9 @@ namespace TextMetal.Core.Plumbing
 
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
+
+			if ((object)unitOfWorkContext.Connection == null)
+				throw new InvalidOperationException("There is not a valid connection associated with the current unit of work context.");
 
 			objs = new List<IDictionary<string, object>>();
 

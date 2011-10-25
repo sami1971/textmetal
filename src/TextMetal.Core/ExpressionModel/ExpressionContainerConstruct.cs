@@ -30,6 +30,18 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Properties/Indexers/Events
 
+		public new ExpressionXmlObject Content
+		{
+			get
+			{
+				return (ExpressionXmlObject)base.Content;
+			}
+			set
+			{
+				base.Content = value;
+			}
+		}
+
 		[XmlAttributeMapping(LocalName = "id", NamespaceUri = "")]
 		public string Id
 		{

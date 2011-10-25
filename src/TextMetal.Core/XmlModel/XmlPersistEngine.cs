@@ -907,6 +907,63 @@ namespace TextMetal.Core.XmlModel
 			xmlTextWriter.WriteEndElement();
 		}
 
+		public bool UnregisterKnownXmlObject<TObject>() where TObject : IXmlObject
+		{
+			Type targetType;
+
+			targetType = typeof(TObject);
+
+			return this.UnregisterKnownXmlObject(targetType);
+		}
+
+		public bool UnregisterKnownXmlObject(Type targetType)
+		{
+			bool retval;
+			XmlName xmlName;
+			XmlElementMappingAttribute xmlElementMappingAttribute;
+
+			if ((object)targetType == null)
+				throw new ArgumentNullException("targetType");
+
+			xmlElementMappingAttribute = Reflexion.GetOneAttribute<XmlElementMappingAttribute>(targetType);
+
+			if ((object)xmlElementMappingAttribute == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+
+			xmlName = new XmlName()
+			          {
+			          	LocalName = xmlElementMappingAttribute.LocalName,
+			          	NamespaceUri = xmlElementMappingAttribute.NamespaceUri
+			          };
+
+			if (retval = this.KnownXmlObjectTypeRegistrations.ContainsKey(xmlName))
+				this.KnownXmlObjectTypeRegistrations.Remove(xmlName);
+
+			return retval;
+		}
+
+		public bool UnregisterKnownXmlTextObject<TObject>() where TObject : IXmlTextObject
+		{
+			Type targetType;
+
+			targetType = typeof(TObject);
+
+			return this.UnregisterKnownXmlTextObject(targetType);
+		}
+
+		public bool UnregisterKnownXmlTextObject(Type targetType)
+		{
+			bool retval;
+
+			if ((object)targetType == null)
+				throw new ArgumentNullException("targetType");
+
+			if (retval = (object)this.KnownXmlTextObjectTypeRegistration != null)
+				this.KnownXmlTextObjectTypeRegistration = null;
+
+			return retval;
+		}
+
 		#endregion
 	}
 }

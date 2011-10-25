@@ -107,7 +107,7 @@ namespace TextMetal.Core.ExpressionModel
 				throw new ArgumentNullException("container");
 
 			if ((object)container.Content != null)
-				this.Visit((Expression)container.Content);
+				this.Visit(container.Content);
 
 			return container;
 		}

@@ -28,6 +28,18 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Properties/Indexers/Events
 
+		public new AssociativeXmlObject Content
+		{
+			get
+			{
+				return (AssociativeXmlObject)base.Content;
+			}
+			set
+			{
+				base.Content = value;
+			}
+		}
+
 		[XmlAttributeMapping(LocalName = "id", NamespaceUri = "")]
 		public string Id
 		{

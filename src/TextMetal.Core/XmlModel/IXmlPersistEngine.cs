@@ -38,6 +38,16 @@ namespace TextMetal.Core.XmlModel
 
 		void SerializeToXml(IXmlObject document, XmlTextWriter xmlTextWriter);
 
+		bool UnregisterKnownXmlObject<TObject>()
+			where TObject : IXmlObject;
+
+		bool UnregisterKnownXmlObject(Type targetType);
+
+		bool UnregisterKnownXmlTextObject<TObject>()
+			where TObject : IXmlTextObject;
+
+		bool UnregisterKnownXmlTextObject(Type targetType);
+
 		#endregion
 	}
 }

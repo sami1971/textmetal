@@ -109,17 +109,6 @@
     <Compile Include="Plumbing\SqlQuery.cs" />
     <Compile Include="Plumbing\UnitOfWorkContext.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
-    <Compile Include="QueryModel\IQueryMechanism.cs" />
-    <Compile Include="QueryModel\IQueryXmlObject.cs" />
-    <Compile Include="QueryModel\JoinSourceContainerConstruct.cs" />
-    <Compile Include="QueryModel\JoinType.cs" />
-    <Compile Include="QueryModel\ProjectionConstruct.cs" />
-    <Compile Include="QueryModel\ProjectionContainerConstruct.cs" />
-    <Compile Include="QueryModel\QueryContainerConstruct.cs" />
-    <Compile Include="QueryModel\SelectConstruct.cs" />
-    <Compile Include="QueryModel\QueryXmlObject.cs" />
-    <None Include="QueryModel\SqlExpressionVisitor.cs" />
-    <Compile Include="QueryModel\TableConstruct.cs" />
     <Compile Include="SortModel\AscendingConstruct.cs" />
     <Compile Include="SortModel\SortXmlObject.cs" />
     <Compile Include="SortModel\DescendingConstruct.cs" />

@@ -130,7 +130,7 @@ namespace TextMetal.Core.SourceModel.SqlServer
 			}
 		}
 
-		internal static DbType InferDbTypeForClrType(Type clrType)
+		public static DbType InferDbTypeForClrType(Type clrType)
 		{
 			if ((object)clrType == null)
 				throw new ArgumentNullException("clrType");

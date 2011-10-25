@@ -4,6 +4,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
@@ -17,6 +18,18 @@ namespace TextMetal.Core.TemplateModel
 
 		public TemplateContainerConstruct()
 		{
+		}
+
+		#endregion
+
+		#region Properties/Indexers/Events
+
+		public new IList<TemplateXmlObject> Items
+		{
+			get
+			{
+				return new ContravariantListAdapter<TemplateXmlObject, IXmlObject>(base.Items);
+			}
 		}
 
 		#endregion

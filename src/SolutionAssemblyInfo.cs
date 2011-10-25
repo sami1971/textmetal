@@ -22,7 +22,7 @@ using System.Security;
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("4.3.0.*")]
 [assembly: AssemblyFileVersion("4.3.0.0")]
-[assembly: AssemblyInformationalVersion("2011.09.01")]
+[assembly: AssemblyInformationalVersion("2011.10.25")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: ComVisible(false)]
 

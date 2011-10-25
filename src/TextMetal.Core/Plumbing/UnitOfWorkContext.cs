@@ -12,7 +12,7 @@ namespace TextMetal.Core.Plumbing
 	{
 		#region Constructors/Destructors
 
-		public UnitOfWorkContext()
+		private UnitOfWorkContext()
 		{
 		}
 
