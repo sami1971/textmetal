@@ -56,7 +56,7 @@ namespace TextMetal.Core
 					toupper = true;
 					continue; // ignore setting prev=curr
 				}
-
+				
 				toupper = toupper || char.IsDigit(prev) || (char.IsLower(prev) && char.IsUpper(curr));
 
 				if (toupper)

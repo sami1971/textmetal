@@ -23,6 +23,7 @@ namespace TextMetal.Core.Plumbing
 		private static readonly string UNIT_OF_WORK_CONTEXT_CURRENT_KEY = typeof(UnitOfWorkContext).GUID.SafeToString();
 		private bool completed;
 		private IDbConnection connection;
+		private IDisposable context;
 		private bool disposed;
 		private bool diverged;
 		private IDbTransaction transaction;
@@ -68,11 +69,32 @@ namespace TextMetal.Core.Plumbing
 		{
 			get
 			{
+				if (this.Disposed)
+					throw new ObjectDisposedException(typeof(UnitOfWorkContext).FullName);
+
 				return this.connection;
 			}
 			private set
 			{
 				this.connection = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets the context object.
+		/// </summary>
+		public IDisposable Context
+		{
+			get
+			{
+				if (this.Disposed)
+					throw new ObjectDisposedException(typeof(UnitOfWorkContext).FullName);
+
+				return this.context;
+			}
+			set
+			{
+				this.context = value;
 			}
 		}
 
@@ -113,6 +135,9 @@ namespace TextMetal.Core.Plumbing
 		{
 			get
 			{
+				if (this.Disposed)
+					throw new ObjectDisposedException(typeof(UnitOfWorkContext).FullName);
+
 				return this.transaction;
 			}
 			private set
@@ -168,6 +193,13 @@ namespace TextMetal.Core.Plumbing
 			}
 			finally
 			{
+				// destroy and tear-down the context
+				if ((object)this.Context != null)
+				{
+					this.Context.Dispose();
+					this.Context = null;
+				}
+
 				// destroy and tear-down the transaction
 				if ((object)this.Transaction != null)
 				{
