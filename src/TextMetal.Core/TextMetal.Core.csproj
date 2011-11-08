@@ -142,6 +142,7 @@
     <Compile Include="SourceModel\SqlServer\Table.cs" />
     <Compile Include="SourceModel\SqlServer\UniqueKey.cs" />
     <Compile Include="SourceModel\SqlServer\UniqueKeyColumnRef.cs" />
+    <Compile Include="TemplateModel\AliasConstruct.cs" />
     <Compile Include="TemplateModel\AllocConstruct.cs" />
     <Compile Include="TemplateModel\AssignConstruct.cs" />
     <Compile Include="TemplateModel\ReferenceConstruct.cs" />

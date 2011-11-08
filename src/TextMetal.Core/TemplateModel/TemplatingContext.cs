@@ -113,7 +113,21 @@ namespace TextMetal.Core.TemplateModel
 
 		public void AddReference(Type xmlObjectType)
 		{
+			if ((object)xmlObjectType == null)
+				throw new ArgumentNullException("xmlObjectType");
+
 			this.Xpe.RegisterKnownXmlObject(xmlObjectType);
+		}
+
+		public void AddReference(XmlName xmlName, Type xmlObjectType)
+		{
+			if ((object)xmlName == null)
+				throw new ArgumentNullException("xmlName");
+
+			if ((object)xmlObjectType == null)
+				throw new ArgumentNullException("xmlObjectType");
+
+			this.Xpe.RegisterKnownXmlObject(xmlName, xmlObjectType);
 		}
 
 		public void ClearReferences()

@@ -4,7 +4,13 @@
 	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://code.google.com/p/textmetal/rev3">	
+<Template xmlns="http://code.google.com/p/textmetal/rev3">
+
+	<Scrizzle newline="true">
+		<Scrizzle.Text>
+			<Value data="Scrizzle was here yo." />
+		</Scrizzle.Text>
+	</Scrizzle>
 
 	<Reference name="" />
 	<Reference name="..\..\src\TextMetal.Console\bin\Debug\TextMetal.Core.dll" />

@@ -5,8 +5,9 @@
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
 <Template xmlns="http://code.google.com/p/textmetal/rev3">
-	<Alloc token="test" />
 
+	<Alloc token="test" />
+	
 	<Assign token="test">
 		<Assign.Expression>
 			<Value data="1234.56789" type="System.Double" />
@@ -30,6 +31,8 @@
 	</Assign>
 
 	<Include name="bob_include_content.txt" />
+	
+	<Alias local-name="Scrizzle" namespace-uri="http://code.google.com/p/textmetal/rev3" aqt-name="TextMetal.Core.TemplateModel.WriteConstruct, TextMetal.Core" />
 
 	<Import name="bob_import_template.xml" />
 	
@@ -46,7 +49,6 @@
 					<Value type="System.Boolean" data="false" />
 				</BinaryExpression.LeftExpression>
 				<BinaryExpression.RightExpression>
-					<DebuggerBreakpoint />
 					<Value type="System.Boolean" data="true" />
 				</BinaryExpression.RightExpression>
 			</BinaryExpression>

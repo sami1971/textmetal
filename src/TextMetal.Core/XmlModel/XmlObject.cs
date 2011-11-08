@@ -28,6 +28,22 @@ namespace TextMetal.Core.XmlModel
 
 		#region Properties/Indexers/Events
 
+		public virtual Type[] AllowedChildTypes
+		{
+			get
+			{
+				return new Type[] { typeof(IXmlObject) };
+			}
+		}
+
+		public virtual Type[] AllowedParentTypes
+		{
+			get
+			{
+				return new Type[] { typeof(IXmlObject) };
+			}
+		}
+
 		public IXmlObject Content
 		{
 			get
@@ -58,20 +74,6 @@ namespace TextMetal.Core.XmlModel
 			{
 				this.parent = value;
 			}
-		}
-
-		#endregion
-
-		#region Methods/Operators
-
-		Type IXmlObject.GetAllowedChildTypes()
-		{
-			return typeof(IXmlObject);
-		}
-
-		Type IXmlObject.GetAllowedParentTypes()
-		{
-			return typeof(IXmlObject);
 		}
 
 		#endregion

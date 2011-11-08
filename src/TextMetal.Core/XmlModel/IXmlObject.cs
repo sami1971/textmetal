@@ -12,6 +12,16 @@ namespace TextMetal.Core.XmlModel
 	{
 		#region Properties/Indexers/Events
 
+		Type[] AllowedChildTypes
+		{
+			get;
+		}
+
+		Type[] AllowedParentTypes
+		{
+			get;
+		}
+
 		IXmlObject Content
 		{
 			get;
@@ -28,14 +38,6 @@ namespace TextMetal.Core.XmlModel
 			get;
 			set;
 		}
-
-		#endregion
-
-		#region Methods/Operators
-
-		Type GetAllowedChildTypes();
-
-		Type GetAllowedParentTypes();
 
 		#endregion
 	}

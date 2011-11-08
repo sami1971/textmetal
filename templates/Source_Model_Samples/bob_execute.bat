@@ -8,7 +8,7 @@ REM
 echo *** bob_execute ***
 "..\..\src\TextMetal.Console\bin\Debug\TextMetal.exe" ^
 	-templatefile:"bob_master_template.xml" ^
-	-sourcefile:"TextMetal.Data.dll" ^
+	-sourcefile:"*" ^
 	-basedir:".\output" ^
 	-sourcestrategy:"TextMetal.Core.SourceModel.Primative.NullSourceStrategy, TextMetal.Core" ^
 	-strict:"true" ^

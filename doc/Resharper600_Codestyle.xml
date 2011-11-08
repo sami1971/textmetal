@@ -1,6 +1,8 @@
 <CodeStyleSettings>
   <CSS>
-    <FormatSettings />
+    <FormatSettings>
+      <BRACE_STYLE>NEXT_LINE</BRACE_STYLE>
+	</FormatSettings>
     <Naming2 />
   </CSS>
   <CSharp>

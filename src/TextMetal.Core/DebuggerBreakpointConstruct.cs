@@ -27,7 +27,29 @@ namespace TextMetal.Core
 
 		#endregion
 
+		#region Fields/Constants
+
+		private IXmlObject parent;
+
+		#endregion
+
 		#region Properties/Indexers/Events
+
+		public Type[] AllowedChildTypes
+		{
+			get
+			{
+				return new Type[] { typeof(IXmlObject) };
+			}
+		}
+
+		public Type[] AllowedParentTypes
+		{
+			get
+			{
+				return new Type[] { typeof(IXmlObject) };
+			}
+		}
 
 		public IXmlObject Content
 		{
@@ -61,11 +83,11 @@ namespace TextMetal.Core
 		{
 			get
 			{
-				return null;
+				return this.parent;
 			}
 			set
 			{
-				// do nothing
+				this.parent = value;
 			}
 		}
 
@@ -93,16 +115,6 @@ namespace TextMetal.Core
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();
-		}
-
-		public Type GetAllowedChildTypes()
-		{
-			return null;
-		}
-
-		public Type GetAllowedParentTypes()
-		{
-			return null;
 		}
 
 		public IEnumerator GetAssociativeObjectEnumerator()

@@ -28,7 +28,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			if ((object)properties == null)
 				throw new ArgumentNullException("properties");
 
-			return null;
+			return new object();
 		}
 
 		#endregion

@@ -45,6 +45,7 @@ namespace TextMetal.Core
 			xpe.RegisterKnownXmlObject<DescendingConstruct>();
 			xpe.RegisterKnownXmlObject<SortContainerConstruct>();
 
+			xpe.RegisterKnownXmlObject<AliasConstruct>();
 			xpe.RegisterKnownXmlObject<AllocConstruct>();
 			xpe.RegisterKnownXmlObject<AssignConstruct>();
 			xpe.RegisterKnownXmlObject<ForConstruct>();

@@ -22,6 +22,11 @@ namespace TextMetal.Core.XmlModel
 
 		IXmlObject DeserializeFromXml(Stream stream);
 
+		void RegisterKnownXmlObject<TObject>(XmlName xmlName)
+			where TObject : IXmlObject;
+
+		void RegisterKnownXmlObject(XmlName xmlName, Type targetType);
+
 		void RegisterKnownXmlObject<TObject>()
 			where TObject : IXmlObject;
 

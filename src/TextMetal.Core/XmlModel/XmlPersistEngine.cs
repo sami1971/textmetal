@@ -105,7 +105,7 @@ namespace TextMetal.Core.XmlModel
 			XmlElementMappingAttribute currentXmlElementMappingAttribute;
 
 			IXmlObject parentXmlObject = null;
-			Type parentType;
+			Type parentType = null;
 			PropertyInfo[] parentPropertyInfos;
 			XmlElementMappingAttribute parentXmlElementMappingAttribute = null;
 
@@ -257,6 +257,14 @@ namespace TextMetal.Core.XmlModel
 			if ((object)currentXmlObject == null)
 				throw new InvalidOperationException(string.Format("TODO (enhancement): add meaningful message '{0}'", currentElementXmlName));
 
+			if ((object)currentXmlObject.AllowedParentTypes == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+
+			// new instance type check
+			if ((object)parentType != null && // non-root node?
+			    currentXmlObject.AllowedParentTypes.Count(t => t.IsAssignableFrom(parentType)) <= 0)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+
 			currentXmlObject.Parent = parentXmlObject;
 
 			currentType = currentXmlObject.GetType();
@@ -327,15 +335,24 @@ namespace TextMetal.Core.XmlModel
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
 				if (parentXmlElementMappingAttribute.ChildElementModel == ChildElementModel.Content)
+				{
+					// new instance check
+					if ((object)parentXmlObject.Content != null)
+						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+
 					parentXmlObject.Content = currentXmlObject;
+				}
 				else if (parentXmlElementMappingAttribute.ChildElementModel == ChildElementModel.Items)
 				{
+					if ((object)parentXmlObject.AllowedChildTypes == null)
+						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+
 					if ((object)parentXmlObject.Items == null)
 						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
 					// new collection type check
-					//if (!parentXmlElementMappingAttribute.AnonymousChildrenAllowedType.IsAssignableFrom(currentType))
-					//throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+					if (parentXmlObject.AllowedChildTypes.Count(t => t.IsAssignableFrom(currentType)) <= 0)
+						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
 					parentXmlObject.Items.Add(currentXmlObject);
 				}
@@ -564,6 +581,36 @@ namespace TextMetal.Core.XmlModel
 			return false;
 		}
 
+		public void RegisterKnownXmlObject<TObject>(XmlName xmlName)
+			where TObject : IXmlObject
+		{
+			Type targetType;
+
+			if ((object)xmlName == null)
+				throw new ArgumentNullException("xmlName");
+
+			targetType = typeof(TObject);
+
+			this.RegisterKnownXmlObject(xmlName, targetType);
+		}
+
+		public void RegisterKnownXmlObject(XmlName xmlName, Type targetType)
+		{
+			if ((object)xmlName == null)
+				throw new ArgumentNullException("xmlName");
+
+			if ((object)targetType == null)
+				throw new ArgumentNullException("targetType");
+
+			if (this.KnownXmlObjectTypeRegistrations.ContainsKey(xmlName))
+				throw new InvalidOperationException(string.Format("TODO (enhancement): add meaningful message | XML for target type '{0}'.", targetType.FullName));
+
+			if (!typeof(IXmlObject).IsAssignableFrom(targetType))
+				throw new InvalidOperationException(string.Format("TODO (enhancement): add meaningful message | '{0}'.", targetType.FullName));
+
+			this.KnownXmlObjectTypeRegistrations.Add(xmlName, targetType);
+		}
+
 		public void RegisterKnownXmlObject<TObject>()
 			where TObject : IXmlObject
 		{
@@ -593,13 +640,7 @@ namespace TextMetal.Core.XmlModel
 			          	NamespaceUri = xmlElementMappingAttribute.NamespaceUri
 			          };
 
-			if (this.KnownXmlObjectTypeRegistrations.ContainsKey(xmlName))
-				throw new InvalidOperationException(string.Format("TODO (enhancement): add meaningful message | XML for target type '{0}'.", targetType.FullName));
-
-			if (!typeof(IXmlObject).IsAssignableFrom(targetType))
-				throw new InvalidOperationException(string.Format("TODO (enhancement): add meaningful message | '{0}'.", targetType.FullName));
-
-			this.KnownXmlObjectTypeRegistrations.Add(xmlName, targetType);
+			this.RegisterKnownXmlObject(xmlName, targetType);
 		}
 
 		public void RegisterKnownXmlTextObject<TObject>()
