@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -10,25 +10,25 @@ using System.Data;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// Provides static helper and/or extension methods for ADO.NET.
+	/// 	Provides static helper and/or extension methods for ADO.NET.
 	/// </summary>
 	public static class AdoNetHelper
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// Request a new data parameter from the data source.
+		/// 	An extension method to create a new data parameter from the data source.
 		/// </summary>
-		/// <param name="unitOfWorkContext">The target unit of work context.</param>
-		/// <param name="direction">Specifies the parameter direction.</param>
-		/// <param name="type">Specifies the parameter provider-(in)dependent type.</param>
-		/// <param name="size">Specifies the parameter size.</param>
-		/// <param name="precision">Specifies the parameter precision.</param>
-		/// <param name="scale">Specifies the parameter scale.</param>		
-		/// <param name="nullable">Specifies the parameter nullable-ness.</param>
-		/// <param name="name">Specifies the parameter name.</param>
-		/// <param name="value">Specifies the parameter value.</param>
-		/// <returns>The data parameter with the specified properties set.</returns>
+		/// <param name="unitOfWorkContext"> The target unit of work context. </param>
+		/// <param name="direction"> Specifies the parameter direction. </param>
+		/// <param name="type"> Specifies the parameter provider-(in)dependent type. </param>
+		/// <param name="size"> Specifies the parameter size. </param>
+		/// <param name="precision"> Specifies the parameter precision. </param>
+		/// <param name="scale"> Specifies the parameter scale. </param>
+		/// <param name="nullable"> Specifies the parameter nullable-ness. </param>
+		/// <param name="name"> Specifies the parameter name. </param>
+		/// <param name="value"> Specifies the parameter value. </param>
+		/// <returns> The data parameter with the specified properties set. </returns>
 		public static IDataParameter CreateParameter(this UnitOfWorkContext unitOfWorkContext, ParameterDirection direction, DbType type, int size, byte precision, byte scale, bool nullable, string name, object value)
 		{
 			IDbDataParameter dbDataParameter;
@@ -54,12 +54,23 @@ namespace TextMetal.Core.Plumbing
 			return dbDataParameter;
 		}
 
+		/// <summary>
+		/// 	An extension method to execute a dictionary query operation against a target UnitOfWorkContext.
+		/// </summary>
+		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
+		/// <param name="commandType"> The type of the command. </param>
+		/// <param name="commandText"> The SQL text or stored procedure name. </param>
+		/// <param name="commandParameters"> The parameters to use during the operation. </param>
+		/// <param name="recordsAffected"> The output count of records affected. </param>
+		/// <returns> A list of dictionary instances, containing key/value pairs of data. </returns>
 		public static IList<IDictionary<string, object>> ExecuteDictionary(this UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters, out int recordsAffected)
 		{
 			IList<IDictionary<string, object>> objs;
 			IDictionary<string, object> obj;
 			IDataReader dataReader;
-			CommandBehavior commandBehavior;
+			const bool COMMAND_PREPARE = false;
+			/* const */ int? COMMAND_TIMEOUT = null;
+			const CommandBehavior COMMAND_BEHAVIOR = CommandBehavior.Default; // force command behavior to default; the unit of work context will manage connection lifetime
 
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -71,9 +82,7 @@ namespace TextMetal.Core.Plumbing
 
 			try
 			{
-				commandBehavior = false ? CommandBehavior.CloseConnection : CommandBehavior.Default;
-
-				using (dataReader = ExecuteReader(unitOfWorkContext.Connection, unitOfWorkContext.Transaction, commandType, commandText, commandParameters, commandBehavior, null, false))
+				using (dataReader = ExecuteReader(unitOfWorkContext.Connection, unitOfWorkContext.Transaction, commandType, commandText, commandParameters, COMMAND_BEHAVIOR, COMMAND_TIMEOUT, COMMAND_PREPARE))
 				{
 					while (dataReader.Read())
 					{
@@ -106,17 +115,17 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Executes a reader query operation against the database.
+		/// 	Executes a reader query operation against the database.
 		/// </summary>
-		/// <param name="dbConnection">The database connection.</param>
-		/// <param name="dbTransaction">An optional local database transaction.</param>
-		/// <param name="commandType">The type of the command.</param>
-		/// <param name="commandText">The SQL text or stored procedure name.</param>
-		/// <param name="commandParameters">The parameters to use during the operation.</param>
-		/// <param name="commandBehavior">The reader behavior.</param>
-		/// <param name="commandTimeout">The command timeout (use null for default).</param>
-		/// <param name="commandPrepare">Whether to prepare the command at the data source.</param>
-		/// <returns>The data reader result.</returns>
+		/// <param name="dbConnection"> The database connection. </param>
+		/// <param name="dbTransaction"> An optional local database transaction. </param>
+		/// <param name="commandType"> The type of the command. </param>
+		/// <param name="commandText"> The SQL text or stored procedure name. </param>
+		/// <param name="commandParameters"> The parameters to use during the operation. </param>
+		/// <param name="commandBehavior"> The reader behavior. </param>
+		/// <param name="commandTimeout"> The command timeout (use null for default). </param>
+		/// <param name="commandPrepare"> Whether to prepare the command at the data source. </param>
+		/// <returns> The data reader result. </returns>
 		public static IDataReader ExecuteReader(IDbConnection dbConnection, IDbTransaction dbTransaction, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters, CommandBehavior commandBehavior, int? commandTimeout, bool commandPrepare)
 		{
 			IDbCommand dbCommand = null;
@@ -169,6 +178,14 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	An extension method to execute a schema query operation against a target UnitOfWorkContext.
+		/// </summary>
+		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
+		/// <param name="commandType"> The type of the command. </param>
+		/// <param name="commandText"> The SQL text or stored procedure name. </param>
+		/// <param name="commandParameters"> The parameters to use during the operation. </param>
+		/// <returns> A list of dictionary instances, containing key/value pairs of schema data. </returns>
 		public static IList<IDictionary<string, object>> ExecuteSchema(this UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters)
 		{
 			IList<IDictionary<string, object>> objs;

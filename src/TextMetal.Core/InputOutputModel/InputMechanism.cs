@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -29,7 +29,7 @@ namespace TextMetal.Core.InputOutputModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets a value indicating whether the current instance has been disposed.
+		/// 	Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -54,7 +54,7 @@ namespace TextMetal.Core.InputOutputModel
 		protected abstract ITemplateXmlObject CoreLoadFragment(string resourceName);
 
 		/// <summary>
-		/// Dispose of the data source transaction.
+		/// 	Dispose of the data source transaction.
 		/// </summary>
 		public void Dispose()
 		{
@@ -71,9 +71,9 @@ namespace TextMetal.Core.InputOutputModel
 			}
 		}
 
-		public Assembly LoadAssembly(string assembluName)
+		public Assembly LoadAssembly(string assemblyName)
 		{
-			return this.CoreLoadAssembly(assembluName);
+			return this.CoreLoadAssembly(assemblyName);
 		}
 
 		public string LoadContent(string resourceName)

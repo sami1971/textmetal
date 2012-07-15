@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TextMetal.WebHostSample</RootNamespace>
     <AssemblyName>TextMetal.WebHostSample</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <SilverlightApplicationList>
     </SilverlightApplicationList>
@@ -80,7 +80,6 @@
     <Compile Include="Objects\Hosts\Email\IEmailMessage.cs" />
     <Compile Include="Objects\Hosts\Email\MessageTemplate.cs" />
     <Compile Include="Objects\LowercaseRoute.cs" />
-    <Compile Include="Objects\Message.cs" />
     <Compile Include="Objects\Model\IRepository.cs" />
     <Compile Include="Objects\Model\IRepository.g.cs" />
     <Compile Include="Objects\Model\IRepository.sp.g.cs" />

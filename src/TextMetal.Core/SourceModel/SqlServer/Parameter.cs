@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -50,6 +50,7 @@ namespace TextMetal.Core.SourceModel.SqlServer
 		private bool parameterNullable;
 		private int parameterOrdinal;
 		private byte parameterPrecision;
+		private string parameterPrefix;
 		private byte parameterScale;
 		private short parameterSize;
 		private string parameterSqlType;
@@ -393,6 +394,19 @@ namespace TextMetal.Core.SourceModel.SqlServer
 			set
 			{
 				this.parameterPrecision = value;
+			}
+		}
+
+		[XmlAttribute]
+		public string ParameterPrefix
+		{
+			get
+			{
+				return this.parameterPrefix;
+			}
+			set
+			{
+				this.parameterPrefix = value;
 			}
 		}
 

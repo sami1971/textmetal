@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -19,7 +19,7 @@ using TextMetal.Core.UnitTests.TestingFramework;
 namespace TextMetal.Core.UnitTests.TokenModel
 {
 	/// <summary>
-	/// Unit tests.
+	/// 	Unit tests.
 	/// </summary>
 	[TestFixture]
 	public class TokenizerTests

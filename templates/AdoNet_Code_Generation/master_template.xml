@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!--
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://code.google.com/p/textmetal/rev3">
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+	
+	<Import name="dbf_manager_template.xml" />
+	<Import name="db_history_template.xml" />
+	<Import name="db_revision_template.xml" />
+	
+	<Import name="fsj_query_template.xml" />
+	<Import name="fsj_order_template.xml" />
+	<Import name="fsj_sql_expr_visit_template.xml" />
 	
 	<Import name="irepository_template.xml" />
 	<Import name="repository_template.xml" />
+	<Import name="repository_sqlite_template.xml" />
+	<Import name="repository_sqlserver_template.xml" />
 	
 	<Import name="tbl_vw_model_template.xml" />
-	<Import name="tbl_vw_query_template.xml" />
 	
 	<Import name="tbl_vw_irepository_template.xml" />
 	<Import name="tbl_vw_repository_template.xml" />
@@ -28,7 +37,6 @@
 	<Import name="ut_sprc_response_model_template.xml" />
 	<Import name="ut_sprc_result_model_template.xml" />
 	<Import name="ut_tbl_vw_model_template.xml" />
-	<Import name="ut_tbl_vw_query_template.xml" />
 	
 	<Import name="it_tbl_vw_repository_template.xml" />
 	<Import name="it_sprc_repository_template.xml" />

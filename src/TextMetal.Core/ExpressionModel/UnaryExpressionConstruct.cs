@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -13,9 +13,9 @@ using TextMetal.Core.XmlModel;
 namespace TextMetal.Core.ExpressionModel
 {
 	/// <summary>
-	/// This class uses the C# compiler style of numeric promotions.
+	/// 	This class uses the C# compiler style of numeric promotions.
 	/// </summary>
-	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class UnaryExpressionConstruct : ExpressionXmlObject
 	{
 		#region Constructors/Destructors
@@ -35,7 +35,7 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "TheExpression", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "TheExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public ExpressionContainerConstruct TheExpression
 		{
 			get

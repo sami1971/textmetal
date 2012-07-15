@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -11,19 +11,18 @@ using System.Reflection;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// Provides common reflection scenarios.
+	/// 	Provides common reflection scenarios.
 	/// </summary>
 	public static class Reflexion
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// Gets all custom attributes of the specified type.		
-		/// If no custom attributes of the specified type are defined, then null is returned.
+		/// 	Gets all custom attributes of the specified type. If no custom attributes of the specified type are defined, then null is returned.
 		/// </summary>
-		/// <typeparam name="TAttribute">The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.)</typeparam>
-		/// <param name="target">The target object.</param>
-		/// <returns>The custom attributes array or null.</returns>
+		/// <typeparam name="TAttribute"> The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.) </typeparam>
+		/// <param name="target"> The target object. </param>
+		/// <returns> The custom attributes array or null. </returns>
 		public static TAttribute[] GetAllAttributes<TAttribute>(ICustomAttributeProvider target)
 			where TAttribute : Attribute
 		{
@@ -41,13 +40,11 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Returns the concatenation of error messages from an exception object.
-		/// All inner exceptions and collected exceptions (public properties implementing IEnumerable&lt;Exception&gt;)
-		/// are returned.
+		/// 	Returns the concatenation of error messages from an exception object. All inner exceptions and collected exceptions (public properties implementing IEnumerable&lt;Exception&gt;) are returned.
 		/// </summary>
-		/// <param name="exception">The root exception to get errors.</param>
-		/// <param name="indent">The indent level count.</param>
-		/// <returns>A string concatenation of error messages delimited by newlines.</returns>
+		/// <param name="exception"> The root exception to get errors. </param>
+		/// <param name="indent"> The indent level count. </param>
+		/// <returns> A string concatenation of error messages delimited by newlines. </returns>
 		public static string GetErrors(Exception exception, int indent)
 		{
 			PropertyInfo[] propertyInfos;
@@ -235,13 +232,11 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Get the single custom attribute of the attribute specified type.
-		/// If more than one custom attribute exists for the requested type, an InvalidOperationException is thrown.
-		/// If no custom attributes of the specified type are defined, then null is returned.
+		/// 	Get the single custom attribute of the attribute specified type. If more than one custom attribute exists for the requested type, an InvalidOperationException is thrown. If no custom attributes of the specified type are defined, then null is returned.
 		/// </summary>
-		/// <typeparam name="TAttribute">The custom attribute type.</typeparam>
-		/// <param name="target">The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.)</param>
-		/// <returns>The single custom attribute or null if none are defined.</returns>
+		/// <typeparam name="TAttribute"> The custom attribute type. </typeparam>
+		/// <param name="target"> The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.) </param>
+		/// <returns> The single custom attribute or null if none are defined. </returns>
 		public static TAttribute GetOneAttribute<TAttribute>(ICustomAttributeProvider target)
 			where TAttribute : Attribute
 		{
@@ -265,11 +260,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Asserts that the custom attribute is not defined on the target.
-		/// If more than zero custom attributes exist for the requested type, an InvalidOperationException is thrown.
+		/// 	Asserts that the custom attribute is not defined on the target. If more than zero custom attributes exist for the requested type, an InvalidOperationException is thrown.
 		/// </summary>
-		/// <typeparam name="TAttribute">The custom attribute type.</typeparam>
-		/// <param name="target">The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.)</param>
+		/// <typeparam name="TAttribute"> The custom attribute type. </typeparam>
+		/// <param name="target"> The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.) </param>
 		public static void GetZeroAttributes<TAttribute>(ICustomAttributeProvider target)
 			where TAttribute : Attribute
 		{
@@ -291,10 +285,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Transforms a nullable type to its underlying non-nullable equivalent.
+		/// 	Transforms a nullable type to its underlying non-nullable equivalent.
 		/// </summary>
-		/// <param name="conversionType">The nullable run-time type to transform.</param>
-		/// <returns>Teh non-nullbale run-time type.</returns>
+		/// <param name="conversionType"> The nullable run-time type to transform. </param>
+		/// <returns> Teh non-nullbale run-time type. </returns>
 		public static Type MakeNonNullableType(Type conversionType)
 		{
 			Type openNullableType;
@@ -316,10 +310,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Transforms a nullable type to its underlying non-nullable equivalent.
+		/// 	Transforms a nullable type to its underlying non-nullable equivalent.
 		/// </summary>
-		/// <param name="conversionType">The nullable run-time type to transform.</param>
-		/// <returns>Teh non-nullbale run-time type.</returns>
+		/// <param name="conversionType"> The nullable run-time type to transform. </param>
+		/// <returns> Teh non-nullbale run-time type. </returns>
 		public static Type MakeNullableType(Type conversionType)
 		{
 			Type openNullableType, closedNullableType;

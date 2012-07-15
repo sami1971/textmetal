@@ -1,4 +1,4 @@
-﻿<Model name="" xmlns="http://code.google.com/p/textmetal/rev3">	
+﻿<Model name="" xmlns="http://www.textmetal.com/api/v4.4.0">	
 	<Property name="mono" type="" value="no" />
 	
 	<Array name="TextFileLines">

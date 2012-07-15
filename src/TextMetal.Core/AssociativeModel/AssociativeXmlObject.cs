@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -244,18 +244,38 @@ namespace TextMetal.Core.AssociativeModel
 		protected virtual IEnumerator CoreGetAssociativeObjectEnumerator()
 		{
 			// default (except for Array)
-			return ((IEnumerable)this).GetEnumerator();
+			return ((IDictionary)this.InnerAsDictionary).GetEnumerator();
+		}
+
+		protected virtual IDictionaryEnumerator CoreGetAssociativeObjectEnumeratorDict()
+		{
+			return ((IDictionary)this.InnerAsDictionary).GetEnumerator();
+		}
+
+		protected virtual IEnumerator<KeyValuePair<string, object>> CoreGetAssociativeObjectEnumeratorTickOne()
+		{
+			return ((IDictionary<string, object>)this.InnerAsDictionary).GetEnumerator();
 		}
 
 		protected virtual object CoreGetAssociativeObjectValue()
 		{
-			// default
+			// default (except for Property)
 			return this;
 		}
 
 		public IEnumerator GetAssociativeObjectEnumerator()
 		{
 			return this.CoreGetAssociativeObjectEnumerator();
+		}
+
+		public IDictionaryEnumerator GetAssociativeObjectEnumeratorDict()
+		{
+			return this.CoreGetAssociativeObjectEnumeratorDict();
+		}
+
+		public IEnumerator<KeyValuePair<string, object>> GetAssociativeObjectEnumeratorTickOne()
+		{
+			return this.CoreGetAssociativeObjectEnumeratorTickOne();
 		}
 
 		public object GetAssociativeObjectValue()
@@ -265,17 +285,17 @@ namespace TextMetal.Core.AssociativeModel
 
 		IDictionaryEnumerator IDictionary.GetEnumerator()
 		{
-			return ((IDictionary)this.InnerAsDictionary).GetEnumerator();
+			return this.CoreGetAssociativeObjectEnumeratorDict();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return ((IEnumerable)this.InnerAsDictionary).GetEnumerator();
+			return this.CoreGetAssociativeObjectEnumerator();
 		}
 
 		IEnumerator<KeyValuePair<string, object>> IEnumerable<KeyValuePair<string, object>>.GetEnumerator()
 		{
-			return ((IDictionary<string, object>)this.InnerAsDictionary).GetEnumerator();
+			return this.CoreGetAssociativeObjectEnumeratorTickOne();
 		}
 
 		void IDictionary.Remove(object key)

@@ -1,5 +1,5 @@
 /*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -11,16 +11,16 @@ using TextMetal.Core.Plumbing;
 namespace TextMetal.Core
 {
 	/// <summary>
-	/// Provides easy access assembly related attribute data.
+	/// 	Provides easy access assembly related attribute data.
 	/// </summary>
 	public class AssemblyInformation
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// Initializes a new instance of the AssemblyInformation class.
+		/// 	Initializes a new instance of the AssemblyInformation class.
 		/// </summary>
-		/// <param name="assembly">The target assembly to examine for information.</param>
+		/// <param name="assembly"> The target assembly to examine for information. </param>
 		public AssemblyInformation(Assembly assembly)
 		{
 			AssemblyTitleAttribute aTiA;
@@ -110,7 +110,7 @@ namespace TextMetal.Core
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the assembly version.
+		/// 	Gets the assembly version.
 		/// </summary>
 		public string AssemblyVersion
 		{
@@ -121,7 +121,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly company.
+		/// 	Gets the assembly company.
 		/// </summary>
 		public string Company
 		{
@@ -132,7 +132,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly configuration.
+		/// 	Gets the assembly configuration.
 		/// </summary>
 		public string Configuration
 		{
@@ -143,7 +143,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly copyright.
+		/// 	Gets the assembly copyright.
 		/// </summary>
 		public string Copyright
 		{
@@ -154,7 +154,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly description.
+		/// 	Gets the assembly description.
 		/// </summary>
 		public string Description
 		{
@@ -165,7 +165,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly informational version.
+		/// 	Gets the assembly informational version.
 		/// </summary>
 		public string InformationalVersion
 		{
@@ -176,7 +176,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly product.
+		/// 	Gets the assembly product.
 		/// </summary>
 		public string Product
 		{
@@ -187,7 +187,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly title.
+		/// 	Gets the assembly title.
 		/// </summary>
 		public string Title
 		{
@@ -198,7 +198,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly trademark.
+		/// 	Gets the assembly trademark.
 		/// </summary>
 		public string Trademark
 		{
@@ -209,7 +209,7 @@ namespace TextMetal.Core
 		}
 
 		/// <summary>
-		/// Gets the assembly Win32 file version.
+		/// 	Gets the assembly Win32 file version.
 		/// </summary>
 		public string Win32FileVersion
 		{

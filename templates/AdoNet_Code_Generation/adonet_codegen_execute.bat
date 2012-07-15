@@ -1,7 +1,7 @@
 @echo off
 
 REM
-REM	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+REM	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 REM
 
@@ -22,9 +22,7 @@ mkdir "%PACKAGE_DIR%"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
-mkdir "%PACKAGE_DIR%\lib\NMock"
-IF %ERRORLEVEL% NEQ 0 goto pkgError
-mkdir "%PACKAGE_DIR%\lib\NUnit"
+mkdir "%PACKAGE_DIR%\lib\TestMetal"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib\TextMetal"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
@@ -41,10 +39,7 @@ goto pkgBuild
 
 :pkgBuild
 
-copy "..\..\lib\NMock\*.*"  "%PACKAGE_DIR%\lib\NMock\."
-IF %ERRORLEVEL% NEQ 0 goto pkgError
-
-copy "..\..\lib\NUnit\*.*"  "%PACKAGE_DIR%\lib\NUnit\."
+copy "..\..\lib\TestMetal\*.*"  "%PACKAGE_DIR%\lib\TestMetal\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

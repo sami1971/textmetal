@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+		
+	<!--<DebuggerBreakpoint />-->
+	
+	<![CDATA[commandText = @"DELETE FROM " + ConnectionSpecificGetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" WHERE "]]>
+
+	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Or">
+				<BinaryExpression.LeftExpression>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ColumnIsIdentity" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="True" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="ColumnIsPrimaryKey" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Boolean" data="True" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>
+			<![CDATA[ + ConnectionSpecificGetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}) + @" = " + ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Ne">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopCount" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+					<![CDATA[ + @" AND "]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	</ForEach>
+
+	<![CDATA[;]]>
+	
+</Template>

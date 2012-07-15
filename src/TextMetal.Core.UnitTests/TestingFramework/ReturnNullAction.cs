@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -12,7 +12,7 @@ using NMock2.Monitoring;
 namespace TextMetal.Core.UnitTests.TestingFramework
 {
 	/// <summary>
-	/// Circumvents nullable issue in NMock2.
+	/// 	Circumvents nullable issue in NMock2.
 	/// </summary>
 	public class ReturnNullAction : IAction
 	{
@@ -33,7 +33,7 @@ namespace TextMetal.Core.UnitTests.TestingFramework
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the singleton instance.
+		/// 	Gets the singleton instance.
 		/// </summary>
 		public static ReturnNullAction Instance
 		{
@@ -48,17 +48,17 @@ namespace TextMetal.Core.UnitTests.TestingFramework
 		#region Methods/Operators
 
 		/// <summary>
-		/// Not documented on purpose.
+		/// 	Not documented on purpose.
 		/// </summary>
-		/// <param name="writer">Not documented on purpose.</param>
+		/// <param name="writer"> Not documented on purpose. </param>
 		public void DescribeTo(TextWriter writer)
 		{
 		}
 
 		/// <summary>
-		/// Not documented on purpose.
+		/// 	Not documented on purpose.
 		/// </summary>
-		/// <param name="invocation">Not documented on purpose.</param>
+		/// <param name="invocation"> Not documented on purpose. </param>
 		public void Invoke(Invocation invocation)
 		{
 		}

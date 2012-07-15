@@ -1,43 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<MessageTemplate xmlns="http://code.google.com/p/softwareishardwork/message-template/v2">
+<MessageTemplate xmlns="http://www.textmetal.com/api/v4.4.0">
 
 	<From>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3"><![CDATA[alice@example.com]]></Template>
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0"><![CDATA[alice@example.com]]></Template>
 	</From>
 
 	<Sender>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3" />
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
 	</Sender>
 
 	<ReplyTo>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3" />
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
 	</ReplyTo>
 
 	<To>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3"><![CDATA[bob@example.com]]></Template>
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0"><![CDATA[bob@example.com]]></Template>
 	</To>
 
 	<CC>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3" />
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
 	</CC>
 
 	<BCC>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3" />
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
 	</BCC>
 
 	<Subject>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3"><![CDATA[Unhandled Exception]]></Template>
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0"><![CDATA[Unhandled Exception]]></Template>
 	</Subject>
 
 	<IsBodyHtml>false</IsBodyHtml>
 
 	<Body>
-		<Template xmlns="http://code.google.com/p/textmetal/rev3">
+		<Template xmlns="http://www.textmetal.com/api/v4.4.0">
 			<![CDATA[The following error occured:
 
 ${Error}

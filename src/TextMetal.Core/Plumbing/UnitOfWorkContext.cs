@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -33,7 +33,7 @@ namespace TextMetal.Core.Plumbing
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the current ambient unit of work context active on the current thread and application domain.
+		/// 	Gets the current ambient unit of work context active on the current thread and application domain.
 		/// </summary>
 		public static UnitOfWorkContext Current
 		{
@@ -48,7 +48,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether the current instance has been completed.
+		/// 	Gets a value indicating whether the current instance has been completed.
 		/// </summary>
 		public bool Completed
 		{
@@ -63,7 +63,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets the underlying ADO.NET connection.
+		/// 	Gets the underlying ADO.NET connection.
 		/// </summary>
 		public IDbConnection Connection
 		{
@@ -81,7 +81,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets the context object.
+		/// 	Gets the context object.
 		/// </summary>
 		public IDisposable Context
 		{
@@ -99,7 +99,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether the current instance has been disposed.
+		/// 	Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -114,7 +114,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether the current instance has been diverged.
+		/// 	Gets a value indicating whether the current instance has been diverged.
 		/// </summary>
 		public bool Diverged
 		{
@@ -129,7 +129,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets the underlying ADO.NET transaction.
+		/// 	Gets the underlying ADO.NET transaction.
 		/// </summary>
 		public IDbTransaction Transaction
 		{
@@ -150,7 +150,7 @@ namespace TextMetal.Core.Plumbing
 
 		#region Methods/Operators
 
-		public static UnitOfWorkContext Create(Type connectionType, string connectionString, bool transactioanl)
+		public static UnitOfWorkContext Create(Type connectionType, string connectionString, bool transactional)
 		{
 			UnitOfWorkContext unitOfWorkContext;
 			const bool OPEN = true;
@@ -172,7 +172,7 @@ namespace TextMetal.Core.Plumbing
 				unitOfWorkContext.Connection.ConnectionString = connectionString;
 				unitOfWorkContext.Connection.Open();
 
-				if (transactioanl)
+				if (transactional)
 					unitOfWorkContext.Transaction = unitOfWorkContext.Connection.BeginTransaction();
 			}
 
@@ -217,8 +217,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Indicates that all operations within the unit of work context have completed successfully.
-		/// This method should only be called once.
+		/// 	Indicates that all operations within the unit of work context have completed successfully. This method should only be called once.
 		/// </summary>
 		public void Complete()
 		{
@@ -232,7 +231,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Dispose of the unit of work context.
+		/// 	Dispose of the unit of work context.
 		/// </summary>
 		public void Dispose()
 		{
@@ -251,9 +250,7 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Indicates that at least one operation within the unit of work context cause a failure in data concurrency or idempotency.
-		/// This forces the entire unit of work to yield an incomplete status.
-		/// This method can be call any number of times.
+		/// 	Indicates that at least one operation within the unit of work context cause a failure in data concurrency or idempotency. This forces the entire unit of work to yield an incomplete status. This method can be called any number of times.
 		/// </summary>
 		public void Divergent()
 		{

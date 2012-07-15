@@ -1,37 +1,37 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
 namespace TextMetal.Core
 {
 	/// <summary>
-	/// Specifies the severity of a message.
+	/// 	Specifies the severity of a message.
 	/// </summary>
 	public enum Severity : uint
 	{
 		/// <summary>
-		/// None.
+		/// 	None.
 		/// </summary>
 		None = 0,
 
 		/// <summary>
-		/// Information.
+		/// 	Information.
 		/// </summary>
 		Information = 1,
 
 		/// <summary>
-		/// Warning.
+		/// 	Warning.
 		/// </summary>
 		Warning = 2,
 
 		/// <summary>
-		/// Error.
+		/// 	Error.
 		/// </summary>
 		Error = 3,
 
 		/// <summary>
-		/// Debug.
+		/// 	Debug.
 		/// </summary>
 		Debug = 0xFFFFFFFF
 	}

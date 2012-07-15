@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -11,17 +11,16 @@ using TextMetal.Core.Plumbing;
 namespace TextMetal.Core.TokenModel
 {
 	/// <summary>
-	/// Provides a dynamic token replacement strategy which executes
-	/// an on-demand callback method to obtain a replacement value.
+	/// 	Provides a dynamic token replacement strategy which executes an on-demand callback method to obtain a replacement value.
 	/// </summary>
 	public class DynamicValueTokenReplacementStrategy : ITokenReplacementStrategy
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// Initializes a new instance of the DynamicValueTokenReplacementStrategy class.
+		/// 	Initializes a new instance of the DynamicValueTokenReplacementStrategy class.
 		/// </summary>
-		/// <param name="method">The callback method to evaluate during token replacement.</param>
+		/// <param name="method"> The callback method to evaluate during token replacement. </param>
 		public DynamicValueTokenReplacementStrategy(Func<string[], object> method)
 		{
 			if ((object)method == null)
@@ -41,7 +40,7 @@ namespace TextMetal.Core.TokenModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the callback method to evaluate during token replacement.
+		/// 	Gets the callback method to evaluate during token replacement.
 		/// </summary>
 		public Func<string[], object> Method
 		{
@@ -163,10 +162,10 @@ namespace TextMetal.Core.TokenModel
 		}
 
 		/// <summary>
-		/// Evaluate a token using any parameters specified.
+		/// 	Evaluate a token using any parameters specified.
 		/// </summary>
-		/// <param name="parameters">Should be null for value semantics; or a valid string array for function semantics.</param>
-		/// <returns>An approapriate token replacement value.</returns>
+		/// <param name="parameters"> Should be null for value semantics; or a valid string array for function semantics. </param>
+		/// <returns> An approapriate token replacement value. </returns>
 		public object Evaluate(string[] parameters)
 		{
 			return this.method(parameters);

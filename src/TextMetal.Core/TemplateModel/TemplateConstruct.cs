@@ -1,16 +1,17 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
 using System;
+using System.Diagnostics;
 
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Template", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Items)]
+	[XmlElementMapping(LocalName = "Template", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class TemplateConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -21,7 +22,26 @@ namespace TextMetal.Core.TemplateModel
 
 		#endregion
 
+		#region Fields/Constants
+
+		private bool debug;
+
+		#endregion
+
 		#region Properties/Indexers/Events
+
+		[XmlAttributeMapping(LocalName = "debug", NamespaceUri = "")]
+		public bool Debug
+		{
+			get
+			{
+				return this.debug;
+			}
+			set
+			{
+				this.debug = value;
+			}
+		}
 
 		protected override bool IsScopeBlock
 		{
@@ -41,6 +61,9 @@ namespace TextMetal.Core.TemplateModel
 
 			if ((object)templatingContext == null)
 				throw new ArgumentNullException("templatingContext");
+
+			if (this.Debug && !Debugger.IsAttached)
+				Debugger.Break();
 
 			dynamicWildcardTokenReplacementStrategy = templatingContext.GetDynamicWildcardTokenReplacementStrategy();
 

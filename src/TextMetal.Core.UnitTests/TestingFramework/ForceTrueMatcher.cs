@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -11,7 +11,7 @@ using NMock2;
 namespace TextMetal.Core.UnitTests.TestingFramework
 {
 	/// <summary>
-	/// Forces a true match.
+	/// 	Forces a true match.
 	/// </summary>
 	public class ForceTrueMatcher : Matcher
 	{
@@ -32,7 +32,7 @@ namespace TextMetal.Core.UnitTests.TestingFramework
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the singleton instance.
+		/// 	Gets the singleton instance.
 		/// </summary>
 		public static ForceTrueMatcher Instance
 		{
@@ -47,18 +47,18 @@ namespace TextMetal.Core.UnitTests.TestingFramework
 		#region Methods/Operators
 
 		/// <summary>
-		/// Not documented on purpose.
+		/// 	Not documented on purpose.
 		/// </summary>
-		/// <param name="writer">Not documented on purpose.</param>
+		/// <param name="writer"> Not documented on purpose. </param>
 		public override void DescribeTo(TextWriter writer)
 		{
 		}
 
 		/// <summary>
-		/// Not documented on purpose.
+		/// 	Not documented on purpose.
 		/// </summary>
-		/// <param name="o">Not documented on purpose.</param>
-		/// <returns>Not documented on purpose.</returns>
+		/// <param name="o"> Not documented on purpose. </param>
+		/// <returns> Not documented on purpose. </returns>
 		public override bool Matches(object o)
 		{
 			return true;

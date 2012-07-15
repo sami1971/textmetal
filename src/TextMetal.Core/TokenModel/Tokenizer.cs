@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -12,32 +12,18 @@ using TextMetal.Core.Plumbing;
 
 namespace TextMetal.Core.TokenModel
 {
-	/// <summary>
-	/// Replaces a tokenized input string with replacement values.
-	/// A token is in the following format:
-	/// 
-	/// ${token(`arg0`, `arg1`, ...)}
-	///
-	/// token: a required 'key' into a 'dictionary' of token replacement strategies.
-	/// A missing token is considered invalid and no replacement will be made.
-	/// An unknown token considered invalid and no replacement will be made.
-	/// The minimum length of a token is 1; the maximum length of a token is 1024.
-	/// Tokens are case insensative.
-	/// 
-	/// An token may be proceded by an optional function call operator with zero or more arguments.
-	/// Each function call argument must be enclosed in tick marks e.g. `some value`.
-	/// 
-	/// Recursion/nested token expressions is not supported.
-	/// </summary>
+	///<summary>
+	///	Replaces a tokenized input string with replacement values. A token is in the following format: ${token(`arg0`, `arg1`, ...)} token: a required 'key' into a 'dictionary' of token replacement strategies. A missing token is considered invalid and no replacement will be made. An unknown token considered invalid and no replacement will be made. The minimum length of a token is 1; the maximum length of a token is 1024. Tokens are case insensative. An token may be proceded by an optional function call operator with zero or more arguments. Each function call argument must be enclosed in tick marks e.g. `some value`. Recursion/nested token expressions is not supported.
+	///</summary>
 	public sealed class Tokenizer
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// Initializes a new instance of the Tokenizer class.
+		/// 	Initializes a new instance of the Tokenizer class.
 		/// </summary>
-		/// <param name="tokenReplacementStrategies">A dictionary of token replacement strategies.</param>
-		/// <param name="strictMatching">A value indicating if exceptions are thrown for bad token matches.</param>
+		/// <param name="tokenReplacementStrategies"> A dictionary of token replacement strategies. </param>
+		/// <param name="strictMatching"> A value indicating if exceptions are thrown for bad token matches. </param>
 		public Tokenizer(IDictionary<string, ITokenReplacementStrategy> tokenReplacementStrategies, bool strictMatching)
 		{
 			if ((object)tokenReplacementStrategies == null)
@@ -48,9 +34,9 @@ namespace TextMetal.Core.TokenModel
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the Tokenizer class.
+		/// 	Initializes a new instance of the Tokenizer class.
 		/// </summary>
-		/// <param name="strictMatching">A value indicating if exceptions are thrown for bad token matches.</param>
+		/// <param name="strictMatching"> A value indicating if exceptions are thrown for bad token matches. </param>
 		public Tokenizer(bool strictMatching)
 			: this(new Dictionary<string, ITokenReplacementStrategy>(StringComparer.InvariantCultureIgnoreCase), strictMatching)
 		{
@@ -78,7 +64,7 @@ namespace TextMetal.Core.TokenModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the tokenizer regular expression.
+		/// 	Gets the tokenizer regular expression.
 		/// </summary>
 		public static string TokenizerRegEx
 		{
@@ -89,7 +75,7 @@ namespace TextMetal.Core.TokenModel
 		}
 
 		/// <summary>
-		/// Gets an ordered array of the previous execution of expansion tokens encountered.
+		/// 	Gets an ordered array of the previous execution of expansion tokens encountered.
 		/// </summary>
 		public string[] OrderedPreviousExpansionTokens
 		{
@@ -108,7 +94,7 @@ namespace TextMetal.Core.TokenModel
 		}
 
 		/// <summary>
-		/// Gets a value indicating if exceptions are thrown for bad token matches.
+		/// 	Gets a value indicating if exceptions are thrown for bad token matches.
 		/// </summary>
 		public bool StrictMatching
 		{
@@ -119,7 +105,7 @@ namespace TextMetal.Core.TokenModel
 		}
 
 		/// <summary>
-		/// Gets a dictionary of token replacement strategies.
+		/// 	Gets a dictionary of token replacement strategies.
 		/// </summary>
 		public IDictionary<string, ITokenReplacementStrategy> TokenReplacementStrategies
 		{
@@ -159,23 +145,21 @@ namespace TextMetal.Core.TokenModel
 		}
 
 		/// <summary>
-		/// Replaces a tokenized input string with replacement values.
-		/// No wildcard support is assumed.
+		/// 	Replaces a tokenized input string with replacement values. No wildcard support is assumed.
 		/// </summary>
-		/// <param name="tokenizedValue">The input string containing tokenized values.</param>		
-		/// <returns>A string value with all possible replacements made.</returns>
+		/// <param name="tokenizedValue"> The input string containing tokenized values. </param>
+		/// <returns> A string value with all possible replacements made. </returns>
 		public string ExpandTokens(string tokenizedValue)
 		{
 			return this.ExpandTokens(tokenizedValue, null);
 		}
 
 		/// <summary>
-		/// Replaces a tokenized input string with replacement values.
-		/// Wildcard support is optional.
+		/// 	Replaces a tokenized input string with replacement values. Wildcard support is optional.
 		/// </summary>
-		/// <param name="tokenizedValue">The input string containing tokenized values.</param>
-		/// <param name="optionalWildcardTokenReplacementStrategy">An optional wildcard token replacement strategy.</param>
-		/// <returns>A string value with all possible replacements made.</returns>
+		/// <param name="tokenizedValue"> The input string containing tokenized values. </param>
+		/// <param name="optionalWildcardTokenReplacementStrategy"> An optional wildcard token replacement strategy. </param>
+		/// <returns> A string value with all possible replacements made. </returns>
 		public string ExpandTokens(string tokenizedValue, IWildcardTokenReplacementStrategy optionalWildcardTokenReplacementStrategy)
 		{
 			if (DataType.IsNullOrWhiteSpace(tokenizedValue))

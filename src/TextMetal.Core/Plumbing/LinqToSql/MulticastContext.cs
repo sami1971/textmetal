@@ -1,5 +1,5 @@
 /*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -9,19 +9,16 @@ using System.Collections.Generic;
 namespace TextMetal.Core.Plumbing.LinqToSql
 {
 	/// <summary>
-	/// Used as a context for a data source transaction.
-	/// Allows multiple contexts to be associated to a single transaction for differing actual types.
-	/// An exception is throw if duplicate context actual types are registered.
-	/// When disposed, all underlying contexts will also be disposed.
+	/// 	Used as a context for a data source transaction. Allows multiple contexts to be associated to a single transaction for differing actual types. An exception is throw if duplicate context actual types are registered. When disposed, all underlying contexts will also be disposed.
 	/// </summary>
-	/// <typeparam name="TContextBase">The base type (not actual type) of the underlying context.</typeparam>
+	/// <typeparam name="TContextBase"> The base type (not actual type) of the underlying context. </typeparam>
 	public sealed class MulticastContext<TContextBase> : IDisposable
 		where TContextBase : class, IDisposable
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// Initializes a new instance of the MulticastContext`1 class.
+		/// 	Initializes a new instance of the MulticastContext`1 class.
 		/// </summary>
 		public MulticastContext()
 		{
@@ -39,7 +36,7 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets a value indicating whether the current instance has been disposed.
+		/// 	Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -54,8 +51,7 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		#region Methods/Operators
 
 		/// <summary>
-		/// Disposes of the inner contexts.
-		/// Once disposed, the instance cannot be reused.
+		/// 	Disposes of the inner contexts. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public void Dispose()
 		{
@@ -75,11 +71,10 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		}
 
 		/// <summary>
-		/// Gets the single context of the specified actual context type.
-		/// An exception is thrown if the requested actual type has not previously been registered.
+		/// 	Gets the single context of the specified actual context type. An exception is thrown if the requested actual type has not previously been registered.
 		/// </summary>
-		/// <param name="contextActualType">The actual context type requested.</param>
-		/// <returns>An instance of an actual context type.</returns>
+		/// <param name="contextActualType"> The actual context type requested. </param>
+		/// <returns> An instance of an actual context type. </returns>
 		public TContextBase GetContext(Type contextActualType)
 		{
 			TContextBase contextActualInstance;
@@ -99,10 +94,10 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether a context of the specified actual context type has been previously registered.
+		/// 	Gets a value indicating whether a context of the specified actual context type has been previously registered.
 		/// </summary>
-		/// <param name="contextActualType">The actual context type requested.</param>
-		/// <returns>A value indicating whether a context of the specified actual context type has been previously registered.</returns>
+		/// <param name="contextActualType"> The actual context type requested. </param>
+		/// <returns> A value indicating whether a context of the specified actual context type has been previously registered. </returns>
 		public bool HasContext(Type contextActualType)
 		{
 			if (this.disposed)
@@ -115,11 +110,10 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		}
 
 		/// <summary>
-		/// Sets (or registers) a single context instance of the specified actual context type.
-		/// An exception is thrown if the requested actual type has already previously been registered.
+		/// 	Sets (or registers) a single context instance of the specified actual context type. An exception is thrown if the requested actual type has already previously been registered.
 		/// </summary>
-		/// <param name="contextActualType">The actual context type requested.</param>
-		/// <param name="contextActualInstance">The actual context instance to register.</param>
+		/// <param name="contextActualType"> The actual context type requested. </param>
+		/// <param name="contextActualInstance"> The actual context instance to register. </param>
 		public void SetContext(Type contextActualType, TContextBase contextActualInstance)
 		{
 			if (this.disposed)

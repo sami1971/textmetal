@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!--
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://code.google.com/p/textmetal/rev3">
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
 
 	<OutputScope name="${ClrNamespace}\Repository.tv.g.cs">
 		<Include name="include_gen_cprt_message.cs.txt" />
@@ -105,7 +105,7 @@ namespace ${ClrNamespace}
 	{		
 		#region Methods/Operators
 		
-		protected bool PersistModel<TModel>(UnitOfWorkContext unitOfWorkContext, TModel model, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters, int persistNotExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
+		protected bool PersistModel<TModel>(UnitOfWorkContext unitOfWorkContext, TModel model, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int persistNotExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
 			where TModel : class, new()
 		{
 			int recordsAffected;
@@ -129,6 +129,8 @@ namespace ${ClrNamespace}
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
 			
+			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, true, persistNotExpectedRecordsAffected);
+			
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
 			if (recordsAffected <= persistNotExpectedRecordsAffected)
@@ -147,7 +149,7 @@ namespace ${ClrNamespace}
 			return true;
 		}
 		
-		protected IList<TModel> QueryModel<TModel>(UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
+		protected IList<TModel> QueryModel<TModel>(UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
 			where TModel : class, new()
 		{
 			IList<TModel> models;
@@ -170,6 +172,8 @@ namespace ${ClrNamespace}
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
 
+			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
+			
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
 			if (recordsAffected != queryExpectedRecordsAffected)
@@ -194,7 +198,7 @@ namespace ${ClrNamespace}
 			return models;
 		}
 		
-		protected TModel FetchModel<TModel>(UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
+		protected TModel FetchModel<TModel>(UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
 			where TModel: class, new()
 		{
 			TModel model;
@@ -215,7 +219,9 @@ namespace ${ClrNamespace}
 
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
-				
+			
+			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
+			
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 			
 			if (recordsAffected != queryExpectedRecordsAffected)
@@ -238,7 +244,7 @@ namespace ${ClrNamespace}
 			return model;
 		}
 		
-		protected void FillModel<TModel>(UnitOfWorkContext unitOfWorkContext, TModel model, CommandType commandType, string commandText, IEnumerable<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
+		protected void FillModel<TModel>(UnitOfWorkContext unitOfWorkContext, TModel model, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
 			where TModel: class, new()
 		{
 			int recordsAffected;
@@ -261,7 +267,9 @@ namespace ${ClrNamespace}
 
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
-				
+			
+			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
+			
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 			
 			if (recordsAffected != queryExpectedRecordsAffected)
@@ -480,8 +488,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, "@${ColumnNamePascalCase}", ${ColumnNameCamelCase});
-			commandParameters.Add(commandParameter);]]>
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${ColumnNameCamelCase});
+			commandParameters.Add(commandParameter);
+			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -502,9 +511,13 @@ namespace ${ClrNamespace}
 			</If>
 		</ForEach.Body>
 	 </ForEach>
+<![CDATA[
+
+			]]>
+			<Import name="import_selectone.xml" />
 <![CDATA[			
 			
-			ConnectionSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(unitOfWorkContext, commandParameters, out commandText, out queryExpectedRecordsAffected);
+			ConnectionSpecificCommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
 			
 			${TableNameSingularCamelCase} = this.FetchModel<${TableNameSingularPascalCase}>(unitOfWorkContext, CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 							
@@ -513,93 +526,42 @@ namespace ${ClrNamespace}
 			return ${TableNameSingularCamelCase};
 		}
 		
-		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(${TableNameSingularPascalCase}_Query ${TableNameSingularCamelCase}Query)
+		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(Query ${TableNameSingularCamelCase}Query)
 		{
 			IList<${TableNameSingularPascalCase}> retval;
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Find${TableNamePluralPascalCase}(uowc, e), ${TableNameSingularCamelCase}Query);
+			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, q) => this.Find${TableNamePluralPascalCase}(uowc, q), ${TableNameSingularCamelCase}Query);
 			
 			return retval;
 		}
 		
-		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase}_Query ${TableNameSingularCamelCase}Query)
+		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, Query ${TableNameSingularCamelCase}Query)
 		{
 			IList<${TableNameSingularPascalCase}> ${TableNamePluralCamelCase};			
-			IDataParameter commandParameter;
 			List<IDataParameter> commandParameters;
-			string commandText;
+			string commandText, filterFragment, sortFragment;
 			int queryExpectedRecordsAffected;
-			object value;
 			
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
+				
+			if ((object)${TableNameSingularCamelCase}Query == null)
+				throw new ArgumentNullException("${TableNameSingularCamelCase}Query");	
+			
+			if ((object)${TableNameSingularCamelCase}Query.Orders == null)
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
 			commandParameters = new List<IDataParameter>();
 			
-			if ((object)${TableNameSingularCamelCase}Query == null)			
-			{
-				ConnectionSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(unitOfWorkContext, commandParameters, out commandText, out queryExpectedRecordsAffected);
-			}
-			else
-			{
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Or">
-				<BinaryExpression.LeftExpression>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="IsView" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-<![CDATA[				value = !DataType.ObjectsEqualValueSemantics(${TableNameSingularCamelCase}Query.${ColumnNamePascalCase}, default(${ColumnCSharpClrNullableType})) ? ${TableNameSingularCamelCase}Query.${ColumnNamePascalCase} : null;
-				
-				if ((object)value != null && (object)${TableNameSingularCamelCase}Query.IsNull${ColumnNamePascalCase} == null)												
-				{
-					commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, "@${ColumnNamePascalCase}", value);
-					commandParameters.Add(commandParameter);
-				}]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
+			filterFragment = SqlExpressionVisitor.GetFilterText(unitOfWorkContext, commandParameters, ${TableNameSingularCamelCase}Query.Expression);
+			sortFragment = SqlExpressionVisitor.GetSortText(unitOfWorkContext, commandParameters, ${TableNameSingularCamelCase}Query.Orders);
 
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
+			]]>
+			<Import name="import_selectfor.xml" />
 <![CDATA[
-				
-				ConnectionSpecific${TableNameSingularPascalCase}SelectForCommandMagic(unitOfWorkContext, ${TableNameSingularCamelCase}Query, commandParameters, out commandText, out queryExpectedRecordsAffected);
-			}
+			commandText = string.Format(commandText, filterFragment, sortFragment);
+			
+			ConnectionSpecificCommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
 			
 			${TableNamePluralCamelCase} = this.QueryModel<${TableNameSingularPascalCase}>(unitOfWorkContext, CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});			
 			
@@ -655,8 +617,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, "@${ColumnNamePascalCase}", ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
-				commandParameters.Add(commandParameter);]]>
+<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName("${ColumnNamePascalCase}"), ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
+				commandParameters.Add(commandParameter);
+				ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -679,9 +642,13 @@ namespace ${ClrNamespace}
 	</ForEach>
 
 			
-<![CDATA[		
+<![CDATA[
 
-				ConnectionSpecific${TableNameSingularPascalCase}InsertCommandMagic(unitOfWorkContext, commandParameters, out commandText, out persistNotExpectedRecordsAffected);
+				]]>
+				<Import name="import_insert.xml" />
+<![CDATA[
+			
+				ConnectionSpecificCommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
 			}
 			else
 			{
@@ -716,8 +683,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, "@${ColumnNamePascalCase}", ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
-				commandParameters.Add(commandParameter);]]>
+<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
+				commandParameters.Add(commandParameter);
+				ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -770,8 +738,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, "@${ColumnNamePascalCase}", ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
-				commandParameters.Add(commandParameter);]]>
+<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
+				commandParameters.Add(commandParameter);
+				ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -794,17 +763,26 @@ namespace ${ClrNamespace}
 	</ForEach>
 
 			
-<![CDATA[		
+<![CDATA[
 
-				ConnectionSpecific${TableNameSingularPascalCase}UpdateCommandMagic(unitOfWorkContext, commandParameters, out commandText, out persistNotExpectedRecordsAffected);		
+				]]>
+				<Import name="import_update.xml" />
+<![CDATA[
+				
+				ConnectionSpecificCommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
 			}			
 			
 			retval = this.PersistModel<${TableNameSingularPascalCase}>(unitOfWorkContext, ${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, persistNotExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 		
 			if (!retval)
 				return retval;
+			
+			commandParameters.Clear();
+			]]>
+			<Import name="import_identity.xml" />
+<![CDATA[
 				
-			ConnectionSpecific${TableNameSingularPascalCase}IdentityCommandMagic(unitOfWorkContext, commandParameters, out commandText, out queryExpectedRecordsAffected);
+			ConnectionSpecificCommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
 				
 			if (wasNew && !DataType.IsNullOrWhiteSpace(commandText))
 			{
@@ -879,8 +857,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, "@${ColumnNamePascalCase}", ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
-			commandParameters.Add(commandParameter);]]>
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.${ColumnNamePascalCase});
+			commandParameters.Add(commandParameter);
+			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -904,8 +883,12 @@ namespace ${ClrNamespace}
 <![CDATA[
 
 			this.OnPreDelete${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
-		
-			ConnectionSpecific${TableNameSingularPascalCase}DeleteCommandMagic(unitOfWorkContext, commandParameters, out commandText, out persistNotExpectedRecordsAffected);
+
+			]]>
+			<Import name="import_delete.xml" />
+<![CDATA[
+			
+			ConnectionSpecificCommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
 			
 			retval = this.PersistModel<${TableNameSingularPascalCase}>(unitOfWorkContext, ${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, persistNotExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 
@@ -950,1245 +933,6 @@ namespace ${ClrNamespace}
 		</ForEach.Body>
 	 </ForEach>
 <![CDATA[		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}InsertCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}InsertCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}InsertCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}InsertCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}InsertCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Ne">
-				<BinaryExpression.LeftExpression>
-					<Facet name="ColumnIsIdentity" />
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<Value type="System.Boolean" data="True" />
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-<![CDATA[
-
-			commandText = @"]]><Import name="import_insert_sqlserver.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}InsertCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_insert_sqlce.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}InsertCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_insert_sqlite.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}IdentityCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}IdentityCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}IdentityCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}IdentityCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}IdentityCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Eq">
-				<BinaryExpression.LeftExpression>
-					<Value type="System.Boolean" data="False" />
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<Value type="System.Boolean" data="True" />
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-<![CDATA[		
-
-			commandText = @"]]><Import name="import_identity_sqlserver.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}IdentityCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_identity_sqlce.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}IdentityCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_identity_sqlite.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}UpdateCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}UpdateCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}UpdateCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}UpdateCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}UpdateCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="And">
-				<BinaryExpression.LeftExpression>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsIdentity" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-
-<![CDATA[
-
-]]>
-
-	 <ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Or">
-				<BinaryExpression.LeftExpression>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsIdentity" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-	 
-<![CDATA[
-
-			commandText = @"]]><Import name="import_update_sqlserver.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}UpdateCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_update_sqlce.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}UpdateCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_update_sqlite.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}DeleteCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}DeleteCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}DeleteCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}DeleteCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}DeleteCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Or">
-				<BinaryExpression.LeftExpression>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsIdentity" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-<![CDATA[
-
-			commandText = @"]]><Import name="import_delete_sqlserver.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}DeleteCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_delete_sqlce.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}DeleteCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_delete_sqlite.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Eq">
-				<BinaryExpression.LeftExpression>
-					<Facet name="ColumnIsPrimaryKey" />
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<Value type="System.Boolean" data="True" />
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-<![CDATA[
-
-			commandText = @"]]><Import name="import_selectone_sqlserver.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_selectone_sqlce.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}SelectOneCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_selectone_sqlite.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Eq">
-				<BinaryExpression.LeftExpression>
-					<Value type="System.Boolean" data="False" />
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<Value type="System.Boolean" data="True" />
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-<![CDATA[
-
-			commandText = @"]]><Import name="import_selectall_sqlserver.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_selectall_sqlce.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}SelectAllCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_selectall_sqlite.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${TableNameSingularPascalCase}SelectForCommandMagic(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase}_Query ${TableNameSingularCamelCase}Query, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-				
-			if ((object)${TableNameSingularCamelCase}Query == null)
-				throw new ArgumentNullException("${TableNameSingularCamelCase}Query");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${TableNameSingularPascalCase}SelectForCommandMagic(${TableNameSingularCamelCase}Query, commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${TableNameSingularPascalCase}SelectForCommandMagic(${TableNameSingularCamelCase}Query, commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${TableNameSingularPascalCase}SelectForCommandMagic(${TableNameSingularCamelCase}Query, commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${TableNameSingularPascalCase}SelectForCommandMagic(${TableNameSingularPascalCase}_Query ${TableNameSingularCamelCase}Query, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;			
-			string predicateFragment = "", sortFragment = "";
-			object value;
-			
-			if ((object)${TableNameSingularCamelCase}Query == null)
-				throw new ArgumentNullException("${TableNameSingularCamelCase}Query");
-				
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-]]>
-	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Filter>
-			<BinaryExpression operator="Or">
-				<BinaryExpression.LeftExpression>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.LeftExpression>
-				<BinaryExpression.RightExpression>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="IsView" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</BinaryExpression.RightExpression>
-			</BinaryExpression>
-		</ForEach.Filter>
-		<ForEach.Body>
-			
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ColumnNamePascalCase}");
-
-			if ((object)commandParameter != null) // OK here to be NULL
-			{]]>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-
-<![CDATA[
-			}]]>
-
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-		</ForEach.Body>
-	 </ForEach>
-<![CDATA[
-
-			commandText = @"]]><Import name="import_selectfor_sqlserver.xml" /><![CDATA[";
-
-]]>
-
-			<Import name="import_predicatefragment_sqlserver.xml" />
-			<Import name="import_sortfragment_sqlserver.xml" />
-
-<![CDATA[			
-			commandText = string.Format(commandText, predicateFragment, sortFragment);
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${TableNameSingularPascalCase}SelectForCommandMagic(${TableNameSingularPascalCase}_Query ${TableNameSingularCamelCase}Query, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;			
-			string predicateFragment = "", sortFragment = "";
-			object value;
-			
-			if ((object)${TableNameSingularCamelCase}Query == null)
-				throw new ArgumentNullException("${TableNameSingularCamelCase}Query");
-				
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_selectfor_sqlce.xml" /><![CDATA[";
-
-]]>
-
-			<Import name="import_predicatefragment_sqlce.xml" />
-			<Import name="import_sortfragment_sqlce.xml" />
-
-<![CDATA[			
-			commandText = string.Format(commandText, predicateFragment, sortFragment);
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${TableNameSingularPascalCase}SelectForCommandMagic(${TableNameSingularPascalCase}_Query ${TableNameSingularCamelCase}Query, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;			
-			string predicateFragment = "", sortFragment = "";
-			object value;
-			
-			if ((object)${TableNameSingularCamelCase}Query == null)
-				throw new ArgumentNullException("${TableNameSingularCamelCase}Query");
-				
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_selectfor_sqlite.xml" /><![CDATA[";
-
-]]>
-
-			<Import name="import_predicatefragment_sqlite.xml" />
-			<Import name="import_sortfragment_sqlite.xml" />
-
-<![CDATA[
-			commandText = string.Format(commandText, predicateFragment, sortFragment);
-			queryExpectedRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
 		
 		partial void OnPreInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
 		

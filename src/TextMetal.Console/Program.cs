@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -12,10 +12,18 @@ using TextMetal.Core.Plumbing;
 
 namespace TextMetal.Console
 {
+	/// <summary>
+	/// 	Entry point class for the application.
+	/// </summary>
 	internal class Program
 	{
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	When called, displays an interactive folder browser dialog to prompt for a directory path.
+		/// </summary>
+		/// <param name="directoryPath"> The resulting directory path or null if the user canceled. </param>
+		/// <returns> A value indicating whether the user canceled the dialog. </returns>
 		private static bool GetDirectoryPathInteractive(out string directoryPath)
 		{
 			directoryPath = null;
@@ -35,6 +43,11 @@ namespace TextMetal.Console
 			return false;
 		}
 
+		/// <summary>
+		/// 	When called, displays an interactive open file dialog to prompt for a file path.
+		/// </summary>
+		/// <param name="filePath"> The resulting file path or null if the user canceled. </param>
+		/// <returns> A value indicating whether the user canceled the dialog. </returns>
 		private static bool GetFilePathInteractive(out string filePath)
 		{
 			filePath = null;
@@ -56,6 +69,11 @@ namespace TextMetal.Console
 			return false;
 		}
 
+		/// <summary>
+		/// 	The entry point method for this application.
+		/// </summary>
+		/// <param name="args"> The command line arguments passed from the executing environment. </param>
+		/// <returns> The resulting exit code. </returns>
 		[STAThread]
 		private static int Main(string[] args)
 		{
@@ -66,6 +84,11 @@ namespace TextMetal.Console
 #endif
 		}
 
+		/// <summary>
+		/// 	The indirect entry point method for this application. Code is wrapped in this method to leverage the 'TryStartup'/'Startup' pattern. This method contains the TextMetal console application host environment setup code (logic that is specific to a console application to transition to the more generic 'tool' host code).
+		/// </summary>
+		/// <param name="args"> The command line arguments passed from the executing environment. </param>
+		/// <returns> The resulting exit code. </returns>
 		private static int Startup(string[] args)
 		{
 			IDictionary<string, IList<string>> arguments;
@@ -76,6 +99,7 @@ namespace TextMetal.Console
 			bool strictMatching;
 			IDictionary<string, IList<string>> properties;
 			IList<string> _arguments;
+			DateTime startUtc = DateTime.UtcNow;
 
 			const string CMDLN_TOKEN_TEMPLATEFILE = "templatefile";
 			const string CMDLN_TOKEN_SOURCEFILE = "sourcefile";
@@ -158,9 +182,15 @@ namespace TextMetal.Console
 
 			ToolHost.Host(templateFilePath, sourceFilePath, baseDirectoryPath, sourceStrategyAssemblyQualifiedTypeName, strictMatching, properties);
 
+			System.Console.WriteLine("The operation completed successfully; duration: '{0}'.", (DateTime.UtcNow - startUtc));
 			return 0;
 		}
 
+		/// <summary>
+		/// 	The indirect entry point method for this application. Code is wrapped in this method to leverage the 'TryStartup'/'Startup' pattern. This method, if used, wraps the Startup() method in an exception handler. The handler will catch all exceptions and report a full detailed stack trace to the Console.Error stream; -1 is then returned as the exit code. Otherwise, if no exception is thrown, the exit code returned is that which is returned by Startup().
+		/// </summary>
+		/// <param name="args"> The command line arguments passed from the executing environment. </param>
+		/// <returns> The resulting exit code. </returns>
 		private static int TryStartup(string[] args)
 		{
 			try
@@ -174,6 +204,7 @@ namespace TextMetal.Console
 				message = Reflexion.GetErrors(ex, 0);
 
 				System.Console.Error.WriteLine(message);
+				System.Console.WriteLine("The operation failed to complete.");
 			}
 
 			return -1;

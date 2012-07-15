@@ -1,7 +1,7 @@
 @echo off
 
-set NCOVER_EXE=%DEV_KUNG_FU_FILES_ROOT_PATH%\Tools\NCover\ncover.console.exe
-set NUNIT_EXE=%DEV_KUNG_FU_FILES_ROOT_PATH%\Tools\NUnit\bin\nunit-console-x86.exe
+set NCOVER_EXE=..\lib\TestMetal\TestMetal.Profiler.Console.exe
+set NUNIT_EXE=..\lib\TestMetal\TestMetal.Runner.Console.exe
 set ASSEMBLY_LIST=TextMetal.Core
 
 echo NCOVER_EXE=%NCOVER_EXE%

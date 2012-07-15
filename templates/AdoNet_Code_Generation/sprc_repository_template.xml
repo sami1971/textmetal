@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!--
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://code.google.com/p/textmetal/rev3">
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
 
 	<OutputScope name="${ClrNamespace}\Repository.sp.g.cs">
 		<Include name="include_gen_cprt_message.cs.txt" />
@@ -75,7 +75,7 @@ namespace ${ClrNamespace}
 	{		
 		#region Methods/Operators
 		
-		protected TResponse ExecuteReReRe<TRequest, TResult, TResponse>(UnitOfWorkContext unitOfWorkContext, TRequest request, string commandText, IEnumerable<IDataParameter> commandParameters, bool executeAsCud, int thisOrThatRecordsAffected, Action<IDictionary<string, object>, TResult> mapToCallback)
+		protected TResponse ExecuteReReRe<TRequest, TResult, TResponse>(UnitOfWorkContext unitOfWorkContext, TRequest request, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, bool executeAsCud, int thisOrThatRecordsAffected, Action<IDictionary<string, object>, TResult> mapToCallback)
 			where TRequest : class, new()
 			where TResult : class, new()
 			where TResponse : class, new()
@@ -105,7 +105,9 @@ namespace ${ClrNamespace}
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
 
-			results = unitOfWorkContext.ExecuteDictionary(CommandType.StoredProcedure, commandText, commandParameters, out recordsAffected);
+			OnProfileCommand(typeof(TResult), commandType, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected);
+			
+			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
 			if (executeAsCud && recordsAffected <= thisOrThatRecordsAffected)
 			{
@@ -207,8 +209,9 @@ namespace ${ClrNamespace}
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, "@${ParameterNamePascalCase}", request${ProcedureNameSingularPascalCase}.${ParameterNamePascalCase});
-			commandParameters.Add(commandParameter);]]>
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}), request${ProcedureNameSingularPascalCase}.${ParameterNamePascalCase});
+			commandParameters.Add(commandParameter);
+			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ParameterSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -246,8 +249,9 @@ namespace ${ClrNamespace}
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, "@${ParameterNamePascalCase}", null);
-			commandParameters.Add(commandParameter);]]>
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}), null);
+			commandParameters.Add(commandParameter);
+			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ParameterSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -284,20 +288,23 @@ namespace ${ClrNamespace}
 <![CDATA[		
 	
 			executeAsCud = true;
-			ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(unitOfWorkContext, commandParameters, out commandText, out thisOrThatRecordsAffected);
 ]]>
 				</If.True>
 				<If.False>
 <![CDATA[
 
 			executeAsCud = false;
-			ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(unitOfWorkContext, commandParameters, out commandText, out thisOrThatRecordsAffected);
 ]]>
 				</If.False>
 			</If>			
 			
 <![CDATA[
-			response${ProcedureNameSingularPascalCase} = this.ExecuteReReRe<${ProcedureNameSingularPascalCase}_Request, ${ProcedureNameSingularPascalCase}_Result, ${ProcedureNameSingularPascalCase}_Response>(unitOfWorkContext, request${ProcedureNameSingularPascalCase}, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected, MapTo${ProcedureNameSingularPascalCase}_Result);	
+			]]>
+			<Import name="import_execute.xml" />
+<![CDATA[
+			ConnectionSpecificCommandMagic(unitOfWorkContext, executeAsCud, out thisOrThatRecordsAffected);
+
+			response${ProcedureNameSingularPascalCase} = this.ExecuteReReRe<${ProcedureNameSingularPascalCase}_Request, ${ProcedureNameSingularPascalCase}_Result, ${ProcedureNameSingularPascalCase}_Response>(unitOfWorkContext, request${ProcedureNameSingularPascalCase}, CommandType.StoredProcedure, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected, MapTo${ProcedureNameSingularPascalCase}_Result);	
 			
 			foreach (${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase}2 in response${ProcedureNameSingularPascalCase}.Results)
 				this.OnExecuteResult${ProcedureNameSingularPascalCase}(unitOfWorkContext, result${ProcedureNameSingularPascalCase}2);
@@ -330,7 +337,7 @@ namespace ${ClrNamespace}
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-			<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ParameterNamePascalCase}");
+			<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == ConnectionSpecificGetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}));
 			
 			if ((object)commandParameter == null)
 				throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
@@ -400,202 +407,6 @@ namespace ${ClrNamespace}
 		</ForEach.Body>
 	 </ForEach>
 <![CDATA[		}
-
-		private static void ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(commandParameters, out commandText, out persistNotExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			IDataParameter commandParameter;
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-]]>			
-	<ForEach in="Parameters" var-ct="#LoopCount" var-ix="#LoopIndex">
-		<ForEach.Body>
-		
-<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == "@${ParameterNamePascalCase}");
-
-			if ((object)commandParameter == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");]]>
-		
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ParameterSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="ntext" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ParameterSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="text" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));]]>
-				</If.True>
-			</If>
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Eq">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ParameterSqlType" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.String" data="image" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[			
-			
-			Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));]]>
-				</If.True>
-			</If>
-			
-			<If>
-				<If.Condition>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="#LoopCount" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Facet name="#LoopIndex" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
-				</If.Condition>
-				<If.True>
-<![CDATA[
-
-]]>
-				</If.True>
-			</If>
-			
-		</ForEach.Body>
-	 </ForEach>
-			
-<![CDATA[
-
-			commandText = @"]]><Import name="import_execute_sqlserver.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_execute_sqlce.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = MSSQL_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int persistNotExpectedRecordsAffected)
-		{
-			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_execute_sqlite.xml" /><![CDATA[";
-			persistNotExpectedRecordsAffected = SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void ConnectionSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(UnitOfWorkContext unitOfWorkContext, IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			switch (unitOfWorkContext.Connection.GetType().Name.ToLower())
-			{
-				case "sqlconnection":
-					SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqlceconnection":
-					SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				case "sqliteconnection":
-					SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(commandParameters, out commandText, out queryExpectedRecordsAffected);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-		}
-		
-		private static void SqlSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_execute_sqlserver.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqlCeSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_execute_sqlce.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = MSSQL_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
-		
-		private static void SqliteSpecific${ProcedureNameSingularPascalCase}ExecuteAsNonCudCommandMagic(IEnumerable<IDataParameter> commandParameters, out string commandText, out int queryExpectedRecordsAffected)
-		{
-			/* THIS CONNECTION TYPE DOES NOT SUPPORT STORED PROCEDURES */
-			
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			commandText = @"]]><Import name="import_execute_sqlite.xml" /><![CDATA[";
-			queryExpectedRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
-		}
 		
 		partial void OnPreExecute${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase});
 		

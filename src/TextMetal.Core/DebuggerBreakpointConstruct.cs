@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -16,11 +16,17 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core
 {
-	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	/// <summary>
+	/// 	Allows an author of a TextMetal template file to declaratively set a CLR breakpoint anywhere in the object tree.
+	/// </summary>
+	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public class DebuggerBreakpointConstruct : ITemplateXmlObject, IExpressionXmlObject, IAssociativeXmlObject, ISortXmlObject
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the DebuggerBreakpointConstruct class.
+		/// </summary>
 		public DebuggerBreakpointConstruct()
 		{
 		}
@@ -118,6 +124,16 @@ namespace TextMetal.Core
 		}
 
 		public IEnumerator GetAssociativeObjectEnumerator()
+		{
+			return null;
+		}
+
+		public IDictionaryEnumerator GetAssociativeObjectEnumeratorDict()
+		{
+			return null;
+		}
+
+		public IEnumerator<KeyValuePair<string, object>> GetAssociativeObjectEnumeratorTickOne()
 		{
 			return null;
 		}

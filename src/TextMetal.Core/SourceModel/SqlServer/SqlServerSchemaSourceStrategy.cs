@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -506,7 +506,8 @@ namespace TextMetal.Core.SourceModel.SqlServer
 
 													parameter = new Parameter();
 
-													parameter.ParameterName = DataType.ChangeType<string>(drParameter["ParameterName"]);
+													parameter.ParameterPrefix = DataType.ChangeType<string>(drParameter["ParameterName"]).Substring(0, 1);
+													parameter.ParameterName = DataType.ChangeType<string>(drParameter["ParameterName"]).Substring(1);
 													parameter.ParameterOrdinal = DataType.ChangeType<int>(drParameter["ParameterOrdinal"]);
 													parameter.ParameterSize = DataType.ChangeType<short>(drParameter["ParameterSize"]);
 													parameter.ParameterPrecision = DataType.ChangeType<byte>(drParameter["ParameterPrecision"]);
@@ -515,15 +516,15 @@ namespace TextMetal.Core.SourceModel.SqlServer
 													parameter.ParameterIsOutput = DataType.ChangeType<bool>(drParameter["ParameterIsOutput"]);
 													parameter.ParameterIsReadOnly = DataType.ChangeType<bool>(drParameter["ParameterIsReadOnly"]);
 													parameter.ParameterIsCursorRef = DataType.ChangeType<bool>(drParameter["ParameterIsCursorRef"]);
-													parameter.ParameterNamePascalCase = Name.GetPascalCase(parameter.ParameterName.Substring(1));
-													parameter.ParameterNameCamelCase = Name.GetCamelCase(parameter.ParameterName.Substring(1));
-													parameter.ParameterNameConstantCase = Name.GetConstantCase(parameter.ParameterName.Substring(1));
-													parameter.ParameterNameSingularPascalCase = Name.GetPascalCase(Name.GetSingularForm(parameter.ParameterName.Substring(1)));
-													parameter.ParameterNameSingularCamelCase = Name.GetCamelCase(Name.GetSingularForm(parameter.ParameterName.Substring(1)));
-													parameter.ParameterNameSingularConstantCase = Name.GetConstantCase(Name.GetSingularForm(parameter.ParameterName.Substring(1)));
-													parameter.ParameterNamePluralPascalCase = Name.GetPascalCase(Name.GetPluralForm(parameter.ParameterName.Substring(1)));
-													parameter.ParameterNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(parameter.ParameterName.Substring(1)));
-													parameter.ParameterNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(parameter.ParameterName.Substring(1)));
+													parameter.ParameterNamePascalCase = Name.GetPascalCase(parameter.ParameterName);
+													parameter.ParameterNameCamelCase = Name.GetCamelCase(parameter.ParameterName);
+													parameter.ParameterNameConstantCase = Name.GetConstantCase(parameter.ParameterName);
+													parameter.ParameterNameSingularPascalCase = Name.GetPascalCase(Name.GetSingularForm(parameter.ParameterName));
+													parameter.ParameterNameSingularCamelCase = Name.GetCamelCase(Name.GetSingularForm(parameter.ParameterName));
+													parameter.ParameterNameSingularConstantCase = Name.GetConstantCase(Name.GetSingularForm(parameter.ParameterName));
+													parameter.ParameterNamePluralPascalCase = Name.GetPascalCase(Name.GetPluralForm(parameter.ParameterName));
+													parameter.ParameterNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(parameter.ParameterName));
+													parameter.ParameterNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(parameter.ParameterName));
 
 													clrType = InferClrTypeForSqlType(parameter.ParameterSqlType);
 													parameter.ParameterClrType = clrType;

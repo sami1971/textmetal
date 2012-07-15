@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -27,14 +27,14 @@ namespace TextMetal.Core.InputOutputModel
 		{
 		}
 
-		public Assembly LoadAssembly(string assembluName)
+		public Assembly LoadAssembly(string assemblyName)
 		{
 			Assembly assembly;
 
-			if (DataType.IsNullOrWhiteSpace(assembluName))
+			if (DataType.IsNullOrWhiteSpace(assemblyName))
 				return null;
 
-			assembly = Assembly.Load(assembluName);
+			assembly = Assembly.Load(assemblyName);
 
 			return assembly;
 		}

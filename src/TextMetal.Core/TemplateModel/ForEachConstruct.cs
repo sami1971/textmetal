@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -14,7 +14,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "ForEach", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "ForEach", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class ForEachConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -39,7 +39,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "Body", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Body", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public TemplateContainerConstruct Body
 		{
 			get
@@ -52,7 +52,7 @@ namespace TextMetal.Core.TemplateModel
 			}
 		}
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "Filter", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Filter", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public ExpressionContainerConstruct Filter
 		{
 			get
@@ -86,7 +86,7 @@ namespace TextMetal.Core.TemplateModel
 			}
 		}
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "Sort", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Sort", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public SortContainerConstruct Sort
 		{
 			get

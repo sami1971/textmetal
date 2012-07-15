@@ -1,11 +1,12 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
 using System;
 using System.Collections.Generic;
 
+using TextMetal.Core;
 using TextMetal.WebHostSample.Objects.Hosts.Email;
 
 namespace TextMetal.WebHostSample.Objects.Model.Tables

@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -9,15 +9,14 @@ using System.Web;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// Manages execution path storage of objects in a manner which is safe in
-	/// standard executables and libraries and ASP.NET code.
+	/// 	Manages execution path storage of objects in a manner which is safe in standard executables and libraries and ASP.NET code.
 	/// </summary>
 	public static class ExecutionPathStorage
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets a value indicating if the current application domain is running under ASP.NET.
+		/// 	Gets a value indicating if the current application domain is running under ASP.NET.
 		/// </summary>
 		public static bool IsInHttpContext
 		{
@@ -62,10 +61,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets a named value from the current execution context storage mechanism.
+		/// 	Gets a named value from the current execution context storage mechanism.
 		/// </summary>
-		/// <param name="key">The key to lookup in execution path storage.</param>
-		/// <returns>An object value or null.</returns>
+		/// <param name="key"> The key to lookup in execution path storage. </param>
+		/// <returns> An object value or null. </returns>
 		public static object GetValue(string key)
 		{
 			if (IsInHttpContext)
@@ -75,9 +74,9 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Remove a named value from the current execution context storage mechanism.
+		/// 	Remove a named value from the current execution context storage mechanism.
 		/// </summary>
-		/// <param name="key">The key to remove in execution path storage.</param>
+		/// <param name="key"> The key to remove in execution path storage. </param>
 		public static void RemoveValue(string key)
 		{
 			if (IsInHttpContext)
@@ -87,10 +86,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Set a named value in the current execution context storage mechanism.
+		/// 	Set a named value in the current execution context storage mechanism.
 		/// </summary>
-		/// <param name="key">The key to store in execution path storage.</param>
-		/// <param name="value">An object instance or null.</param>
+		/// <param name="key"> The key to store in execution path storage. </param>
+		/// <param name="value"> An object instance or null. </param>
 		public static void SetValue(string key, object value)
 		{
 			if (IsInHttpContext)

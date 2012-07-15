@@ -1,5 +1,5 @@
 /*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -8,23 +8,18 @@ using System;
 namespace TextMetal.Core.Plumbing.LinqToSql
 {
 	/// <summary>
-	/// Used to 'wrap' a context (e.g. DataContext, ObjectContext, SessionImpl, etc.) in a manner such
-	/// that consuming code can leverage a 'using' block which respects an ambient
-	/// DataSourceTransaction context if one is present. Essentially, the disposal of this object
-	/// forwards disposal to the wrapped context if no ambient DataSourceTransaction context if one is present;
-	/// otherwise, no action is performed leaving disposal of the context up to the adjudication
-	/// of the ambient DataSourceTransaction context.
+	/// 	Used to 'wrap' a context (e.g. DataContext, ObjectContext, SessionImpl, etc.) in a manner such that consuming code can leverage a 'using' block which respects an ambient DataSourceTransaction context if one is present. Essentially, the disposal of this object forwards disposal to the wrapped context if no ambient DataSourceTransaction context if one is present; otherwise, no action is performed leaving disposal of the context up to the adjudication of the ambient DataSourceTransaction context.
 	/// </summary>
-	/// <typeparam name="TContext">The type of the underlying or 'wrapped' context.</typeparam>
+	/// <typeparam name="TContext"> The type of the underlying or 'wrapped' context. </typeparam>
 	public sealed class ContextWrapper<TContext> : IDisposable
 		where TContext : class, IDisposable
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// Initializes a new instance of the ContextWrapper`1 class.
+		/// 	Initializes a new instance of the ContextWrapper`1 class.
 		/// </summary>
-		/// <param name="context">The underlying or 'wrapped' context.</param>
+		/// <param name="context"> The underlying or 'wrapped' context. </param>
 		public ContextWrapper(TContext context)
 		{
 			if ((object)context == null)
@@ -45,7 +40,7 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// Gets the underlying or 'wrapped' context.
+		/// 	Gets the underlying or 'wrapped' context.
 		/// </summary>
 		public TContext Context
 		{
@@ -59,7 +54,7 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether the current instance has been disposed.
+		/// 	Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -69,6 +64,9 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 			}
 		}
 
+		/// <summary>
+		/// 	Gets a value indicating whether resources need to be disposed of.
+		/// </summary>
 		private bool ShouldDisposeResources
 		{
 			get
@@ -82,8 +80,7 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		#region Methods/Operators
 
 		/// <summary>
-		/// Disposes of the inner context.
-		/// Once disposed, the instance cannot be reused.
+		/// 	Disposes of the inner context. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public void Dispose()
 		{

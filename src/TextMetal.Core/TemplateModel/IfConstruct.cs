@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -11,7 +11,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "If", NamespaceUri = "http://code.google.com/p/textmetal/rev3", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "If", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class IfConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -32,7 +32,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "Condition", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Condition", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public ExpressionContainerConstruct Condition
 		{
 			get
@@ -45,7 +45,7 @@ namespace TextMetal.Core.TemplateModel
 			}
 		}
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "False", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "False", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public TemplateContainerConstruct False
 		{
 			get
@@ -66,7 +66,7 @@ namespace TextMetal.Core.TemplateModel
 			}
 		}
 
-		[XmlChildElementMappingAttribute(ChildElementType = ChildElementType.ParentQualified, LocalName = "True", NamespaceUri = "http://code.google.com/p/textmetal/rev3")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "True", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
 		public TemplateContainerConstruct True
 		{
 			get

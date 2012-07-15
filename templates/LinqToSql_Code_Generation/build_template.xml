@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <!--
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://code.google.com/p/textmetal/rev3">
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
 		
 	<OutputScope name="..\msb.bat">					
 		<![CDATA[@echo off
 
 REM
-REM	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+REM	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 REM
 
-set BUILD_EXE=C:\WINDOWS\Microsoft.NET\Framework\v3.5\msbuild.exe
+set BUILD_EXE=C:\WINDOWS\Microsoft.NET\Framework\v4.0\msbuild.exe
 
 cd "."
 
@@ -176,7 +176,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -293,7 +293,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.UnitTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -327,13 +327,9 @@ EndGlobal
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
     </Reference>
 	
-	<Reference Include="NMock2, Version=1.0.2313.18049, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="TestMetal.Core, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NMock\NMock2.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.4.0.2, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NUnit\nunit.framework.dll</HintPath>
+      <HintPath>..\..\lib\TestMetal\TestMetal.Core.dll</HintPath>
     </Reference>
 	
 	<ProjectReference Include="..\${ClrNamespace}\${ClrNamespace}.csproj">
@@ -422,7 +418,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.IntegrationTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -457,13 +453,9 @@ EndGlobal
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
     </Reference>
 	
-	<Reference Include="NMock2, Version=1.0.2313.18049, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="TestMetal.Core, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NMock\NMock2.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework, Version=2.4.0.2, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NUnit\nunit.framework.dll</HintPath>
+      <HintPath>..\..\lib\TestMetal\TestMetal.Core.dll</HintPath>
     </Reference>
 	
 	<ProjectReference Include="..\${ClrNamespace}\${ClrNamespace}.csproj">

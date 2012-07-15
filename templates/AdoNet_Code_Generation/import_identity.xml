@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+		
+	<!--<DebuggerBreakpoint />-->
+	<Alloc token="TableAlias" />
+	
+	<Assign token="TableAlias">
+		<Assign.Expression>
+			<Value data="" />
+		</Assign.Expression>
+	</Assign>
+	
+	<![CDATA[commandText = @"SELECT " + ConnectionSpecificGetIdentityCommand() + @" AS "]]>
+	
+	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
+		<ForEach.Filter>
+			<BinaryExpression operator="Eq">
+				<BinaryExpression.LeftExpression>
+					<Facet name="ColumnIsIdentity" />
+				</BinaryExpression.LeftExpression>
+				<BinaryExpression.RightExpression>
+					<Value type="System.Boolean" data="True" />
+				</BinaryExpression.RightExpression>
+			</BinaryExpression>
+		</ForEach.Filter>
+		<ForEach.Body>			
+			<If>
+				<If.Condition>
+					<BinaryExpression operator="Eq">
+						<BinaryExpression.LeftExpression>
+							<Facet name="#LoopIndex" />
+						</BinaryExpression.LeftExpression>
+						<BinaryExpression.RightExpression>
+							<Value type="System.Int32" data="1" />
+						</BinaryExpression.RightExpression>
+					</BinaryExpression>
+				</If.Condition>
+				<If.True>
+					<![CDATA[ + ConnectionSpecificGetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+				</If.True>
+			</If>
+		</ForEach.Body>
+	</ForEach>
+	
+	<![CDATA[;]]>
+
+</Template>

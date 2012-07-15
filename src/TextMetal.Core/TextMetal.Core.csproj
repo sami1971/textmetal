@@ -12,7 +12,7 @@
     <AssemblyName>TextMetal.Core</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -70,12 +70,18 @@
     <Compile Include="DebuggerBreakpointConstruct.cs" />
     <Compile Include="ExpressionModel\BinaryExpressionConstruct.cs" />
     <Compile Include="ExpressionModel\Operators\BinaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Binary\BinaryOperator.cs" />
     <Compile Include="ExpressionModel\AspectConstruct.cs" />
-    <Compile Include="ExpressionModel\Operators\INullaryOperator.cs" />
-    <Compile Include="ExpressionModel\Operators\IUnaryOperator.cs" />
-    <Compile Include="ExpressionModel\Operators\IBinaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\NullaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Nullary\NopOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Nullary\INullaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Nullary\NullaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\UnaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Unary\IUnaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Binary\IBinaryOperator.cs" />
     <Compile Include="ExpressionModel\Operators\IOperator.cs" />
     <Compile Include="ExpressionModel\ExpressionXmlObject.cs" />
+    <Compile Include="ExpressionModel\Operators\OperatorMneumonicAttribute.cs" />
     <Compile Include="ExpressionModel\SurfaceConstruct.cs" />
     <Compile Include="ExpressionModel\PowerShellConstruct.cs" />
     <Compile Include="ExpressionModel\ExpressionContainerConstruct.cs" />
@@ -87,7 +93,7 @@
     <Compile Include="ExpressionModel\Operators\Operator.cs" />
     <Compile Include="ExpressionModel\PrintExpressionVisitor.cs" />
     <Compile Include="ExpressionModel\UnaryExpressionConstruct.cs" />
-    <Compile Include="ExpressionModel\Operators\UnaryOperator.cs" />
+    <Compile Include="ExpressionModel\Operators\Unary\UnaryOperator.cs" />
     <Compile Include="ExpressionModel\ValueConstruct.cs" />
     <Compile Include="InputOutputModel\FileInputMechanism.cs" />
     <Compile Include="InputOutputModel\FileOutputMechanism.cs" />
@@ -99,6 +105,7 @@
     <Compile Include="InputOutputModel\StringOutputMechanism.cs" />
     <Compile Include="InputOutputModel\TextWriterOutputMechanism.cs" />
     <Compile Include="CovariantListAdapter~2.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="Plumbing\AdoNetHelper.cs" />
     <Compile Include="Plumbing\AppConfig.cs" />
@@ -189,9 +196,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SourceModel\Oracle\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="SourceModel\SqlServer\DML\Columns.sql" />
   </ItemGroup>
   <ItemGroup>
@@ -222,18 +226,7 @@
     <EmbeddedResource Include="SourceModel\SqlServer\DML\UniqueKeys.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ExpressionModel\Operators\Binary\" />
-    <Folder Include="ExpressionModel\Operators\Nullary\" />
-    <Folder Include="ExpressionModel\Operators\Unary\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SourceModel\MySql\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SourceModel\Sqlite\TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="SourceModel\SqlCe\TODO.txt" />
+    <Content Include="Plumbing\_plumbing_readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

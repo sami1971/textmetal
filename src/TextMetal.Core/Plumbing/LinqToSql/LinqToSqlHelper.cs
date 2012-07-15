@@ -1,5 +1,5 @@
 /*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -12,10 +12,19 @@ using System.Reflection;
 
 namespace TextMetal.Core.Plumbing.LinqToSql
 {
+	/// <summary>
+	/// 	Provides static helper and/or extension methods for LINQ to SQL.
+	/// </summary>
 	public static class LinqToSqlHelper
 	{
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	For a given UnitOfWorkContext, this method returns a ContextWrapper`1 for a target data context type.
+		/// </summary>
+		/// <typeparam name="TContext"> The desired data context type. </typeparam>
+		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
+		/// <returns> An instance of a ContextWrapper`1 for the requested data context type, associated withthe UnitOfWorkContext. </returns>
 		public static ContextWrapper<TContext> GetContext<TContext>(this UnitOfWorkContext unitOfWorkContext)
 			where TContext : class, IDisposable
 		{
@@ -40,6 +49,12 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 			return contextWrapper;
 		}
 
+		/// <summary>
+		/// 	For a given UnitOfWorkContext, this method returns a DataContext of the target data context type.
+		/// </summary>
+		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
+		/// <param name="dataContextType"> The desired data context type. </param>
+		/// <returns> An instance of the requested data context type, associated withthe UnitOfWorkContext. </returns>
 		private static DataContext GetDataContext(UnitOfWorkContext unitOfWorkContext, Type dataContextType)
 		{
 			DataContext dataContext;
@@ -83,6 +98,14 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 			return dataContext;
 		}
 
+		/// <summary>
+		/// 	For a given UnitOfWorkContext, this method returns a DataContext of the target data context type.
+		/// </summary>
+		/// <param name="dataContextType"> The desired data context type. </param>
+		/// <param name="dbConnection"> The target database connection. </param>
+		/// <param name="dbTransaction"> The target database transaction. </param>
+		/// <returns> An instance of the requested data context type, associated withthe UnitOfWorkContext. </returns>
+		/// <returns> </returns>
 		private static DataContext GetDataContext(Type dataContextType, IDbConnection dbConnection, IDbTransaction dbTransaction)
 		{
 			DataContext dataContext;

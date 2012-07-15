@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// Provides strongly typed read access to an app.config or web.config file.
+	/// 	Provides strongly typed read access to an app.config or web.config file.
 	/// </summary>
 	public static class AppConfig
 	{
@@ -45,12 +45,11 @@ namespace TextMetal.Core.Plumbing
 		#region Methods/Operators
 
 		/// <summary>
-		/// Gets the value of an app settings for the current application's default configuration.
-		/// A ConfigurationErrorsException is thrown if the key does not exist.
+		/// 	Gets the value of an app settings for the current application's default configuration. A ConfigurationErrorsException is thrown if the key does not exist.
 		/// </summary>
-		/// <typeparam name="TValue">The type to convert the app settings value.</typeparam>
-		/// <param name="key">The key to get a value.</param>
-		/// <returns>The app settings as type TValue.</returns>		
+		/// <typeparam name="TValue"> The type to convert the app settings value. </typeparam>
+		/// <param name="key"> The key to get a value. </param>
+		/// <returns> The app settings as type TValue. </returns>
 		public static TValue GetAppSetting<TValue>(string key)
 		{
 			string svalue;
@@ -73,12 +72,11 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets the value of an app settings for the current application's default configuration.
-		/// A ConfigurationErrorsException is thrown if the key does not exist.
+		/// 	Gets the value of an app settings for the current application's default configuration. A ConfigurationErrorsException is thrown if the key does not exist.
 		/// </summary>
-		/// <param name="valueType">The type to convert the app settings value.</param>
-		/// <param name="key">The key to get a value.</param>
-		/// <returns>The app settings as a string.</returns>		
+		/// <param name="valueType"> The type to convert the app settings value. </param>
+		/// <param name="key"> The key to get a value. </param>
+		/// <returns> The app settings as a string. </returns>
 		public static object GetAppSetting(Type valueType, string key)
 		{
 			string svalue;
@@ -102,11 +100,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets the value of a connection provider for the current application's default configuration.
-		/// A ConfigurationErrorsException is thrown if the name does not exist.
+		/// 	Gets the value of a connection provider for the current application's default configuration. A ConfigurationErrorsException is thrown if the name does not exist.
 		/// </summary>
-		/// <param name="name">The name to get a value.</param>
-		/// <returns>The connection provider.</returns>
+		/// <param name="name"> The name to get a value. </param>
+		/// <returns> The connection provider. </returns>
 		public static string GetConnectionProvider(string name)
 		{
 			ConnectionStringSettings value;
@@ -126,11 +123,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Gets the value of a connection string for the current application's default configuration.
-		/// A ConfigurationErrorsException is thrown if the name does not exist.
+		/// 	Gets the value of a connection string for the current application's default configuration. A ConfigurationErrorsException is thrown if the name does not exist.
 		/// </summary>
-		/// <param name="name">The name to get a value.</param>
-		/// <returns>The connection string.</returns>
+		/// <param name="name"> The name to get a value. </param>
+		/// <returns> The connection string. </returns>
 		public static string GetConnectionString(string name)
 		{
 			ConnectionStringSettings value;
@@ -150,10 +146,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Checks to see if an app settings key exists for the current application's default configuration.
+		/// 	Checks to see if an app settings key exists for the current application's default configuration.
 		/// </summary>
-		/// <param name="key">The key to check.</param>
-		/// <returns>A boolean value indicating the app setting key presence.</returns>
+		/// <param name="key"> The key to check. </param>
+		/// <returns> A boolean value indicating the app setting key presence. </returns>
 		public static bool HasAppSetting(string key)
 		{
 			string value;
@@ -167,10 +163,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Checks to see if a connection string name exists for the current application's default configuration.
+		/// 	Checks to see if a connection string name exists for the current application's default configuration.
 		/// </summary>
-		/// <param name="name">The name to check.</param>
-		/// <returns>A boolean value indicating the connection string name presence.</returns>
+		/// <param name="name"> The name to check. </param>
+		/// <returns> A boolean value indicating the connection string name presence. </returns>
 		public static bool HasConnectionString(string name)
 		{
 			ConnectionStringSettings value;
@@ -184,12 +180,10 @@ namespace TextMetal.Core.Plumbing
 		}
 
 		/// <summary>
-		/// Given a string array of command line arguments, this method will parse the arguments
-		/// using a well know pattern match to obtain a loosely typed dictionary of
-		/// key/multi-value pairs for use by applications.
+		/// 	Given a string array of command line arguments, this method will parse the arguments using a well know pattern match to obtain a loosely typed dictionary of key/multi-value pairs for use by applications.
 		/// </summary>
-		/// <param name="args">The command line argument array to parse.</param>
-		/// <returns>A loosely typed dictionary of key/multi-value pairs.</returns>
+		/// <param name="args"> The command line argument array to parse. </param>
+		/// <returns> A loosely typed dictionary of key/multi-value pairs. </returns>
 		public static IDictionary<string, IList<string>> ParseCommandLineArguments(string[] args)
 		{
 			IDictionary<string, IList<string>> arguments;

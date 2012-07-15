@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -55,16 +55,16 @@ namespace TextMetal.Core.ExpressionModel
 
 		#region Methods/Operators
 
-		public static string GetExpressionText(IExpressionXmlObject expressionXmlObject)
+		public static string GetExpressionText(Expression expression)
 		{
 			PrintExpressionVisitor expressionVisitor;
 			string expressionText;
 
-			if ((object)expressionXmlObject == null)
-				throw new ArgumentNullException("expressionXmlObject");
+			if ((object)expression == null)
+				throw new ArgumentNullException("expression");
 
 			expressionVisitor = new PrintExpressionVisitor();
-			expressionVisitor.Visit(expressionXmlObject);
+			expressionVisitor.Visit(expression);
 			expressionText = expressionVisitor.Strings.ToString();
 
 			return expressionText;
@@ -115,16 +115,20 @@ namespace TextMetal.Core.ExpressionModel
 		protected override Expression VisitNullary(NullaryExpression nullaryExpression)
 		{
 			DescriptionAttribute descriptionAttribute;
-			Type targetType;
+			FieldInfo fieldInfo;
 
 			if ((object)nullaryExpression == null)
 				throw new ArgumentNullException("nullaryExpression");
 
-			targetType = typeof(NullaryExpressionConstruct);
-			descriptionAttribute = Reflexion.GetOneAttribute<DescriptionAttribute>(targetType);
+			fieldInfo = typeof(NullaryOperator).GetField(nullaryExpression.NullaryOperator.ToString());
+
+			if ((object)fieldInfo == null)
+				throw new NotSupportedException(string.Format("The nullary operator '{0}' is not supported.", nullaryExpression.NullaryOperator));
+
+			descriptionAttribute = Reflexion.GetOneAttribute<DescriptionAttribute>(fieldInfo);
 
 			if ((object)descriptionAttribute == null)
-				throw new NotSupportedException(string.Format("The binary operator '{0}' is not described.", targetType.FullName));
+				throw new NotSupportedException(string.Format("The nullary operator '{0}' is not described.", nullaryExpression.NullaryOperator));
 
 			this.Strings.Append(descriptionAttribute.Description);
 

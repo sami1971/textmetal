@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// Provides core data type functionality such as validation and parsing.
+	/// 	Provides core data type functionality such as validation and parsing.
 	/// </summary>
 	public static partial class DataType
 	{
 		#region Methods/Operators
 
 #if NET_FX_40
-		// DO NOTHING
+	// DO NOTHING
 #else
 		private static bool IsValidEnum(Type enumType, string value)
 		{

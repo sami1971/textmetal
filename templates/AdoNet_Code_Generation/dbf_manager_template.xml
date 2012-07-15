@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+
+	<OutputScope name="${ClrNamespace}\DatabaseFileManager.g.cs">
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+
+using System;
+using System.IO;
+using System.Reflection;
+using System.Web;
+
+using TextMetal.Core;
+using TextMetal.Core.Plumbing;
+]]>
+		<If>
+			<If.Condition>
+				<UnaryExpression operator="IsDef">
+					<UnaryExpression.TheExpression>
+						<Aspect name="ClrUsingNamespaces" />
+					</UnaryExpression.TheExpression>
+				</UnaryExpression>
+			</If.Condition>
+			<If.True>
+				<ForEach in="ClrUsingNamespaces" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+					<ForEach.Body>
+						<![CDATA[using ${#item};
+]]>
+					</ForEach.Body>
+				</ForEach>
+			</If.True>
+		</If>
+		<![CDATA[
+namespace ${ClrNamespace}
+{
+	public partial class DatabaseFileManager
+	{
+		#region Constructors/Destructors
+
+		public DatabaseFileManager(string underlyingDatabaseFilePath)
+		{
+			if ((object)underlyingDatabaseFilePath == null)
+				throw new ArgumentNullException("underlyingDatabaseFilePath");
+
+			if (DataType.IsWhiteSpace(underlyingDatabaseFilePath))
+				throw new ArgumentOutOfRangeException("underlyingDatabaseFilePath");
+
+			this.underlyingDatabaseFilePath = underlyingDatabaseFilePath;
+		}
+
+		#endregion
+
+		#region Fields/Constants
+
+		private readonly string underlyingDatabaseFilePath;
+
+		#endregion
+
+		#region Properties/Indexers/Events
+
+		public static string DatabaseDirectoryPath
+		{
+			get
+			{
+				return AppConfig.GetAppSetting<string>("${ClrNamespace}::DatabaseDirectoryPath");
+			}
+		}
+
+		public static string DatabaseFileName
+		{
+			get
+			{
+				return AppConfig.GetAppSetting<string>("${ClrNamespace}::DatabaseFileName");
+			}
+		}
+
+		public static string DatabaseFilePath
+		{
+			get
+			{
+				string value;
+
+				// {0} == GetApplicationUserSpecificDirectoryPath()
+				value = Path.Combine(string.Format(DatabaseDirectoryPath ?? "", GetApplicationUserSpecificDirectoryPath()), DatabaseFileName);
+
+				return value;
+			}
+		}
+
+		public static bool KillDatabaseFile
+		{
+			get
+			{
+				bool value;
+
+				if (!AppConfig.HasAppSetting("${ClrNamespace}::KillDatabaseFile"))
+					return false;
+
+				value = AppConfig.GetAppSetting<bool>("${ClrNamespace}::KillDatabaseFile");
+
+				return value;
+			}
+		}
+
+		public static bool UseDatabaseFile
+		{
+			get
+			{
+				bool value;
+
+				value = AppConfig.GetAppSetting<bool>("${ClrNamespace}::UseDatabaseFile");
+
+				return value;
+			}
+		}
+
+		public string UnderlyingDatabaseFilePath
+		{
+			get
+			{
+				return this.underlyingDatabaseFilePath;
+			}
+		}
+
+		#endregion
+
+		#region Methods/Operators
+		
+		private static string GetApplicationUserSpecificDirectoryPath()
+		{
+			AssemblyInformation assemblyInformation;
+			string userSpecificDirectoryPath;
+			
+			if (ExecutionPathStorage.IsInHttpContext)
+				userSpecificDirectoryPath = Path.GetFullPath(HttpContext.Current.Server.MapPath("~/"));
+			else
+			{
+				assemblyInformation = new AssemblyInformation(Assembly.GetExecutingAssembly());
+				
+				userSpecificDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Company);
+				userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Product);
+				userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Win32FileVersion);
+			}
+			
+			return userSpecificDirectoryPath;
+		}
+
+		/*private static string GetConnectionString(string databaseFilePath)
+		{
+			if ((object)databaseFilePath == null)
+				throw new ArgumentNullException("databaseFilePath");
+
+			if (DataType.IsNullOrWhiteSpace(databaseFilePath))
+				throw new ArgumentOutOfRangeException("databaseFilePath");
+
+			return string.Format("Data Source={0}", databaseFilePath);
+		}*/
+
+		public static void InitDatabase(Type type, string resource)
+		{
+			DatabaseHistory history;
+			DatabaseFileManager databaseFileManager;
+
+			if ((object)type == null)
+				throw new ArgumentNullException("type");
+
+			if ((object)resource == null)
+				throw new ArgumentNullException("resource");
+
+			if (DataType.IsNullOrWhiteSpace(resource))
+				throw new ArgumentOutOfRangeException("resource");
+
+			if (UseDatabaseFile)
+			{
+				if (!DataType.IsNullOrWhiteSpace(DatabaseFilePath))
+				{
+					if (KillDatabaseFile)
+					{
+						if (File.Exists(DatabaseFilePath))
+							File.Delete(DatabaseFilePath);
+					}
+					
+					databaseFileManager = new DatabaseFileManager(DatabaseFilePath);
+					databaseFileManager.EnsureDatabaseFile();
+				}
+
+				if (!Cerealization.TryGetFromAssemblyResource<DatabaseHistory>(type, resource, out history))
+					throw new InvalidOperationException("TODO:");
+
+				using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
+				{
+					history.PerformSchemaUpgrade(unitOfWorkContext);
+
+					unitOfWorkContext.Complete();
+				}
+			}
+		}
+
+		private bool EnsureDatabaseFile()
+		{
+			string databaseFilePath;
+			string databaseDirectoryPath;
+			bool retval = false;
+
+			databaseFilePath = Path.GetFullPath(this.UnderlyingDatabaseFilePath);
+			databaseDirectoryPath = Path.GetDirectoryName(databaseFilePath);
+
+			if (!Directory.Exists(databaseDirectoryPath))
+				Directory.CreateDirectory(databaseDirectoryPath);
+
+			if (!File.Exists(databaseFilePath))
+			{
+				OnCreateDatabaseFileForNative(databaseFilePath, ref retval);
+			}
+
+			return retval;
+		}
+		
+		static partial void OnCreateDatabaseFileForNative(string databaseFilePath, ref bool result);
+
+		#endregion
+	}
+}
+]]>
+	</OutputScope>
+
+</Template>

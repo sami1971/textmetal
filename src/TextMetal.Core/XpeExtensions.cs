@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright ©2002-2011 Daniel Bullington (dpbullington@gmail.com)
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -13,10 +13,17 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core
 {
+	/// <summary>
+	/// 	A set of extension methods to manage the XML Persist Engine model. NOTE: This file must be updated when adding or removing constructs.
+	/// </summary>
 	public static class XpeExtensions
 	{
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Quickly register all well-known constructs within this framework.
+		/// </summary>
+		/// <param name="xpe"> The target XML Persist Engine instance. </param>
 		public static void RegisterWellKnownConstructs(this IXmlPersistEngine xpe)
 		{
 			if ((object)xpe == null)
