@@ -38,6 +38,7 @@
 	<Import name="ut_sprc_result_model_template.xml" />
 	<Import name="ut_tbl_vw_model_template.xml" />
 	
+	<Import name="it_repository_template.xml" />
 	<Import name="it_tbl_vw_repository_template.xml" />
 	<Import name="it_sprc_repository_template.xml" />
 	

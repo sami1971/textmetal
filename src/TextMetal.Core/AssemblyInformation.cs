@@ -42,7 +42,7 @@ namespace TextMetal.Core
 			if ((object)aTiA != null)
 				this.title = aTiA.Title;
 
-			//ava = ObjTools.GetAttribute<AssemblyVersionAttribute>(assembly);
+			//ava = Reflexion.GetOneAttribute<AssemblyVersionAttribute>(assembly);
 
 			//if ((object)ava != null)
 			//    this.ava = ava.ava;

@@ -22,6 +22,8 @@ mkdir "%PACKAGE_DIR%"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
+mkdir "%PACKAGE_DIR%\lib\SQLite"
+IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib\TestMetal"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib\TextMetal"
@@ -40,6 +42,9 @@ goto pkgBuild
 :pkgBuild
 
 copy "..\..\lib\TestMetal\*.*"  "%PACKAGE_DIR%\lib\TestMetal\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy "..\..\lib\SQLite\x64\*.*"  "%PACKAGE_DIR%\lib\SQLite\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

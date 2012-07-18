@@ -80,6 +80,16 @@ namespace ${ClrNamespace}
 		#endregion
 		
 		#region Methods/Operators
+		
+		static partial void OnPreProcessConnectionString(ref string connectionString)
+		{
+			if (!DatabaseFileManager.UseDatabaseFile)
+				return;
+
+			// {0} = DatabaseFileManager.DatabaseFilePath
+			connectionString = string.Format(connectionString ?? "", DatabaseFileManager.DatabaseFilePath);
+		}
+
 
 #if DEBUG
 		static partial void OnProfileCommand(Type modelType, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, bool executeAsCud, int thisOrThatRecordsAffected)
@@ -174,7 +184,7 @@ namespace ${ClrNamespace}
 			}
 		}
 
-		private static string ConnectionSpecificGetParameterName(string parameterName)
+		internal static string ConnectionSpecificGetParameterName(string parameterName)
 		{
 			switch (ConnectionType.Name.ToLower())
 			{
@@ -200,7 +210,7 @@ namespace ${ClrNamespace}
 			}
 		}
 
-		private static string ConnectionSpecificGetAliasedColumnName(string tableAlias, string columnName)
+		internal static string ConnectionSpecificGetAliasedColumnName(string tableAlias, string columnName)
 		{
 			switch (ConnectionType.Name.ToLower())
 			{

@@ -139,7 +139,7 @@ namespace ${ClrNamespace}
 						continue;
 					}
 
-					sortNames.Add(string.Format("t.[{0}] {1}", order.Facet.Name, order.Ascending ? "ASC" : "DESC"));
+					sortNames.Add(string.Format("{0} {1}", Repository.ConnectionSpecificGetAliasedColumnName("t0", order.Facet.Name), order.Ascending ? "ASC" : "DESC"));
 				}
 			}
 
@@ -304,7 +304,7 @@ namespace ${ClrNamespace}
 			if ((object)surface == null)
 				throw new ArgumentNullException("surface");
 
-			columnName = string.Format("[{0}]", surface.Name);
+			columnName = Repository.ConnectionSpecificGetAliasedColumnName("t0", surface.Name);
 
 			this.Strings.Append(columnName);
 
@@ -379,7 +379,7 @@ namespace ${ClrNamespace}
 			if ((object)value.__ == null)
 				throw new InvalidOperationException("Cannot use the constant value NULL as a value operand; use UnaryExpression(..., UnaryOperator.IsNull) instead.");
 
-			parameterName = string.Format("@expr_{0}", Guid.NewGuid().ToString("N"));
+			parameterName = Repository.ConnectionSpecificGetParameterName(string.Format("expr_{0}", Guid.NewGuid().ToString("N")));
 			valueType = value.__.GetType();
 
 			commandParameter = this.UnitOfWorkContext.CreateParameter(ParameterDirection.Input, InferDbTypeForClrType(valueType), 0, 0, 0, true, parameterName, value.__);

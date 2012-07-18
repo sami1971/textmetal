@@ -44,7 +44,7 @@ namespace ${ClrNamespace}
 		private const int SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED = -1;
 		private const string SQL_SERVER_IDENTITY_COMMAND = "@@IDENTITY"; // warning: 'SELECT SCOPE_IDENTITY() AS PK' should be used in the SAME BATCH if there is any chance of triggers on any tables causing identity creation
 
-		private const string SQL_SERVER_COLUMN_ALIASED_FORMAT = "{0}.{1}";
+		private const string SQL_SERVER_COLUMN_ALIASED_FORMAT = "{0}.[{1}]";
 		private const string SQL_SERVER_COLUMN_NAME_FORMAT = "[{0}]";
 		private const string SQL_SERVER_PARAMETER_NAME_FORMAT = "@{0}";
 		private const string SQL_SERVER_SCHEMA_TABLE_NAME_FORMAT = "[{0}].[{1}]";

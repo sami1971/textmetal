@@ -11,6 +11,7 @@
 <![CDATA[
 
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Reflection;
 using System.Web;
@@ -131,8 +132,17 @@ namespace ${ClrNamespace}
 
 		#region Methods/Operators
 		
+		static partial void OnCreateDatabaseFileForNative(string databaseFilePath, ref bool result)
+		{
+			if (!UseDatabaseFile)
+				return;
+
+			SQLiteConnection.CreateFile(databaseFilePath);
+		}
+		
 		private static string GetApplicationUserSpecificDirectoryPath()
 		{
+			Assembly assembly;
 			AssemblyInformation assemblyInformation;
 			string userSpecificDirectoryPath;
 			
@@ -140,12 +150,20 @@ namespace ${ClrNamespace}
 				userSpecificDirectoryPath = Path.GetFullPath(HttpContext.Current.Server.MapPath("~/"));
 			else
 			{
-				assemblyInformation = new AssemblyInformation(Assembly.GetExecutingAssembly());
+				assembly = Assembly.GetExecutingAssembly();
+				assemblyInformation = new AssemblyInformation(assembly);
 				
-				userSpecificDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-				userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Company);
-				userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Product);
-				userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Win32FileVersion);
+				if ((object)assemblyInformation.Company != null &&
+					(object)assemblyInformation.Product != null &&
+					(object)assemblyInformation.Win32FileVersion != null)
+				{
+					userSpecificDirectoryPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+					userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Company);
+					userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Product);
+					userSpecificDirectoryPath = Path.Combine(userSpecificDirectoryPath, assemblyInformation.Win32FileVersion);
+				}
+				else
+					userSpecificDirectoryPath = Path.GetFullPath(".");
 			}
 			
 			return userSpecificDirectoryPath;
@@ -191,7 +209,7 @@ namespace ${ClrNamespace}
 				}
 
 				if (!Cerealization.TryGetFromAssemblyResource<DatabaseHistory>(type, resource, out history))
-					throw new InvalidOperationException("TODO:");
+					throw new InvalidOperationException(string.Format("Unable to deserialize instance of '{0}' from the manifest resource name '{1}' in the assembly '{2}'.", typeof(DatabaseHistory).FullName, resource, type.Assembly.FullName));
 
 				using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
 				{

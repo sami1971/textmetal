@@ -75,6 +75,64 @@ echo     %0 -debug
 goto :eof]]>
 	</OutputScope>
 	
+	<OutputScope name="SolutionAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+#if DEBUG
+
+[assembly: AssemblyConfiguration("Debug")]
+#else
+[assembly: AssemblyConfiguration("Release")]
+#endif
+
+[assembly: AssemblyCompany("comapny")]
+[assembly: AssemblyProduct("product")]
+[assembly: AssemblyCopyright("©years company, all rights reserved.")]
+[assembly: AssemblyDescription("description")]
+[assembly: AssemblyTrademark("trademark™")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("0.0.0.*")]
+[assembly: AssemblyInformationalVersion("yyyy.mm.dd")]
+[assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: AssemblyDelaySign(false)]
+[assembly: ComVisible(false)]
+
+]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}\ProjectAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+
+[assembly: AssemblyTitle("title")]
+
+]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}.UnitTests\ProjectAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+
+[assembly: AssemblyTitle("title")]
+
+]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}.IntegrationTests\ProjectAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+
+[assembly: AssemblyTitle("title")]
+
+]]>
+	</OutputScope>
+	
 	<OutputScope name="${ClrNamespace}.sln">					
 		<![CDATA[
 Microsoft Visual Studio Solution File, Format Version 11.00
@@ -115,24 +173,34 @@ EndGlobal
 ]]>
 	</OutputScope>
 
-	<OutputScope name="${ClrNamespace}.IntegrationTests\App.config">
+	<OutputScope name="${ClrNamespace}.IntegrationTests\App.sqlserver.config">
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
 
 <configuration>
 	<connectionStrings>
-		<add name="_${ClrNamespace}::ConnectionString" connectionString="Data Source={0};FailIfMissing=True" providerName="System.Data.SQLite.SQLiteConnection, System.Data.SQLite" />
 		<add name="${ClrNamespace}::ConnectionString" connectionString="${ConnectionString}" providerName="System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
 	</connectionStrings>
 	<appSettings>
-		<add name="_${ClrNamespace}::UseDatabaseFile" value="true" />
-		<add name="_${ClrNamespace}::KillDatabaseFile" value="false" />
-		<add name="_${ClrNamespace}::DatabaseFileName" value="${ClrNamespace}.database" />
-		<add name="_${ClrNamespace}::DatabaseDirectoryPath" value="{0}" />
-		
 		<add key="${ClrNamespace}::UseDatabaseFile" value="false" />
 		<add key="${ClrNamespace}::KillDatabaseFile" value="false" />
 		<add key="${ClrNamespace}::DatabaseFileName" value="" />
 		<add key="${ClrNamespace}::DatabaseDirectoryPath" value="" />
+	</appSettings>
+</configuration>]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}.IntegrationTests\App.sqlite.config">
+		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+	<connectionStrings>
+		<add name="${ClrNamespace}::ConnectionString" connectionString="Data Source={0};FailIfMissing=True" providerName="System.Data.SQLite.SQLiteConnection, System.Data.SQLite" />
+	</connectionStrings>
+	<appSettings>
+		<add key="${ClrNamespace}::UseDatabaseFile" value="true" />
+		<add key="${ClrNamespace}::KillDatabaseFile" value="true" />
+		<add key="${ClrNamespace}::DatabaseFileName" value="${ClrNamespace}.database" />
+		<add key="${ClrNamespace}::DatabaseDirectoryPath" value="{0}" />
 	</appSettings>
 </configuration>]]>
 	</OutputScope>
@@ -156,14 +224,14 @@ EndGlobal
 	<OutputScope name="${ClrNamespace}.IntegrationTests\IntegrationTests.nunit">
 		<![CDATA[<?xml version="1.0" encoding="utf-8" ?> 
 <NUnitProject>
-	<Settings activeconfig="Debug"/>
+	<Settings activeconfig="Debug_SqlConnection"/>
 
-	<Config configfile="App.config" name="Debug">
+	<Config configfile="App.sqlserver.config" name="Debug_SqlConnection">
 		<assembly path="bin\Debug\${ClrNamespace}.IntegrationTests.dll"/>
 	</Config>
 		
-	<Config configfile="App.config" name="Release">
-		<assembly path="bin\Release\${ClrNamespace}.IntegrationTests.dll"/>
+	<Config configfile="App.sqlite.config" name="Debug_SQLiteConnection">
+		<assembly path="bin\Debug\${ClrNamespace}.IntegrationTests.dll"/>
 	</Config>
 	
 </NUnitProject>]]>
@@ -217,13 +285,17 @@ EndGlobal
 	<Reference Include="System.Data" />    
 	<Reference Include="System.Web" />
 	<Reference Include="System.Xml" />
-	
+	<Reference Include="System.Data.SQLite">
+      <HintPath>..\..\lib\SQLite\System.Data.SQLite.dll</HintPath>
+    </Reference>
 	<Reference Include="TextMetal.Core">
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
     </Reference>
-	
   </ItemGroup>
-  <ItemGroup>  
+  <ItemGroup>
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DatabaseFileManager.g.cs" />
 	<Compile Include="DatabaseHistory.g.cs" />
 	<Compile Include="DatabaseRevision.g.cs" />
@@ -233,10 +305,9 @@ EndGlobal
 	<Compile Include="Repository.sp.g.cs" />
 	<Compile Include="IRepository.tv.g.cs" />
 	<Compile Include="Repository.tv.g.cs" />
-	
+	<Compile Include="ProjectAssemblyInfo.cs" />
 	<Compile Include="Repository.sqlite.g.cs" />
 	<Compile Include="Repository.sqlserver.g.cs" />
-	
 	<Compile Include="Order.g.cs" />
 	<Compile Include="Query.g.cs" />
 	<Compile Include="SqlExpressionVisitor.g.cs" />
@@ -309,7 +380,11 @@ EndGlobal
 		</ForEach>
 
 		<![CDATA[	
-  </ItemGroup>  
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQL\RevisionHistory%28SqlConnection%29.xml" />
+    <EmbeddedResource Include="SQL\RevisionHistory%28SQLiteConnection%29.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -385,6 +460,10 @@ EndGlobal
 	
   </ItemGroup>
   <ItemGroup>       
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+	<Compile Include="ProjectAssemblyInfo.cs" />
 	<Compile Include="RepositoryTests.sp.g.cs" />
 	<Compile Include="RepositoryTests.tv.g.cs" />	
 	<None Include="UnitTests.nunit" />
@@ -520,7 +599,9 @@ EndGlobal
     <Reference Include="TextMetal.Core.UnitTests">
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
     </Reference>
-	
+	<Reference Include="System.Data.SQLite">
+      <HintPath>..\..\lib\SQLite\System.Data.SQLite.dll</HintPath>
+    </Reference>
 	<Reference Include="TestMetal.Core, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\TestMetal\TestMetal.Core.dll</HintPath>
@@ -533,10 +614,18 @@ EndGlobal
 	
   </ItemGroup>
   <ItemGroup>       
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+	<Compile Include="ProjectAssemblyInfo.cs" />
+	<Compile Include="RepositoryTests.g.cs" />
 	<Compile Include="RepositoryTests.sp.g.cs" />
 	<Compile Include="RepositoryTests.tv.g.cs" />	
 	<None Include="IntegrationTests.nunit" />
-	<None Include="App.config">
+	<None Include="App.sqlserver.config">
+      <SubType>Designer</SubType>
+    </None>
+	<None Include="App.sqlite.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>  

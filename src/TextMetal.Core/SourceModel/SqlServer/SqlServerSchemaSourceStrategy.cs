@@ -562,7 +562,8 @@ namespace TextMetal.Core.SourceModel.SqlServer
 
 												parameter = new Parameter();
 
-												parameter.ParameterName = "@ReturnValue";
+												parameter.ParameterPrefix = "@ReturnValue".Substring(0, 1);
+												parameter.ParameterName = "@ReturnValue".Substring(1);
 												parameter.ParameterOrdinal = int.MaxValue;
 												parameter.ParameterSize = 0;
 												parameter.ParameterPrecision = 0;
@@ -571,15 +572,15 @@ namespace TextMetal.Core.SourceModel.SqlServer
 												parameter.ParameterIsOutput = true;
 												parameter.ParameterIsReadOnly = true;
 												parameter.ParameterIsCursorRef = false;
-												parameter.ParameterNamePascalCase = Name.GetPascalCase(parameter.ParameterName.Substring(1));
-												parameter.ParameterNameCamelCase = Name.GetCamelCase(parameter.ParameterName.Substring(1));
-												parameter.ParameterNameConstantCase = Name.GetConstantCase(parameter.ParameterName.Substring(1));
-												parameter.ParameterNameSingularPascalCase = Name.GetPascalCase(Name.GetSingularForm(parameter.ParameterName.Substring(1)));
-												parameter.ParameterNameSingularCamelCase = Name.GetCamelCase(Name.GetSingularForm(parameter.ParameterName.Substring(1)));
-												parameter.ParameterNameSingularConstantCase = Name.GetConstantCase(Name.GetSingularForm(parameter.ParameterName.Substring(1)));
-												parameter.ParameterNamePluralPascalCase = Name.GetPascalCase(Name.GetPluralForm(parameter.ParameterName.Substring(1)));
-												parameter.ParameterNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(parameter.ParameterName.Substring(1)));
-												parameter.ParameterNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(parameter.ParameterName.Substring(1)));
+												parameter.ParameterNamePascalCase = Name.GetPascalCase("@ReturnValue".Substring(1));
+												parameter.ParameterNameCamelCase = Name.GetCamelCase("@ReturnValue".Substring(1));
+												parameter.ParameterNameConstantCase = Name.GetConstantCase("@ReturnValue".Substring(1));
+												parameter.ParameterNameSingularPascalCase = Name.GetPascalCase(Name.GetSingularForm("@ReturnValue".Substring(1)));
+												parameter.ParameterNameSingularCamelCase = Name.GetCamelCase(Name.GetSingularForm("@ReturnValue".Substring(1)));
+												parameter.ParameterNameSingularConstantCase = Name.GetConstantCase(Name.GetSingularForm("@ReturnValue".Substring(1)));
+												parameter.ParameterNamePluralPascalCase = Name.GetPascalCase(Name.GetPluralForm("@ReturnValue".Substring(1)));
+												parameter.ParameterNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm("@ReturnValue".Substring(1)));
+												parameter.ParameterNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm("@ReturnValue".Substring(1)));
 
 												clrType = InferClrTypeForSqlType(parameter.ParameterSqlType);
 												parameter.ParameterClrType = clrType;
@@ -612,7 +613,7 @@ namespace TextMetal.Core.SourceModel.SqlServer
 										// REFERENCE:
 										// http://connect.microsoft.com/VisualStudio/feedback/details/314650/sqm1014-sqlmetal-ignores-stored-procedures-that-use-temp-tables
 										IDataParameter[] parameters;
-										parameters = procedure.Parameters.Where(p => p.ParameterName != "@ReturnValue").Select(p => unitOfWorkContext.CreateParameter(p.ParameterIsOutput ? ParameterDirection.Output : ParameterDirection.Input, p.ParameterDbType, p.ParameterSize, p.ParameterPrecision, p.ParameterScale, p.ParameterNullable, p.ParameterName, null)).ToArray();
+										parameters = procedure.Parameters.Where(p => p.ParameterName != "@ReturnValue".Substring(1)).Select(p => unitOfWorkContext.CreateParameter(p.ParameterIsOutput ? ParameterDirection.Output : ParameterDirection.Input, p.ParameterDbType, p.ParameterSize, p.ParameterPrecision, p.ParameterScale, p.ParameterNullable, p.ParameterName, null)).ToArray();
 
 										try
 										{

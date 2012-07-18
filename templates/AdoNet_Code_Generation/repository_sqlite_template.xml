@@ -45,11 +45,11 @@ namespace ${ClrNamespace}
 		private const string SQLITE_IDENTITY_COMMAND = "LAST_INSERT_ROWID()";
 
 		private const string SQLITE_COLUMN_ALIASED_FORMAT = "{0}.{1}";
-		private const string SQLITE_COLUMN_NAME_FORMAT = "[{0}]";
+		private const string SQLITE_COLUMN_NAME_FORMAT = "{0}";
 		private const string SQLITE_PARAMETER_NAME_FORMAT = "@{0}";
-		private const string SQLITE_SCHEMA_TABLE_NAME_FORMAT = "[{0}].[{1}]";
+		private const string SQLITE_SCHEMA_TABLE_NAME_FORMAT = "{1}";
 		private const string SQLITE_TABLE_ALIAS_FORMAT = "{0}";
-		private const string SQLITE_TABLE_NAME_FORMAT = "[{0}]";
+		private const string SQLITE_TABLE_NAME_FORMAT = "{0}";
 
 		#endregion
 
