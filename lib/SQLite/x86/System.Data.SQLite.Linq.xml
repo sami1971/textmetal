@@ -1381,6 +1381,14 @@
             <param name="e"></param>
             <returns></returns>
         </member>
+        <member name="M:System.Data.SQLite.SqlGenerator.HandleCanonicalFunctionLeft(System.Data.SQLite.SqlGenerator,System.Data.Common.CommandTrees.DbFunctionExpression)">
+            <summary>
+            LEFT(string, length) -> SUBSTR(string, 1, length)
+            </summary>
+            <param name="sqlgen"></param>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
         <member name="M:System.Data.SQLite.SqlGenerator.HandleCanonicalFunctionRight(System.Data.SQLite.SqlGenerator,System.Data.Common.CommandTrees.DbFunctionExpression)">
             <summary>
             RIGHT(string, length) -> SUBSTR(string, -(length), length)
