@@ -66,10 +66,10 @@ namespace TextMetal.Core.TemplateModel
 			sourceStrategyType = Type.GetType(aqtn, false);
 
 			if ((object)sourceStrategyType == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to load the source strategy type '{0}' via Type.GetType(..).", aqtn));
 
 			if (!typeof(ISourceStrategy).IsAssignableFrom(sourceStrategyType))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("The source strategy type is not assignable to type '{0}'.", typeof(ISourceStrategy).FullName));
 
 			sourceStrategy = (ISourceStrategy)Activator.CreateInstance(sourceStrategyType);
 

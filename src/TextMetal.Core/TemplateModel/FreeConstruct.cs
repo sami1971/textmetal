@@ -61,7 +61,7 @@ namespace TextMetal.Core.TemplateModel
 			if (!templatingContext.CurrentVariableTable.ContainsKey(token))
 			{
 				if (templatingContext.Tokenizer.StrictMatching)
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+					throw new InvalidOperationException(string.Format("When strict matching semantics are enabled, the variable '{0}' cannot be freed if it has not been defined previously in the given scope block.", token));
 
 				return;
 			}

@@ -104,7 +104,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			assembly = Assembly.LoadFile(sourceFilePath);
 
 			if ((object)assembly == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to load the assembly file '{0}' via Assembly.LoadFile(..).", sourceFilePath));
 
 			modelConstruct = new ModelConstruct();
 

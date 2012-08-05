@@ -185,13 +185,13 @@ namespace TextMetal.Core.TemplateModel
 			}
 
 			if (!dynamicWildcardTokenReplacementStrategy.GetByPath(@in, out obj))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message | not found on model");
+				throw new InvalidOperationException(string.Format("The facet name '{0}' was not found on the target model.", @in));
 
 			if ((object)obj == null)
 				return;
 
 			if (!(obj is IEnumerable))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message | not enumerable");
+				throw new InvalidOperationException(string.Format("The in expression the for-each construct is not assignable to type '{0}'.", typeof(IEnumerable).FullName));
 
 			values = (IEnumerable)obj;
 			obj = null; // not needed
@@ -214,7 +214,7 @@ namespace TextMetal.Core.TemplateModel
 						templatingContext.IteratorModels.Pop();
 
 						if ((object)obj != null && !(obj is bool) && !(obj is bool?))
-							throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+							throw new InvalidOperationException(string.Format("The for-each construct filter expression has evaluated to a non-null value with an unsupported type '{0}'; only '{1}' and '{2}' types are supported.", value.GetType().FullName, typeof(bool).FullName, typeof(bool?).FullName));
 
 						shouldFilter = !((bool)(obj ?? true));
 

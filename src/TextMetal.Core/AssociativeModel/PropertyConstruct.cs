@@ -11,11 +11,17 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.AssociativeModel
 {
+	/// <summary>
+	/// 	Provides an XML construct for associative properties.
+	/// </summary>
 	[XmlElementMapping(LocalName = "Property", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class PropertyConstruct : AssociativeXmlObject
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the PropertyConstruct class.
+		/// </summary>
 		public PropertyConstruct()
 		{
 		}
@@ -31,6 +37,9 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gts or sets the assembly qualified type of the value, used during strongly-typed parsing.
+		/// </summary>
 		[XmlAttributeMapping(LocalName = "type", NamespaceUri = "")]
 		public string Type
 		{
@@ -44,6 +53,9 @@ namespace TextMetal.Core.AssociativeModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets a string representation of the value of this associative XML object value.
+		/// </summary>
 		[XmlAttributeMapping(LocalName = "value", NamespaceUri = "")]
 		public string Value
 		{
@@ -61,35 +73,46 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Methods/Operators
 
-		public static bool CommonEquals(IAssociativeXmlObject lhs, object rhs)
+		/// <summary>
+		/// 	Determines whether a left-hand-side associative XML object is equal to any right-hand-side object using value semantics (instead of reference semantics).
+		/// </summary>
+		/// <param name="leftAssociativeXmlObject"> The left-hand-side associative XML object to test. </param>
+		/// <param name="rightObject"> The right-hand-side object to test. </param>
+		/// <returns> A value indicating whether the two objects equate using value semantics. </returns>
+		public static bool CommonEquals(IAssociativeXmlObject leftAssociativeXmlObject, object rightObject)
 		{
 			object thisValue, thatValue;
 			PropertyConstruct propertyConstruct;
 
-			if ((object)lhs == null)
-				throw new ArgumentNullException("rhs");
+			if ((object)leftAssociativeXmlObject == null)
+				throw new ArgumentNullException("leftAssociativeXmlObject");
 
-			thisValue = lhs.GetAssociativeObjectValue();
+			thisValue = leftAssociativeXmlObject.GetAssociativeObjectValue();
 
-			if ((object)rhs == null)
+			if ((object)rightObject == null)
 				return (object)thisValue == null;
 
-			if ((propertyConstruct = rhs as PropertyConstruct) != null)
+			if ((propertyConstruct = rightObject as PropertyConstruct) != null)
 				thatValue = propertyConstruct.GetAssociativeObjectValue();
 			else
-				thatValue = rhs;
+				thatValue = rightObject;
 
 			return DataType.ObjectsEqualValueSemantics(thisValue, thatValue);
 		}
 
-		public static int CommonGetHashCode(IAssociativeXmlObject lhs)
+		/// <summary>
+		/// 	Determines the hash code for an associative XML object.
+		/// </summary>
+		/// <param name="associativeXmlObject"> The associative XML object used to get a hash code. </param>
+		/// <returns> The hash code of the associative XML object's value. </returns>
+		public static int CommonGetHashCode(IAssociativeXmlObject associativeXmlObject)
 		{
 			object value;
 
-			if ((object)lhs == null)
-				throw new ArgumentNullException("rhs");
+			if ((object)associativeXmlObject == null)
+				throw new ArgumentNullException("associativeXmlObject");
 
-			value = lhs.GetAssociativeObjectValue();
+			value = associativeXmlObject.GetAssociativeObjectValue();
 
 			if ((object)value == null)
 				return 0;
@@ -97,14 +120,19 @@ namespace TextMetal.Core.AssociativeModel
 			return value.GetHashCode();
 		}
 
-		public static string CommonToString(IAssociativeXmlObject lhs)
+		/// <summary>
+		/// 	Gets a string represnetation for an associative XML object value.
+		/// </summary>
+		/// <param name="associativeXmlObject"> The associative XML object used to get a string representation. </param>
+		/// <returns> The string representation of the associative XML object's value. </returns>
+		public static string CommonToString(IAssociativeXmlObject associativeXmlObject)
 		{
 			object value;
 
-			if ((object)lhs == null)
-				throw new ArgumentNullException("rhs");
+			if ((object)associativeXmlObject == null)
+				throw new ArgumentNullException("associativeXmlObject");
 
-			value = lhs.GetAssociativeObjectValue();
+			value = associativeXmlObject.GetAssociativeObjectValue();
 
 			if ((object)value == null)
 				return null;
@@ -112,11 +140,19 @@ namespace TextMetal.Core.AssociativeModel
 			return value.SafeToString();
 		}
 
+		/// <summary>
+		/// 	Gets the enumerator for the current associative object instance. Overrides the default behavior to always return null.
+		/// </summary>
+		/// <returns> An instance of IEnumerator or null. </returns>
 		protected override IEnumerator CoreGetAssociativeObjectEnumerator()
 		{
 			return null;
 		}
 
+		/// <summary>
+		/// 	Gets the value of the current associative object instance. Overrides the default behavior to return a strongly-typed, parsed value from using the Type and Value properties.
+		/// </summary>
+		/// <returns> A value or null. </returns>
 		protected override object CoreGetAssociativeObjectValue()
 		{
 			object value;
@@ -128,24 +164,38 @@ namespace TextMetal.Core.AssociativeModel
 				valueType = System.Type.GetType(this.Type, false);
 
 			if ((object)valueType == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to determine or load the type '{0}' of the associative property value.", this.Type));
 
 			if (!DataType.TryParse(valueType, this.Value, out value))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to parse the associative property value '{0}' into the specified type '{1}'.", value, this.Type));
 
 			return value;
 		}
 
+		/// <summary>
+		/// 	Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> .
+		/// </summary>
+		/// <returns> true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> ; otherwise, false. </returns>
+		/// <param name="obj"> The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" /> . </param>
+		/// <filterpriority>2</filterpriority>
 		public override bool Equals(object obj)
 		{
 			return CommonEquals(this, obj);
 		}
 
+		/// <summary>
+		/// 	Serves as a hash function for a particular type.
+		/// </summary>
+		/// <returns> A hash code for the current <see cref="T:System.Object" /> . </returns>
 		public override int GetHashCode()
 		{
 			return CommonGetHashCode(this);
 		}
 
+		/// <summary>
+		/// 	Returns a <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
+		/// </summary>
+		/// <returns> A <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> . </returns>
 		public override string ToString()
 		{
 			return CommonToString(this);

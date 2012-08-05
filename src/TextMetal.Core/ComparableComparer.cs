@@ -41,7 +41,7 @@ namespace TextMetal.Core
 			compareResult = ((object)x != null ? x.CompareTo(y) : ((object)y != null ? (y.CompareTo(x) * -1) : (int?)null));
 
 			if ((object)compareResult == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message | type mismatch: at least one System.IComparable expected");
+				throw new InvalidOperationException(string.Format("A null result propagated from the evaluation of a '{0}' instance using values '{1}' and '{2}'.", typeof(ComparableComparer).FullName, x, y));
 
 			return (int)compareResult;
 		}

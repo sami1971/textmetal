@@ -234,7 +234,18 @@ namespace TextMetal.WebHostSample.Objects.Hosts.Email
 					mailMessage.Sender = new MailAddress(emailMessage.Sender);
 
 				if (!DataType.IsNullOrWhiteSpace(emailMessage.ReplyTo))
-					mailMessage.ReplyTo = new MailAddress(emailMessage.ReplyTo);
+				{
+					addresses = emailMessage.ReplyTo.Split(';');
+
+					if ((object)addresses != null)
+					{
+						foreach (string address in addresses)
+						{
+							if (!DataType.IsNullOrWhiteSpace(address))
+								mailMessage.ReplyToList.Add(address);
+						}
+					}
+				}
 
 				if (!DataType.IsNullOrWhiteSpace(emailMessage.Bcc))
 				{

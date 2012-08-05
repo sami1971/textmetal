@@ -323,7 +323,7 @@ namespace TextMetal.Core.SourceModel.SqlServer
 												column = table.Columns.SingleOrDefault(x => x.ColumnName == columnName);
 
 												if ((object)column == null)
-													throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+													throw new InvalidOperationException(string.Format("Failed to match column name '{0}' during data reader metadata execution.", columnName));
 
 												column.ColumnClrType = clrType;
 												column.ColumnClrNullableType = Reflexion.MakeNullableType(clrType);

@@ -40,6 +40,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			if (DataType.IsWhiteSpace(sourceFilePath))
 				throw new ArgumentOutOfRangeException("sourceFilePath");
 
+			xmlSerializedObjectAqtn = null;
 			if (properties.TryGetValue(CMDLN_TOKEN_XML_SERIALIZED_AQTN, out values))
 			{
 				if ((object)values != null && values.Count == 1)
@@ -50,7 +51,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			}
 
 			if ((object)xmlSerializedObjectType == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to load the XML type '{0}' via Type.GetType(..).", xmlSerializedObjectAqtn));
 
 			sourceFilePath = Path.GetFullPath(sourceFilePath);
 

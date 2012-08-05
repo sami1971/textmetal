@@ -142,7 +142,7 @@ namespace TextMetal.Core.TemplateModel
 			while (true)
 			{
 				if (index > MAX_ITERATIONS_INFINITE_LOOP_CHECK)
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message | MAX_ITERATIONS_INFINITE_LOOP_CHECK");
+					throw new InvalidOperationException(string.Format("The for construct has exceeded the maximun number of iterations '{0}'; this is an infinite loop prevention mechansim.", MAX_ITERATIONS_INFINITE_LOOP_CHECK));
 
 				if ((object)this.Condition != null)
 					value = this.Condition.EvaluateExpression(templatingContext);
@@ -150,7 +150,7 @@ namespace TextMetal.Core.TemplateModel
 					value = false;
 
 				if ((object)value != null && !(value is bool) && !(value is bool?))
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+					throw new InvalidOperationException(string.Format("The for construct condition expression has evaluated to a non-null value with an unsupported type '{0}'; only '{1}' and '{2}' types are supported.", value.GetType().FullName, typeof(bool).FullName, typeof(bool?).FullName));
 
 				shouldLoop = ((bool)(value ?? false));
 

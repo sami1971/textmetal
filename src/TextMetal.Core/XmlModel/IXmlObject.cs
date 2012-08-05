@@ -32,7 +32,7 @@ namespace TextMetal.Core.XmlModel
 		}
 
 		/// <summary>
-		/// 	Gets or sets the single XML object content.
+		/// 	Gets or sets the optional single XML object content.
 		/// </summary>
 		IXmlObject Content
 		{

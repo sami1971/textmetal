@@ -69,7 +69,8 @@ namespace TextMetal.Core.Plumbing
 			IDictionary<string, object> obj;
 			IDataReader dataReader;
 			const bool COMMAND_PREPARE = false;
-			/* const */ int? COMMAND_TIMEOUT = null;
+			/* const */
+			int? COMMAND_TIMEOUT = null;
 			const CommandBehavior COMMAND_BEHAVIOR = CommandBehavior.Default; // force command behavior to default; the unit of work context will manage connection lifetime
 
 			if ((object)unitOfWorkContext == null)

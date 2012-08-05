@@ -61,9 +61,11 @@ namespace TextMetal.Core.TemplateModel
 			if (templatingContext.CurrentVariableTable.ContainsKey(token))
 			{
 				if (templatingContext.Tokenizer.StrictMatching)
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+					throw new InvalidOperationException(string.Format("When strict matching semantics are enabled, the variable '{0}' cannot be defined more than once in a given scope block.", token));
 
-				return;
+				// dpbullington@gmail.com@2012-08-01: changed the semantics of this to re-allocate on non-strict mode instead of ignore
+				//return;
+				templatingContext.CurrentVariableTable.Remove(token);
 			}
 
 			templatingContext.CurrentVariableTable.Add(token, null);

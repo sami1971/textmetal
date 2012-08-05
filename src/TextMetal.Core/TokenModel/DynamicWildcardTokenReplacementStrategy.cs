@@ -48,6 +48,9 @@ namespace TextMetal.Core.TokenModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets a value indicating whether strict matching semantics are enabled.
+		/// </summary>
 		public bool Strict
 		{
 			get
@@ -90,6 +93,12 @@ namespace TextMetal.Core.TokenModel
 			return value;
 		}
 
+		/// <summary>
+		/// 	Gets a value by path from the array of target objects. This method obeys the strict matching semantics flag in effect and if enabled, will throw an exception on path lookup failure.
+		/// </summary>
+		/// <param name="path"> The logical path (i.e. property name, dictionary key, etc.) to lookup. </param>
+		/// <param name="value"> The output value or null if the path was not found. </param>
+		/// <returns> A value indicating whether the path was found in the array of target objects. </returns>
 		public bool GetByPath(string path, out object value)
 		{
 			value = null;
@@ -109,6 +118,12 @@ namespace TextMetal.Core.TokenModel
 			return false;
 		}
 
+		/// <summary>
+		/// 	Sets a value by path to the array of target objects. This method obeys the strict matching semantics flag in effect and if enabled, will throw an exception on path lookup failure.
+		/// </summary>
+		/// <param name="path"> The logical path (i.e. property name, dictionary key, etc.) to lookup. </param>
+		/// <param name="value"> The value to set or null. </param>
+		/// <returns> A value indicating whether the path was found in the array of target objects. </returns>
 		public bool SetByPath(string path, object value)
 		{
 			object unused;

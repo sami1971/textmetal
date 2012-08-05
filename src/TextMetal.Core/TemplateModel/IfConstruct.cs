@@ -100,7 +100,7 @@ namespace TextMetal.Core.TemplateModel
 			obj = this.Condition.EvaluateExpression(templatingContext);
 
 			if ((object)obj != null && !(obj is bool) && !(obj is bool?))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("The for condition expression has evaluated to a non-null value with an unsupported type '{0}'; only '{1}' and '{2}' types are supported.", obj.GetType().FullName, typeof(bool).FullName, typeof(bool?).FullName));
 
 			conditional = ((bool)(obj ?? false));
 

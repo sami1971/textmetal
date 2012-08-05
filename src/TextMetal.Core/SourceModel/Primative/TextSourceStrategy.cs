@@ -56,13 +56,17 @@ namespace TextMetal.Core.SourceModel.Primative
 			if (properties.TryGetValue(CMDLN_TOKEN_FIELD_DELIMITER, out values))
 			{
 				if (values.Count == 1 && DataType.TryParse<string>(values[0], out fieldDelimiter))
+#pragma warning disable 1717
 					fieldDelimiter = fieldDelimiter;
+#pragma warning restore 1717
 			}
 
 			if (properties.TryGetValue(CMDLN_TOKEN_FIRST_ROW_CONTAINS_COLUMN_HEADINGS, out values))
 			{
 				if (values.Count == 1 && DataType.TryParse<bool>(values[0], out firstRowIsHeader))
+#pragma warning disable 1717
 					firstRowIsHeader = firstRowIsHeader;
+#pragma warning restore 1717
 			}
 
 			using (StreamReader streamReader = File.OpenText(sourceFilePath))

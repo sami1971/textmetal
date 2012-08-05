@@ -8,17 +8,21 @@ using System.Collections.Generic;
 
 namespace TextMetal.Core.XmlModel
 {
+	/// <summary>
+	/// 	Provides a base for all XML objects:
+	/// </summary>
 	public abstract class XmlObject : IXmlObject
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the XmlObject class.
+		/// </summary>
 		protected XmlObject()
 		{
 		}
 
 		#endregion
-
-		// TODO: make custom XmlCollection from Collection<T> and use Site pattern and callbacks
 
 		#region Fields/Constants
 
@@ -30,6 +34,9 @@ namespace TextMetal.Core.XmlModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets an array of allowed child XML object types.
+		/// </summary>
 		public virtual Type[] AllowedChildTypes
 		{
 			get
@@ -38,6 +45,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets an array of allowed parent XML object types.
+		/// </summary>
 		public virtual Type[] AllowedParentTypes
 		{
 			get
@@ -46,6 +56,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the optional single XML object content.
+		/// </summary>
 		public IXmlObject Content
 		{
 			get
@@ -58,6 +71,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets a list of XML object items.
+		/// </summary>
 		public IList<IXmlObject> Items
 		{
 			get
@@ -66,6 +82,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the parent XML object or null if this is the document root.
+		/// </summary>
 		public IXmlObject Parent
 		{
 			get

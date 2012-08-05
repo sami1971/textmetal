@@ -94,7 +94,7 @@ namespace TextMetal.Core.SortModel
 					objType = obj.GetType();
 
 					if (!typeof(IComparable).IsAssignableFrom(objType))
-						throw new InvalidOperationException("TODO (enhancement): add meaningful message | not IComparble");
+						throw new InvalidOperationException(string.Format("The target expression of ordering is not assignable to type '{0}'.", typeof(IComparable).FullName));
 
 					comparable = (IComparable)obj;
 

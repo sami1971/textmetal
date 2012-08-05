@@ -43,14 +43,6 @@ namespace TextMetal.Core
 		/// </summary>
 		/// <returns> The element at the specified index. </returns>
 		/// <param name="index"> The zero-based index of the element to get or set. </param>
-		/// <exception cref="T:System.ArgumentOutOfRangeException">
-		/// 	<paramref name="index" />
-		/// 	is not a valid index in the
-		/// 	<see cref="T:System.Collections.Generic.IList`1" />
-		/// 	.</exception>
-		/// <exception cref="T:System.NotSupportedException">The property is set and the
-		/// 	<see cref="T:System.Collections.Generic.IList`1" />
-		/// 	is read-only.</exception>
 		public TToDerived this[int index]
 		{
 			get
@@ -106,9 +98,6 @@ namespace TextMetal.Core
 		/// 	Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" /> .
 		/// </summary>
 		/// <param name="item"> The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" /> . </param>
-		/// <exception cref="T:System.NotSupportedException">The
-		/// 	<see cref="T:System.Collections.Generic.ICollection`1" />
-		/// 	is read-only.</exception>
 		public void Add(TToDerived item)
 		{
 			this.Inner.Add((TFromBase)item);
@@ -117,9 +106,6 @@ namespace TextMetal.Core
 		/// <summary>
 		/// 	Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" /> .
 		/// </summary>
-		/// <exception cref="T:System.NotSupportedException">The
-		/// 	<see cref="T:System.Collections.Generic.ICollection`1" />
-		/// 	is read-only.</exception>
 		public void Clear()
 		{
 			this.Inner.Clear();
@@ -142,25 +128,6 @@ namespace TextMetal.Core
 		/// <param name="array"> The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see
 		///  	cref="T:System.Collections.Generic.ICollection`1" /> . The <see cref="T:System.Array" /> must have zero-based indexing. </param>
 		/// <param name="arrayIndex"> The zero-based index in <paramref name="array" /> at which copying begins. </param>
-		/// <exception cref="T:System.ArgumentNullException">
-		/// 	<paramref name="array" />
-		/// 	is null.</exception>
-		/// <exception cref="T:System.ArgumentOutOfRangeException">
-		/// 	<paramref name="arrayIndex" />
-		/// 	is less than 0.</exception>
-		/// <exception cref="T:System.ArgumentException">
-		/// 	<paramref name="array" />
-		/// 	is multidimensional.-or-The number of elements in the source
-		/// 	<see cref="T:System.Collections.Generic.ICollection`1" />
-		/// 	is greater than the available space from
-		/// 	<paramref name="arrayIndex" />
-		/// 	to the end of the destination
-		/// 	<paramref name="array" />
-		/// 	.-or-Type
-		/// 	<paramref name="T" />
-		/// 	cannot be cast automatically to the type of the destination
-		/// 	<paramref name="array" />
-		/// 	.</exception>
 		public void CopyTo(TToDerived[] array, int arrayIndex)
 		{
 			this.Inner.CopyTo((TFromBase[])(object)array, arrayIndex);
@@ -170,7 +137,6 @@ namespace TextMetal.Core
 		/// 	Returns an enumerator that iterates through the collection.
 		/// </summary>
 		/// <returns> A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection. </returns>
-		/// <filterpriority>1</filterpriority>
 		public IEnumerator<TToDerived> GetEnumerator()
 		{
 			if ((object)this.Inner != null)
@@ -184,7 +150,6 @@ namespace TextMetal.Core
 		/// 	Returns an enumerator that iterates through a collection.
 		/// </summary>
 		/// <returns> An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection. </returns>
-		/// <filterpriority>2</filterpriority>
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return ((IEnumerable)this.Inner).GetEnumerator();
@@ -205,14 +170,6 @@ namespace TextMetal.Core
 		/// </summary>
 		/// <param name="index"> The zero-based index at which <paramref name="item" /> should be inserted. </param>
 		/// <param name="item"> The object to insert into the <see cref="T:System.Collections.Generic.IList`1" /> . </param>
-		/// <exception cref="T:System.ArgumentOutOfRangeException">
-		/// 	<paramref name="index" />
-		/// 	is not a valid index in the
-		/// 	<see cref="T:System.Collections.Generic.IList`1" />
-		/// 	.</exception>
-		/// <exception cref="T:System.NotSupportedException">The
-		/// 	<see cref="T:System.Collections.Generic.IList`1" />
-		/// 	is read-only.</exception>
 		public void Insert(int index, TToDerived item)
 		{
 			this.Inner.Insert(index, (TFromBase)item);
@@ -225,9 +182,6 @@ namespace TextMetal.Core
 		///  	cref="T:System.Collections.Generic.ICollection`1" /> ; otherwise, false. This method also returns false if <paramref
 		///  	name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" /> . </returns>
 		/// <param name="item"> The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" /> . </param>
-		/// <exception cref="T:System.NotSupportedException">The
-		/// 	<see cref="T:System.Collections.Generic.ICollection`1" />
-		/// 	is read-only.</exception>
 		public bool Remove(TToDerived item)
 		{
 			return this.Inner.Remove((TFromBase)item);
@@ -237,14 +191,6 @@ namespace TextMetal.Core
 		/// 	Removes the <see cref="T:System.Collections.Generic.IList`1" /> item at the specified index.
 		/// </summary>
 		/// <param name="index"> The zero-based index of the item to remove. </param>
-		/// <exception cref="T:System.ArgumentOutOfRangeException">
-		/// 	<paramref name="index" />
-		/// 	is not a valid index in the
-		/// 	<see cref="T:System.Collections.Generic.IList`1" />
-		/// 	.</exception>
-		/// <exception cref="T:System.NotSupportedException">The
-		/// 	<see cref="T:System.Collections.Generic.IList`1" />
-		/// 	is read-only.</exception>
 		public void RemoveAt(int index)
 		{
 			this.Inner.RemoveAt(index);

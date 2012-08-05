@@ -7,11 +7,17 @@ using System;
 
 namespace TextMetal.Core.XmlModel
 {
+	/// <summary>
+	/// 	Marks a class as an XML object which is mapped to/from an XML element.
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
 	public sealed class XmlElementMappingAttribute : Attribute
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the XmlElementMappingAttribute class.
+		/// </summary>
 		public XmlElementMappingAttribute()
 		{
 		}
@@ -28,6 +34,9 @@ namespace TextMetal.Core.XmlModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets or sets the child element model (applicable only to those child elements which are not well-known via properties with mapping attributes).
+		/// </summary>
 		public ChildElementModel ChildElementModel
 		{
 			get
@@ -40,6 +49,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the local name of the XML element.
+		/// </summary>
 		public string LocalName
 		{
 			get
@@ -52,6 +64,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the namespace URI of the XML element.
+		/// </summary>
 		public string NamespaceUri
 		{
 			get

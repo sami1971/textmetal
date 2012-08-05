@@ -36,6 +36,13 @@ namespace TextMetal.Core.XmlModel
 		IXmlObject DeserializeFromXml(Stream stream);
 
 		/// <summary>
+		/// 	Deserialize an XML object graph from the specified XML text reader.
+		/// </summary>
+		/// <param name="xmlTextReader"> The XML text reader to load. </param>
+		/// <returns> An XML object graph. </returns>
+		IXmlObject DeserializeFromXml(XmlTextReader xmlTextReader);
+
+		/// <summary>
 		/// 	Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type to register. </typeparam>

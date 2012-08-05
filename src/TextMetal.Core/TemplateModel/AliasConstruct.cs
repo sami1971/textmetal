@@ -93,7 +93,7 @@ namespace TextMetal.Core.TemplateModel
 			aliasedType = Type.GetType(aqtn, false);
 
 			if ((object)aliasedType == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to load the aliased type '{0}' via Type.GetType(..).", aqtn));
 
 			templatingContext.AddReference(new XmlName()
 			                               {

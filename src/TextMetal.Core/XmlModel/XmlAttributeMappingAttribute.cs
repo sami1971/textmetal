@@ -7,11 +7,17 @@ using System;
 
 namespace TextMetal.Core.XmlModel
 {
+	/// <summary>
+	/// 	Marks a property of an XML object as being mapped to/from an XML attribute.
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public sealed class XmlAttributeMappingAttribute : Attribute
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the XmlAttributeMappingAttribute class.
+		/// </summary>
 		public XmlAttributeMappingAttribute()
 		{
 		}
@@ -28,6 +34,9 @@ namespace TextMetal.Core.XmlModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets or sets the local name of the XML attribute.
+		/// </summary>
 		public string LocalName
 		{
 			get
@@ -40,6 +49,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the namespace URI of the XML attribute.
+		/// </summary>
 		public string NamespaceUri
 		{
 			get
@@ -52,6 +64,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the order of rendering of the attribute to the XML stream. Order is only applicable to XML output and is ignored during XML input.
+		/// </summary>
 		public int Order
 		{
 			get

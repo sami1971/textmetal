@@ -54,6 +54,11 @@ namespace TextMetal.Core.TokenModel
 
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Used by the token model to execute public, static methods with zero parameters in a dynamic manner.
+		/// </summary>
+		/// <param name="parameters"> An array of parameters in the form: assembly-qualified-type-name, method-name, [parameters, ...] </param>
+		/// <returns> The return value of the executed method. </returns>
 		public static object StaticMethodResolver(string[] parameters)
 		{
 			int index = 0;
@@ -98,6 +103,7 @@ namespace TextMetal.Core.TokenModel
 					if ((object)methodInfo == null)
 						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
+					// TODO: Add support for method parameters and type coersion and edit documentation.
 					methodValue = methodInfo.Invoke(null, null);
 					index++;
 				}
@@ -106,6 +112,11 @@ namespace TextMetal.Core.TokenModel
 			return methodValue;
 		}
 
+		/// <summary>
+		/// 	Used by the token model to get the value of public, static properties with zero parameters in a dynamic manner.
+		/// </summary>
+		/// <param name="parameters"> An array of parameters in the form: assembly-qualified-type-name, property-name </param>
+		/// <returns> The return value of the property getter. </returns>
 		public static object StaticPropertyResolver(string[] parameters)
 		{
 			int index = 0;
@@ -153,6 +164,7 @@ namespace TextMetal.Core.TokenModel
 					if ((object)propertyInfo == null)
 						throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 
+					// TODO: Add support for method parameters and type coersion and edit documentation.
 					propertyValue = propertyInfo.GetValue(null, null);
 					index++;
 				}

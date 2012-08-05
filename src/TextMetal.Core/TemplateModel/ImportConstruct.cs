@@ -62,7 +62,7 @@ namespace TextMetal.Core.TemplateModel
 			fragment = templatingContext.Input.LoadFragment(name);
 
 			if ((object)fragment == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to import the fragment '{0}'.", name));
 
 			fragment.ExpandTemplate(templatingContext);
 		}

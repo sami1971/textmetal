@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 
@@ -127,6 +128,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			if (DataType.IsWhiteSpace(sourceFilePath))
 				throw new ArgumentOutOfRangeException("sourceFilePath");
 
+			connectionAqtn = null;
 			if (properties.TryGetValue(CMDLN_TOKEN_CONNECTION_AQTN, out values))
 			{
 				if ((object)values != null && values.Count == 1)
@@ -137,7 +139,10 @@ namespace TextMetal.Core.SourceModel.Primative
 			}
 
 			if ((object)connectionType == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to load the connection type '{0}' via Type.GetType(..).", connectionAqtn));
+
+			if (!typeof(IDbConnection).IsAssignableFrom(connectionType))
+				throw new InvalidOperationException(string.Format("The connection type is not assignable to type '{0}'.", typeof(IDbConnection).FullName));
 
 			if (properties.TryGetValue(CMDLN_TOKEN_CONNECTION_STRING, out values))
 			{
@@ -146,7 +151,7 @@ namespace TextMetal.Core.SourceModel.Primative
 			}
 
 			if (DataType.IsWhiteSpace(connectionString))
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("The connection string cannot be null or whitespace."));
 
 			if (properties.TryGetValue(CMDLN_TOKEN_GET_SCHEMA_ONLY, out values))
 			{

@@ -17,10 +17,16 @@ using TextMetal.Core.Plumbing;
 
 namespace TextMetal.Core.XmlModel
 {
+	/// <summary>
+	/// 	This is a custom XML serializer/deserializer that does not suffer from the rigidities of the .NET Framework supplied ones. This implementation was designed to be fast and flexible for XML driven tools.
+	/// </summary>
 	public sealed class XmlPersistEngine : IXmlPersistEngine
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the XmlPersistEngine class.
+		/// </summary>
 		public XmlPersistEngine()
 		{
 		}
@@ -36,6 +42,9 @@ namespace TextMetal.Core.XmlModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets the known XML object type registrations.
+		/// </summary>
 		private Dictionary<XmlName, Type> KnownXmlObjectTypeRegistrations
 		{
 			get
@@ -44,6 +53,9 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the known XML text object type registration.
+		/// </summary>
 		private Type KnownXmlTextObjectTypeRegistration
 		{
 			get
@@ -60,12 +72,20 @@ namespace TextMetal.Core.XmlModel
 
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Clears all known XML object registrations.
+		/// </summary>
 		public void ClearAllKnowns()
 		{
 			this.KnownXmlObjectTypeRegistrations.Clear();
 			this.KnownXmlTextObjectTypeRegistration = null;
 		}
 
+		/// <summary>
+		/// 	Deserialize an XML object graph from the specified XML file.
+		/// </summary>
+		/// <param name="fileName"> The XML file to load. </param>
+		/// <returns> An XML object graph. </returns>
 		public IXmlObject DeserializeFromXml(string fileName)
 		{
 			IXmlObject document;
@@ -83,6 +103,11 @@ namespace TextMetal.Core.XmlModel
 			}
 		}
 
+		/// <summary>
+		/// 	Deserialize an XML object graph from the specified stream.
+		/// </summary>
+		/// <param name="stream"> The stream to load. </param>
+		/// <returns> An XML object graph. </returns>
 		public IXmlObject DeserializeFromXml(Stream stream)
 		{
 			XmlTextReader xmlTextReader;
@@ -91,12 +116,21 @@ namespace TextMetal.Core.XmlModel
 			if ((object)stream == null)
 				throw new ArgumentNullException("stream");
 
-			// DO NOT USE A USGIN BLOCK HERE (CALLER OWNS STREAM) !!!
+			// DO NOT USE A USING BLOCK HERE (CALLER OWNS STREAM) !!!
 			xmlTextReader = new XmlTextReader(stream);
 			document = this.DeserializeFromXml(xmlTextReader);
 			return document;
 		}
 
+		/// <summary>
+		/// 	Private method that processes XML object deserialization.
+		/// </summary>
+		/// <param name="contextStack"> The context stack used to manage deserialization. </param>
+		/// <param name="previousElementXmlName"> The previously encountered XML name (parent). </param>
+		/// <param name="currentElementXmlName"> The current XML name (current). </param>
+		/// <param name="attributes"> The current attributes for the current XML object. </param>
+		/// <param name="overrideCurrentXmlTextObject"> A special overriding XML object. </param>
+		/// <returns> The created current XML object. </returns>
 		private IXmlObject DeserializeFromXml(Stack<IXmlObject> contextStack, XmlName previousElementXmlName, XmlName currentElementXmlName, IDictionary<XmlName, string> attributes, IXmlTextObject overrideCurrentXmlTextObject)
 		{
 			IXmlObject currentXmlObject;
@@ -361,6 +395,11 @@ namespace TextMetal.Core.XmlModel
 			return currentXmlObject;
 		}
 
+		/// <summary>
+		/// 	Deserialize an XML object graph from the specified XML text reader.
+		/// </summary>
+		/// <param name="xmlTextReader"> The XML text reader to load. </param>
+		/// <returns> An XML object graph. </returns>
 		public IXmlObject DeserializeFromXml(XmlTextReader xmlTextReader)
 		{
 			XmlName elementXmlName = null, attributeXmlName, previousElementXmlName;
@@ -480,6 +519,13 @@ namespace TextMetal.Core.XmlModel
 			return documentXmlObject;
 		}
 
+		/// <summary>
+		/// 	Private method that processes XML text object deserialization.
+		/// </summary>
+		/// <param name="contextStack"> The context stack used to manage deserialization. </param>
+		/// <param name="textValue"> The string value of the text element. </param>
+		/// <param name="xmlName"> The in-effect XML name. </param>
+		/// <returns> The created current XML text object. </returns>
 		private IXmlTextObject DeserializeFromXmlText(Stack<IXmlObject> contextStack, string textValue, XmlName xmlName)
 		{
 			IXmlTextObject currentXmlTextObject;
@@ -581,6 +627,11 @@ namespace TextMetal.Core.XmlModel
 			return false;
 		}
 
+		/// <summary>
+		/// 	Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the generic overload.
+		/// </summary>
+		/// <typeparam name="TObject"> The target type to register. </typeparam>
+		/// <param name="xmlName"> The XML name (local name and namespace URI). </param>
 		public void RegisterKnownXmlObject<TObject>(XmlName xmlName)
 			where TObject : IXmlObject
 		{
@@ -594,6 +645,11 @@ namespace TextMetal.Core.XmlModel
 			this.RegisterKnownXmlObject(xmlName, targetType);
 		}
 
+		/// <summary>
+		/// 	Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the non-generic overload.
+		/// </summary>
+		/// <param name="xmlName"> The XML name (local name and namespace URI). </param>
+		/// <param name="targetType"> The target type to register. </param>
 		public void RegisterKnownXmlObject(XmlName xmlName, Type targetType)
 		{
 			if ((object)xmlName == null)
@@ -611,6 +667,10 @@ namespace TextMetal.Core.XmlModel
 			this.KnownXmlObjectTypeRegistrations.Add(xmlName, targetType);
 		}
 
+		/// <summary>
+		/// 	Registers a known XML object by target type and implicit attribute-based XML name (local name and namespace URI). This is the generic overload.
+		/// </summary>
+		/// <typeparam name="TObject"> The target type to register. </typeparam>
 		public void RegisterKnownXmlObject<TObject>()
 			where TObject : IXmlObject
 		{
@@ -621,6 +681,10 @@ namespace TextMetal.Core.XmlModel
 			this.RegisterKnownXmlObject(targetType);
 		}
 
+		/// <summary>
+		/// 	Registers a known XML object by target type. This is the non-generic overload.
+		/// </summary>
+		/// <param name="targetType"> The target type to register. </param>
 		public void RegisterKnownXmlObject(Type targetType)
 		{
 			XmlName xmlName;
@@ -643,6 +707,10 @@ namespace TextMetal.Core.XmlModel
 			this.RegisterKnownXmlObject(xmlName, targetType);
 		}
 
+		/// <summary>
+		/// 	Registers a known XML text object by target type. This is the generic overload.
+		/// </summary>
+		/// <typeparam name="TObject"> The target type to register. </typeparam>
 		public void RegisterKnownXmlTextObject<TObject>()
 			where TObject : IXmlTextObject
 		{
@@ -653,6 +721,10 @@ namespace TextMetal.Core.XmlModel
 			this.RegisterKnownXmlTextObject(targetType);
 		}
 
+		/// <summary>
+		/// 	Registers a known XML text object by target type and implicit attribute-based XML name (local name and namespace URI). This is the non-generic overload.
+		/// </summary>
+		/// <param name="targetType"> The target type to register. </param>
 		public void RegisterKnownXmlTextObject(Type targetType)
 		{
 			if ((object)targetType == null)
@@ -667,6 +739,11 @@ namespace TextMetal.Core.XmlModel
 			this.KnownXmlTextObjectTypeRegistration = targetType;
 		}
 
+		/// <summary>
+		/// 	Private method to resolve an XML object by XML name.
+		/// </summary>
+		/// <param name="xmlName"> The XML name to lookup in the known registrations. </param>
+		/// <returns> An IXmlObject instance or null if the XML name is not known. </returns>
 		private IXmlObject ResolveXmlObject(XmlName xmlName)
 		{
 			object value;
@@ -692,6 +769,11 @@ namespace TextMetal.Core.XmlModel
 			return xmlObject;
 		}
 
+		/// <summary>
+		/// 	Private method to resolve an XML text object.
+		/// </summary>
+		/// <param name="text"> The string value of the XML text object. </param>
+		/// <returns> An IXmlTextObject instance or null if it is not known. </returns>
 		private IXmlTextObject ResolveXmlTextObject(string text)
 		{
 			object value;
@@ -718,6 +800,11 @@ namespace TextMetal.Core.XmlModel
 			return xmlTextObject;
 		}
 
+		/// <summary>
+		/// 	Serializes an XML object graph to the specified XML file.
+		/// </summary>
+		/// <param name="document"> The document root XML object. </param>
+		/// <param name="fileName"> The XML file to save. </param>
 		public void SerializeToXml(IXmlObject document, string fileName)
 		{
 			if ((object)document == null)
@@ -733,6 +820,11 @@ namespace TextMetal.Core.XmlModel
 				this.SerializeToXml(document, stream);
 		}
 
+		/// <summary>
+		/// 	Serializes an XML object graph to the specified stream.
+		/// </summary>
+		/// <param name="document"> The document root XML object. </param>
+		/// <param name="stream"> The stream to save. </param>
 		public void SerializeToXml(IXmlObject document, Stream stream)
 		{
 			XmlTextWriter xmlTextWriter;
@@ -743,17 +835,17 @@ namespace TextMetal.Core.XmlModel
 			if ((object)stream == null)
 				throw new ArgumentNullException("stream");
 
-			// DO NOT USE A USGIN BLOCK HERE (CALLER OWNS STREAM) !!!
+			// DO NOT USE A USING BLOCK HERE (CALLER OWNS STREAM) !!!
 			xmlTextWriter = new XmlTextWriter(stream, Encoding.UTF8);
 			this.SerializeToXml(document, xmlTextWriter);
 			xmlTextWriter.Flush();
 		}
 
 		/// <summary>
-		/// 	MUST FLUSH XMLTEXTWRITER!
+		/// 	Serializes an XML object graph to the specified XmlTextWriter.
 		/// </summary>
-		/// <param name="document"> </param>
-		/// <param name="xmlTextWriter"> </param>
+		/// <param name="document"> The document root XML object. </param>
+		/// <param name="xmlTextWriter"> The XmlTextWriter to save. </param>
 		public void SerializeToXml(IXmlObject document, XmlTextWriter xmlTextWriter)
 		{
 			if ((object)document == null)
@@ -948,6 +1040,11 @@ namespace TextMetal.Core.XmlModel
 			xmlTextWriter.WriteEndElement();
 		}
 
+		/// <summary>
+		/// 	Unregisters a known XML object by target type. This is the generic overload.
+		/// </summary>
+		/// <typeparam name="TObject"> The target type to unregister. </typeparam>
+		/// <returns> A value indicating if the registration was present. </returns>
 		public bool UnregisterKnownXmlObject<TObject>() where TObject : IXmlObject
 		{
 			Type targetType;
@@ -957,6 +1054,11 @@ namespace TextMetal.Core.XmlModel
 			return this.UnregisterKnownXmlObject(targetType);
 		}
 
+		/// <summary>
+		/// 	Unregisters a known XML object by target type. This is the generic overload.
+		/// </summary>
+		/// <param name="targetType"> The target type to unregister. </param>
+		/// <returns> A value indicating if the registration was present. </returns>
 		public bool UnregisterKnownXmlObject(Type targetType)
 		{
 			bool retval;
@@ -983,6 +1085,11 @@ namespace TextMetal.Core.XmlModel
 			return retval;
 		}
 
+		/// <summary>
+		/// 	Unregisters a known XML text object by target type. This is the generic overload.
+		/// </summary>
+		/// <typeparam name="TObject"> The target type to unregister. </typeparam>
+		/// <returns> A value indicating if the registration was present. </returns>
 		public bool UnregisterKnownXmlTextObject<TObject>() where TObject : IXmlTextObject
 		{
 			Type targetType;
@@ -992,6 +1099,11 @@ namespace TextMetal.Core.XmlModel
 			return this.UnregisterKnownXmlTextObject(targetType);
 		}
 
+		/// <summary>
+		/// 	Unregisters a known XML text object by target type. This is the generic overload.
+		/// </summary>
+		/// <param name="targetType"> The target type to unregister. </param>
+		/// <returns> A value indicating if the registration was present. </returns>
 		public bool UnregisterKnownXmlTextObject(Type targetType)
 		{
 			bool retval;

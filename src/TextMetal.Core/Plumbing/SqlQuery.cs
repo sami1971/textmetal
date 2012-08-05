@@ -10,12 +10,18 @@ using System.Xml.Serialization;
 
 namespace TextMetal.Core.Plumbing
 {
+	/// <summary>
+	/// 	Represents an ordered, keyed set of N-level nested and corrolated SQL queries.
+	/// </summary>
 	[Serializable]
 	[XmlRoot(ElementName = "SqlQuery", Namespace = "http://www.textmetal.com/api/v4.4.0")]
 	public sealed class SqlQuery
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the SqlQuery class.
+		/// </summary>
 		public SqlQuery()
 		{
 		}
@@ -34,6 +40,9 @@ namespace TextMetal.Core.Plumbing
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets or sets the key of this SQL query.
+		/// </summary>
 		[XmlAttribute("key")]
 		public string Key
 		{
@@ -47,6 +56,9 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the ordinal (order) of this SQL query.
+		/// </summary>
 		[XmlIgnore]
 		public int? Order
 		{
@@ -60,6 +72,9 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	Gets a list of corrolated subqueries.
+		/// </summary>
 		[XmlArray(ElementName = "SubQueries", Order = 1)]
 		[XmlArrayItem(ElementName = "SqlQuery")]
 		public List<SqlQuery> SubQueries
@@ -70,6 +85,9 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the SQL command text for this SQL query.
+		/// </summary>
 		[XmlElement("Text", Order = 0)]
 		public string Text
 		{
@@ -83,6 +101,9 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or set the command type of this SQL query.
+		/// </summary>
 		[XmlAttribute("type")]
 		public CommandType Type
 		{
@@ -96,6 +117,9 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the ordinal (order) of this SQL query. Do not use directly; rather use the Order property.
+		/// </summary>
 		[XmlAttribute("order")]
 		public string _Order
 		{

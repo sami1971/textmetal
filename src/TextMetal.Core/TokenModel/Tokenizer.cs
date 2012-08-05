@@ -119,6 +119,11 @@ namespace TextMetal.Core.TokenModel
 
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	A private method to parse an argument array from a tokenized call list.
+		/// </summary>
+		/// <param name="call"> The call list from a tokenized call site. </param>
+		/// <returns> A string array of call site arguments. </returns>
 		private static string[] GetArgs(string call)
 		{
 			string[] args;
@@ -136,6 +141,13 @@ namespace TextMetal.Core.TokenModel
 			return args;
 		}
 
+		/// <summary>
+		/// 	A private method that obeys the strict matching semantics flag in effect and if enabled, will throw an exception. Otherwise, returns the original unmatched value without alteration.
+		/// </summary>
+		/// <param name="strictMatching"> A value indicating whether strict matching semantics are in effect. </param>
+		/// <param name="originalValue"> The original unmatched value. </param>
+		/// <param name="matchPoint"> A short description of where the match failure occured. </param>
+		/// <returns> The original value if strict matching semantics are disabled. </returns>
 		private static string GetOriginalValueOrThrowExecption(bool strictMatching, string originalValue, string matchPoint)
 		{
 			if (strictMatching)
@@ -173,6 +185,12 @@ namespace TextMetal.Core.TokenModel
 			return tokenizedValue;
 		}
 
+		/// <summary>
+		/// 	Private method used to match and process tokenized regular expressions.
+		/// </summary>
+		/// <param name="match"> The regular express match object. </param>
+		/// <param name="wildcardTokenReplacementStrategy"> The wildcard token replacement strategy to use in the event a predefined token replacement strategy lookup failed. </param>
+		/// <returns> The token-resolved string value. </returns>
 		private string ReplacementMatcherEx(Match match, IWildcardTokenReplacementStrategy wildcardTokenReplacementStrategy)
 		{
 			// ${ token (`arg0`, ..) }

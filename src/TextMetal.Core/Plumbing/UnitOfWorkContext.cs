@@ -8,10 +8,16 @@ using System.Data;
 
 namespace TextMetal.Core.Plumbing
 {
+	/// <summary>
+	/// 	Represents an atomic set of data operations on a single connection/transaction.
+	/// </summary>
 	public sealed class UnitOfWorkContext : IDisposable
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the UnitOfWorkContext class.
+		/// </summary>
 		private UnitOfWorkContext()
 		{
 		}
@@ -150,6 +156,13 @@ namespace TextMetal.Core.Plumbing
 
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Creates a new unit of work context (and opens the underlying connection) for the given connection type and connection string with an optional transaction started.
+		/// </summary>
+		/// <param name="connectionType"> The run-time type of the connection to use. </param>
+		/// <param name="connectionString"> The ADO.NET provider connection string to use. </param>
+		/// <param name="transactional"> A value indicating whether a new local data source transaction isstarted on the connection. </param>
+		/// <returns> An instance of teh UnitOfWorkContext ready for execution of operations. This should be wrapped in a using(...){} block for an optimal usage scenario. </returns>
 		public static UnitOfWorkContext Create(Type connectionType, string connectionString, bool transactional)
 		{
 			UnitOfWorkContext unitOfWorkContext;
@@ -179,6 +192,9 @@ namespace TextMetal.Core.Plumbing
 			return unitOfWorkContext;
 		}
 
+		/// <summary>
+		/// 	Contains the logic to 'adjudicate' or realize a transaction based on state of the current unit of work context instance.
+		/// </summary>
 		private void Adjudicate()
 		{
 			try

@@ -16,6 +16,9 @@ namespace TextMetal.Core.AssociativeModel
 	{
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets the associative name of the current associative XML object.
+		/// </summary>
 		string Name
 		{
 			get;

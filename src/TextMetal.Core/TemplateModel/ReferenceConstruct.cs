@@ -71,7 +71,7 @@ namespace TextMetal.Core.TemplateModel
 			assembly = templatingContext.Input.LoadAssembly(name);
 
 			if ((object)assembly == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
+				throw new InvalidOperationException(string.Format("Failed to reference the assembly '{0}'.", name));
 
 			exportedTypes = assembly.GetExportedTypes();
 

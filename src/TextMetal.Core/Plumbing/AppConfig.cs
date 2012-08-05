@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// 	Provides strongly typed read access to an app.config or web.config file.
+	/// 	Provides static helper and/or extension methods for strongly typed read access to an app.config or web.config file.
 	/// </summary>
 	public static class AppConfig
 	{
@@ -24,6 +24,9 @@ namespace TextMetal.Core.Plumbing
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets the regular expression pattern for arguments.
+		/// </summary>
 		public static string ArgsRegEx
 		{
 			get
@@ -32,6 +35,9 @@ namespace TextMetal.Core.Plumbing
 			}
 		}
 
+		/// <summary>
+		/// 	Gets the regular expression pattern for properties.
+		/// </summary>
 		public static string PropsRegEx
 		{
 			get
@@ -235,6 +241,13 @@ namespace TextMetal.Core.Plumbing
 			return arguments;
 		}
 
+		/// <summary>
+		/// 	Given a string property, this method will parse the property using a well know pattern match to obtain an output key/value pair for use by applications.
+		/// </summary>
+		/// <param name="arg"> The property to parse. </param>
+		/// <param name="key"> The output property key. </param>
+		/// <param name="value"> The output property value. </param>
+		/// <returns> A value indicating if the parse was successful or not. </returns>
 		public static bool TryParseCommandLineArgumentProperty(string arg, out string key, out string value)
 		{
 			Match match;

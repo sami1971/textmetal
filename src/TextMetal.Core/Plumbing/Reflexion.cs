@@ -11,7 +11,7 @@ using System.Reflection;
 namespace TextMetal.Core.Plumbing
 {
 	/// <summary>
-	/// 	Provides common reflection scenarios.
+	/// 	Provides static helper and/or extension methods for reflection.
 	/// </summary>
 	public static class Reflexion
 	{
@@ -117,6 +117,13 @@ namespace TextMetal.Core.Plumbing
 			return message;
 		}
 
+		/// <summary>
+		/// 	Attempts to get the property type for a logical property (CLR, associative, etc.).
+		/// </summary>
+		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
+		/// <param name="propertyName"> The logical property name to get the type for. </param>
+		/// <param name="propertyType"> An output run-time type of the logical property or null if the logical property lookup failed. </param>
+		/// <returns> A value indicating whether the logical property name lookup was successful or not. </returns>
 		public static bool GetLogicalPropertyType(object targetInstance, string propertyName, out Type propertyType)
 		{
 			bool trigger = false;
@@ -168,6 +175,13 @@ namespace TextMetal.Core.Plumbing
 			return trigger;
 		}
 
+		/// <summary>
+		/// 	Attempts to get the property value for a logical property (CLR, associative, etc.).
+		/// </summary>
+		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
+		/// <param name="propertyName"> The logical property name to get the value for. </param>
+		/// <param name="propertyValue"> An output run-time value of the logical property or null if the logical property lookup failed. </param>
+		/// <returns> A value indicating whether the logical property name lookup was successful or not. </returns>
 		public static bool GetLogicalPropertyValue(object targetInstance, string propertyName, out object propertyValue)
 		{
 			bool trigger = false;
@@ -214,6 +228,12 @@ namespace TextMetal.Core.Plumbing
 			return trigger;
 		}
 
+		/// <summary>
+		/// 	A private extension method used to obtain the least-derived public, instance property of a given name.
+		/// </summary>
+		/// <param name="propertyType"> The property type to interogate. </param>
+		/// <param name="propertyName"> The property name to lookup. </param>
+		/// <returns> A PropertyInfo for the least-derived public, instance property by the given name or null if none were found. </returns>
 		private static PropertyInfo GetLowestProperty(this Type propertyType, string propertyName)
 		{
 			PropertyInfo property;
@@ -336,11 +356,27 @@ namespace TextMetal.Core.Plumbing
 			return closedNullableType;
 		}
 
+		/// <summary>
+		/// 	Attempts to set the property value for a logical property (CLR, associative, etc.). This overload assume stayHard=false and makeSoft=true semantics.
+		/// </summary>
+		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
+		/// <param name="propertyName"> The logical property name to set the value for. </param>
+		/// <param name="propertyValue"> The value of the logical property to set or null. </param>
+		/// <returns> A value indicating whether the logical property name lookup was successful or not. </returns>
 		public static bool SetLogicalPropertyValue(object targetInstance, string propertyName, object propertyValue)
 		{
 			return SetLogicalPropertyValue(targetInstance, propertyName, propertyValue, false, true);
 		}
 
+		/// <summary>
+		/// 	Attempts to set the property value for a logical property (CLR, associative, etc.).
+		/// </summary>
+		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
+		/// <param name="propertyName"> The logical property name to set the value for. </param>
+		/// <param name="propertyValue"> The value of the logical property to set or null. </param>
+		/// <param name="stayHard"> Force only 'hard' object semantics and not use associative lookup (i.e. the target instance must be a real CLR object). </param>
+		/// <param name="makeSoft"> Allow making 'soft' object semantics (i.e. the target instance could be an associative object). </param>
+		/// <returns> A value indicating whether the logical property name lookup was successful or not; lookup respects the 'stayHard' and 'makeSoft' flags. </returns>
 		public static bool SetLogicalPropertyValue(object targetInstance, string propertyName, object propertyValue, bool stayHard, bool makeSoft)
 		{
 			bool trigger = false;
