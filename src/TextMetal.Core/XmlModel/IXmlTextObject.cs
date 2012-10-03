@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Core.XmlModel
 {
 	/// <summary>
-	/// 	Reprents an XML text object and it's text value.
+	/// 	Represents an XML text object and it's text value.
 	/// </summary>
 	public interface IXmlTextObject : IXmlObject
 	{

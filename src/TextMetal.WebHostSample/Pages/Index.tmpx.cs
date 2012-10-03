@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using TextMetal.Core.ExpressionModel;
 using TextMetal.Core.SourceModel;
 using TextMetal.WebHostSample.Objects.Model;
 
@@ -24,7 +25,7 @@ namespace TextMetal.WebHostSample.Pages
 
 			repository.TryWriteEventLogEntry(Guid.NewGuid().ToString());
 
-			repository.FindEventLogs(null).ToList().ForEach(el => repository.DiscardEventLog(el));
+			repository.FindEventLogs(new Query(new NullaryExpressionConstruct(), new Order[] { }, 0, 0)).ToList().ForEach(el => repository.DiscardEventLog(el));
 
 			return new { Y = "deez nizzles" };
 		}

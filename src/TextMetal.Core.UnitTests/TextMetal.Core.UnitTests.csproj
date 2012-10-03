@@ -57,12 +57,6 @@
     <Compile Include="Plumbing\data\AdoNetHelperTests.cs" />
     <None Include="Plumbing\data\UnitOfWorkContextTests.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
-    <Compile Include="TestingFramework\CaptureValueMatcher~1.cs" />
-    <Compile Include="TestingFramework\CoverageExclusionAttribute.cs" />
-    <Compile Include="TestingFramework\ForceTrueMatcher.cs" />
-    <Compile Include="TestingFramework\MemberInfoProxy~1.cs" />
-    <Compile Include="TestingFramework\ReturnNullAction.cs" />
-    <Compile Include="TestingFramework\ValueGenerator.cs" />
     <Compile Include="TestingInfrastructure\MockConnection.cs" />
     <Compile Include="TestingInfrastructure\MockException.cs" />
     <Compile Include="TestingInfrastructure\MockMultipleTestAttibute.cs" />

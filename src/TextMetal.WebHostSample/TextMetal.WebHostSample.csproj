@@ -44,6 +44,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
     </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.81.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SQLite\x86\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc,Version =2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\AspNetMvc\System.Web.Mvc.dll</HintPath>
@@ -80,17 +84,25 @@
     <Compile Include="Objects\Hosts\Email\IEmailMessage.cs" />
     <Compile Include="Objects\Hosts\Email\MessageTemplate.cs" />
     <Compile Include="Objects\LowercaseRoute.cs" />
+    <Compile Include="Objects\Model\DatabaseFileManager.g.cs" />
+    <Compile Include="Objects\Model\DatabaseHistory.g.cs" />
+    <Compile Include="Objects\Model\DatabaseRevision.g.cs" />
     <Compile Include="Objects\Model\IRepository.cs" />
     <Compile Include="Objects\Model\IRepository.g.cs" />
     <Compile Include="Objects\Model\IRepository.sp.g.cs" />
     <Compile Include="Objects\Model\IRepository.tv.g.cs" />
+    <Compile Include="Objects\Model\Order.g.cs" />
     <Compile Include="Objects\Model\Procedures\BlahBlahBlah_Request.g.cs" />
     <Compile Include="Objects\Model\Procedures\BlahBlahBlah_Response.g.cs" />
     <Compile Include="Objects\Model\Procedures\BlahBlahBlah_Result.g.cs" />
+    <Compile Include="Objects\Model\Query.g.cs" />
     <Compile Include="Objects\Model\Repository.cs" />
     <Compile Include="Objects\Model\Repository.g.cs" />
     <Compile Include="Objects\Model\Repository.sp.g.cs" />
+    <Compile Include="Objects\Model\Repository.sqlite.g.cs" />
+    <Compile Include="Objects\Model\Repository.sqlserver.g.cs" />
     <Compile Include="Objects\Model\Repository.tv.g.cs" />
+    <Compile Include="Objects\Model\SqlExpressionVisitor.g.cs" />
     <Compile Include="Objects\Model\Tables\EventLog.cs" />
     <Compile Include="Objects\Model\Tables\EmailAttachment.cs" />
     <Compile Include="Objects\Model\Tables\EmailAttachment.g.cs" />

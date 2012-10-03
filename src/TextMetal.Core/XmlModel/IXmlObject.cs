@@ -4,12 +4,11 @@
 */
 
 using System;
-using System.Collections.Generic;
 
 namespace TextMetal.Core.XmlModel
 {
 	/// <summary>
-	/// 	Reprents an XML object and it's "schema".
+	/// 	Represents an XML object and it's "schema".
 	/// </summary>
 	public interface IXmlObject
 	{
@@ -43,7 +42,7 @@ namespace TextMetal.Core.XmlModel
 		/// <summary>
 		/// 	Gets a list of XML object items.
 		/// </summary>
-		IList<IXmlObject> Items
+		IXmlObjectCollection<IXmlObject> Items
 		{
 			get;
 		}

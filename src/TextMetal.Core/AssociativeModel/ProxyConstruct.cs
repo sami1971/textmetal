@@ -39,6 +39,9 @@ namespace TextMetal.Core.AssociativeModel
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// Gets or sets the proxied value.
+		/// </summary>
 		public object Value
 		{
 			get

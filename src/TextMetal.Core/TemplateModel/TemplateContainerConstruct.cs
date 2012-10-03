@@ -24,7 +24,7 @@ namespace TextMetal.Core.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		public new IList<TemplateXmlObject> Items
+		public new IXmlObjectCollection<TemplateXmlObject> Items
 		{
 			get
 			{

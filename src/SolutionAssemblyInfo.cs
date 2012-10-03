@@ -14,14 +14,14 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: AssemblyCompany("Daniel Bullington")]
-[assembly: AssemblyProduct("TextMetal")]
+[assembly: AssemblyProduct("textmetal.com")]
 [assembly: AssemblyCopyright("©2002-2012 Daniel Bullington")]
 [assembly: AssemblyDescription("Distributed under the MIT license:\r\nhttp://www.opensource.org/licenses/mit-license.php")]
 [assembly: AssemblyTrademark("π")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("4.4.2.*")]
-[assembly: AssemblyFileVersion("4.4.2.0")]
-[assembly: AssemblyInformationalVersion("2012.08.04")]
+[assembly: AssemblyVersion("4.4.3.*")]
+[assembly: AssemblyFileVersion("4.4.3.0")]
+[assembly: AssemblyInformationalVersion("2012.10.02")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: ComVisible(false)]
 

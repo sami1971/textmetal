@@ -4,12 +4,11 @@
 */
 
 using System;
-using System.Collections.Generic;
 
 namespace TextMetal.Core.XmlModel
 {
 	/// <summary>
-	/// 	Provides a base for all XML objects:
+	/// 	Provides a base for all XML objects.
 	/// </summary>
 	public abstract class XmlObject : IXmlObject
 	{
@@ -20,13 +19,14 @@ namespace TextMetal.Core.XmlModel
 		/// </summary>
 		protected XmlObject()
 		{
+			this.items = new XmlObjectCollection<IXmlObject>(this);
 		}
 
 		#endregion
 
 		#region Fields/Constants
 
-		private readonly IList<IXmlObject> items = new List<IXmlObject>();
+		private readonly IXmlObjectCollection<IXmlObject> items;
 		private IXmlObject content;
 		private IXmlObject parent;
 
@@ -74,7 +74,7 @@ namespace TextMetal.Core.XmlModel
 		/// <summary>
 		/// 	Gets a list of XML object items.
 		/// </summary>
-		public IList<IXmlObject> Items
+		public IXmlObjectCollection<IXmlObject> Items
 		{
 			get
 			{

@@ -7,6 +7,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using TextMetal.Core.XmlModel;
+
 namespace TextMetal.Core
 {
 	/// <summary>
@@ -14,8 +16,9 @@ namespace TextMetal.Core
 	/// </summary>
 	/// <typeparam name="TToBase"> The target list super type. </typeparam>
 	/// <typeparam name="TFromDerived"> The source list sub type. </typeparam>
-	public class CovariantListAdapter<TToBase, TFromDerived> : IList<TToBase>
-		where TFromDerived : class, TToBase
+	public class CovariantListAdapter<TToBase, TFromDerived> : IXmlObjectCollection<TToBase>
+		where TFromDerived : class, IXmlObject, TToBase
+		where TToBase : class, IXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -23,7 +26,7 @@ namespace TextMetal.Core
 		/// 	Initializes a new instance of the CovariantListAdapter`2 class.
 		/// </summary>
 		/// <param name="inner"> The inner list instance. </param>
-		public CovariantListAdapter(IList<TFromDerived> inner)
+		public CovariantListAdapter(IXmlObjectCollection<TFromDerived> inner)
 		{
 			this.inner = inner;
 		}
@@ -32,7 +35,7 @@ namespace TextMetal.Core
 
 		#region Fields/Constants
 
-		private readonly IList<TFromDerived> inner;
+		private readonly IXmlObjectCollection<TFromDerived> inner;
 
 		#endregion
 
@@ -70,7 +73,7 @@ namespace TextMetal.Core
 		/// <summary>
 		/// 	Gets the inner list from the derived type.
 		/// </summary>
-		public IList<TFromDerived> Inner
+		public IXmlObjectCollection<TFromDerived> Inner
 		{
 			get
 			{
@@ -87,6 +90,17 @@ namespace TextMetal.Core
 			get
 			{
 				return this.Inner.IsReadOnly;
+			}
+		}
+
+		/// <summary>
+		/// 	Gets the site XML object or null if this is unattached.
+		/// </summary>
+		public IXmlObject Site
+		{
+			get
+			{
+				return null;
 			}
 		}
 

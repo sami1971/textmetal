@@ -359,6 +359,15 @@
             <param name="Name">The name of the type to match</param>
             <returns>The .NET DBType the text evaluates to.</returns>
         </member>
+        <member name="M:System.Data.SQLite.SQLiteBase.SetMemoryStatus(System.Boolean)">
+            <summary>
+            Sets the status of the memory usage tracking subsystem in the SQLite core library.  By default, this is enabled.
+            If this is disabled, memory usage tracking will not be performed.  This is not really a per-connection value, it is
+            global to the process.
+            </summary>
+            <param name="value">Non-zero to enable memory usage tracking, zero otherwise.</param>
+            <returns>A standard SQLite return code (i.e. zero for success and non-zero for failure).</returns>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteBase.Shutdown">
             <summary>
             Shutdown the SQLite engine so that it can be restarted with different config options.
@@ -476,6 +485,15 @@
             String.Format() function.</param>
             <returns></returns>
         </member>
+        <member name="M:System.Data.SQLite.SQLiteBase.IsInitialized">
+            <summary>
+            Checks if the SQLite core library has been initialized in the current process.
+            </summary>
+            <returns>
+            Non-zero if the SQLite core library has been initialized in the current process,
+            zero otherwise.
+            </returns>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteBase.InitializeBackup(System.Data.SQLite.SQLiteConnection,System.String,System.String)">
             <summary>
             Creates a new SQLite backup object based on the provided destination
@@ -546,12 +564,14 @@
         </member>
         <member name="P:System.Data.SQLite.SQLiteBase.MemoryUsed">
             <summary>
-            Returns the amount of memory (in bytes) currently in use by the SQLite core library.
+            Returns the amount of memory (in bytes) currently in use by the SQLite core library.  This is not really a per-connection
+            value, it is global to the process.
             </summary>
         </member>
         <member name="P:System.Data.SQLite.SQLiteBase.MemoryHighwater">
             <summary>
             Returns the maximum amount of memory (in bytes) used by the SQLite core library since the high-water mark was last reset.
+            This is not really a per-connection value, it is global to the process.
             </summary>
         </member>
         <member name="F:System.Data.SQLite.SQLite3._sql">
@@ -1191,7 +1211,7 @@
             </listheader>
             <item>
             <description>Data Source</description>
-            <description>{filename}</description>
+            <description>This may be a file name, the string ":memory:", or any supported URI (starting with SQLite 3.7.7).</description>
             <description>Y</description>
             <description></description>
             </item>
@@ -1209,7 +1229,14 @@
             </item>
             <item>
             <description>DateTimeFormat</description>
-            <description><b>Ticks</b> - Use DateTime.Ticks<br/><b>ISO8601</b> - Use ISO8601 DateTime format</description>
+            <description>
+            <b>Ticks</b> - Use the value of DateTime.Ticks.<br/>
+            <b>ISO8601</b> - Use the ISO-8601 format.  Uses the "yyyy-MM-dd HH:mm:ss.FFFFFFFK" format for UTC
+            DateTime values and "yyyy-MM-dd HH:mm:ss.FFFFFFF" format for local DateTime values).<br/>
+            <b>JulianDay</b> - The interval of time in days and fractions of a day since January 1, 4713 BC.<br/>
+            <b>UnixEpoch</b> - The whole number of seconds since the Unix epoch (January 1, 1970).<br/>
+            <b>InvariantCulture</b> - Any culture-independent string value that the .NET Framework can interpret as a valid DateTime.<br/>
+            <b>CurrentCulture</b> - Any string value that the .NET Framework can interpret as a valid DateTime using the current culture.</description>
             <description>N</description>
             <description>ISO8601</description>
             </item>
@@ -1244,7 +1271,7 @@
             <description>Synchronous</description>
             <description><b>Normal</b> - Normal file flushing behavior<br/><b>Full</b> - Full flushing after all writes<br/><b>Off</b> - Underlying OS flushes I/O's</description>
             <description>N</description>
-            <description>Normal</description>
+            <description>Full</description>
             </item>
             <item>
             <description>Page Size</description>
@@ -1329,6 +1356,24 @@
             <description>Extra behavioral flags for the connection.  See the SQLiteConnectionFlags enumeration for possible values.</description>
             <description>N</description>
             <description>Default</description>
+            </item>
+            <item>
+            <description>SetDefaults</description>
+            <description>
+            <b>True</b> - Apply the default connection settings to the opened database.<br/>
+            <b>False</b> - Skip applying the default connection settings to the opened database.
+            </description>
+            <description>N</description>
+            <description>True</description>
+            </item>
+            <item>
+            <description>ToFullPath</description>
+            <description>
+            <b>True</b> - Attempt to expand the data source file name to a fully qualified path before opening.<br/>
+            <b>False</b> - Skip attempting to expand the data source file name to a fully qualified path before opening.
+            </description>
+            <description>N</description>
+            <description>True</description>
             </item>
             </list>
             </remarks>
@@ -1567,6 +1612,15 @@
             <param name="defValue">The default value to return if the key is not found</param>
             <returns>The value corresponding to the specified key, or the default value if not found.</returns>
         </member>
+        <member name="M:System.Data.SQLite.SQLiteConnection.TryParseEnum(System.Type,System.String,System.Boolean)">
+            <summary>
+            Attempts to convert the string value to an enumerated value of the specified type.
+            </summary>
+            <param name="type">The enumerated type to convert the string value to.</param>
+            <param name="value">The string value to be converted.</param>
+            <param name="ignoreCase">Non-zero to make the conversion case-insensitive.</param>
+            <returns>The enumerated value upon success or null upon error.</returns>
+        </member>
         <member name="M:System.Data.SQLite.SQLiteConnection.Open">
             <summary>
             Opens the connection using the parameters found in the <see cref="P:System.Data.SQLite.SQLiteConnection.ConnectionString">ConnectionString</see>
@@ -1577,6 +1631,15 @@
             Opens the connection using the parameters found in the <see cref="P:System.Data.SQLite.SQLiteConnection.ConnectionString">ConnectionString</see> and then returns it.
             </summary>
             <returns>The current connection object.</returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteConnection.SetMemoryStatus(System.Boolean)">
+            <summary>
+            Sets the status of the memory usage tracking subsystem in the SQLite core library.  By default, this is enabled.
+            If this is disabled, memory usage tracking will not be performed.  This is not really a per-connection value, it is
+            global to the process.
+            </summary>
+            <param name="value">Non-zero to enable memory usage tracking, zero otherwise.</param>
+            <returns>A standard SQLite return code (i.e. zero for success and non-zero for failure).</returns>
         </member>
         <member name="M:System.Data.SQLite.SQLiteConnection.Shutdown">
             Passes a shutdown request off to SQLite.
@@ -1640,11 +1703,26 @@
             current interval to be queried and replace that negative value.</param>
             <returns>Zero for success, non-zero for error.</returns>
         </member>
-        <member name="M:System.Data.SQLite.SQLiteConnection.ExpandFileName(System.String)">
+        <member name="M:System.Data.SQLite.SQLiteConnection.UnwrapFileName(System.String)">
             <summary>
-            Expand the filename of the data source, resolving the |DataDirectory| macro as appropriate.
+            Removes one set of surrounding single -OR- double quotes from the file
+            name and returns the resulting file name.  If the string is null, empty,
+            or contains quotes that are not balanced, nothing is done and the original
+            string will be returned.
+            </summary>
+            <param name="sourceFile">The database file name to process.</param>
+            <returns>The modified database file name.</returns>
+        </member>
+        <member name="M:System.Data.SQLite.SQLiteConnection.ExpandFileName(System.String,System.Boolean)">
+            <summary>
+            Expand the filename of the data source, resolving the |DataDirectory|
+            macro as appropriate.
             </summary>
             <param name="sourceFile">The database filename to expand</param>
+            <param name="toFullPath">
+            Non-zero if the returned file name should be converted to a full path
+            (except when using the .NET Compact Framework).
+            </param>
             <returns>The expanded path and filename of the filename</returns>
         </member>
         <member name="M:System.Data.SQLite.SQLiteConnection.GetSchema">
@@ -1809,7 +1887,7 @@
             </listheader>
             <item>
             <description>Data Source</description>
-            <description>{filename}</description>
+            <description>This may be a file name, the string ":memory:", or any supported URI (starting with SQLite 3.7.7).</description>
             <description>Y</description>
             <description></description>
             </item>
@@ -1827,15 +1905,37 @@
             </item>
             <item>
             <description>DateTimeFormat</description>
-            <description><b>Ticks</b> - Use DateTime.Ticks<br/><b>ISO8601</b> - Use ISO8601 DateTime format<br/><b>JulianDay</b> - Use JulianDay format</description>
+            <description>
+            <b>Ticks</b> - Use the value of DateTime.Ticks.<br/>
+            <b>ISO8601</b> - Use the ISO-8601 format.  Uses the "yyyy-MM-dd HH:mm:ss.FFFFFFFK" format for UTC
+            DateTime values and "yyyy-MM-dd HH:mm:ss.FFFFFFF" format for local DateTime values).<br/>
+            <b>JulianDay</b> - The interval of time in days and fractions of a day since January 1, 4713 BC.<br/>
+            <b>UnixEpoch</b> - The whole number of seconds since the Unix epoch (January 1, 1970).<br/>
+            <b>InvariantCulture</b> - Any culture-independent string value that the .NET Framework can interpret as a valid DateTime.<br/>
+            <b>CurrentCulture</b> - Any string value that the .NET Framework can interpret as a valid DateTime using the current culture.</description>
             <description>N</description>
             <description>ISO8601</description>
             </item>
             <item>
-            <description>BinaryGUID</description>
-            <description><b>Yes/On/1</b> - Store GUID columns in binary form<br/><b>No/Off/0</b> - Store GUID columns as text</description>
+            <description>DateTimeKind</description>
+            <description><b>Unspecified</b> - Not specified as either UTC or local time.<br/><b>Utc</b> - The time represented is UTC.<br/><b>Local</b> - The time represented is local time.</description>
             <description>N</description>
-            <description>On</description>
+            <description>Unspecified</description>
+            </item>
+            <item>
+            <description>BaseSchemaName</description>
+            <description>Some base data classes in the framework (e.g. those that build SQL queries dynamically)
+            assume that an ADO.NET provider cannot support an alternate catalog (i.e. database) without supporting
+            alternate schemas as well; however, SQLite does not fit into this model.  Therefore, this value is used
+            as a placeholder and removed prior to preparing any SQL statements that may contain it.</description>
+            <description>N</description>
+            <description>sqlite_default_schema</description>
+            </item>
+            <item>
+            <description>BinaryGUID</description>
+            <description><b>True</b> - Store GUID columns in binary form<br/><b>False</b> - Store GUID columns as text</description>
+            <description>N</description>
+            <description>True</description>
             </item>
             <item>
             <description>Cache Size</description>
@@ -1847,7 +1947,7 @@
             <description>Synchronous</description>
             <description><b>Normal</b> - Normal file flushing behavior<br/><b>Full</b> - Full flushing after all writes<br/><b>Off</b> - Underlying OS flushes I/O's</description>
             <description>N</description>
-            <description>Normal</description>
+            <description>Full</description>
             </item>
             <item>
             <description>Page Size</description>
@@ -1857,13 +1957,13 @@
             </item>
             <item>
             <description>Password</description>
-            <description>{password}</description>
+            <description>{password} - Using this parameter requires that the CryptoAPI based codec be enabled at compile-time for both the native interop assembly and the core managed assemblies; otherwise, using this parameter may result in an exception being thrown when attempting to open the connection.</description>
             <description>N</description>
             <description></description>
             </item>
             <item>
             <description>Enlist</description>
-            <description><B>Y</B> - Automatically enlist in distributed transactions<br/><b>N</b> - No automatic enlistment</description>
+            <description><b>Y</b> - Automatically enlist in distributed transactions<br/><b>N</b> - No automatic enlistment</description>
             <description>N</description>
             <description>Y</description>
             </item>
@@ -1920,6 +2020,36 @@
             <description>The default transaciton isolation level</description>
             <description>N</description>
             <description>Serializable</description>
+            </item>
+            <item>
+            <description>Foreign Keys</description>
+            <description>Enable foreign key constraints</description>
+            <description>N</description>
+            <description>False</description>
+            </item>
+            <item>
+            <description>Flags</description>
+            <description>Extra behavioral flags for the connection.  See the SQLiteConnectionFlags enumeration for possible values.</description>
+            <description>N</description>
+            <description>Default</description>
+            </item>
+            <item>
+            <description>SetDefaults</description>
+            <description>
+            <b>True</b> - Apply the default connection settings to the opened database.<br/>
+            <b>False</b> - Skip applying the default connection settings to the opened database.
+            </description>
+            <description>N</description>
+            <description>True</description>
+            </item>
+            <item>
+            <description>ToFullPath</description>
+            <description>
+            <b>True</b> - Attempt to expand the data source file name to a fully qualified path before opening.<br/>
+            <b>False</b> - Skip attempting to expand the data source file name to a fully qualified path before opening.
+            </description>
+            <description>N</description>
+            <description>True</description>
             </item>
             </list>
             </remarks>
@@ -2329,6 +2459,11 @@
             An alternate to the data source property
             </summary>
         </member>
+        <member name="P:System.Data.SQLite.SQLiteConnectionStringBuilder.FullUri">
+            <summary>
+            An alternate to the data source property that uses the SQLite URI syntax.
+            </summary>
+        </member>
         <member name="P:System.Data.SQLite.SQLiteConnectionStringBuilder.DefaultTimeout">
             <summary>
             Gets/sets the default command timeout for newly-created commands.  This is especially useful for 
@@ -2414,6 +2549,17 @@
             Gets/Sets the extra behavioral flags.
             </summary>
         </member>
+        <member name="P:System.Data.SQLite.SQLiteConnectionStringBuilder.SetDefaults">
+            <summary>
+            If enabled, apply the default connection settings to opened databases.
+            </summary>
+        </member>
+        <member name="P:System.Data.SQLite.SQLiteConnectionStringBuilder.ToFullPath">
+            <summary>
+            If enabled, attempt to resolve the provided data source file name to a
+            full path before opening.
+            </summary>
+        </member>
         <member name="T:System.Data.SQLite.TypeAffinity">
             <summary>
             SQLite has very limited types, and is inherently text-based.  The first 5 types below represent the sum of all types SQLite
@@ -2477,17 +2623,18 @@
         </member>
         <member name="F:System.Data.SQLite.SQLiteDateFormats.Ticks">
             <summary>
-            Using ticks is not recommended and is not well supported with LINQ.
+            Use the value of DateTime.Ticks.  This value is not recommended and is not well supported with LINQ.
             </summary>
         </member>
         <member name="F:System.Data.SQLite.SQLiteDateFormats.ISO8601">
             <summary>
-            The ISO8601 format
+            Use the ISO-8601 format.  Uses the "yyyy-MM-dd HH:mm:ss.FFFFFFFK" format for UTC DateTime values and
+            "yyyy-MM-dd HH:mm:ss.FFFFFFF" format for local DateTime values).
             </summary>
         </member>
         <member name="F:System.Data.SQLite.SQLiteDateFormats.JulianDay">
             <summary>
-            JulianDay format, which is what SQLite uses internally
+            The interval of time in days and fractions of a day since January 1, 4713 BC.
             </summary>
         </member>
         <member name="F:System.Data.SQLite.SQLiteDateFormats.UnixEpoch">
@@ -2562,6 +2709,44 @@
             SQLite uses a write-ahead log instead of a rollback journal to implement transactions.  The WAL journaling mode is persistent;
             after being set it stays in effect across multiple database connections and after closing and reopening the database. A database
             in WAL journaling mode can only be accessed by SQLite version 3.7.0 or later.
+            </summary>
+        </member>
+        <member name="T:System.Data.SQLite.SQLiteSynchronousEnum">
+            <summary>
+            Possible values for the "synchronous" database setting.  This setting determines
+            how often the database engine calls the xSync method of the VFS.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteSynchronousEnum.Default">
+            <summary>
+            Use the default "synchronous" database setting.  Currently, this should be
+            the same as using the FULL mode.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteSynchronousEnum.Off">
+            <summary>
+            The database engine continues without syncing as soon as it has handed
+            data off to the operating system.  If the application running SQLite
+            crashes, the data will be safe, but the database might become corrupted
+            if the operating system crashes or the computer loses power before that
+            data has been written to the disk surface.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteSynchronousEnum.Normal">
+            <summary>
+            The database engine will still sync at the most critical moments, but
+            less often than in FULL mode.  There is a very small (though non-zero)
+            chance that a power failure at just the wrong time could corrupt the
+            database in NORMAL mode.
+            </summary>
+        </member>
+        <member name="F:System.Data.SQLite.SQLiteSynchronousEnum.Full">
+            <summary>
+            The database engine will use the xSync method of the VFS to ensure that
+            all content is safely written to the disk surface prior to continuing.
+            This ensures that an operating system crash or power failure will not
+            corrupt the database.  FULL synchronous is very safe, but it is also
+            slower.
             </summary>
         </member>
         <member name="T:System.Data.SQLite.SQLiteType">

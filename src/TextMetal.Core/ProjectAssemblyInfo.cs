@@ -5,4 +5,4 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Text Metal Core Library")]
+[assembly: AssemblyTitle("TextMetal Core Library")]

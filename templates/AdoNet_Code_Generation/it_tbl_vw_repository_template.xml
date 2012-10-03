@@ -15,9 +15,10 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
+using TestMetal.Core.Customization;
+
 using TextMetal.Core.ExpressionModel;
 using TextMetal.Core.Plumbing;
-using TextMetal.Core.UnitTests.TestingFramework;
 ]]>
 		<If>
 			<If.Condition>

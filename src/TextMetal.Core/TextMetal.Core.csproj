@@ -178,6 +178,7 @@
     <Compile Include="TokenModel\Tokenizer.cs" />
     <Compile Include="XmlModel\ChildElementType.cs" />
     <Compile Include="XmlModel\ChildElementModel.cs" />
+    <Compile Include="XmlModel\IXmlObjectCollection.cs" />
     <Compile Include="XmlModel\XmlObject.cs" />
     <Compile Include="XmlModel\IXmlObject.cs" />
     <Compile Include="XmlModel\IXmlPersistEngine.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="XmlModel\XmlChildElementMappingAttribute.cs" />
     <Compile Include="XmlModel\XmlElementMappingAttribute.cs" />
     <Compile Include="XmlModel\XmlName.cs" />
+    <Compile Include="XmlModel\XmlObjectCollection.cs" />
     <Compile Include="XmlModel\XmlPersistEngine.cs" />
     <Compile Include="Severity.cs" />
     <Compile Include="XpeExtensions.cs" />

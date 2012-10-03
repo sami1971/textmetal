@@ -7,6 +7,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using TextMetal.Core.XmlModel;
+
 namespace TextMetal.Core
 {
 	/// <summary>
@@ -14,8 +16,9 @@ namespace TextMetal.Core
 	/// </summary>
 	/// <typeparam name="TToDerived"> The target list sub type. </typeparam>
 	/// <typeparam name="TFromBase"> The source list super type. </typeparam>
-	public class ContravariantListAdapter<TToDerived, TFromBase> : IList<TToDerived>
-		where TToDerived : class, TFromBase
+	public class ContravariantListAdapter<TToDerived, TFromBase> : IXmlObjectCollection<TToDerived>
+		where TToDerived : class, IXmlObject, TFromBase
+		where TFromBase : class, IXmlObject
 	{
 		#region Constructors/Destructors
 
@@ -23,7 +26,7 @@ namespace TextMetal.Core
 		/// 	Initializes a new instance of the ContravariantListAdapter`2 class.
 		/// </summary>
 		/// <param name="inner"> The inner list instance. </param>
-		public ContravariantListAdapter(IList<TFromBase> inner)
+		public ContravariantListAdapter(IXmlObjectCollection<TFromBase> inner)
 		{
 			this.inner = inner;
 		}
@@ -32,7 +35,7 @@ namespace TextMetal.Core
 
 		#region Fields/Constants
 
-		private readonly IList<TFromBase> inner;
+		private readonly IXmlObjectCollection<TFromBase> inner;
 
 		#endregion
 
@@ -70,7 +73,7 @@ namespace TextMetal.Core
 		/// <summary>
 		/// 	Gets the inner list from the base type.
 		/// </summary>
-		public IList<TFromBase> Inner
+		public IXmlObjectCollection<TFromBase> Inner
 		{
 			get
 			{
@@ -87,6 +90,17 @@ namespace TextMetal.Core
 			get
 			{
 				return this.Inner.IsReadOnly;
+			}
+		}
+
+		/// <summary>
+		/// 	Gets the site XML object or null if this is unattached.
+		/// </summary>
+		public IXmlObject Site
+		{
+			get
+			{
+				return null;
 			}
 		}
 

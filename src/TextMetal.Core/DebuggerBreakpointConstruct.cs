@@ -41,6 +41,9 @@ namespace TextMetal.Core
 
 		#region Properties/Indexers/Events
 
+		/// <summary>
+		/// 	Gets an array of allowed child XML object types.
+		/// </summary>
 		public Type[] AllowedChildTypes
 		{
 			get
@@ -49,6 +52,9 @@ namespace TextMetal.Core
 			}
 		}
 
+		/// <summary>
+		/// 	Gets an array of allowed parent XML object types.
+		/// </summary>
 		public Type[] AllowedParentTypes
 		{
 			get
@@ -57,6 +63,9 @@ namespace TextMetal.Core
 			}
 		}
 
+		///<summary>
+		///	Gets or sets the optional single XML object content. This implementation always return null.
+		///</summary>
 		public IXmlObject Content
 		{
 			get
@@ -69,7 +78,10 @@ namespace TextMetal.Core
 			}
 		}
 
-		public IList<IXmlObject> Items
+		///<summary>
+		///	Gets a list of XML object items. This implementation always return null.
+		///</summary>
+		public IXmlObjectCollection<IXmlObject> Items
 		{
 			get
 			{
@@ -77,6 +89,9 @@ namespace TextMetal.Core
 			}
 		}
 
+		/// <summary>
+		/// 	Gets the associative name of the current associative XML object.
+		/// </summary>
 		public string Name
 		{
 			get
@@ -85,6 +100,9 @@ namespace TextMetal.Core
 			}
 		}
 
+		/// <summary>
+		/// 	Gets or sets the parent XML object or null if this is the document root.
+		/// </summary>
 		public IXmlObject Parent
 		{
 			get
@@ -123,21 +141,37 @@ namespace TextMetal.Core
 				Debugger.Break();
 		}
 
+		/// <summary>
+		/// 	Gets the enumerator for the current associative object instance.
+		/// </summary>
+		/// <returns> An instance of IEnumerator or null. </returns>
 		public IEnumerator GetAssociativeObjectEnumerator()
 		{
 			return null;
 		}
 
+		/// <summary>
+		/// 	Gets the dictionary enumerator for the current associative object instance.
+		/// </summary>
+		/// <returns> An instance of IDictionaryEnumerator or null. </returns>
 		public IDictionaryEnumerator GetAssociativeObjectEnumeratorDict()
 		{
 			return null;
 		}
 
+		/// <summary>
+		/// 	Gets the enumerator (tick one) for the current associative object instance.
+		/// </summary>
+		/// <returns> An instance of IEnumerator`1 or null. </returns>
 		public IEnumerator<KeyValuePair<string, object>> GetAssociativeObjectEnumeratorTickOne()
 		{
 			return null;
 		}
 
+		/// <summary>
+		/// 	Gets the value of the current associative object instance.
+		/// </summary>
+		/// <returns> A value or null. </returns>
 		public object GetAssociativeObjectValue()
 		{
 			if (!Debugger.IsAttached)

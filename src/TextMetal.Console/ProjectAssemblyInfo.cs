@@ -5,4 +5,4 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Text Metal Console Host EXE")]
+[assembly: AssemblyTitle("TextMetal Console Host EXE")]
