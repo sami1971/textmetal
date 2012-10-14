@@ -25,9 +25,12 @@ namespace TextMetal.WebHostSample.Pages
 
 			repository.TryWriteEventLogEntry(Guid.NewGuid().ToString());
 
-			repository.FindEventLogs(new Query(new NullaryExpressionConstruct(), new Order[] { }, 0, 0)).ToList().ForEach(el => repository.DiscardEventLog(el));
+			var list = repository.FindEventLogs(new Query(new NullaryExpressionConstruct(), new Order[] { }, 0, 0)).ToList();
+			var ct = list.Count();
 
-			return new { Y = "deez nizzles" };
+			list.ForEach(el => repository.DiscardEventLog(el));
+
+			return new { Y = "deez nizzles", CT = ct };
 		}
 
 		#endregion

@@ -76,7 +76,7 @@ namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
 			if (partialPath.EndsWith(".tm"))
 				return new TextMetalView(partialPath);
 			else
-				return new WebFormView(partialPath, null);
+				return new WebFormView(controllerContext, partialPath, null);
 		}
 
 		protected override IView CreateView(ControllerContext controllerContext, string viewPath, string masterPath)
@@ -98,7 +98,7 @@ namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
 			else if (viewPath.EndsWith(".tm") && !String.IsNullOrEmpty(masterPath))
 				return new TextMetalView(viewPath, masterPath);
 			else
-				return new WebFormView(viewPath, masterPath);
+				return new WebFormView(controllerContext, viewPath, masterPath);
 		}
 
 		protected override bool FileExists(ControllerContext controllerContext, string virtualPath)

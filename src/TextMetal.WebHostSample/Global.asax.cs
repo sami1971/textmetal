@@ -5,6 +5,7 @@
 
 using System;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -43,12 +44,12 @@ namespace TextMetal.WebHostSample
 
 			routes.Add("Default", new LowercaseRoute("{controller}/{action}/{id}", new MvcRouteHandler())
 			                      {
-			                      	Defaults = new RouteValueDictionary()
-			                      	           {
-			                      	           	{ "controller", "Test" },
-			                      	           	{ "action", "Index" },
-			                      	           	{ "id", "" }
-			                      	           }
+				                      Defaults = new RouteValueDictionary()
+				                                 {
+					                                 { "controller", "Test" },
+					                                 { "action", "Index" },
+					                                 { "id", "" }
+				                                 }
 			                      });
 		}
 
@@ -76,7 +77,7 @@ namespace TextMetal.WebHostSample
 			Repository.TryWriteEventLogEntry(Reflexion.GetErrors(ex, 0));
 			Repository.TrySendEmailTemplate(EmailTemplateResourceNames.EVENT_LOG, new
 			                                                                      {
-			                                                                      	Error = Reflexion.GetErrors(ex, 0)
+				                                                                      Error = Reflexion.GetErrors(ex, 0)
 			                                                                      });
 		}
 
@@ -84,7 +85,11 @@ namespace TextMetal.WebHostSample
 		{
 			TextMetalViewEngine.CallMeInGlobalAsax();
 
-			RegisterRoutes(RouteTable.Routes);
+			AreaRegistration.RegisterAllAreas();
+
+			WebApiConfig.Register(GlobalConfiguration.Configuration);
+			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			RouteConfig.RegisterRoutes(RouteTable.Routes);
 		}
 
 		#endregion

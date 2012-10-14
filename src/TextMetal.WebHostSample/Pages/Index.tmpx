@@ -9,5 +9,6 @@
 	<InvokeSourceStrategy aqt-name="TextMetal.WebHostSample.Pages.Index, TextMetal.WebHostSample" />
 
 	<![CDATA[${ToolVersion}<br />]]>
-	Y = ${Y}
+	<![CDATA[Y = ${Y}<br />]]>
+	<![CDATA[CT = ${CT}<br />]]>
 </Template>

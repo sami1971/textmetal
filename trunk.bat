@@ -6,5 +6,4 @@ REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-li
 REM
 
 cd "."
-"C:\Windows\System32\cmd.exe" /E:ON /V:ON /T:0E /K "setenv.cmd /Release /x64 /win7"
-
+%comspec% /k "VsDevCmd.bat"
