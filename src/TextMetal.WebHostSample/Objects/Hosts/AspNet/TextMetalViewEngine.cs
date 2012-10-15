@@ -18,34 +18,34 @@ namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
 		{
 			base.MasterLocationFormats = new string[]
 			                             {
-			                             	"~/Views/{1}/{0}.master",
-			                             	"~/Views/Shared/{0}.master"
+				                             "~/Views/{1}/{0}.master",
+				                             "~/Views/Shared/{0}.master"
 			                             };
 
 			base.AreaMasterLocationFormats = new string[]
 			                                 {
-			                                 	"~/Areas/{2}/Views/{1}/{0}.master",
-			                                 	"~/Areas/{2}/Views/Shared/{0}.master"
+				                                 "~/Areas/{2}/Views/{1}/{0}.master",
+				                                 "~/Areas/{2}/Views/Shared/{0}.master"
 			                                 };
 
 			base.ViewLocationFormats = new string[]
 			                           {
-			                           	"~/Views/{1}/{0}.tm",
-			                           	"~/Views/{1}/{0}.aspx",
-			                           	"~/Views/{1}/{0}.ascx",
-			                           	"~/Views/Shared/{0}.tm",
-			                           	"~/Views/Shared/{0}.aspx",
-			                           	"~/Views/Shared/{0}.ascx"
+				                           "~/Views/{1}/{0}.tm",
+				                           "~/Views/{1}/{0}.aspx",
+				                           "~/Views/{1}/{0}.ascx",
+				                           "~/Views/Shared/{0}.tm",
+				                           "~/Views/Shared/{0}.aspx",
+				                           "~/Views/Shared/{0}.ascx"
 			                           };
 
 			base.AreaViewLocationFormats = new string[]
 			                               {
-			                               	"~/Areas/{2}/Views/{1}/{0}.tm",
-			                               	"~/Areas/{2}/Views/{1}/{0}.aspx",
-			                               	"~/Areas/{2}/Views/{1}/{0}.ascx",
-			                               	"~/Areas/{2}/Views/Shared/{0}.tm",
-			                               	"~/Areas/{2}/Views/Shared/{0}.aspx",
-			                               	"~/Areas/{2}/Views/Shared/{0}.ascx"
+				                               "~/Areas/{2}/Views/{1}/{0}.tm",
+				                               "~/Areas/{2}/Views/{1}/{0}.aspx",
+				                               "~/Areas/{2}/Views/{1}/{0}.ascx",
+				                               "~/Areas/{2}/Views/Shared/{0}.tm",
+				                               "~/Areas/{2}/Views/Shared/{0}.aspx",
+				                               "~/Areas/{2}/Views/Shared/{0}.ascx"
 			                               };
 
 			base.PartialViewLocationFormats = base.ViewLocationFormats;

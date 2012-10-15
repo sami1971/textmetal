@@ -27,7 +27,7 @@ namespace TextMetal.WebHostSample.Controllers
 		{
 			return this.View(new
 			                 {
-			                 	X = new Random().Next()
+				                 X = new Random().Next()
 			                 });
 		}
 
