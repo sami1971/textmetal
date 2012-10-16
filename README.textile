@@ -1,4 +1,4 @@
-h1. CanDoItFor
+h1. TextMetal
 
 TextMetal is a powerful text templating engine written in C# which uses an extensible XML-based dialect and is suitable for use in automation scenarios and code generation situations.
 
