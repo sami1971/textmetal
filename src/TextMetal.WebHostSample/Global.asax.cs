@@ -38,21 +38,6 @@ namespace TextMetal.WebHostSample
 
 		#region Methods/Operators
 
-		public static void RegisterRoutes(RouteCollection routes)
-		{
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-			routes.Add("Default", new LowercaseRoute("{controller}/{action}/{id}", new MvcRouteHandler())
-			                      {
-				                      Defaults = new RouteValueDictionary()
-				                                 {
-					                                 { "controller", "Test" },
-					                                 { "action", "Index" },
-					                                 { "id", "" }
-				                                 }
-			                      });
-		}
-
 		protected void Application_Error(object sender, EventArgs e)
 		{
 			Exception ex;

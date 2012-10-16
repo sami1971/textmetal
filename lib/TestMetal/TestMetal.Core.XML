@@ -4432,14 +4432,17 @@
         </member>
         <member name="T:NUnit.Framework.SetUpAttribute">
             <summary>
-            Attribute used to mark a class that contains one-time SetUp 
-            and/or TearDown methods that apply to all the tests in a
-            namespace or an assembly.
+            SetUpAttribute is used in a TestFixture to identify a method
+            that is called immediately before each test is run. It is 
+            also used in a SetUpFixture to identify the method that is
+            called once, before any of the subordinate tests are run.
             </summary>
         </member>
         <member name="T:NUnit.Framework.SetUpFixtureAttribute">
             <summary>
-            SetUpFixtureAttribute is used to identify a SetUpFixture
+            Attribute used to mark a class that contains one-time SetUp 
+            and/or TearDown methods that apply to all the tests in a
+            namespace or an assembly.
             </summary>
         </member>
         <member name="T:NUnit.Framework.SuiteAttribute">
@@ -4450,9 +4453,11 @@
         </member>
         <member name="T:NUnit.Framework.TearDownAttribute">
             <summary>
-            Attribute used to identify a method that is called 
-            immediately after each test is run. The method is 
-            guaranteed to be called, even if an exception is thrown.
+            Attribute used in a TestFixture to identify a method that is 
+            called immediately after each test is run. It is also used
+            in a SetUpFixture to identify the method that is called once,
+            after all subordinate tests have run. In either case, the method 
+            is guaranteed to be called, even if an exception is thrown.
             </summary>
         </member>
         <member name="T:NUnit.Framework.TestActionAttribute">
@@ -8426,7 +8431,7 @@
         </member>
         <member name="M:NUnit.Framework.Constraints.NoItemConstraint.#ctor(NUnit.Framework.Constraints.Constraint)">
             <summary>
-            Construct a SomeItemsConstraint on top of an existing constraint
+            Construct a NoItemConstraint on top of an existing constraint
             </summary>
             <param name="itemConstraint"></param>
         </member>
@@ -8608,6 +8613,48 @@
         <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.NUnit#Framework#Constraints#IResolveConstraint#Resolve">
             <summary>
             Resolve the current expression to a Constraint
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_BitwiseAnd(NUnit.Framework.Constraints.ResolvableConstraintExpression,NUnit.Framework.Constraints.ResolvableConstraintExpression)">
+            <summary>
+            This operator creates a constraint that is satisfied only if both 
+            argument constraints are satisfied.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_BitwiseAnd(NUnit.Framework.Constraints.Constraint,NUnit.Framework.Constraints.ResolvableConstraintExpression)">
+            <summary>
+            This operator creates a constraint that is satisfied only if both 
+            argument constraints are satisfied.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_BitwiseAnd(NUnit.Framework.Constraints.ResolvableConstraintExpression,NUnit.Framework.Constraints.Constraint)">
+            <summary>
+            This operator creates a constraint that is satisfied only if both 
+            argument constraints are satisfied.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_BitwiseOr(NUnit.Framework.Constraints.ResolvableConstraintExpression,NUnit.Framework.Constraints.ResolvableConstraintExpression)">
+            <summary>
+            This operator creates a constraint that is satisfied if either 
+            of the argument constraints is satisfied.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_BitwiseOr(NUnit.Framework.Constraints.ResolvableConstraintExpression,NUnit.Framework.Constraints.Constraint)">
+            <summary>
+            This operator creates a constraint that is satisfied if either 
+            of the argument constraints is satisfied.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_BitwiseOr(NUnit.Framework.Constraints.Constraint,NUnit.Framework.Constraints.ResolvableConstraintExpression)">
+            <summary>
+            This operator creates a constraint that is satisfied if either 
+            of the argument constraints is satisfied.
+            </summary>
+        </member>
+        <member name="M:NUnit.Framework.Constraints.ResolvableConstraintExpression.op_LogicalNot(NUnit.Framework.Constraints.ResolvableConstraintExpression)">
+            <summary>
+            This operator creates a constraint that is satisfied if the 
+            argument constraint is not satisfied.
             </summary>
         </member>
         <member name="P:NUnit.Framework.Constraints.ResolvableConstraintExpression.And">
@@ -15010,6 +15057,9 @@
             <summary>
             Assigns a prefix to the keyed properties of an interface.
             </summary>
+            <remarks>
+            Key prefixes are not inherited by sub-interfaces.
+            </remarks>
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.KeyPrefixAttribute.#ctor">
             <summary>
@@ -15064,11 +15114,6 @@
         <member name="T:Castle.Components.DictionaryAdapter.OnDemandAttribute">
             <summary>
             Support for on-demand value resolution.
-            </summary>
-        </member>
-        <member name="T:Castle.Components.DictionaryAdapter.PropagateNotificationsAttribute">
-            <summary>
-            Suppress property change notifications.
             </summary>
         </member>
         <member name="T:Castle.Components.DictionaryAdapter.ReferenceAttribute">
@@ -15310,6 +15355,14 @@
             <param name="descriptor">The property descriptor.</param>
             <returns>The adapter meta-data.</returns>
         </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory.GetAdapterMeta(System.Type,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
+            <summary>
+            Gets the <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> associated with the type.
+            </summary>
+            <param name="type">The typed interface.</param>
+            <param name="other">Another <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> from which to copy behaviors.</param>
+            <returns>The adapter meta-data.</returns>
+        </member>
         <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapter``1(System.Collections.IDictionary)">
             <inheritdoc />
         </member>
@@ -15343,285 +15396,8 @@
         <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapterMeta(System.Type,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
             <inheritdoc />
         </member>
-        <member name="T:Castle.Components.DictionaryAdapter.PropertyDescriptor">
-            <summary>
-            Describes a dictionary property.
-            </summary>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor">
-            <summary>
-            Initializes an empty <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
-            </summary>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(System.Reflection.PropertyInfo,System.Object[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
-            </summary>
-            <param name="property">The property.</param>
-            <param name="behaviors">The property behaviors.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(System.Object[])">
-            <summary>
-            Initializes a new instance <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
-            </summary>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
-            <summary>
-             Copies an existinginstance of the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
-            </summary>
-            <param name="source"></param>
-            <param name="copyBehaviors"></param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.GetKey(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Gets the key.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <param name="key">The key.</param>
-            <param name="descriptor">The descriptor.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddKeyBuilder(Castle.Components.DictionaryAdapter.IDictionaryKeyBuilder[])">
-            <summary>
-            Adds the key builder.
-            </summary>
-            <param name="builders">The builder.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddKeyBuilders(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryKeyBuilder})">
-            <summary>
-            Adds the key builders.
-            </summary>
-            <param name="builders">The builders.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyKeyBuilders(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the key builders to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.GetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object,Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
-            <summary>
-            Gets the property value.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <param name="key">The key.</param>
-            <param name="storedValue">The stored value.</param>
-            <param name="descriptor">The descriptor.</param>
-            <param name="ifExists">true if return only existing.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddGetter(Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter[])">
-            <summary>
-            Adds the dictionary getter.
-            </summary>
-            <param name="getters">The getter.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddGetters(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryPropertyGetter})">
-            <summary>
-            Adds the dictionary getters.
-            </summary>
-            <param name="gets">The getters.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyGetters(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the property getters to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.SetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object@,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Sets the property value.
-            </summary>
-            <param name="dictionaryAdapter">The dictionary adapter.</param>
-            <param name="key">The key.</param>
-            <param name="value">The value.</param>
-            <param name="descriptor">The descriptor.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddSetter(Castle.Components.DictionaryAdapter.IDictionaryPropertySetter[])">
-            <summary>
-            Adds the dictionary setter.
-            </summary>
-            <param name="setters">The setter.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddSetters(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryPropertySetter})">
-            <summary>
-            Adds the dictionary setters.
-            </summary>
-            <param name="sets">The setters.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopySetters(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the property setters to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehavior(Castle.Components.DictionaryAdapter.IDictionaryBehavior[])">
-            <summary>
-            Adds the behaviors.
-            </summary>
-            <param name="behaviors"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryBehavior})">
-            <summary>
-            Adds the behaviors.
-            </summary>
-            <param name="behaviors"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(Castle.Components.DictionaryAdapter.IDictionaryBehaviorBuilder[])">
-            <summary>
-            Adds the behaviors from the builders.
-            </summary>
-            <param name="builders"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyBehaviors(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
-            <summary>
-            Copies the behaviors to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.Copy">
-            <summary>
-            Copies the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.ExecutionOrder">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.PropertyName">
-            <summary>
-            Gets the property name.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.PropertyType">
-            <summary>
-            Gets the property type.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Property">
-            <summary>
-            Gets the property.
-            </summary>
-            <value>The property.</value>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.IsDynamicProperty">
-            <summary>
-            Returns true if the property is dynamic.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.State">
-            <summary>
-            Gets additional state.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Fetch">
-            <summary>
-            Determines if property should be fetched.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.IfExists">
-            <summary>
-            Determines if property must exist first.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.SuppressNotifications">
-            <summary>
-            Determines if notifications should occur.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Behaviors">
-            <summary>
-            Gets the property behaviors.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.TypeConverter">
-            <summary>
-            Gets the type converter.
-            </summary>
-            <value>The type converter.</value>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.ExtendedProperties">
-            <summary>
-            Gets the extended properties.
-            </summary>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.KeyBuilders">
-            <summary>
-            Gets the key builders.
-            </summary>
-            <value>The key builders.</value>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Setters">
-            <summary>
-            Gets the setter.
-            </summary>
-            <value>The setter.</value>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Getters">
-            <summary>
-            Gets the getter.
-            </summary>
-            <value>The getter.</value>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddInitializer(Castle.Components.DictionaryAdapter.IDictionaryInitializer[])">
-            <summary>
-            Adds the dictionary initializers.
-            </summary>
-            <param name="inits">The initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddInitializers(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryInitializer})">
-            <summary>
-            Adds the dictionary initializers.
-            </summary>
-            <param name="inits">The initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.CopyInitializers(Castle.Components.DictionaryAdapter.DictionaryDescriptor)">
-            <summary>
-            Copies the initializers to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddMetaInitializer(Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer[])">
-            <summary>
-            Adds the dictionary meta-data initializers.
-            </summary>
-            <param name="inits">The meta-data initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.AddMetaInitializers(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer})">
-            <summary>
-            Adds the dictionary meta-data initializers.
-            </summary>
-            <param name="inits">The meta-data initializers.</param>
-        </member>
-        <member name="M:Castle.Components.DictionaryAdapter.DictionaryDescriptor.CopyMetaInitializers(Castle.Components.DictionaryAdapter.DictionaryDescriptor)">
-            <summary>
-            Copies the meta-initializers to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.DictionaryDescriptor.Initializers">
-            <summary>
-            Gets the initializers.
-            </summary>
-            <value>The initializers.</value>
-        </member>
-        <member name="P:Castle.Components.DictionaryAdapter.DictionaryDescriptor.MetaInitializers">
-            <summary>
-            Gets the meta-data initializers.
-            </summary>
-            <value>The meta-data initializers.</value>
+        <member name="M:Castle.Components.DictionaryAdapter.DictionaryAdapterFactory.GetAdapterMeta(System.Type,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
+            <inheritdoc />
         </member>
         <member name="T:Castle.Components.DictionaryAdapter.DynamicDictionary">
             <summary>
@@ -15647,10 +15423,23 @@
         </member>
         <member name="M:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer.Initialize(Castle.Components.DictionaryAdapter.IDictionaryAdapterFactory,Castle.Components.DictionaryAdapter.DictionaryAdapterMeta)">
             <summary>
-            Performs any initialization of the dictionary adapter meta-data.
+            	Initializes the given <see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> object.
             </summary>
             <param name="factory">The dictionary adapter factory.</param>
             <param name="dictionaryMeta">The dictionary adapter meta.</param>
+            
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer.ShouldHaveBehavior(System.Object)">
+            <summary>
+            	Determines whether the given behavior should be included in a new
+            	<see cref="T:Castle.Components.DictionaryAdapter.DictionaryAdapterMeta"/> object.
+            </summary>
+            <param name="behavior">A dictionary behavior or annotation.</param>
+            <returns>True if the behavior should be included; otherwise, false.</returns>
+            <remarks>
+            	<see cref="T:Castle.Components.DictionaryAdapter.IDictionaryMetaInitializer"/> behaviors are always included,
+            	regardless of the result of this method.
+            </remarks>
             
         </member>
         <member name="T:Castle.Components.DictionaryAdapter.IDictionaryValidator">
@@ -15726,6 +15515,194 @@
             Gets or sets the <see cref="T:System.Object"/> with the specified key.
             </summary>
             <value></value>
+        </member>
+        <member name="T:Castle.Components.DictionaryAdapter.PropertyDescriptor">
+            <summary>
+            Describes a dictionary property.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor">
+            <summary>
+            Initializes an empty <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(System.Reflection.PropertyInfo,System.Object[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
+            </summary>
+            <param name="property">The property.</param>
+            <param name="annotations">The annotations.</param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(System.Object[])">
+            <summary>
+            Initializes a new instance <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
+            </summary>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.#ctor(Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
+            <summary>
+             Copies an existinginstance of the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/> class.
+            </summary>
+            <param name="source"></param>
+            <param name="copyBehaviors"></param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.GetKey(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
+            <summary>
+            Gets the key.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <param name="key">The key.</param>
+            <param name="descriptor">The descriptor.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.GetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object,Castle.Components.DictionaryAdapter.PropertyDescriptor,System.Boolean)">
+            <summary>
+            Gets the property value.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <param name="key">The key.</param>
+            <param name="storedValue">The stored value.</param>
+            <param name="descriptor">The descriptor.</param>
+            <param name="ifExists">true if return only existing.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.SetPropertyValue(Castle.Components.DictionaryAdapter.IDictionaryAdapter,System.String,System.Object@,Castle.Components.DictionaryAdapter.PropertyDescriptor)">
+            <summary>
+            Sets the property value.
+            </summary>
+            <param name="dictionaryAdapter">The dictionary adapter.</param>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <param name="descriptor">The descriptor.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehavior(Castle.Components.DictionaryAdapter.IDictionaryBehavior)">
+            <summary>
+            Adds a single behavior.
+            </summary>
+            <param name="behavior">The behavior.</param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(Castle.Components.DictionaryAdapter.IDictionaryBehavior[])">
+            <summary>
+            Adds the behaviors.
+            </summary>
+            <param name="behaviors">The behaviors.</param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.AddBehaviors(System.Collections.Generic.IEnumerable{Castle.Components.DictionaryAdapter.IDictionaryBehavior})">
+            <summary>
+            Adds the behaviors.
+            </summary>
+            <param name="behaviors">The behaviors.</param>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.CopyBehaviors(Castle.Components.DictionaryAdapter.PropertyDescriptor)">
+            <summary>
+            Copies the behaviors to the other <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.Components.DictionaryAdapter.PropertyDescriptor.Copy">
+            <summary>
+            Copies the <see cref="T:Castle.Components.DictionaryAdapter.PropertyDescriptor"/>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.ExecutionOrder">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.PropertyName">
+            <summary>
+            Gets the property name.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.PropertyType">
+            <summary>
+            Gets the property type.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Property">
+            <summary>
+            Gets the property.
+            </summary>
+            <value>The property.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.IsDynamicProperty">
+            <summary>
+            Returns true if the property is dynamic.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.State">
+            <summary>
+            Gets additional state.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Fetch">
+            <summary>
+            Determines if property should be fetched.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.IfExists">
+            <summary>
+            Determines if property must exist first.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.SuppressNotifications">
+            <summary>
+            Determines if notifications should occur.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Annotations">
+            <summary>
+            Gets the property behaviors.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.TypeConverter">
+            <summary>
+            Gets the type converter.
+            </summary>
+            <value>The type converter.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.ExtendedProperties">
+            <summary>
+            Gets the extended properties.
+            </summary>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Behaviors">
+            <summary>
+            Gets the setter.
+            </summary>
+            <value>The setter.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.KeyBuilders">
+            <summary>
+            Gets the key builders.
+            </summary>
+            <value>The key builders.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Setters">
+            <summary>
+            Gets the setter.
+            </summary>
+            <value>The setter.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Getters">
+            <summary>
+            Gets the getter.
+            </summary>
+            <value>The getter.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.Initializers">
+            <summary>
+            Gets the initializers.
+            </summary>
+            <value>The initializers.</value>
+        </member>
+        <member name="P:Castle.Components.DictionaryAdapter.PropertyDescriptor.MetaInitializers">
+            <summary>
+            Gets the meta-data initializers.
+            </summary>
+            <value>The meta-data initializers.</value>
         </member>
         <member name="T:Castle.Components.DictionaryAdapter.BindingList`1">
             <summary>
@@ -18167,13 +18144,6 @@
               for the type of primitive value to be stored indirectly.
             </summary>
         </member>
-        <member name="M:Castle.DynamicProxy.Generators.Emitters.TypeUtil.GetAllInterfaces(System.Type[])">
-            <summary>
-              Returns list of all unique interfaces implemented given types, including their base interfaces.
-            </summary>
-            <param name = "types"></param>
-            <returns></returns>
-        </member>
         <member name="T:Castle.DynamicProxy.Generators.INamingScope">
             <summary>
               Represents the scope of uniquenes of names for types and their members
@@ -18311,6 +18281,13 @@
             </summary>
             <param name = "method"></param>
             <returns></returns>
+        </member>
+        <member name="M:Castle.DynamicProxy.Internal.TypeUtil.GetAllInterfaces(System.Type[])">
+            <summary>
+              Returns list of all unique interfaces implemented given types, including their base interfaces.
+            </summary>
+            <param name="types"> </param>
+            <returns> </returns>
         </member>
         <member name="M:Castle.DynamicProxy.IProxyTargetAccessor.DynProxyGetTarget">
             <summary>
@@ -18578,6 +18555,12 @@
             <summary>
               Initializes a new instance of the <see cref="T:Castle.DynamicProxy.ProxyGenerator"/> class.
             </summary>
+        </member>
+        <member name="M:Castle.DynamicProxy.ProxyGenerator.#ctor(System.Boolean)">
+            <summary>
+              Initializes a new instance of the <see cref="T:Castle.DynamicProxy.ProxyGenerator"/> class.
+            </summary>
+            <param name="disableSignedModule">If <c>true</c> forces all types to be generated into an unsigned module.</param>
         </member>
         <member name="M:Castle.DynamicProxy.ProxyGenerator.CreateInterfaceProxyWithTarget``1(``0,Castle.DynamicProxy.IInterceptor[])">
             <summary>
@@ -23137,9 +23120,20 @@
         </member>
         <member name="M:NUnit.Core.Filters.NotFilter.#ctor(NUnit.Core.ITestFilter)">
             <summary>
-            Construct a not filter on another filter
+            Construct a not filter on another filter. The topLevel
+            argument is used to trigger special handling when tests
+            are being excluded.
             </summary>
             <param name="baseFilter">The filter to be negated</param>
+        </member>
+        <member name="M:NUnit.Core.Filters.NotFilter.#ctor(NUnit.Core.ITestFilter,System.Boolean)">
+            <summary>
+            Construct a not filter on another filter. The topLevel
+            argument is used to trigger special handling when tests
+            are being excluded.
+            </summary>
+            <param name="baseFilter">The filter to be negated</param>
+            <param name="topLevel">Indicates whether this is a top level NotFilter</param>
         </member>
         <member name="M:NUnit.Core.Filters.NotFilter.Match(NUnit.Core.ITest)">
             <summary>
@@ -29204,6 +29198,12 @@
             NOTE: Hides some methods and properties of base class.
             </summary>
         </member>
+        <member name="F:NUnit.UiKit.TestSuiteTreeNode.InitIndex">
+            <summary>
+            Image indices for various test states - the values 
+            must match the indices of the image list used
+            </summary>
+        </member>
         <member name="F:NUnit.UiKit.TestSuiteTreeNode.test">
             <summary>
             The testcase or testsuite represented by this node
@@ -29217,12 +29217,6 @@
         <member name="F:NUnit.UiKit.TestSuiteTreeNode.included">
             <summary>
             Private field used for inclusion by category
-            </summary>
-        </member>
-        <member name="F:NUnit.UiKit.TestSuiteTreeNode.InitIndex">
-            <summary>
-            Image indices for various test states - the values 
-            must match the indices of the image list used
             </summary>
         </member>
         <member name="M:NUnit.UiKit.TestSuiteTreeNode.#ctor(NUnit.Core.TestInfo)">
