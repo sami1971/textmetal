@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: AssemblyCompany("Daniel Bullington")]
-[assembly: AssemblyProduct("textmetal.com")]
+[assembly: AssemblyProduct("TextMetal")]
 [assembly: AssemblyCopyright("©2002-2012 Daniel Bullington")]
 [assembly: AssemblyDescription("Distributed under the MIT license:\r\nhttp://www.opensource.org/licenses/mit-license.php")]
 [assembly: AssemblyTrademark("π")]
