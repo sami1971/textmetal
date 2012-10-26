@@ -22,7 +22,7 @@ mkdir "%PACKAGE_DIR%"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
-mkdir "%PACKAGE_DIR%\lib\TestMetal"
+mkdir "%PACKAGE_DIR%\lib\PrivateBuilt"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 mkdir "%PACKAGE_DIR%\lib\TextMetal"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
@@ -39,7 +39,7 @@ goto pkgBuild
 
 :pkgBuild
 
-copy "..\..\lib\TestMetal\*.*"  "%PACKAGE_DIR%\lib\TestMetal\."
+copy "..\..\lib\PrivateBuilt\*.*"  "%PACKAGE_DIR%\lib\PrivateBuilt\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

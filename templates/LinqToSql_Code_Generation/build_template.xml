@@ -14,7 +14,7 @@ REM	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 REM
 
-set BUILD_EXE=C:\WINDOWS\Microsoft.NET\Framework\v4.0\msbuild.exe
+set BUILD_EXE=C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe
 
 cd "."
 
@@ -73,6 +73,64 @@ echo:
 echo For example:
 echo     %0 -debug
 goto :eof]]>
+	</OutputScope>
+	
+	<OutputScope name="SolutionAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+#if DEBUG
+
+[assembly: AssemblyConfiguration("Debug")]
+#else
+[assembly: AssemblyConfiguration("Release")]
+#endif
+
+[assembly: AssemblyCompany("comapny")]
+[assembly: AssemblyProduct("product")]
+[assembly: AssemblyCopyright("©years company, all rights reserved.")]
+[assembly: AssemblyDescription("description")]
+[assembly: AssemblyTrademark("trademark™")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("0.0.0.*")]
+[assembly: AssemblyInformationalVersion("yyyy.mm.dd")]
+[assembly: AssemblyFileVersion("0.0.0.0")]
+[assembly: AssemblyDelaySign(false)]
+[assembly: ComVisible(false)]
+
+]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}\ProjectAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+
+[assembly: AssemblyTitle("title")]
+
+]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}.UnitTests\ProjectAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+
+[assembly: AssemblyTitle("title")]
+
+]]>
+	</OutputScope>
+	
+	<OutputScope name="${ClrNamespace}.IntegrationTests\ProjectAssemblyInfo.cs">					
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+using System.Reflection;
+
+[assembly: AssemblyTitle("title")]
+
+]]>
 	</OutputScope>
 	
 	<OutputScope name="${ClrNamespace}.sln">					
@@ -176,7 +234,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -205,15 +263,20 @@ EndGlobal
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
 	<Reference Include="System.Data" />    
+	<Reference Include="System.Data.Linq" />  
 	
 	<Reference Include="TextMetal.Core">
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
     </Reference>
 	
   </ItemGroup>
-  <ItemGroup>  
+  <ItemGroup> 
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="IRepository.g.cs" />
 	<Compile Include="Repository.g.cs" />
+	<Compile Include="ProjectAssemblyInfo.cs" />
 	<Compile Include="IRepository.tv.g.cs" />
 	<Compile Include="Repository.tv.g.cs" />
 ]]>
@@ -293,7 +356,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.UnitTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -327,9 +390,9 @@ EndGlobal
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
     </Reference>
 	
-	<Reference Include="TestMetal.Core, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\TestMetal\TestMetal.Core.dll</HintPath>
+      <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
 	
 	<ProjectReference Include="..\${ClrNamespace}\${ClrNamespace}.csproj">
@@ -338,7 +401,11 @@ EndGlobal
     </ProjectReference>
 	
   </ItemGroup>
-  <ItemGroup>       
+  <ItemGroup>    
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+	<Compile Include="ProjectAssemblyInfo.cs" />
 	<Compile Include="RepositoryTests.tv.g.cs" />	
 	<None Include="UnitTests.nunit" />
 ]]>
@@ -418,7 +485,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.IntegrationTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -453,9 +520,9 @@ EndGlobal
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
     </Reference>
 	
-	<Reference Include="TestMetal.Core, Culture=neutral, processorArchitecture=MSIL">
+	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\TestMetal\TestMetal.Core.dll</HintPath>
+      <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
 	
 	<ProjectReference Include="..\${ClrNamespace}\${ClrNamespace}.csproj">
@@ -465,6 +532,10 @@ EndGlobal
 	
   </ItemGroup>
   <ItemGroup>       
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+	<Compile Include="ProjectAssemblyInfo.cs" />
 	<Compile Include="RepositoryTests.tv.g.cs" />	
 	<None Include="IntegrationTests.nunit" />
 	<None Include="App.config">

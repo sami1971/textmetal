@@ -42,8 +42,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="TestMetal.Core">
-      <HintPath>..\..\lib\TestMetal\TestMetal.Core.dll</HintPath>
+    <Reference Include="TestingFramework.Core">
+      <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

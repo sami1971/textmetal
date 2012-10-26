@@ -14,7 +14,7 @@ using NMock2.Matchers;
 using NUnit.Framework;
 
 using TextMetal.Core.TokenModel;
-using TestMetal.Core.Customization;
+using TestingFramework.Core.Customization;
 
 namespace TextMetal.Core.UnitTests.TokenModel
 {

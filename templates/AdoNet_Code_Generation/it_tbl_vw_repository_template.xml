@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using TestMetal.Core.Customization;
+using TestingFramework.Core.Customization;
 
 using TextMetal.Core.ExpressionModel;
 using TextMetal.Core.Plumbing;

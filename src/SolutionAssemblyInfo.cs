@@ -19,9 +19,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Distributed under the MIT license:\r\nhttp://www.opensource.org/licenses/mit-license.php")]
 [assembly: AssemblyTrademark("π")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("4.4.4.*")]
-[assembly: AssemblyFileVersion("4.4.4.0")]
-[assembly: AssemblyInformationalVersion("2012.10.14")]
+[assembly: AssemblyVersion("4.4.5.*")]
+[assembly: AssemblyFileVersion("4.4.5.0")]
+[assembly: AssemblyInformationalVersion("2012.10.25")]
 [assembly: AssemblyDelaySign(false)]
 [assembly: ComVisible(false)]
 
