@@ -72,7 +72,7 @@ namespace TextMetal.WebHostSample
 
 			AreaRegistration.RegisterAllAreas();
 
-			WebApiConfig.Register(GlobalConfiguration.Configuration);
+			//WebApiConfig.Register(GlobalConfiguration.Configuration);
 			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 		}

@@ -12,7 +12,7 @@ using TextMetal.Core.XmlModel;
 
 namespace TextMetal.Core.TemplateModel
 {
-	[XmlElementMapping(LocalName = "InvokeSourceStrategy", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "InvokeSourceStrategy", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class InvokeSourceStrategyConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -76,6 +76,14 @@ namespace TextMetal.Core.TemplateModel
 			source = sourceStrategy.GetSourceObject("", new Dictionary<string, IList<string>>());
 
 			templatingContext.IteratorModels.Push(source);
+
+			if ((object)this.Items != null)
+			{
+				foreach (ITemplateMechanism templateMechanism in this.Items)
+					templateMechanism.ExpandTemplate(templatingContext);
+			}
+
+			templatingContext.IteratorModels.Pop();
 		}
 
 		#endregion

@@ -67,6 +67,7 @@ namespace TextMetal.Core.XmlModel
 			}
 			set
 			{
+				this.EnsureParentOnPropertySet(this.content, value);
 				this.content = value;
 			}
 		}
@@ -95,6 +96,27 @@ namespace TextMetal.Core.XmlModel
 			{
 				this.parent = value;
 			}
+		}
+
+		#endregion
+
+		#region Methods/Operators
+
+		/// <summary>
+		/// 	Ensures that for any XML object property, the correct parent instance is set/unset.
+		/// 	Should be called in the setter for all XML object properties, before assigning the value.
+		/// 	Example:
+		/// 	set { this.EnsureParentOnPropertySet(this.content, value); this.content = value; }
+		/// </summary>
+		/// <param name="oldValueObj"> The old XML object value (the backing field). </param>
+		/// <param name="newValueObj"> The new XML object value (value). </param>
+		protected void EnsureParentOnPropertySet(IXmlObject oldValueObj, IXmlObject newValueObj)
+		{
+			if ((object)oldValueObj != null)
+				oldValueObj.Parent = null;
+
+			if ((object)newValueObj != null)
+				newValueObj.Parent = this;
 		}
 
 		#endregion
