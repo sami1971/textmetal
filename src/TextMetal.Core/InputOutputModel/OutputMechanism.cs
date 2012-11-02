@@ -60,7 +60,7 @@ namespace TextMetal.Core.InputOutputModel
 			}
 			protected set
 			{
-				if (this.disposed &&
+				if (this.Disposed &&
 				    this.LogTextWriter != value)
 				{
 					this.LogTextWriter.Flush();
@@ -68,7 +68,7 @@ namespace TextMetal.Core.InputOutputModel
 				}
 
 				this.logTextWriter = value ?? Console.Out;
-				this.disposed = (object)value == null;
+				this.Disposed = (object)value == null;
 			}
 		}
 

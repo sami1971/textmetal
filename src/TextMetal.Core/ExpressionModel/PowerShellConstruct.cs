@@ -245,20 +245,32 @@ namespace TextMetal.Core.ExpressionModel
 
 			#endregion
 
+			#region Properties/Indexers/Events
+
+			private DynamicWildcardTokenReplacementStrategy DynamicWildcardTokenReplacementStrategy
+			{
+				get
+				{
+					return this.dynamicWildcardTokenReplacementStrategy;
+				}
+			}
+
+			#endregion
+
 			#region Methods/Operators
 
 			public bool Def(string token)
 			{
 				object value;
 
-				return this.dynamicWildcardTokenReplacementStrategy.GetByPath(token, out value);
+				return this.DynamicWildcardTokenReplacementStrategy.GetByPath(token, out value);
 			}
 
 			public object Get(string token)
 			{
 				object value;
 
-				if (!this.dynamicWildcardTokenReplacementStrategy.GetByPath(token, out value))
+				if (!this.DynamicWildcardTokenReplacementStrategy.GetByPath(token, out value))
 					return null;
 
 				return value;
@@ -266,7 +278,7 @@ namespace TextMetal.Core.ExpressionModel
 
 			public bool Set(string token, object value)
 			{
-				return this.dynamicWildcardTokenReplacementStrategy.SetByPath(token, value);
+				return this.DynamicWildcardTokenReplacementStrategy.SetByPath(token, value);
 			}
 
 			#endregion

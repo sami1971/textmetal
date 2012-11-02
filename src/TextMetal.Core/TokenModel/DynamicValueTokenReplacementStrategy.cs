@@ -180,7 +180,7 @@ namespace TextMetal.Core.TokenModel
 		/// <returns> An approapriate token replacement value. </returns>
 		public object Evaluate(string[] parameters)
 		{
-			return this.method(parameters);
+			return this.Method(parameters);
 		}
 
 		#endregion

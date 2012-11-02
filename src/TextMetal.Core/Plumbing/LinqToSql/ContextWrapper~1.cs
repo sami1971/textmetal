@@ -46,10 +46,14 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		{
 			get
 			{
-				if (this.disposed)
+				if (this.Disposed)
 					throw new ObjectDisposedException(typeof(ContextWrapper<TContext>).FullName);
 
 				return this.context;
+			}
+			private set
+			{
+				this.context = value;
 			}
 		}
 
@@ -61,6 +65,10 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 			get
 			{
 				return this.disposed;
+			}
+			private set
+			{
+				this.disposed = value;
 			}
 		}
 
@@ -84,20 +92,20 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		/// </summary>
 		public void Dispose()
 		{
-			if (this.disposed)
+			if (this.Disposed)
 				return;
 
 			try
 			{
 				if (this.ShouldDisposeResources)
 				{
-					this.context.Dispose();
-					this.context = null;
+					this.Context.Dispose();
+					this.Context = null;
 				}
 			}
 			finally
 			{
-				this.disposed = true;
+				this.Disposed = true;
 				GC.SuppressFinalize(this);
 			}
 		}

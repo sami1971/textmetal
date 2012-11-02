@@ -44,6 +44,18 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 			{
 				return this.disposed;
 			}
+			private set
+			{
+				this.disposed = value;
+			}
+		}
+
+		private IDictionary<Type, TContextBase> Contexts
+		{
+			get
+			{
+				return this.contexts;
+			}
 		}
 
 		#endregion
@@ -55,17 +67,17 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		/// </summary>
 		public void Dispose()
 		{
-			if (this.disposed)
+			if (this.Disposed)
 				return;
 
 			try
 			{
-				foreach (TContextBase context in this.contexts.Values)
+				foreach (TContextBase context in this.Contexts.Values)
 					context.Dispose();
 			}
 			finally
 			{
-				this.disposed = true;
+				this.Disposed = true;
 				GC.SuppressFinalize(this);
 			}
 		}
@@ -79,16 +91,16 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		{
 			TContextBase contextActualInstance;
 
-			if (this.disposed)
+			if (this.Disposed)
 				throw new ObjectDisposedException(typeof(MulticastContext<TContextBase>).FullName);
 
 			if ((object)contextActualType == null)
 				throw new ArgumentNullException("contextActualType");
 
-			if (!this.contexts.ContainsKey(contextActualType))
+			if (!this.Contexts.ContainsKey(contextActualType))
 				throw new InvalidOperationException(string.Format("The actual context type '{0}' is not yet registered on multicast context type '{1}'.", contextActualType.FullName, typeof(MulticastContext<TContextBase>).FullName));
 
-			contextActualInstance = this.contexts[contextActualType];
+			contextActualInstance = this.Contexts[contextActualType];
 
 			return contextActualInstance;
 		}
@@ -100,13 +112,13 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		/// <returns> A value indicating whether a context of the specified actual context type has been previously registered. </returns>
 		public bool HasContext(Type contextActualType)
 		{
-			if (this.disposed)
+			if (this.Disposed)
 				throw new ObjectDisposedException(typeof(MulticastContext<TContextBase>).FullName);
 
 			if ((object)contextActualType == null)
 				throw new ArgumentNullException("contextActualType");
 
-			return this.contexts.ContainsKey(contextActualType);
+			return this.Contexts.ContainsKey(contextActualType);
 		}
 
 		/// <summary>
@@ -116,7 +128,7 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 		/// <param name="contextActualInstance"> The actual context instance to register. </param>
 		public void SetContext(Type contextActualType, TContextBase contextActualInstance)
 		{
-			if (this.disposed)
+			if (this.Disposed)
 				throw new ObjectDisposedException(typeof(MulticastContext<TContextBase>).FullName);
 
 			if ((object)contextActualType == null)
@@ -125,10 +137,10 @@ namespace TextMetal.Core.Plumbing.LinqToSql
 			if ((object)contextActualInstance == null)
 				throw new ArgumentNullException("contextActualInstance");
 
-			if (this.contexts.ContainsKey(contextActualType))
+			if (this.Contexts.ContainsKey(contextActualType))
 				throw new InvalidOperationException(string.Format("The actual context type '{0}' is already registered on multicast context type '{1}'.", contextActualType.FullName, typeof(MulticastContext<TContextBase>).FullName));
 
-			this.contexts.Add(contextActualType, contextActualInstance);
+			this.Contexts.Add(contextActualType, contextActualInstance);
 		}
 
 		#endregion

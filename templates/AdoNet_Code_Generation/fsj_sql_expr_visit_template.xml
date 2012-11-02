@@ -292,7 +292,7 @@ namespace ${ClrNamespace}
 			if ((object)nullaryExpression == null)
 				throw new ArgumentNullException("nullaryExpression");
 
-			this.strings.Append(" (1 = 1) ");
+			this.Strings.Append(" (1 = 1) ");
 
 			return nullaryExpression;
 		}
@@ -319,37 +319,37 @@ namespace ${ClrNamespace}
 			switch (unaryExpression.UnaryOperator)
 			{
 				case UnaryOperator.Not:
-					this.strings.Append(" NOT ");
+					this.Strings.Append(" NOT ");
 					this.Visit(unaryExpression.TheExpression);
 					break;
 				case UnaryOperator.IsNull:
 					this.Visit(unaryExpression.TheExpression);
-					this.strings.Append(" IS NULL ");
+					this.Strings.Append(" IS NULL ");
 					break;
 				case UnaryOperator.IsNotNull:
 					this.Visit(unaryExpression.TheExpression);
-					this.strings.Append(" IS NOT NULL ");
+					this.Strings.Append(" IS NOT NULL ");
 					break;
 				case UnaryOperator.Neg:
-					this.strings.Append(" - ");
+					this.Strings.Append(" - ");
 					this.Visit(unaryExpression.TheExpression);
 					break;
 				case UnaryOperator.Pos:
-					this.strings.Append(" + ");
+					this.Strings.Append(" + ");
 					this.Visit(unaryExpression.TheExpression);
 					break;
 				case UnaryOperator.Incr:
-					this.strings.Append(" (");
+					this.Strings.Append(" (");
 					this.Visit(unaryExpression.TheExpression);
-					this.strings.Append(" + 1) ");
+					this.Strings.Append(" + 1) ");
 					break;
 				case UnaryOperator.Decr:
-					this.strings.Append(" (");
+					this.Strings.Append(" (");
 					this.Visit(unaryExpression.TheExpression);
-					this.strings.Append(" - 1) ");
+					this.Strings.Append(" - 1) ");
 					break;
 				case UnaryOperator.BComp:
-					this.strings.Append(" ~ ");
+					this.Strings.Append(" ~ ");
 					this.Visit(unaryExpression.TheExpression);
 					break;
 				default:
@@ -385,7 +385,7 @@ namespace ${ClrNamespace}
 			commandParameter = this.UnitOfWorkContext.CreateParameter(ParameterDirection.Input, InferDbTypeForClrType(valueType), 0, 0, 0, true, parameterName, value.__);
 			this.commandParameters.Add(commandParameter);
 
-			this.strings.Append(parameterName);
+			this.Strings.Append(parameterName);
 
 			return value;
 		}
