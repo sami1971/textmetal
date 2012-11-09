@@ -10,7 +10,7 @@ using System.Linq;
 using System.Xml.Schema;
 
 using TextMetal.Core.AssociativeModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.SourceModel.Primative
 {
@@ -18,6 +18,9 @@ namespace TextMetal.Core.SourceModel.Primative
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the XmlSchemaSourceStrategy class.
+		/// </summary>
 		public XmlSchemaSourceStrategy()
 		{
 		}

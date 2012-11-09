@@ -12,6 +12,9 @@ namespace TextMetal.Core.InputOutputModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the StringOutputMechanism class.
+		/// </summary>
 		public StringOutputMechanism()
 		{
 			this.RecycleOutput();

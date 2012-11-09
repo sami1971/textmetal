@@ -16,6 +16,11 @@ namespace TextMetal.Core.ExpressionModel
 	{
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Evaluates at run-time, an expression tree yielding an object value result.
+		/// </summary>
+		/// <param name="templatingContext"> The templating context. </param>
+		/// <returns> An expression return value or null. </returns>
 		object EvaluateExpression(TemplatingContext templatingContext);
 
 		#endregion

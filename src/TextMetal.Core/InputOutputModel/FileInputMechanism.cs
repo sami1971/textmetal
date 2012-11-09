@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.XmlModel;
 
@@ -17,6 +17,11 @@ namespace TextMetal.Core.InputOutputModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the FileInputMechanism class.
+		/// </summary>
+		/// <param name="baseDirectoryPath">The base input directory path.</param>
+		/// <param name="xpe">The XML persist engine in-effect.</param>
 		public FileInputMechanism(string baseDirectoryPath, IXmlPersistEngine xpe)
 		{
 			if ((object)baseDirectoryPath == null)

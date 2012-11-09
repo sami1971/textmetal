@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 using TextMetal.Core;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.WebHostSample.Objects.Model
 {

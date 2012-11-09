@@ -36,12 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
     <Reference Include="TestingFramework.Core">
       <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
@@ -59,10 +55,6 @@
     <None Include="IntegrationTesting.nunit" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextMetal.Core.UnitTests\TextMetal.Core.UnitTests.csproj">
-      <Project>{80507877-670C-41D4-B5CF-9EAD853CF8B8}</Project>
-      <Name>TextMetal.Core.UnitTests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TextMetal.Core\TextMetal.Core.csproj">
       <Project>{0FC50A3F-54C4-4112-80D9-42D68234574A}</Project>
       <Name>TextMetal.Core</Name>

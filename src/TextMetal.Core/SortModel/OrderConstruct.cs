@@ -19,6 +19,10 @@ namespace TextMetal.Core.SortModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the OrderConstruct class.
+		/// </summary>
+		/// <param name="ascending">A value indicating whether the order is ascending (true) or descending (false).</param>
 		protected OrderConstruct(bool ascending)
 		{
 			this.ascending = ascending;

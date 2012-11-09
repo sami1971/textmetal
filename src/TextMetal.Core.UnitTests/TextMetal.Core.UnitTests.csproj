@@ -36,12 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
     <Reference Include="TestingFramework.Core">
       <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
@@ -50,19 +46,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Plumbing\core\AppConfigTests.cs" />
-    <Compile Include="Plumbing\core\DataTypeTests.cs" />
-    <Compile Include="Plumbing\core\ExecutionPathStorageTests.cs" />
-    <Compile Include="Plumbing\core\ReflexionTests.cs" />
-    <Compile Include="Plumbing\data\AdoNetHelperTests.cs" />
-    <None Include="Plumbing\data\UnitOfWorkContextTests.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
-    <Compile Include="TestingInfrastructure\MockConnection.cs" />
-    <Compile Include="TestingInfrastructure\MockException.cs" />
-    <Compile Include="TestingInfrastructure\MockMultipleTestAttibute.cs" />
-    <Compile Include="TestingInfrastructure\MockObject.cs" />
-    <Compile Include="TestingInfrastructure\MockSingleTestAttibute.cs" />
-    <Compile Include="TestingInfrastructure\MockTestAttributedClass.cs" />
     <Compile Include="TokenModel\DynamicValueTokenReplacementStrategyTests.cs" />
     <Compile Include="TokenModel\StaticValueTokenReplacementStrategyTests.cs" />
     <Compile Include="TokenModel\TokenizerTests.cs" />

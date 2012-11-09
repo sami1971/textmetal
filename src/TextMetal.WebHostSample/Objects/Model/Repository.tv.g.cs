@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 using TextMetal.WebHostSample.Objects.Model.Tables;
 

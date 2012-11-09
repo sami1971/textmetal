@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 using Expression = TextMetal.Core.ExpressionModel.IExpressionXmlObject;
 using NullaryExpression = TextMetal.Core.ExpressionModel.NullaryExpressionConstruct;
@@ -24,6 +24,9 @@ namespace TextMetal.Core.ExpressionModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the PrintExpressionVisitor class.
+		/// </summary>
 		private PrintExpressionVisitor()
 		{
 		}

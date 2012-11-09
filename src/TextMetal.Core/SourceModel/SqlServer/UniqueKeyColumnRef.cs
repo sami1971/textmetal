@@ -13,6 +13,9 @@ namespace TextMetal.Core.SourceModel.SqlServer
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the UniqueKeyColumnRef class.
+		/// </summary>
 		public UniqueKeyColumnRef()
 		{
 		}

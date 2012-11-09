@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<NUnitProject>
+	<Settings activeconfig="Debug"/>
+
+	<Config configfile="App.config" name="Debug">
+		<assembly path="bin\Debug\TextMetal.Plumbing.UnitTests.dll"/>
+	</Config>
+		
+	<Config configfile="App.config" name="Release">
+		<assembly path="bin\Release\TextMetal.Plumbing.UnitTests.dll"/>
+	</Config>
+	
+</NUnitProject>

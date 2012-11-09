@@ -1,6 +1,6 @@
 @echo off
 
-set NUNIT_EXE=..\lib\TestMetal\TestMetal.Runner.Console.exe
+set NUNIT_EXE=..\lib\PrivateBuilt\TestingFramework.Runner.Console.exe
 set ASSEMBLY_LIST=TextMetal.Core
 
 echo NUNIT_EXE=%NUNIT_EXE%

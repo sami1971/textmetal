@@ -14,6 +14,9 @@ namespace TextMetal.Core.InputOutputModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the InputMechanism class.
+		/// </summary>
 		protected InputMechanism()
 		{
 		}
@@ -71,16 +74,31 @@ namespace TextMetal.Core.InputOutputModel
 			}
 		}
 
+		/// <summary>
+		/// 	Loads an assembly by name.
+		/// </summary>
+		/// <param name="assemblyName"> The assembly name to load. </param>
+		/// <returns> An assembly object or null. </returns>
 		public Assembly LoadAssembly(string assemblyName)
 		{
 			return this.CoreLoadAssembly(assemblyName);
 		}
 
+		/// <summary>
+		/// 	Loads content by resource name. Resource name semantics is implementation specific.
+		/// </summary>
+		/// <param name="resourceName"> The resource name to load. </param>
+		/// <returns> The text content or null. </returns>
 		public string LoadContent(string resourceName)
 		{
 			return this.CoreLoadContent(resourceName);
 		}
 
+		/// <summary>
+		/// 	Loads an template fragment by resource name. Resource name semantics is implementation specific.
+		/// </summary>
+		/// <param name="resourceName"> The resource name to load. </param>
+		/// <returns> The template fragment root object or null. </returns>
 		public ITemplateXmlObject LoadFragment(string resourceName)
 		{
 			return this.CoreLoadFragment(resourceName);

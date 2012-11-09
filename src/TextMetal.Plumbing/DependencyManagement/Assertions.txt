@@ -1,0 +1,19 @@
+﻿Assertion 0: Factory-based dependency management is preferred over initializer-based dependency management.
+
+Assertion 1: Code that removes its dependence on initializer-based dependency management in favor of factory-based dependency management will utilize a variant of the Factory Method pattern, thus the designation of “factory-based dependency management”. Further, the act of obtaining a dependency from the factory interface is called “dependency resolution”.
+
+Assertion 2: Code that leverages factory-based dependency management should be oblivious to the how’s and why’s of dependency resolution as these are implementation/configuration details of the underlying concrete factory.
+
+Assertion 3: A dependency management framework must work equally well with value and reference types, and abstract and concrete types, guaranteeing a dependency resolution to a value assignable to the requested type or a null value.
+
+Assertion 4: A dependency management framework must be zero friction in that only a simple binding to a factory-like interface is all that is necessary to perform dependency resolutions. 
+
+Assertion 5: A dependency management framework must provide weakly and strongly (if applicable) typed means to resolve dependencies.
+
+Assertion 6: A dependency management framework must allow for the resolution of dependencies based on a target type and an application defined selector string, together called a resolution trait. Dependency resolutions are based (matched) on these traits.
+
+Assertion 7: A dependency management framework must allow for the complete management (add, remove, clear) of dependency resolutions on a resolution trait basis via code as part of the factory interface or other management interface. 
+
+Assertion 8: Dependency management frameworks should be attainable to all calibers of developers; they should not require a DI or IoC approach when all is needed is dependency acquisition the first go around.
+
+Assertion 9: A software developer must ensure to fully understand all ramifications and intricacies of whatever dependency management strategy and framework is chosen to associate with. The balance of complexity within the eco-sphere of the application under development will determine many a destiny.

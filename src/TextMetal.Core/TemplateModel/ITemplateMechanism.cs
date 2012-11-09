@@ -14,6 +14,10 @@ namespace TextMetal.Core.TemplateModel
 	{
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Expands the template tree into the templating context current output.
+		/// </summary>
+		/// <param name="templatingContext"> The templating context. </param>
 		void ExpandTemplate(TemplatingContext templatingContext);
 
 		#endregion

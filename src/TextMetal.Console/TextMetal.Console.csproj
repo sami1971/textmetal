@@ -69,6 +69,10 @@
       <Project>{0FC50A3F-54C4-4112-80D9-42D68234574A}</Project>
       <Name>TextMetal.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Plumbing\TextMetal.Plumbing.csproj">
+      <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
+      <Name>TextMetal.Plumbing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

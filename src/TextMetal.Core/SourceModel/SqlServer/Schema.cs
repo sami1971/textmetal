@@ -14,6 +14,9 @@ namespace TextMetal.Core.SourceModel.SqlServer
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the Schema class.
+		/// </summary>
 		public Schema()
 		{
 		}

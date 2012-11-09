@@ -5,7 +5,7 @@
 
 using System;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.XmlModel
 {

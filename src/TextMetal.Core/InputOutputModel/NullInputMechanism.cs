@@ -6,7 +6,7 @@
 using System;
 using System.Reflection;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TemplateModel;
 
 namespace TextMetal.Core.InputOutputModel
@@ -15,6 +15,9 @@ namespace TextMetal.Core.InputOutputModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the NullInputMechanism class.
+		/// </summary>
 		public NullInputMechanism()
 		{
 		}

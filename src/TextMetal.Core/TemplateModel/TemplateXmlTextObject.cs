@@ -15,6 +15,9 @@ namespace TextMetal.Core.TemplateModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the TemplateXmlTextObject class.
+		/// </summary>
 		public TemplateXmlTextObject()
 		{
 		}

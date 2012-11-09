@@ -11,7 +11,7 @@ using System.Reflection;
 using TextMetal.Core;
 using TextMetal.Core.AssociativeModel;
 using TextMetal.Core.InputOutputModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.SourceModel;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.TokenModel;

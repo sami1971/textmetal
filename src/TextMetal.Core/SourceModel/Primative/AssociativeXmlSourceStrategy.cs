@@ -15,6 +15,9 @@ namespace TextMetal.Core.SourceModel.Primative
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the AssociativeXmlSourceStrategy class.
+		/// </summary>
 		public AssociativeXmlSourceStrategy()
 		{
 		}

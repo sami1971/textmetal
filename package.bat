@@ -87,6 +87,16 @@ copy ".\src\TextMetal.Core\bin\%BUILD_FLAVOR_DIR%\TextMetal.Core.pdb" "%PACKAGE_
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 
+copy ".\src\TextMetal.Plumbing\bin\%BUILD_FLAVOR_DIR%\TextMetal.Plumbing.dll" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy ".\src\TextMetal.Plumbing\bin\%BUILD_FLAVOR_DIR%\TextMetal.Plumbing.xml" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy ".\src\TextMetal.Plumbing\bin\%BUILD_FLAVOR_DIR%\TextMetal.Plumbing.pdb" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+
 copy ".\src\TextMetal.Console\bin\%BUILD_FLAVOR_DIR%\TextMetal.exe" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 

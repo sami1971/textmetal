@@ -10,7 +10,7 @@
 		<Include name="include_gen_cprt_message.cs.txt" />
 <![CDATA[
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 ]]>
 		<If>
 			<If.Condition>

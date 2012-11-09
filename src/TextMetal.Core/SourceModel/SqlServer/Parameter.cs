@@ -7,7 +7,7 @@ using System;
 using System.Data;
 using System.Xml.Serialization;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.SourceModel.SqlServer
 {
@@ -16,6 +16,9 @@ namespace TextMetal.Core.SourceModel.SqlServer
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the Parameter class.
+		/// </summary>
 		public Parameter()
 		{
 		}

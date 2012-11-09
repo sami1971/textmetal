@@ -18,7 +18,7 @@
 
 using System;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 using Facet = TextMetal.Core.ExpressionModel.SurfaceConstruct;
 

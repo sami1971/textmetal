@@ -16,6 +16,9 @@ namespace TextMetal.Core.TemplateModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the IfConstruct class.
+		/// </summary>
 		public IfConstruct()
 		{
 		}

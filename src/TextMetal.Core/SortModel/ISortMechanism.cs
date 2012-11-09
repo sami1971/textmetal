@@ -17,6 +17,12 @@ namespace TextMetal.Core.SortModel
 	{
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Re-orders an enumerable of values, yielding a re-ordered enumerable.
+		/// </summary>
+		/// <param name="templatingContext"> The templating context. </param>
+		/// <param name="values"> </param>
+		/// <returns> </returns>
 		IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values);
 
 		#endregion

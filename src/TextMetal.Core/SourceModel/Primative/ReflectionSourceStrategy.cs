@@ -9,7 +9,7 @@ using System.IO;
 using System.Reflection;
 
 using TextMetal.Core.AssociativeModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.SourceModel.Primative
 {
@@ -17,6 +17,9 @@ namespace TextMetal.Core.SourceModel.Primative
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the ReflectionSourceStrategy class.
+		/// </summary>
 		public ReflectionSourceStrategy()
 		{
 		}

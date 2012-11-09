@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 ]]>
 		<If>
 			<If.Condition>
@@ -96,7 +96,7 @@ namespace ${ClrNamespace}
 		{
 			/* THIS METHOD SHOULD NOT BE DEFINED IN RELEASE/PRODUCTION BUILDS */
 			
-			// these are by convention in the TextMetal.Core.Plumbing.AdoNetHelper.ExecuteDictionary(...) API.
+			// these are by convention in the TextMetal.Plumbing.CommonFacilities.AdoNetHelper.ExecuteDictionary(...) API.
 			const bool COMMAND_PREPARE = false;
 			/* const */ int? COMMAND_TIMEOUT = null;
 			const CommandBehavior COMMAND_BEHAVIOR = CommandBehavior.Default;

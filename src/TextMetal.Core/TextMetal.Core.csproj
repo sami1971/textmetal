@@ -38,16 +38,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\PowerShell\System.Management.Automation.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -107,18 +104,6 @@
     <Compile Include="CovariantListAdapter~2.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Name.cs" />
-    <Compile Include="Plumbing\AdoNetHelper.cs" />
-    <Compile Include="Plumbing\AppConfig.cs" />
-    <Compile Include="Plumbing\Cerealization.cs" />
-    <Compile Include="Plumbing\DataType.cs" />
-    <Compile Include="Plumbing\DataType.IntImpl.cs" />
-    <Compile Include="Plumbing\ExecutionPathStorage.cs" />
-    <Compile Include="Plumbing\LinqToSql\ContextWrapper~1.cs" />
-    <Compile Include="Plumbing\LinqToSql\LinqToSqlHelper.cs" />
-    <Compile Include="Plumbing\LinqToSql\MulticastContext.cs" />
-    <Compile Include="Plumbing\Reflexion.cs" />
-    <Compile Include="Plumbing\SqlQuery.cs" />
-    <Compile Include="Plumbing\UnitOfWorkContext.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="SortModel\AscendingConstruct.cs" />
     <Compile Include="SortModel\SortXmlObject.cs" />
@@ -228,7 +213,10 @@
     <EmbeddedResource Include="SourceModel\SqlServer\DML\UniqueKeys.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Plumbing\_plumbing_readme.txt" />
+    <ProjectReference Include="..\TextMetal.Plumbing\TextMetal.Plumbing.csproj">
+      <Project>{d1860a67-7efb-4c0f-89cd-a641d99dcc2a}</Project>
+      <Name>TextMetal.Plumbing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

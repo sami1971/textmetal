@@ -5,7 +5,7 @@
 
 using System;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.WebHostSample.Objects.Hosts.Email;
 using TextMetal.WebHostSample.Objects.Model.Tables;
 

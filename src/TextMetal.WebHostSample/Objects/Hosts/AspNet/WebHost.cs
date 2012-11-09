@@ -10,7 +10,7 @@ using System.Reflection;
 
 using TextMetal.Core;
 using TextMetal.Core.InputOutputModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;

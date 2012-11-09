@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.WebHostSample.Objects.Model
 {

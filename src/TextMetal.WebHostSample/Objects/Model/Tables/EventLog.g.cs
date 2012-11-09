@@ -18,7 +18,7 @@
 
 using System;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.WebHostSample.Objects.Model.Tables
 {

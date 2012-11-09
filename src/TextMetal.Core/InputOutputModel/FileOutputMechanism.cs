@@ -7,7 +7,7 @@ using System;
 using System.IO;
 using System.Text;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.InputOutputModel
 {
@@ -15,6 +15,10 @@ namespace TextMetal.Core.InputOutputModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the FileOutputMechanism class.
+		/// </summary>
+		/// <param name="baseDirectoryPath">The base output directory path.</param>
 		public FileOutputMechanism(string baseDirectoryPath)
 		{
 			if ((object)baseDirectoryPath == null)

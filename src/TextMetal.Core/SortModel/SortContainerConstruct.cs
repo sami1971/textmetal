@@ -18,6 +18,9 @@ namespace TextMetal.Core.SortModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the SortContainerConstruct class.
+		/// </summary>
 		public SortContainerConstruct()
 		{
 		}

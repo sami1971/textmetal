@@ -16,8 +16,8 @@ using System.Data;
 using System.Data.Linq;
 using System.Linq;
 
-using TextMetal.Core.Plumbing;
-using TextMetal.Core.Plumbing.LinqToSql;
+using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Plumbing.CommonFacilities.LinqToSql;
 ]]>
 		<If>
 			<If.Condition>

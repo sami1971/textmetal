@@ -14,6 +14,9 @@ namespace TextMetal.Core.SortModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the DescendingConstruct class.
+		/// </summary>
 		public DescendingConstruct()
 			: base(false)
 		{

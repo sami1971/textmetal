@@ -135,8 +135,8 @@ using System.Reflection;
 	
 	<OutputScope name="${ClrNamespace}.sln">					
 		<![CDATA[
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11000000-0000-0000-0000-00000000FFFF}"
 	ProjectSection(SolutionItems) = preProject
 	EndProjectSection
@@ -268,12 +268,25 @@ EndGlobal
 	<Reference Include="TextMetal.Core">
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
     </Reference>
+	<Reference Include="TextMetal.Plumbing">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+    </Reference>
 	
   </ItemGroup>
   <ItemGroup> 
 	<Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+	<Compile Include="L2S\${LinqToSqlTargetDataContextName}.designer.cs">
+		<AutoGen>True</AutoGen>
+		<DesignTime>True</DesignTime>
+		<DependentUpon>${LinqToSqlTargetDataContextName}.dbml</DependentUpon>
+	</Compile>
+	<None Include="L2S\${LinqToSqlTargetDataContextName}.dbml">
+		<Generator>MSLinqToSQLGenerator</Generator>
+		<LastGenOutput>${LinqToSqlTargetDataContextName}.designer.cs</LastGenOutput>
+		<SubType>Designer</SubType>
+	</None>
     <Compile Include="IRepository.g.cs" />
 	<Compile Include="Repository.g.cs" />
 	<Compile Include="ProjectAssemblyInfo.cs" />
@@ -386,8 +399,8 @@ EndGlobal
 	<Reference Include="TextMetal.Core">
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
     </Reference>
-    <Reference Include="TextMetal.Core.UnitTests">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
+	<Reference Include="TextMetal.Plumbing">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
     </Reference>
 	
 	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
@@ -516,8 +529,8 @@ EndGlobal
 	<Reference Include="TextMetal.Core">
       <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
     </Reference>    
-    <Reference Include="TextMetal.Core.UnitTests">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.UnitTests.dll</HintPath>
+    <Reference Include="TextMetal.Plumbing">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
     </Reference>
 	
 	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">

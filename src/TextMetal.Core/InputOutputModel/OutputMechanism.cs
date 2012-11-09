@@ -13,6 +13,9 @@ namespace TextMetal.Core.InputOutputModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the OutputMechanism class.
+		/// </summary>
 		protected OutputMechanism()
 		{
 		}

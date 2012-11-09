@@ -16,7 +16,7 @@ using System.Data;
 using System.Text;
 
 using TextMetal.Core.ExpressionModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 using Expression = TextMetal.Core.ExpressionModel.IExpressionXmlObject;
 using NullaryExpression = TextMetal.Core.ExpressionModel.NullaryExpressionConstruct;

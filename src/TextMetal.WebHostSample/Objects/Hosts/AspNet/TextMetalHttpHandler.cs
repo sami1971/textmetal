@@ -6,7 +6,7 @@
 using System;
 using System.Web;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
 {

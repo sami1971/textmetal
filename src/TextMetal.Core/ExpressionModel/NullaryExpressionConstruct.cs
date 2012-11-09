@@ -16,6 +16,9 @@ namespace TextMetal.Core.ExpressionModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the NullaryExpressionConstruct class.
+		/// </summary>
 		public NullaryExpressionConstruct()
 		{
 		}

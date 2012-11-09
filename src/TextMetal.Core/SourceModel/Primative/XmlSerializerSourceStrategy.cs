@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.SourceModel.Primative
 {
@@ -15,6 +15,9 @@ namespace TextMetal.Core.SourceModel.Primative
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the XmlSerializerSourceStrategy class.
+		/// </summary>
 		public XmlSerializerSourceStrategy()
 		{
 		}

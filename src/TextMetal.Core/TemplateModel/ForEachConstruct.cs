@@ -7,7 +7,7 @@ using System;
 using System.Collections;
 
 using TextMetal.Core.ExpressionModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.SortModel;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
@@ -19,6 +19,9 @@ namespace TextMetal.Core.TemplateModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the ForEachConstruct class.
+		/// </summary>
 		public ForEachConstruct()
 		{
 		}

@@ -119,6 +119,11 @@ namespace TextMetal.Core
 
 		#region Methods/Operators
 
+		/// <summary>
+		/// 	Evaluates at run-time, an expression tree yielding an object value result.
+		/// </summary>
+		/// <param name="templatingContext"> The templating context. </param>
+		/// <returns> An expression return value or null. </returns>
 		public object EvaluateExpression(TemplatingContext templatingContext)
 		{
 			if (!Debugger.IsAttached)
@@ -127,6 +132,12 @@ namespace TextMetal.Core
 			return null;
 		}
 
+		/// <summary>
+		/// 	Re-orders an enumerable of values, yielding a re-ordered enumerable.
+		/// </summary>
+		/// <param name="templatingContext"> The templating context. </param>
+		/// <param name="values"> </param>
+		/// <returns> </returns>
 		public IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
 		{
 			if (!Debugger.IsAttached)
@@ -135,6 +146,10 @@ namespace TextMetal.Core
 			return values;
 		}
 
+		/// <summary>
+		/// 	Expands the template tree into the templating context current output.
+		/// </summary>
+		/// <param name="templatingContext"> The templating context. </param>
 		public void ExpandTemplate(TemplatingContext templatingContext)
 		{
 			if (!Debugger.IsAttached)

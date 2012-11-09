@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 using TextMetal.WebHostSample.Objects.Model.Tables;
 

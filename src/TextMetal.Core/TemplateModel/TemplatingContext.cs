@@ -16,6 +16,13 @@ namespace TextMetal.Core.TemplateModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the TemplatingContext class.
+		/// </summary>
+		/// <param name="xpe">The XML persist engine in-effect.</param>
+		/// <param name="tokenizer">The tokenizer in-efect.</param>
+		/// <param name="input">The input mechanism in-effect.</param>
+		/// <param name="output">The output mechanism in-effect.</param>
 		public TemplatingContext(IXmlPersistEngine xpe, Tokenizer tokenizer, IInputMechanism input, IOutputMechanism output)
 		{
 			if ((object)xpe == null)

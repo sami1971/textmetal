@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Core.SourceModel.SqlServer
 {
@@ -19,6 +19,9 @@ namespace TextMetal.Core.SourceModel.SqlServer
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the SqlServerSchemaSourceStrategy class.
+		/// </summary>
 		public SqlServerSchemaSourceStrategy()
 		{
 		}

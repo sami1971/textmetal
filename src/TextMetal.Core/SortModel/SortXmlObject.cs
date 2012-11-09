@@ -15,6 +15,9 @@ namespace TextMetal.Core.SortModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the SortXmlObject class.
+		/// </summary>
 		protected SortXmlObject()
 		{
 		}

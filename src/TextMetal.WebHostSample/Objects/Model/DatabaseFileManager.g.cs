@@ -23,7 +23,7 @@ using System.Reflection;
 using System.Web;
 
 using TextMetal.Core;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.WebHostSample.Objects.Model
 {

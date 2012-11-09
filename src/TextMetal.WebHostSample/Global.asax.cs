@@ -9,7 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.WebHostSample.Objects;
 using TextMetal.WebHostSample.Objects.Hosts.AspNet;
 using TextMetal.WebHostSample.Objects.Model;

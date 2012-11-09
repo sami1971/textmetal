@@ -12,6 +12,9 @@ namespace TextMetal.Core.SourceModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the SourceStrategy class.
+		/// </summary>
 		protected SourceStrategy()
 		{
 		}

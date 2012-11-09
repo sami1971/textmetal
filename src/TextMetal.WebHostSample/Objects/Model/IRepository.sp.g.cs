@@ -16,7 +16,7 @@
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.WebHostSample.Objects.Model.Procedures;
 
 namespace TextMetal.WebHostSample.Objects.Model

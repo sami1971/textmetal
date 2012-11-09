@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.Plumbing</RootNamespace>
+    <AssemblyName>TextMetal.Plumbing</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.Plumbing.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.Plumbing.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="CommonFacilities\AdoNetHelper.cs" />
+    <Compile Include="CommonFacilities\AppConfig.cs" />
+    <Compile Include="CommonFacilities\Cerealization.cs" />
+    <Compile Include="CommonFacilities\DataType.cs" />
+    <Compile Include="CommonFacilities\DataType.IntImpl.cs" />
+    <Compile Include="CommonFacilities\ExecutionPathStorage.cs" />
+    <Compile Include="CommonFacilities\LinqToSql\ContextWrapper~1.cs" />
+    <Compile Include="CommonFacilities\LinqToSql\LinqToSqlHelper.cs" />
+    <Compile Include="CommonFacilities\LinqToSql\MulticastContext.cs" />
+    <Compile Include="CommonFacilities\Reflexion.cs" />
+    <Compile Include="CommonFacilities\SqlQuery.cs" />
+    <Compile Include="CommonFacilities\UnitOfWorkContext.cs" />
+    <Compile Include="DependencyManagement\ActivatorDependencyResolution.cs" />
+    <Compile Include="DependencyManagement\ConstructorDependencyResolution~1.cs" />
+    <Compile Include="DependencyManagement\DelegateDependencyResolution.cs" />
+    <Compile Include="DependencyManagement\DependencyException.cs" />
+    <Compile Include="DependencyManagement\DependencyManager.cs" />
+    <Compile Include="DependencyManagement\DependencyRegistrationAttribute.cs" />
+    <Compile Include="DependencyManagement\IDependencyManager.cs" />
+    <Compile Include="DependencyManagement\IDependencyResolution.cs" />
+    <Compile Include="DependencyManagement\SingletonDependencyResolution.cs" />
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="RuntimeInterception\AspectDynamicInvoker.cs" />
+    <Compile Include="RuntimeInterception\DynamicInvoker.cs" />
+    <Compile Include="RuntimeInterception\IDynamicInvocation.cs" />
+    <Compile Include="RuntimeInterception\ProxyFactory~1.cs" />
+    <Compile Include="RuntimeInterception\RemotingImpl\DynamicInvokerRealProxy~1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DependencyManagement\Assertions.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="CommonFacilities\_plumbing_readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

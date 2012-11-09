@@ -14,6 +14,9 @@ namespace TextMetal.Core.SourceModel.SqlServer
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the Procedure class.
+		/// </summary>
 		public Procedure()
 		{
 		}

@@ -5,7 +5,7 @@
 
 using System;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
@@ -17,6 +17,9 @@ namespace TextMetal.Core.ExpressionModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the ValueConstruct class.
+		/// </summary>
 		public ValueConstruct()
 		{
 		}

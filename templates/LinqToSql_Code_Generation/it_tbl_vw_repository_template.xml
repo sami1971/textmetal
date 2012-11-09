@@ -16,7 +16,7 @@ using NUnit.Framework;
 
 using TestingFramework.Core.Customization;
 
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 ]]>
 		<If>
 			<If.Condition>

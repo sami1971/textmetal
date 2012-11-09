@@ -6,7 +6,7 @@
 using System;
 
 using TextMetal.Core.ExpressionModel;
-using TextMetal.Core.Plumbing;
+using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
 
@@ -17,6 +17,9 @@ namespace TextMetal.Core.TemplateModel
 	{
 		#region Constructors/Destructors
 
+		/// <summary>
+		/// 	Initializes a new instance of the OutputScopeConstruct class.
+		/// </summary>
 		public OutputScopeConstruct()
 		{
 		}
