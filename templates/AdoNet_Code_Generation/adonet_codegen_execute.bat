@@ -109,12 +109,11 @@ echo *** adonet_codegen_execute ***
 	-templatefile:"master_template.xml" ^
 	-sourcefile:"Data Source=(local);User ID=TextMetalWebHostSampleLogin;Password=LrJGmP6UfW8TEp7x3wWhECUYULE6zzMcWQ03R6UxeB4xzVmnq5S4Lx0vApegZVH;Initial Catalog=TextMetalWebHostSample" ^
 	-basedir:".\output\src" ^
-	-sourcestrategy:"TextMetal.Core.SourceModel.SqlServer.SqlServerSchemaSourceStrategy, TextMetal.Core" ^
+	-sourcestrategy:"TextMetal.Core.SourceModel.DatabaseSchema.Sql.SqlSchemaSourceStrategy, TextMetal.Core" ^
 	-strict:"true" ^
 	-property:"ClrNamespace=TextMetal.WebHostSample.Objects.Model" ^
-	-property:"ClrSuperType=Object"
-	rem -property:"ClrUsingNamespaces=Test1" ^
-	rem -property:"ClrUsingNamespaces=Test2"
+	-property:"ClrSuperType=Object" ^
+	-property:"ConnectionType=System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

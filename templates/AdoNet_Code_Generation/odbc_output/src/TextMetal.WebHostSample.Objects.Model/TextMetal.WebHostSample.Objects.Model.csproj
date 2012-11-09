@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FFFF0000-0000-0000-0000-000000000001}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.WebHostSample.Objects.Model</RootNamespace>
+    <AssemblyName>TextMetal.WebHostSample.Objects.Model</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <!--<DocumentationFile>bin\Debug\TextMetal.WebHostSample.Objects.Model.XML</DocumentationFile>-->
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <!--<DocumentationFile>bin\Release\TextMetal.WebHostSample.Objects.Model.XML</DocumentationFile>-->
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+	<Reference Include="System.Data" />    
+	<Reference Include="System.Web" />
+	<Reference Include="System.Xml" />
+	<Reference Include="System.Data.SQLite">
+      <HintPath>..\..\lib\SQLite\System.Data.SQLite.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Plumbing">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DatabaseFileManager.g.cs" />
+	<Compile Include="DatabaseHistory.g.cs" />
+	<Compile Include="DatabaseRevision.g.cs" />
+	<Compile Include="IRepository.g.cs" />
+	<Compile Include="Repository.g.cs" />
+    <Compile Include="IRepository.sp.g.cs" />
+	<Compile Include="Repository.sp.g.cs" />
+	<Compile Include="IRepository.tv.g.cs" />
+	<Compile Include="Repository.tv.g.cs" />
+	<Compile Include="ProjectAssemblyInfo.cs" />
+	<Compile Include="Repository.sqlite.g.cs" />
+	<Compile Include="Repository.sqlserver.g.cs" />
+	<Compile Include="Order.g.cs" />
+	<Compile Include="Query.g.cs" />
+	<Compile Include="SqlExpressionVisitor.g.cs" />
+	
+    <Compile Include="Tables\EventLog.g.cs" />    <Compile Include="Tables\EmailMessage.g.cs" />    <Compile Include="Tables\EmailAttachment.g.cs" />    <Compile Include="Procedures\BlahBlahBlah_Request.g.cs" />
+    <Compile Include="Procedures\BlahBlahBlah_Result.g.cs" />
+	<Compile Include="Procedures\BlahBlahBlah_Response.g.cs" />	
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQL\RevisionHistory%28SqlConnection%29.xml" />
+    <EmbeddedResource Include="SQL\RevisionHistory%28SQLiteConnection%29.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>		

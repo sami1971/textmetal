@@ -326,17 +326,17 @@ namespace TextMetal.Plumbing.CommonFacilities
 			else if (valueType.IsEnum) // special case
 			{
 				object zresult;
-#if NET_FX_40
-				retval = Enum.TryParse(value, out zresult);
-				result = zresult;
-#else
+//#if NET_FX_40
+				//retval = Enum.TryParse(value, out zresult);
+				//result = zresult;
+//#else
 				// Enum.GetUnderlyingType() not used here
 				if (retval = IsValidEnum(valueType, value))
 				{
 					zresult = ParseEnum(valueType, value);
 					result = zresult;
 				}
-#endif
+//#endif
 			}
 			else
 				throw new ArgumentOutOfRangeException("valueType", string.Format("The value type '{0}' is not supported.", valueType.FullName));

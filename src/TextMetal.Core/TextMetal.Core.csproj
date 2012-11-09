@@ -112,6 +112,7 @@
     <Compile Include="SortModel\ISortXmlObject.cs" />
     <Compile Include="SortModel\OrderConstruct.cs" />
     <Compile Include="SortModel\SortContainerConstruct.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Odbc\OdbcSchemaSourceStrategy.cs" />
     <Compile Include="SourceModel\SourceStrategy.cs" />
     <Compile Include="SourceModel\ISourceStrategy.cs" />
     <Compile Include="SourceModel\Primative\AssociativeXmlSourceStrategy.cs" />
@@ -122,18 +123,18 @@
     <Compile Include="SourceModel\Primative\XmlPersistEngineSourceStrategy.cs" />
     <Compile Include="SourceModel\Primative\XmlSchemaSourceStrategy.cs" />
     <Compile Include="SourceModel\Primative\XmlSerializerSourceStrategy.cs" />
-    <Compile Include="SourceModel\SqlServer\Catalog.cs" />
-    <Compile Include="SourceModel\SqlServer\Column.cs" />
-    <Compile Include="SourceModel\SqlServer\Database.cs" />
-    <Compile Include="SourceModel\SqlServer\ForeignKey.cs" />
-    <Compile Include="SourceModel\SqlServer\ForeignKeyColumnRef.cs" />
-    <Compile Include="SourceModel\SqlServer\Parameter.cs" />
-    <Compile Include="SourceModel\SqlServer\Procedure.cs" />
-    <Compile Include="SourceModel\SqlServer\Schema.cs" />
-    <Compile Include="SourceModel\SqlServer\SqlServerSchemaSourceStrategy.cs" />
-    <Compile Include="SourceModel\SqlServer\Table.cs" />
-    <Compile Include="SourceModel\SqlServer\UniqueKey.cs" />
-    <Compile Include="SourceModel\SqlServer\UniqueKeyColumnRef.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Catalog.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Column.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Database.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\ForeignKey.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\ForeignKeyColumnRef.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Parameter.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Procedure.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Schema.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Sql\SqlSchemaSourceStrategy.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\Table.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\UniqueKey.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\UniqueKeyColumnRef.cs" />
     <Compile Include="TemplateModel\AliasConstruct.cs" />
     <Compile Include="TemplateModel\AllocConstruct.cs" />
     <Compile Include="TemplateModel\AssignConstruct.cs" />
@@ -183,40 +184,74 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\Columns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Columns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\Database.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Database.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\ForeignKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\ForeignKeyColumns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\ForeignKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\ForeignKeys.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\Parameters.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Parameters.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\Procedures.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Procedures.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\Schemas.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Schemas.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\Tables.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Tables.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\UniqueKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\UniqueKeyColumns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\SqlServer\DML\UniqueKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\UniqueKeys.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextMetal.Plumbing\TextMetal.Plumbing.csproj">
       <Project>{d1860a67-7efb-4c0f-89cd-a641d99dcc2a}</Project>
       <Name>TextMetal.Plumbing</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Columns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Database.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\ForeignKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\ForeignKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Parameters.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Procedures.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Schemas.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Tables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\UniqueKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\UniqueKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SourceModel\DatabaseSchema\Odbc\DML\sybaseiq\" />
+    <Folder Include="SourceModel\DatabaseSchema\Sql\DML\SqlCeConnection\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FFFF0000-0000-0000-0000-000000000002}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.WebHostSample.Objects.Model.UnitTests</RootNamespace>
+    <AssemblyName>TextMetal.WebHostSample.Objects.Model.UnitTests</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>    
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>    
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    	
+	<Reference Include="TextMetal.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TextMetal.Plumbing">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+    </Reference>
+	
+	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
+    </Reference>
+	
+	<ProjectReference Include="..\TextMetal.WebHostSample.Objects.Model\TextMetal.WebHostSample.Objects.Model.csproj">
+      <Project>{FFFF0000-0000-0000-0000-000000000001}</Project>
+      <Name>TextMetal.WebHostSample.Objects.Model</Name>
+    </ProjectReference>
+	
+  </ItemGroup>
+  <ItemGroup>       
+	<Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+	<Compile Include="ProjectAssemblyInfo.cs" />
+	<Compile Include="RepositoryTests.sp.g.cs" />
+	<Compile Include="RepositoryTests.tv.g.cs" />	
+	<None Include="UnitTests.nunit" />
+    <Compile Include="Tables\EventLogTests.g.cs" />    <Compile Include="Tables\EmailMessageTests.g.cs" />    <Compile Include="Tables\EmailAttachmentTests.g.cs" />    <Compile Include="Procedures\BlahBlahBlah_RequestTests.g.cs" />
+    <Compile Include="Procedures\BlahBlahBlah_ResultTests.g.cs" />
+	<Compile Include="Procedures\BlahBlahBlah_ResponseTests.g.cs" />	
+  </ItemGroup>  
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>		

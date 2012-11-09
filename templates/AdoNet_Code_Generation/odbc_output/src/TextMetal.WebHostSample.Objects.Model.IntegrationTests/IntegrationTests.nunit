@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<NUnitProject>
+	<Settings activeconfig="Debug_SqlConnection"/>
+
+	<Config configfile="App.sqlserver.config" name="Debug_SqlConnection">
+		<assembly path="bin\Debug\TextMetal.WebHostSample.Objects.Model.IntegrationTests.dll"/>
+	</Config>
+		
+	<Config configfile="App.sqlite.config" name="Debug_SQLiteConnection">
+		<assembly path="bin\Debug\TextMetal.WebHostSample.Objects.Model.IntegrationTests.dll"/>
+	</Config>
+	
+</NUnitProject>
