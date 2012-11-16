@@ -74,6 +74,21 @@ namespace ${ClrNamespace}
 				return Type.GetType(AppConfig.GetConnectionProvider(CONNECTION_STRING_NAME), true);
 			}
 		}
+		
+		public static string DataSourceTag
+		{
+			get
+			{
+				string value;
+
+				if (!AppConfig.HasAppSetting("${ClrNamespace}::DataSourceTag"))
+					return false;
+
+				value = AppConfig.GetAppSetting<string>("${ClrNamespace}::DataSourceTag");
+
+				return value;
+			}
+		}
 				
 		#endregion
 		

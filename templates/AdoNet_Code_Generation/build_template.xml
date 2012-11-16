@@ -5,6 +5,38 @@
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
 <Template xmlns="http://www.textmetal.com/api/v4.4.0">
+	
+	<Alloc token="vs_sln_file_version" />
+	<Alloc token="vs_sln_info_version" />
+	<Alloc token="csproj_product_version" />
+	<Alloc token="csproj_target_framework_version" />
+	<Alloc token="csproj_tools_version" />
+	
+	<Assign token="vs_sln_file_version">
+		<Assign.Expression>
+			<Value data="12.00" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="vs_sln_info_version">
+		<Assign.Expression>
+			<Value data="2012" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="csproj_product_version">
+		<Assign.Expression>
+			<Value data="8.0.30703" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="csproj_target_framework_version">
+		<Assign.Expression>
+			<Value data="v4.5" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="csproj_tools_version">
+		<Assign.Expression>
+			<Value data="4.0" type="System.String" />
+		</Assign.Expression>
+	</Assign>
 		
 	<OutputScope name="..\msb.bat">					
 		<![CDATA[@echo off
@@ -135,8 +167,8 @@ using System.Reflection;
 	
 	<OutputScope name="${ClrNamespace}.sln">					
 		<![CDATA[
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version ${vs_sln_file_version}
+# Visual Studio ${vs_sln_info_version}
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11000000-0000-0000-0000-00000000FFFF}"
 	ProjectSection(SolutionItems) = preProject
 	EndProjectSection
@@ -173,7 +205,7 @@ EndGlobal
 ]]>
 	</OutputScope>
 
-	<OutputScope name="${ClrNamespace}.IntegrationTests\App.sqlserver.config">
+	<OutputScope name="${ClrNamespace}.IntegrationTests\App.(${DataSourceTag}).config">
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
 
 <configuration>
@@ -181,6 +213,7 @@ EndGlobal
 		<add name="${ClrNamespace}::ConnectionString" connectionString="${ConnectionString}" providerName="${ConnectionType}" />
 	</connectionStrings>
 	<appSettings>
+		<add key="${ClrNamespace}::DataSourceTag" value="${DataSourceTag}" />
 		<add key="${ClrNamespace}::UseDatabaseFile" value="false" />
 		<add key="${ClrNamespace}::KillDatabaseFile" value="false" />
 		<add key="${ClrNamespace}::DatabaseFileName" value="" />
@@ -189,7 +222,7 @@ EndGlobal
 </configuration>]]>
 	</OutputScope>
 	
-	<OutputScope name="${ClrNamespace}.IntegrationTests\App.sqlite.config">
+	<OutputScope name="${ClrNamespace}.IntegrationTests\App.(net.sqlite).config">
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
 
 <configuration>
@@ -224,13 +257,13 @@ EndGlobal
 	<OutputScope name="${ClrNamespace}.IntegrationTests\IntegrationTests.nunit">
 		<![CDATA[<?xml version="1.0" encoding="utf-8" ?> 
 <NUnitProject>
-	<Settings activeconfig="Debug_SqlConnection"/>
+	<Settings activeconfig="Debug_${DataSourceTag}"/>
 
-	<Config configfile="App.sqlserver.config" name="Debug_SqlConnection">
+	<Config configfile="App.(${DataSourceTag}).config" name="Debug_(${DataSourceTag})">
 		<assembly path="bin\Debug\${ClrNamespace}.IntegrationTests.dll"/>
 	</Config>
 		
-	<Config configfile="App.sqlite.config" name="Debug_SQLiteConnection">
+	<Config configfile="App.(net.sqlite).config" name="Debug_(net.sqlite)">
 		<assembly path="bin\Debug\${ClrNamespace}.IntegrationTests.dll"/>
 	</Config>
 	
@@ -241,11 +274,11 @@ EndGlobal
 		<Alloc token="FolderName" />
 		
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="${csproj_tools_version}">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>${csproj_product_version}</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFF0000-0000-0000-0000-000000000001}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -254,7 +287,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -309,8 +342,10 @@ EndGlobal
 	<Compile Include="IRepository.tv.g.cs" />
 	<Compile Include="Repository.tv.g.cs" />
 	<Compile Include="ProjectAssemblyInfo.cs" />
-	<Compile Include="Repository.sqlite.g.cs" />
-	<Compile Include="Repository.sqlserver.g.cs" />
+	<Compile Include="Repository.(net.sqlite).g.cs" />
+	<Compile Include="Repository.(net.sqlserver).g.cs" />
+	<Compile Include="Repository.(odbc.sybaseiq).g.cs" />
+	<Compile Include="Repository.(odbc.sqlserver).g.cs" />
 	<Compile Include="Order.g.cs" />
 	<Compile Include="Query.g.cs" />
 	<Compile Include="SqlExpressionVisitor.g.cs" />
@@ -385,8 +420,10 @@ EndGlobal
 		<![CDATA[	
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SQL\RevisionHistory%28SqlConnection%29.xml" />
-    <EmbeddedResource Include="SQL\RevisionHistory%28SQLiteConnection%29.xml" />
+    <None Include="SQL\RevisionHistory%28net.sqlserver%29.xml" />
+    <None Include="SQL\RevisionHistory%28net.sqlite%29.xml" />
+	<None Include="SQL\RevisionHistory%28odbc.sqlserver%29.xml" />
+    <None Include="SQL\RevisionHistory%28odbc.sybaseiq%29.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -404,11 +441,11 @@ EndGlobal
 		<Alloc token="FolderName" />
 		
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="${csproj_tools_version}">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>${csproj_product_version}</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFF0000-0000-0000-0000-000000000002}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -417,7 +454,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.UnitTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -555,11 +592,11 @@ EndGlobal
 		<Alloc token="FolderName" />
 		
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="${csproj_tools_version}">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>${csproj_product_version}</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFF0000-0000-0000-0000-000000000002}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -568,7 +605,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.IntegrationTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -626,10 +663,10 @@ EndGlobal
 	<Compile Include="RepositoryTests.sp.g.cs" />
 	<Compile Include="RepositoryTests.tv.g.cs" />	
 	<None Include="IntegrationTests.nunit" />
-	<None Include="App.sqlserver.config">
+	<None Include="App.(${DataSourceTag}).config">
       <SubType>Designer</SubType>
     </None>
-	<None Include="App.sqlite.config">
+	<None Include="App.(net.sqlite).config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>  
@@ -644,5 +681,11 @@ EndGlobal
 </Project>		
 ]]>
 	</OutputScope>
+	
+	<Free token="vs_sln_file_version" />
+	<Free token="vs_sln_info_version" />
+	<Free token="csproj_product_version" />
+	<Free token="csproj_target_framework_version" />
+	<Free token="csproj_tools_version" />
 
 </Template>

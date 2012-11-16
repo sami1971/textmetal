@@ -14,9 +14,6 @@ namespace TextMetal.Plumbing.CommonFacilities
 	{
 		#region Methods/Operators
 
-//#if NET_FX_40
-	// DO NOTHING
-//#else
 		private static bool IsValidEnum(Type enumType, string value)
 		{
 			try
@@ -62,7 +59,6 @@ namespace TextMetal.Plumbing.CommonFacilities
 		{
 			return new Guid(value);
 		}
-//#endif
 
 		#endregion
 	}

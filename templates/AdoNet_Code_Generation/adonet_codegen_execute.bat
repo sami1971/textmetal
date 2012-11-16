@@ -113,7 +113,8 @@ echo *** adonet_codegen_execute ***
 	-strict:"true" ^
 	-property:"ClrNamespace=TextMetal.WebHostSample.Objects.Model" ^
 	-property:"ClrSuperType=Object" ^
-	-property:"ConnectionType=System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+	-property:"ConnectionType=System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ^
+	-property:"DataSourceTag=net.sqlserver"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

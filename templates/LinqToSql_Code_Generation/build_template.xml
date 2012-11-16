@@ -5,7 +5,39 @@
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
 <Template xmlns="http://www.textmetal.com/api/v4.4.0">
-		
+	
+	<Alloc token="vs_sln_file_version" />
+	<Alloc token="vs_sln_info_version" />
+	<Alloc token="csproj_product_version" />
+	<Alloc token="csproj_target_framework_version" />
+	<Alloc token="csproj_tools_version" />
+	
+	<Assign token="vs_sln_file_version">
+		<Assign.Expression>
+			<Value data="12.00" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="vs_sln_info_version">
+		<Assign.Expression>
+			<Value data="2012" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="csproj_product_version">
+		<Assign.Expression>
+			<Value data="8.0.30703" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="csproj_target_framework_version">
+		<Assign.Expression>
+			<Value data="v4.5" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	<Assign token="csproj_tools_version">
+		<Assign.Expression>
+			<Value data="4.0" type="System.String" />
+		</Assign.Expression>
+	</Assign>
+	
 	<OutputScope name="..\msb.bat">					
 		<![CDATA[@echo off
 
@@ -135,8 +167,8 @@ using System.Reflection;
 	
 	<OutputScope name="${ClrNamespace}.sln">					
 		<![CDATA[
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version ${vs_sln_file_version}
+# Visual Studio ${vs_sln_info_version}
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{11000000-0000-0000-0000-00000000FFFF}"
 	ProjectSection(SolutionItems) = preProject
 	EndProjectSection
@@ -221,11 +253,11 @@ EndGlobal
 		<Alloc token="FolderName" />
 		
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="${csproj_tools_version}">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>${csproj_product_version}</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFF0000-0000-0000-0000-000000000001}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -234,7 +266,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -356,11 +388,11 @@ EndGlobal
 		<Alloc token="FolderName" />
 		
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="${csproj_tools_version}">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>${csproj_product_version}</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFF0000-0000-0000-0000-000000000002}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -369,7 +401,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.UnitTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -485,11 +517,11 @@ EndGlobal
 		<Alloc token="FolderName" />
 		
 		<![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="${csproj_tools_version}">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>${csproj_product_version}</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FFFF0000-0000-0000-0000-000000000002}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -498,7 +530,7 @@ EndGlobal
     <AssemblyName>${ClrNamespace}.IntegrationTests</AssemblyName>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -566,5 +598,11 @@ EndGlobal
 </Project>		
 ]]>
 	</OutputScope>
+	
+	<Free token="vs_sln_file_version" />
+	<Free token="vs_sln_info_version" />
+	<Free token="csproj_product_version" />
+	<Free token="csproj_target_framework_version" />
+	<Free token="csproj_tools_version" />
 
 </Template>

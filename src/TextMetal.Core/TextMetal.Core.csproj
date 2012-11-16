@@ -37,6 +37,9 @@
     <DocumentationFile>bin\Release\TextMetal.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IronRuby">
+      <HintPath>..\..\lib\IronRuby\bin-rb\IronRuby.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
     </Reference>
@@ -46,6 +49,9 @@
       <HintPath>..\..\lib\PowerShell\System.Management.Automation.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="WebFramework.Core">
+      <HintPath>..\..\lib\PrivateBuilt\WebFramework.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionAssemblyInfo.cs">
@@ -66,6 +72,7 @@
     <Compile Include="ContravariantListAdapter~2.cs" />
     <Compile Include="DebuggerBreakpointConstruct.cs" />
     <Compile Include="ExpressionModel\BinaryExpressionConstruct.cs" />
+    <Compile Include="ExpressionModel\RubyConstruct.cs" />
     <Compile Include="ExpressionModel\Operators\BinaryOperator.cs" />
     <Compile Include="ExpressionModel\Operators\Binary\BinaryOperator.cs" />
     <Compile Include="ExpressionModel\AspectConstruct.cs" />
@@ -113,6 +120,8 @@
     <Compile Include="SortModel\OrderConstruct.cs" />
     <Compile Include="SortModel\SortContainerConstruct.cs" />
     <Compile Include="SourceModel\DatabaseSchema\Odbc\OdbcSchemaSourceStrategy.cs" />
+    <Compile Include="SourceModel\DatabaseSchema\SchemaSourceStrategy.cs" />
+    <Compile Include="SourceModel\Primative\JsonSourceStrategy.cs" />
     <Compile Include="SourceModel\SourceStrategy.cs" />
     <Compile Include="SourceModel\ISourceStrategy.cs" />
     <Compile Include="SourceModel\Primative\AssociativeXmlSourceStrategy.cs" />
@@ -184,34 +193,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Columns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\Columns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Database.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\Database.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\ForeignKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\ForeignKeyColumns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\ForeignKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\ForeignKeys.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Parameters.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\Parameters.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Procedures.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\Procedures.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Schemas.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\Schemas.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\Tables.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\Tables.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\UniqueKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\UniqueKeyColumns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\SqlConnection\UniqueKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\UniqueKeys.sql" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextMetal.Plumbing\TextMetal.Plumbing.csproj">
@@ -220,38 +229,67 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Columns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\Columns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Database.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\Database.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\ForeignKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\ForeignKeyColumns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\ForeignKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\ForeignKeys.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Parameters.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\Parameters.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Procedures.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\Procedures.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Schemas.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\Schemas.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\Tables.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\Tables.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\UniqueKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\UniqueKeyColumns.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\sqlserver\UniqueKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\UniqueKeys.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SourceModel\DatabaseSchema\Odbc\DML\sybaseiq\" />
-    <Folder Include="SourceModel\DatabaseSchema\Sql\DML\SqlCeConnection\" />
+    <Folder Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlce\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\Columns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\Database.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\ForeignKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\ForeignKeys.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\Parameters.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\Procedures.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\Schemas.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\Tables.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\UniqueKeyColumns.sql" />
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\UniqueKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\TableSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sqlserver\ProcedureSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\ProcedureSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Odbc\DML\odbc.sybaseiq\TableSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\ProcedureSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceModel\DatabaseSchema\Sql\DML\net.sqlserver\TableSchema.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

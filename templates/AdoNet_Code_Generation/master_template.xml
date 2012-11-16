@@ -16,8 +16,10 @@
 	
 	<Import name="irepository_template.xml" />
 	<Import name="repository_template.xml" />
-	<Import name="repository_sqlite_template.xml" />
-	<Import name="repository_sqlserver_template.xml" />
+	<Import name="repository_net.sqlite_template.xml" />
+	<Import name="repository_net.sqlserver_template.xml" />
+	<Import name="repository_odbc.sybaseiq_template.xml" />
+	<Import name="repository_odbc.sqlserver_template.xml" />
 	
 	<Import name="tbl_vw_model_template.xml" />
 	

@@ -76,7 +76,22 @@ namespace ${ClrNamespace}
 				return Type.GetType(AppConfig.GetConnectionProvider(CONNECTION_STRING_NAME), true);
 			}
 		}
-				
+
+		public static string DataSourceTag
+		{
+			get
+			{
+				string value;
+
+				if (!AppConfig.HasAppSetting("${ClrNamespace}::DataSourceTag"))
+					return null;
+
+				value = AppConfig.GetAppSetting<string>("${ClrNamespace}::DataSourceTag");
+
+				return value;
+			}
+		}
+		
 		#endregion
 		
 		#region Methods/Operators
@@ -132,11 +147,13 @@ namespace ${ClrNamespace}
 			string resourceName;
 			const string CONNECTION_SPECIFIC_RESOURCE_NAME = "${ClrNamespace}.SQL.RevisionHistory({0}).xml";
 			
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-				case "sqliteconnection":
-					resourceName = string.Format(CONNECTION_SPECIFIC_RESOURCE_NAME, ConnectionType.Name);
+				case "net.sqlserver":
+				case "net.sqlite":
+				case "odbc.sqlserver":
+				case "odbc.sybaseiq":
+					resourceName = string.Format(CONNECTION_SPECIFIC_RESOURCE_NAME, DataSourceTag.SafeToString().ToLower());
 					break;
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
@@ -147,12 +164,16 @@ namespace ${ClrNamespace}
 		
 		private static string ConnectionSpecificGetIdentityCommand()
 		{
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					return SqlServerSpecificGetIdentityCommand();
-				case "sqliteconnection":
-					return SqliteSpecificGetIdentityCommand();
+				case "net.sqlserver":
+					return NetSqlServerSpecificGetIdentityCommand();
+				case "net.sqlite":
+					return NetSqliteSpecificGetIdentityCommand();
+				case "odbc.sqlserver":
+					return OdbcSqlServerSpecificGetIdentityCommand();
+				case "odbc.sybaseiq":
+					return OdbcSybaseIqSpecificGetIdentityCommand();
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
@@ -160,12 +181,16 @@ namespace ${ClrNamespace}
 		
 		private static string ConnectionSpecificGetTableName(string schemaName, string tableName)
 		{
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					return SqlServerSpecificGetTableName(schemaName, tableName);
-				case "sqliteconnection":
-					return SqliteSpecificGetTableName(schemaName, tableName);
+				case "net.sqlserver":
+					return NetSqlServerSpecificGetTableName(schemaName, tableName);
+				case "net.sqlite":
+					return NetSqliteSpecificGetTableName(schemaName, tableName);
+				case "odbc.sqlserver":
+					return OdbcSqlServerSpecificGetTableName(schemaName, tableName);
+				case "odbc.sybaseiq":
+					return OdbcSybaseIqSpecificGetTableName(schemaName, tableName);
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
@@ -173,12 +198,16 @@ namespace ${ClrNamespace}
 
 		private static string ConnectionSpecificGetTableAlias(string tableAlias)
 		{
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					return SqlServerSpecificGetTableAlias(tableAlias);
-				case "sqliteconnection":
-					return SqliteSpecificGetTableAlias(tableAlias);
+				case "net.sqlserver":
+					return NetSqlServerSpecificGetTableAlias(tableAlias);
+				case "net.sqlite":
+					return NetSqliteSpecificGetTableAlias(tableAlias);
+				case "odbc.sqlserver":
+					return OdbcSqlServerSpecificGetTableAlias(tableAlias);
+				case "odbc.sybaseiq":
+					return OdbcSybaseIqSpecificGetTableAlias(tableAlias);
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
@@ -186,12 +215,16 @@ namespace ${ClrNamespace}
 
 		internal static string ConnectionSpecificGetParameterName(string parameterName)
 		{
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					return SqlServerSpecificGetParameterName(parameterName);
-				case "sqliteconnection":
-					return SqliteSpecificGetParameterName(parameterName);
+				case "net.sqlserver":
+					return NetSqlServerSpecificGetParameterName(parameterName);
+				case "net.sqlite":
+					return NetSqliteSpecificGetParameterName(parameterName);
+				case "odbc.sqlserver":
+					return OdbcSqlServerSpecificGetParameterName(parameterName);
+				case "odbc.sybaseiq":
+					return OdbcSybaseIqSpecificGetParameterName(parameterName);
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
@@ -199,12 +232,16 @@ namespace ${ClrNamespace}
 
 		private static string ConnectionSpecificGetColumnName(string columnName)
 		{
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					return SqlServerSpecificGetColumnName(columnName);
-				case "sqliteconnection":
-					return SqliteSpecificGetColumnName(columnName);
+				case "net.sqlserver":
+					return NetSqlServerSpecificGetColumnName(columnName);
+				case "net.sqlite":
+					return NetSqliteSpecificGetColumnName(columnName);
+				case "odbc.sqlserver":
+					return OdbcSqlServerSpecificGetColumnName(columnName);
+				case "odbc.sybaseiq":
+					return OdbcSybaseIqSpecificGetColumnName(columnName);
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
@@ -212,12 +249,16 @@ namespace ${ClrNamespace}
 
 		internal static string ConnectionSpecificGetAliasedColumnName(string tableAlias, string columnName)
 		{
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					return SqlServerSpecificGetAliasedColumnName(tableAlias, columnName);
-				case "sqliteconnection":
-					return SqliteSpecificGetAliasedColumnName(tableAlias, columnName);
+				case "net.sqlserver":
+					return NetSqlServerSpecificGetAliasedColumnName(tableAlias, columnName);
+				case "net.sqlite":
+					return NetSqliteSpecificGetAliasedColumnName(tableAlias, columnName);
+				case "odbc.sqlserver":
+					return OdbcSqlServerSpecificGetAliasedColumnName(tableAlias, columnName);
+				case "odbc.sybaseiq":
+					return OdbcSybaseIqSpecificGetAliasedColumnName(tableAlias, columnName);
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 			}
@@ -231,13 +272,19 @@ namespace ${ClrNamespace}
 			if ((object)commandParameter == null)
 				throw new ArgumentNullException("commandParameter");
 
-			switch (ConnectionType.Name.ToLower())
+			switch (DataSourceTag.SafeToString().ToLower())
 			{
-				case "sqlconnection":
-					SqlServerSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
+				case "net.sqlserver":
+					NetSqlServerSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
 					break;
-				case "sqliteconnection":
-					SqliteSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
+				case "net.sqlite":
+					NetSqliteSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
+					break;
+				case "odbc.sqlserver":
+					OdbcSqlServerSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
+					break;
+				case "odbc.sybaseiq":
+					OdbcSybaseIqSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
 					break;
 				default:
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
@@ -251,13 +298,19 @@ namespace ${ClrNamespace}
 			
 			if (executeAsCud)
 			{
-				switch (ConnectionType.Name.ToLower())
+				switch (DataSourceTag.SafeToString().ToLower())
 				{
-					case "sqlconnection":
-						thisOrThatRecordsAffected = SQL_SERVER_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+					case "net.sqlserver":
+						thisOrThatRecordsAffected = NET_SQL_SERVER_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
 						break;
-					case "sqliteconnection":
-						thisOrThatRecordsAffected = SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+					case "net.sqlite":
+						thisOrThatRecordsAffected = NET_SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+						break;
+					case "odbc.sqlserver":
+						thisOrThatRecordsAffected = ODBC_SQL_SERVER_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
+						break;
+					case "odbc.sybaseiq":
+						thisOrThatRecordsAffected = ODBC_SYBASE_IQ_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
 						break;
 					default:
 						throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
@@ -265,13 +318,19 @@ namespace ${ClrNamespace}
 			}
 			else
 			{
-				switch (ConnectionType.Name.ToLower())
+				switch (DataSourceTag.SafeToString().ToLower())
 				{
-					case "sqlconnection":
-						thisOrThatRecordsAffected = SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED;
+					case "net.sqlserver":
+						thisOrThatRecordsAffected = NET_SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED;
 						break;
-					case "sqliteconnection":
-						thisOrThatRecordsAffected = SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
+					case "net.sqlite":
+						thisOrThatRecordsAffected = NET_SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
+						break;
+					case "odbc.sqlserver":
+						thisOrThatRecordsAffected = ODBC_SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED;
+						break;
+					case "odbc.sybaseiq":
+						thisOrThatRecordsAffected = ODBC_SYBASE_IQ_QUERY_EXPECTED_RECORDS_AFFECTED;
 						break;
 					default:
 						throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 

@@ -70,11 +70,7 @@ namespace TextMetal.Plumbing.CommonFacilities
 		/// <returns> A boolean value indicating whether the value is null, zero length, or only contains white space. </returns>
 		public static bool IsNullOrWhiteSpace(string value)
 		{
-#if NET_FX_40
-			return String.IsNullOrWhiteSpace(value);
-#else
 			return (object)value == null || IsWhiteSpace(value);
-#endif
 		}
 
 		/// <summary>
@@ -258,16 +254,12 @@ namespace TextMetal.Plumbing.CommonFacilities
 			else if (valueType == typeof(Guid))
 			{
 				Guid zresult;
-#if NET_FX_40
-				retval = Guid.TryParse(value, out zresult);
-				result = zresult;
-#else
+
 				if (retval = IsValidGuid(value))
 				{
 					zresult = ParseGuid(value);
 					result = zresult;
 				}
-#endif
 			}
 			else if (valueType == typeof(Int16))
 			{
@@ -326,17 +318,13 @@ namespace TextMetal.Plumbing.CommonFacilities
 			else if (valueType.IsEnum) // special case
 			{
 				object zresult;
-//#if NET_FX_40
-				//retval = Enum.TryParse(value, out zresult);
-				//result = zresult;
-//#else
+
 				// Enum.GetUnderlyingType() not used here
 				if (retval = IsValidEnum(valueType, value))
 				{
 					zresult = ParseEnum(valueType, value);
 					result = zresult;
 				}
-//#endif
 			}
 			else
 				throw new ArgumentOutOfRangeException("valueType", string.Format("The value type '{0}' is not supported.", valueType.FullName));

@@ -8,7 +8,7 @@ REM
 set BUILD_FLAVOR_DIR=Debug
 set BUILD_TOOL_CFG=Debug
 
-set PACKAGE_DIR=.\odbc_output
+set PACKAGE_DIR=.\output
 set PACKAGE_DIR_EXISTS=%PACKAGE_DIR%\nul
 
 :pkgDir
@@ -108,13 +108,13 @@ echo *** adonet_codegen_execute ***
 "..\..\src\TextMetal.Console\bin\Debug\TextMetal.exe" ^
 	-templatefile:"master_template.xml" ^
 	-sourcefile:"Driver={SQL Server Native Client 11.0};Server=(local);UID=TextMetalWebHostSampleLogin;PWD=LrJGmP6UfW8TEp7x3wWhECUYULE6zzMcWQ03R6UxeB4xzVmnq5S4Lx0vApegZVH;Database=TextMetalWebHostSample" ^
-	-basedir:".\odbc_output\src" ^
+	-basedir:".\output\src" ^
 	-sourcestrategy:"TextMetal.Core.SourceModel.DatabaseSchema.Odbc.OdbcSchemaSourceStrategy, TextMetal.Core" ^
 	-strict:"true" ^
 	-property:"ClrNamespace=TextMetal.WebHostSample.Objects.Model" ^
 	-property:"ClrSuperType=Object" ^
 	-property:"ConnectionType=System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ^
-	-property:"DataSourceTag=sqlserver"
+	-property:"DataSourceTag=odbc.sqlserver"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

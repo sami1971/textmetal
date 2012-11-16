@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+
+	<OutputScope name="${ClrNamespace}\Repository.(net.sqlserver).g.cs">
+		<Include name="include_gen_cprt_message.cs.txt" />
+<![CDATA[
+
+using System;
+using System.Data;
+
+using TextMetal.Plumbing.CommonFacilities;
+]]>
+		<If>
+			<If.Condition>
+				<UnaryExpression operator="IsDef">
+					<UnaryExpression.TheExpression>
+						<Aspect name="ClrUsingNamespaces" />
+					</UnaryExpression.TheExpression>
+				</UnaryExpression>
+			</If.Condition>
+			<If.True>
+				<ForEach in="ClrUsingNamespaces" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+					<ForEach.Body>
+						<![CDATA[using ${#item};
+]]>
+					</ForEach.Body>
+				</ForEach>
+			</If.True>
+		</If>
+				
+		<![CDATA[
+namespace ${ClrNamespace}
+{
+	public partial class Repository
+	{		
+		#region Fields/Constants
+		
+		private const int NET_SQL_SERVER_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED = 0;
+		private const int NET_SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED = -1;
+		private const string NET_SQL_SERVER_IDENTITY_COMMAND = "@@IDENTITY"; // warning: 'SELECT SCOPE_IDENTITY() AS PK' should be used in the SAME BATCH if there is any chance of triggers on any tables causing identity creation
+
+		private const string NET_SQL_SERVER_COLUMN_ALIASED_FORMAT = "{0}.[{1}]";
+		private const string NET_SQL_SERVER_COLUMN_NAME_FORMAT = "[{0}]";
+		private const string NET_SQL_SERVER_PARAMETER_NAME_FORMAT = "@{0}";
+		private const string NET_SQL_SERVER_SCHEMA_TABLE_NAME_FORMAT = "[{0}].[{1}]";
+		private const string NET_SQL_SERVER_TABLE_ALIAS_FORMAT = "{0}";
+		private const string NET_SQL_SERVER_TABLE_NAME_FORMAT = "[{0}]";
+
+		#endregion
+
+		#region Methods/Operators
+		
+		private static string NetSqlServerSpecificGetIdentityCommand()
+		{
+			string retVal;
+
+			retVal = NET_SQL_SERVER_IDENTITY_COMMAND;
+
+			return retVal;
+		}
+
+		private static string NetSqlServerSpecificGetTableName(string schemaName, string tableName)
+		{
+			string retVal;
+
+			retVal = !DataType.IsNullOrWhiteSpace(schemaName) ?
+				string.Format(NET_SQL_SERVER_SCHEMA_TABLE_NAME_FORMAT, schemaName, tableName) :
+				string.Format(NET_SQL_SERVER_TABLE_NAME_FORMAT, tableName);
+
+			return retVal;
+		}
+
+		private static string NetSqlServerSpecificGetTableAlias(string tableAlias)
+		{
+			string retVal;
+
+			retVal = string.Format(NET_SQL_SERVER_TABLE_ALIAS_FORMAT, tableAlias);
+
+			return retVal;
+		}
+
+		private static string NetSqlServerSpecificGetParameterName(string parameterName)
+		{
+			string retVal;
+
+			retVal = string.Format(NET_SQL_SERVER_PARAMETER_NAME_FORMAT, parameterName);
+
+			return retVal;
+		}
+
+		private static string NetSqlServerSpecificGetColumnName(string columnName)
+		{
+			string retVal;
+
+			retVal = string.Format(NET_SQL_SERVER_COLUMN_NAME_FORMAT, columnName);
+
+			return retVal;
+		}
+
+		private static string NetSqlServerSpecificGetAliasedColumnName(string tableAlias, string columnName)
+		{
+			string retVal;
+
+			retVal = string.Format(NET_SQL_SERVER_COLUMN_ALIASED_FORMAT, NetSqlServerSpecificGetTableAlias(tableAlias), columnName);
+
+			return retVal;
+		}
+
+		private static void NetSqlServerSpecificParameterMagic(UnitOfWorkContext unitOfWorkContext, IDataParameter commandParameter, string generatedFromColumnNativeType)
+		{
+			if ((object)unitOfWorkContext == null)
+				throw new ArgumentNullException("unitOfWorkContext");
+
+			if ((object)commandParameter == null)
+				throw new ArgumentNullException("commandParameter");
+
+			if (generatedFromColumnNativeType == "ntext")
+				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));
+			else if (generatedFromColumnNativeType == "text")
+				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));
+			else if (generatedFromColumnNativeType == "image")
+				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));
+		}
+
+		#endregion
+	}
+}
+]]>
+	</OutputScope>
+
+</Template>
