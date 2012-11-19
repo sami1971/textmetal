@@ -27,7 +27,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Sql
 
 		#region Methods/Operators
 
-		protected override short CoreCalculateColumnSize(string dataSourceTag, Column column)
+		protected override int CoreCalculateColumnSize(string dataSourceTag, Column column)
 		{
 			if ((object)dataSourceTag == null)
 				throw new ArgumentNullException("dataSourceTag");
@@ -40,18 +40,18 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Sql
 			{
 				return column.ColumnSqlType == "image" ||
 				       column.ColumnSqlType == "text" ||
-				       column.ColumnSqlType == "ntext" ? (short)0 :
+					   column.ColumnSqlType == "ntext" ? (int)0 :
 					                                                  (column.ColumnDbType == DbType.String &&
 					                                                   column.ColumnSqlType.SafeToString().StartsWith("n") &&
 					                                                   column.ColumnSize != 0 ?
-						                                                                          (short)(column.ColumnSize / 2) :
+																								  (int)(column.ColumnSize / 2) :
 							                                                                                                         column.ColumnSize);
 			}
 
 			throw new ArgumentOutOfRangeException(string.Format("dataSourceTag: '{0}'", dataSourceTag));
 		}
 
-		protected override short CoreCalculateParameterSize(string dataSourceTag, Parameter parameter)
+		protected override int CoreCalculateParameterSize(string dataSourceTag, Parameter parameter)
 		{
 			if ((object)dataSourceTag == null)
 				throw new ArgumentNullException("dataSourceTag");
@@ -64,11 +64,11 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Sql
 			{
 				return parameter.ParameterSqlType == "image" ||
 				       parameter.ParameterSqlType == "text" ||
-				       parameter.ParameterSqlType == "ntext" ? (short)0 :
+					   parameter.ParameterSqlType == "ntext" ? (int)0 :
 					                                                        (parameter.ParameterDbType == DbType.String &&
 					                                                         parameter.ParameterSqlType.SafeToString().StartsWith("n") &&
 					                                                         parameter.ParameterSize != 0 ?
-						                                                                                      (short)(parameter.ParameterSize / 2) :
+																											  (int)(parameter.ParameterSize / 2) :
 							                                                                                                                           parameter.ParameterSize);
 			}
 			throw new ArgumentOutOfRangeException(string.Format("dataSourceTag: '{0}'", dataSourceTag));
@@ -353,9 +353,14 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Sql
 			{
 				switch (sqlType = sqlType.SafeToString().ToUpper())
 				{
+					case null:
+					case "":
+						return typeof(Object);
 					case "BIT":
 						return typeof(Boolean);
 					case "TINYINT":
+						return typeof(Byte);
+					case "SMALLINT":
 						return typeof(Int16);
 					case "INT":
 						return typeof(Int32);

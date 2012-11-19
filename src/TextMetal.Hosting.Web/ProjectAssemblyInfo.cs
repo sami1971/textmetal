@@ -3,9 +3,6 @@
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 
-namespace TextMetal.WebHostSample.Objects.Hosts.Email
-{
-	public interface IEmailAttachment
-	{
-	}
-}
+using System.Reflection;
+
+[assembly: AssemblyTitle("TextMetal Hosting Web Library")]

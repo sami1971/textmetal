@@ -11,19 +11,30 @@ using System.Reflection;
 using TextMetal.Core;
 using TextMetal.Core.AssociativeModel;
 using TextMetal.Core.InputOutputModel;
-using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.SourceModel;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
+using TextMetal.Plumbing.CommonFacilities;
 
-namespace TextMetal.Console
+namespace TextMetal.Hosting.Tool
 {
 	/// <summary>
 	/// 	This class contains code to bootstrap TextMetal proper. This code is a specific implementation for TextMetal 'tool' hosting, concerned with leveraging file paths. Other host implementations will vary (see web host sample for instance). This code can be used by any interactive or batch application (console, windows, WPF, service, etc.).
 	/// </summary>
-	public static class ToolHost
+	public sealed class ToolHost
 	{
+		#region Constructors/Destructors
+
+		/// <summary>
+		/// 	Initializes a new instance of the ToolHost class.
+		/// </summary>
+		public ToolHost()
+		{
+		}
+
+		#endregion
+
 		#region Methods/Operators
 
 		/// <summary>
@@ -35,8 +46,8 @@ namespace TextMetal.Console
 		/// <param name="sourceStrategyAssemblyQualifiedTypeName"> The assembly qualified type name for the ISourceStrategy to instantiate and execute. </param>
 		/// <param name="strictMatching"> A value indicating whether to use strict matching semantics for tokens. </param>
 		/// <param name="properties"> Arbitrary dictionary of string lists used to further customize the text templating process. The individual components or template files can use the properties as they see fit. </param>
-		public static void Host(string templateFilePath, string sourceFilePath, string baseDirectoryPath,
-		                        string sourceStrategyAssemblyQualifiedTypeName, bool strictMatching, IDictionary<string, IList<string>> properties)
+		public void Host(string templateFilePath, string sourceFilePath, string baseDirectoryPath,
+		                 string sourceStrategyAssemblyQualifiedTypeName, bool strictMatching, IDictionary<string, IList<string>> properties)
 		{
 			IXmlPersistEngine xpe;
 			TemplateConstruct template;

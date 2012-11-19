@@ -93,9 +93,9 @@ namespace ${ClrNamespace}.UnitTests.${FolderName}
 		[Test]
 		public void ShouldCreate${TableNameSingularPascalCase}Test()
 		{			
-			${TableNameSingularPascalCase} ${TableNameSingularCamelCase};
+			${TableNameSingularPascalCase} @${TableNameSingularCamelCase};
 			
-			${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();
+			@${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();
 
 ]]>
 
@@ -103,8 +103,8 @@ namespace ${ClrNamespace}.UnitTests.${FolderName}
 							<ForEach.Filter></ForEach.Filter>
 							<ForEach.Body>
 
-								<![CDATA[			${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ValueGenerator.GetNextValue<${ColumnCSharpClrType}>();
-			Assert.AreEqual(ValueGenerator.GetPreviousValue<${ColumnCSharpClrType}>(), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
+								<![CDATA[			@${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ValueGenerator.GetNextValue<${ColumnCSharpClrType}>();
+			Assert.AreEqual(ValueGenerator.GetPreviousValue<${ColumnCSharpClrType}>(), @${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
 ]]>
 
 								<If>

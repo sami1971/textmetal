@@ -52,10 +52,10 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		private string parameterNameSingularPascalCase;
 		private bool parameterNullable;
 		private int parameterOrdinal;
-		private byte parameterPrecision;
+		private int parameterPrecision;
 		private string parameterPrefix;
-		private byte parameterScale;
-		private short parameterSize;
+		private int parameterScale;
+		private int parameterSize;
 		private string parameterSqlType;
 
 		#endregion
@@ -388,7 +388,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public byte ParameterPrecision
+		public int ParameterPrecision
 		{
 			get
 			{
@@ -414,7 +414,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public byte ParameterScale
+		public int ParameterScale
 		{
 			get
 			{
@@ -427,7 +427,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public short ParameterSize
+		public int ParameterSize
 		{
 			get
 			{

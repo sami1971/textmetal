@@ -131,7 +131,7 @@ namespace ${ClrNamespace}.IntegrationTests
 		public void ShouldSave${TableNameSingularPascalCase}Test()
 		{
 			Repository repository;
-			${TableNameSingularPascalCase} ${TableNameSingularCamelCase};
+			${TableNameSingularPascalCase} @${TableNameSingularCamelCase};
 			bool result;
 			
 			Assert.IsNull(UnitOfWorkContext.Current);
@@ -146,7 +146,7 @@ namespace ${ClrNamespace}.IntegrationTests
 					
 					Assert.IsNotNull(UnitOfWorkContext.Current);
 					
-					${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();			
+					@${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();			
 ]]>
 
 								<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
@@ -176,7 +176,7 @@ namespace ${ClrNamespace}.IntegrationTests
 									</ForEach.Filter>
 									<ForEach.Body>
 
-<![CDATA[					${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ValueGenerator.GetNextValue<${ColumnCSharpClrType}>();]]>
+<![CDATA[					@${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ValueGenerator.GetNextValue<${ColumnCSharpClrType}>();]]>
 
 										<If>
 											<If.Condition>
@@ -200,7 +200,7 @@ namespace ${ClrNamespace}.IntegrationTests
 <![CDATA[
 
 					// do INSERT first
-					result = repository.Save${TableNameSingularPascalCase}(${TableNameSingularCamelCase});
+					result = repository.Save${TableNameSingularPascalCase}(@${TableNameSingularCamelCase});
 
 					Assert.IsTrue(result);
 					
@@ -257,7 +257,7 @@ namespace ${ClrNamespace}.IntegrationTests
 <![CDATA[
 
 					// do UPDATE next
-					result = repository.Save${TableNameSingularPascalCase}(${TableNameSingularCamelCase});
+					result = repository.Save${TableNameSingularPascalCase}(@${TableNameSingularCamelCase});
 
 					Assert.IsTrue(result);
 					
@@ -286,7 +286,7 @@ namespace ${ClrNamespace}.IntegrationTests
 		public void ShouldFind${TableNamePluralPascalCase}Test()
 		{
 			Repository repository;
-			IList<${TableNameSingularPascalCase}> ${TableNamePluralCamelCase};
+			IList<${TableNameSingularPascalCase}> @${TableNamePluralCamelCase};
 
 			Assert.IsNull(UnitOfWorkContext.Current);
 
@@ -302,8 +302,8 @@ namespace ${ClrNamespace}.IntegrationTests
 
 					${TableNamePluralCamelCase} = repository.Find${TableNamePluralPascalCase}(new Query(new NullaryExpressionConstruct(), new Order[] { }, 0, 0));
 
-					Assert.IsNotNull(${TableNamePluralCamelCase});
-					Assert.IsNotEmpty(${TableNamePluralCamelCase});
+					Assert.IsNotNull(@${TableNamePluralCamelCase});
+					Assert.IsNotEmpty(@${TableNamePluralCamelCase});
 
 					unitOfWorkContext.Complete();
 				}

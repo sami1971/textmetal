@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace TextMetal.WebHostSample.Objects.Hosts.Email
+namespace TextMetal.Hosting.Web.Email
 {
 	public interface IEmailMessage
 	{

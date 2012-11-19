@@ -107,23 +107,23 @@ copy ".\src\TextMetal.Console\bin\%BUILD_FLAVOR_DIR%\TextMetal.pdb" "%PACKAGE_DI
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 
-copy ".\src\TextMetal.Core.UnitTests\bin\%BUILD_FLAVOR_DIR%\TextMetal.Core.UnitTests.dll" "%PACKAGE_DIR%\."
+copy ".\src\TextMetal.Hosting.Web\bin\%BUILD_FLAVOR_DIR%\TextMetal.Hosting.Web.dll" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
-rem copy ".\src\TextMetal.Core.UnitTests\bin\%BUILD_FLAVOR_DIR%\TextMetal.Core.UnitTests.xml" "%PACKAGE_DIR%\."
-rem IF %ERRORLEVEL% NEQ 0 goto pkgError
+copy ".\src\TextMetal.Hosting.Web\bin\%BUILD_FLAVOR_DIR%\TextMetal.Hosting.Web.xml" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
 
-copy ".\src\TextMetal.Core.UnitTests\bin\%BUILD_FLAVOR_DIR%\TextMetal.Core.UnitTests.pdb" "%PACKAGE_DIR%\."
+copy ".\src\TextMetal.Hosting.Web\bin\%BUILD_FLAVOR_DIR%\TextMetal.Hosting.Web.pdb" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 
-copy ".\src\TextMetal.WebHostSample\bin\TextMetal.WebHostSample.dll" "%PACKAGE_DIR%\."
+copy ".\src\TextMetal.Hosting.Tool\bin\%BUILD_FLAVOR_DIR%\TextMetal.Hosting.Tool.dll" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
-copy ".\src\TextMetal.WebHostSample\bin\TextMetal.WebHostSample.xml" "%PACKAGE_DIR%\."
+copy ".\src\TextMetal.Hosting.Tool\bin\%BUILD_FLAVOR_DIR%\TextMetal.Hosting.Tool.xml" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
-copy ".\src\TextMetal.WebHostSample\bin\TextMetal.WebHostSample.pdb" "%PACKAGE_DIR%\."
+copy ".\src\TextMetal.Hosting.Tool\bin\%BUILD_FLAVOR_DIR%\TextMetal.Hosting.Tool.pdb" "%PACKAGE_DIR%\."
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

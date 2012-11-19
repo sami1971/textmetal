@@ -366,7 +366,7 @@ namespace ${ClrNamespace}.${FolderName}
 								</If>
 
 								<![CDATA[
-		public ${ColumnCSharpClrNullableType} ${ColumnNamePascalCase}
+		public ${ColumnCSharpClrNullableType} @${ColumnNamePascalCase}
 		{
 			get
 			{

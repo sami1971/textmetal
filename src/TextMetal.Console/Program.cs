@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+using TextMetal.Hosting.Tool;
 using TextMetal.Plumbing.CommonFacilities;
 
 namespace TextMetal.Console
@@ -180,7 +181,7 @@ namespace TextMetal.Console
 					return 0;
 			}
 
-			ToolHost.Host(templateFilePath, sourceFilePath, baseDirectoryPath, sourceStrategyAssemblyQualifiedTypeName, strictMatching, properties);
+			new ToolHost().Host(templateFilePath, sourceFilePath, baseDirectoryPath, sourceStrategyAssemblyQualifiedTypeName, strictMatching, properties);
 
 			System.Console.WriteLine("The operation completed successfully; duration: '{0}'.", (DateTime.UtcNow - startUtc));
 			return 0;

@@ -8,7 +8,7 @@ using System.Web;
 
 using TextMetal.Plumbing.CommonFacilities;
 
-namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
+namespace TextMetal.Hosting.Web.AspNet
 {
 	public class TextMetalHttpHandler : IHttpHandler
 	{
@@ -45,7 +45,7 @@ namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
 			originalPath = context.Request.Path.SafeToString();
 			viewFilePath = context.Server.MapPath(originalPath);
 
-			WebHost.Host(viewFilePath, new object(), context.Response.Output);
+			new WebHost().Host(viewFilePath, new object(), context.Response.Output);
 		}
 
 		#endregion

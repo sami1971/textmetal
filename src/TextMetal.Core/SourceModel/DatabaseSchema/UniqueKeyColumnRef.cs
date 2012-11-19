@@ -25,7 +25,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		#region Fields/Constants
 
 		private bool uniqueKeyColumnDescendingSort;
-		private byte uniqueKeyColumnOrdinal;
+		private int uniqueKeyColumnOrdinal;
 		private int uniqueKeyParentColumnOrdinal;
 
 		#endregion
@@ -46,7 +46,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public byte UniqueKeyColumnOrdinal
+		public int UniqueKeyColumnOrdinal
 		{
 			get
 			{

@@ -347,7 +347,7 @@ namespace ${ClrNamespace}
 		
 		<Assign token="#LoopCount">
 			<Assign.Expression>
-				<Value data="16" type="System.Int32" />
+				<Value data="100" type="System.Int32" />
 			</Assign.Expression>
 		</Assign>
 		
@@ -518,7 +518,7 @@ namespace ${ClrNamespace}
 		
 		<Assign token="#LoopCount">
 			<Assign.Expression>
-				<Value data="15" type="System.Int32" />
+				<Value data="99" type="System.Int32" />
 			</Assign.Expression>
 		</Assign>
 		

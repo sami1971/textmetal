@@ -129,7 +129,7 @@ namespace ${ClrNamespace}
 								</BinaryExpression>
 							</ForEach.Filter>
 							<ForEach.Body>
-<![CDATA[${ColumnCSharpClrType} ${ColumnNameCamelCase}]]>
+<![CDATA[${ColumnCSharpClrType} @${ColumnNameCamelCase}]]>
 								<If>
 									<If.Condition>
 										<BinaryExpression operator="Ne">
@@ -162,7 +162,7 @@ namespace ${ClrNamespace}
 								</BinaryExpression>
 							</ForEach.Filter>
 							<ForEach.Body>
-								<![CDATA[${ColumnCSharpClrType} ${ColumnNameCamelCase}]]>
+								<![CDATA[${ColumnCSharpClrType} @${ColumnNameCamelCase}]]>
 								<If>
 									<If.Condition>
 										<BinaryExpression operator="Ne">
@@ -186,13 +186,13 @@ namespace ${ClrNamespace}
 		
 		IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback);
 		
-		bool Save${TableNameSingularPascalCase}(${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		bool Save${TableNameSingularPascalCase}(${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		bool Discard${TableNameSingularPascalCase}(${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		bool Discard${TableNameSingularPascalCase}(${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 ]]>
 						<If>
 							<If.Condition>

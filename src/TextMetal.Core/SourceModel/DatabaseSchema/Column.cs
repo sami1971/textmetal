@@ -53,9 +53,9 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		private string columnNameSingularPascalCase;
 		private bool columnNullable;
 		private int columnOrdinal;
-		private byte columnPrecision;
-		private byte columnScale;
-		private short columnSize;
+		private int columnPrecision;
+		private int columnScale;
+		private int columnSize;
 		private string columnSqlType;
 
 		#endregion
@@ -401,7 +401,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public byte ColumnPrecision
+		public int ColumnPrecision
 		{
 			get
 			{
@@ -414,7 +414,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public byte ColumnScale
+		public int ColumnScale
 		{
 			get
 			{
@@ -427,7 +427,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public short ColumnSize
+		public int ColumnSize
 		{
 			get
 			{

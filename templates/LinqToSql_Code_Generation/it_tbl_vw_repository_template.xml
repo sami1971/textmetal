@@ -129,7 +129,7 @@ namespace ${ClrNamespace}.IntegrationTests
 		public void ShouldSave${TableNameSingularPascalCase}Test()
 		{
 			Repository repository;
-			${TableNameSingularPascalCase} ${TableNameSingularCamelCase};
+			${TableNameSingularPascalCase} @${TableNameSingularCamelCase};
 			bool result;
 			
 			Assert.IsNull(UnitOfWorkContext.Current);
@@ -145,7 +145,7 @@ namespace ${ClrNamespace}.IntegrationTests
 					Assert.IsNotNull(UnitOfWorkContext.Current);
 					
 					// do INSERT first
-					${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();			
+					@${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();			
 ]]>
 
 								<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
@@ -175,7 +175,7 @@ namespace ${ClrNamespace}.IntegrationTests
 									</ForEach.Filter>
 									<ForEach.Body>
 
-<![CDATA[					${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ValueGenerator.GetNextValue<${ColumnCSharpClrType}>();]]>
+<![CDATA[					@${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ValueGenerator.GetNextValue<${ColumnCSharpClrType}>();]]>
 
 										<If>
 											<If.Condition>
@@ -198,7 +198,7 @@ namespace ${ClrNamespace}.IntegrationTests
 
 <![CDATA[
 
-					result = repository.Save${TableNameSingularPascalCase}(${TableNameSingularCamelCase});
+					result = repository.Save${TableNameSingularPascalCase}(@${TableNameSingularCamelCase});
 
 					Assert.IsTrue(result);
 					

@@ -127,7 +127,7 @@ namespace ${ClrNamespace}
 								</BinaryExpression>
 							</ForEach.Filter>
 							<ForEach.Body>
-								<![CDATA[${ColumnCSharpClrType} ${ColumnNameCamelCase}]]>
+								<![CDATA[${ColumnCSharpClrType} @${ColumnNameCamelCase}]]>
 								<If>
 									<If.Condition>
 										<BinaryExpression operator="Ne">
@@ -224,7 +224,7 @@ namespace ${ClrNamespace}
 								</BinaryExpression>
 							</ForEach.Filter>
 							<ForEach.Body>
-								<![CDATA[${ColumnNameCamelCase}]]>
+								<![CDATA[@${ColumnNameCamelCase}]]>
 								<If>
 									<If.Condition>
 										<BinaryExpression operator="Ne">
@@ -262,7 +262,7 @@ namespace ${ClrNamespace}
 								</BinaryExpression>
 							</ForEach.Filter>
 							<ForEach.Body>
-								<![CDATA[${ColumnCSharpClrType} ${ColumnNameCamelCase}]]>
+								<![CDATA[${ColumnCSharpClrType} @${ColumnNameCamelCase}]]>
 								<If>
 									<If.Condition>
 										<BinaryExpression operator="Ne">
@@ -282,7 +282,7 @@ namespace ${ClrNamespace}
 						</ForEach>
 						<![CDATA[)
 		{			
-			${TableNameSingularPascalCase} ${TableNameSingularCamelCase};
+			${TableNameSingularPascalCase} @${TableNameSingularCamelCase};
 			${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase} query;
 			
 			if ((object)unitOfWorkContext == null)
@@ -303,7 +303,7 @@ namespace ${ClrNamespace}
 							</BinaryExpression>
 						</ForEach.Filter>
 						<ForEach.Body>
-							<![CDATA[lo.${ColumnNamePascalCase} == ${ColumnNameCamelCase}]]>
+							<![CDATA[lo.@${ColumnNamePascalCase} == @${ColumnNameCamelCase}]]>
 							<If>
 								<If.Condition>
 									<BinaryExpression operator="Ne">
@@ -326,7 +326,7 @@ namespace ${ClrNamespace}
 				if ((object)query == null)
 					return null; // does not exist
 				
-				${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}()
+				@${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}()
 								{
 									// map result to POCO from L2S object
 ]]>
@@ -334,7 +334,7 @@ namespace ${ClrNamespace}
 		<ForEach.Filter>			
 		</ForEach.Filter>
 		<ForEach.Body>
-<![CDATA[									${ColumnNamePascalCase} = ]]>	
+<![CDATA[									@${ColumnNamePascalCase} = ]]>	
 
 			<If>
 				<If.Condition>
@@ -348,10 +348,10 @@ namespace ${ClrNamespace}
 					</BinaryExpression>
 				</If.Condition>
 				<If.True>
-					<![CDATA[(object)query.${ColumnNamePascalCase} != null ? query.${ColumnNamePascalCase}.ToArray() : null]]>
+					<![CDATA[(object)query.${ColumnNamePascalCase} != null ? query.@${ColumnNamePascalCase}.ToArray() : null]]>
 				</If.True>
 				<If.False>
-					<![CDATA[query.${ColumnNamePascalCase}]]>
+					<![CDATA[query.@${ColumnNamePascalCase}]]>
 				</If.False>
 			</If>
 			
@@ -376,24 +376,24 @@ namespace ${ClrNamespace}
 <![CDATA[
 								};	
 
-				this.OnSelect${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+				this.OnSelect${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 
-				return ${TableNameSingularCamelCase};
+				return @${TableNameSingularCamelCase};
 			}
 		}
 		
 		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback)
 		{
-			IList<${TableNameSingularPascalCase}> retval;
+			IList<${TableNameSingularPascalCase}> @${TableNamePluralCamelCase};
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Find${TableNamePluralPascalCase}(uowc, e), callback);
+			@${TableNamePluralCamelCase} = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Find${TableNamePluralPascalCase}(uowc, e), callback);
 			
-			return retval;
+			return @${TableNamePluralCamelCase};
 		}
 		
 		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback)
 		{
-			IList<${TableNameSingularPascalCase}> ${TableNamePluralCamelCase};			
+			IList<${TableNameSingularPascalCase}> @${TableNamePluralCamelCase};			
 			IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}> queryable;			
 			
 			if ((object)unitOfWorkContext == null)		
@@ -404,12 +404,12 @@ namespace ${ClrNamespace}
 				
 			using (ContextWrapper<${LinqToSqlDataContextRootNamespace}.${LinqToSqlTargetDataContextName}> ctx = unitOfWorkContext.GetContext<${LinqToSqlDataContextRootNamespace}.${LinqToSqlTargetDataContextName}>())
 			{
-				queryable = callback(ctx.Context.${TableNamePluralPascalCase});
+				queryable = callback(ctx.Context.@${TableNamePluralPascalCase});
 				
 				if ((object)queryable == null)
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 				
-				${TableNamePluralCamelCase} = queryable.Select(lo => new ${TableNameSingularPascalCase}()
+				@${TableNamePluralCamelCase} = queryable.Select(lo => new ${TableNameSingularPascalCase}()
 												 {
 													// map results to POCOs from L2S objects
 ]]>
@@ -417,7 +417,7 @@ namespace ${ClrNamespace}
 		<ForEach.Filter>			
 		</ForEach.Filter>
 		<ForEach.Body>
-<![CDATA[													${ColumnNamePascalCase} = ]]>	
+<![CDATA[													@${ColumnNamePascalCase} = ]]>	
 
 			<If>
 				<If.Condition>
@@ -431,10 +431,10 @@ namespace ${ClrNamespace}
 					</BinaryExpression>
 				</If.Condition>
 				<If.True>
-					<![CDATA[(object)lo.${ColumnNamePascalCase} != null ? lo.${ColumnNamePascalCase}.ToArray() : null]]>
+					<![CDATA[(object)lo.@${ColumnNamePascalCase} != null ? lo.@${ColumnNamePascalCase}.ToArray() : null]]>
 				</If.True>
 				<If.False>
-					<![CDATA[lo.${ColumnNamePascalCase}]]>
+					<![CDATA[lo.@${ColumnNamePascalCase}]]>
 				</If.False>
 			</If>
 			
@@ -459,23 +459,23 @@ namespace ${ClrNamespace}
 <![CDATA[
 												 }).ToList(); // force execution against store
 
-				foreach (${TableNameSingularPascalCase} ${TableNameSingularCamelCase} in ${TableNamePluralCamelCase})
-					this.OnSelect${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+				foreach (${TableNameSingularPascalCase} @${TableNameSingularCamelCase} in @${TableNamePluralCamelCase})
+					this.OnSelect${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 				
-				return ${TableNamePluralCamelCase};
+				return @${TableNamePluralCamelCase};
 			}			
 		}
 		
-		public bool Save${TableNameSingularPascalCase}(${TableNameSingularPascalCase} ${TableNameSingularCamelCase})
+		public bool Save${TableNameSingularPascalCase}(${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			bool retval;					
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Save${TableNameSingularPascalCase}(uowc, e), ${TableNameSingularCamelCase});
+			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Save${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
 			
 			return retval;
 		}
 		
-		public bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase})
+		public bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase} query;
 			bool wasNew;
@@ -483,16 +483,16 @@ namespace ${ClrNamespace}
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
 			
-			if ((object)${TableNameSingularCamelCase} == null)
+			if ((object)@${TableNameSingularCamelCase} == null)
 				throw new ArgumentNullException("${TableNameSingularCamelCase}");
 				
 			using (ContextWrapper<${LinqToSqlDataContextRootNamespace}.${LinqToSqlTargetDataContextName}> ctx = unitOfWorkContext.GetContext<${LinqToSqlDataContextRootNamespace}.${LinqToSqlTargetDataContextName}>())
 			{
-				wasNew = ${TableNameSingularCamelCase}.IsNew;
+				wasNew = @${TableNameSingularCamelCase}.IsNew;
 
 				if (wasNew)
 				{
-					this.OnPreInsert${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+					this.OnPreInsert${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 					
 					query = new ${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}();
 
@@ -500,7 +500,7 @@ namespace ${ClrNamespace}
 				}
 				else
 				{
-					this.OnPreUpdate${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+					this.OnPreUpdate${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 					
 					query = ctx.Context.${TableNamePluralPascalCase}.SingleOrDefault(lo => ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
@@ -515,7 +515,7 @@ namespace ${ClrNamespace}
 								</BinaryExpression>
 							</ForEach.Filter>
 							<ForEach.Body>
-								<![CDATA[lo.${ColumnNamePascalCase} == ${TableNameSingularCamelCase}.${ColumnNamePascalCase}]]>
+								<![CDATA[lo.@${ColumnNamePascalCase} == @${TableNameSingularCamelCase}.@${ColumnNamePascalCase}]]>
 								<If>
 									<If.Condition>
 										<BinaryExpression operator="Ne">
@@ -566,11 +566,11 @@ namespace ${ClrNamespace}
 					</BinaryExpression>
 				</If.Condition>
 				<If.True>
-					<![CDATA[				if ((object)${TableNameSingularCamelCase}.${ColumnNamePascalCase} != null) // prevent implicit conversion of null -> exception
-					query.${ColumnNamePascalCase} = ${TableNameSingularCamelCase}.${ColumnNamePascalCase};]]>
+					<![CDATA[				if ((object)@${TableNameSingularCamelCase}.@${ColumnNamePascalCase} != null) // prevent implicit conversion of null -> exception
+					query.@${ColumnNamePascalCase} = @${TableNameSingularCamelCase}.@${ColumnNamePascalCase};]]>
 				</If.True>
 				<If.False>
-					<![CDATA[				query.${ColumnNamePascalCase} = ${TableNameSingularCamelCase}.${ColumnNamePascalCase};]]>
+					<![CDATA[				query.@${ColumnNamePascalCase} = @${TableNameSingularCamelCase}.@${ColumnNamePascalCase};]]>
 				</If.False>
 			</If>
 			
@@ -601,7 +601,7 @@ namespace ${ClrNamespace}
 				}
 				catch (ChangeConflictException ccex)
 				{
-					this.OnSaveConflict${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+					this.OnSaveConflict${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 					
 					return false;
 				}
@@ -621,7 +621,7 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				${TableNameSingularCamelCase}.${ColumnNamePascalCase} = ]]>
+<![CDATA[				@${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = ]]>
 			<If>
 				<If.Condition>
 					<BinaryExpression operator="Eq">
@@ -634,10 +634,10 @@ namespace ${ClrNamespace}
 					</BinaryExpression>
 				</If.Condition>
 				<If.True>
-					<![CDATA[(object)query.${ColumnNamePascalCase} != null ? query.${ColumnNamePascalCase}.ToArray() : null;]]>
+					<![CDATA[(object)query.@${ColumnNamePascalCase} != null ? query.@${ColumnNamePascalCase}.ToArray() : null;]]>
 				</If.True>
 				<If.False>
-					<![CDATA[query.${ColumnNamePascalCase};]]>
+					<![CDATA[query.@${ColumnNamePascalCase};]]>
 				</If.False>
 			</If>
 
@@ -682,44 +682,44 @@ namespace ${ClrNamespace}
 <![CDATA[						
 				if (wasNew)
 				{
-					this.OnPostInsert${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+					this.OnPostInsert${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 				}
 				else
 				{
-					this.OnPostUpdate${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+					this.OnPostUpdate${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 				}
 
 				return true;
 			}
 		}
 		
-		public bool Discard${TableNameSingularPascalCase}(${TableNameSingularPascalCase} ${TableNameSingularCamelCase})
+		public bool Discard${TableNameSingularPascalCase}(${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			bool retval;
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Discard${TableNameSingularPascalCase}(uowc, e), ${TableNameSingularCamelCase});
+			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Discard${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
 			
 			return retval;
 		}
 		
-		public bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase})
+		public bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase} query;
 			
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
 			
-			if ((object)${TableNameSingularCamelCase} == null)
+			if ((object)@${TableNameSingularCamelCase} == null)
 				throw new ArgumentNullException("${TableNameSingularCamelCase}");
 				
-			if (${TableNameSingularCamelCase}.IsNew)
+			if (@${TableNameSingularCamelCase}.IsNew)
 				return true;
 				
 			using (ContextWrapper<${LinqToSqlDataContextRootNamespace}.${LinqToSqlTargetDataContextName}> ctx = unitOfWorkContext.GetContext<${LinqToSqlDataContextRootNamespace}.${LinqToSqlTargetDataContextName}>())
 			{				
-				this.OnPreDelete${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+				this.OnPreDelete${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 				
-				query = ctx.Context.${TableNamePluralPascalCase}.SingleOrDefault(lo => ]]>
+				query = ctx.Context.@${TableNamePluralPascalCase}.SingleOrDefault(lo => ]]>
 					<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 						<ForEach.Filter>
 							<BinaryExpression operator="Eq">
@@ -732,7 +732,7 @@ namespace ${ClrNamespace}
 							</BinaryExpression>
 						</ForEach.Filter>
 						<ForEach.Body>
-							<![CDATA[lo.${ColumnNamePascalCase} == ${TableNameSingularCamelCase}.${ColumnNamePascalCase}]]>
+							<![CDATA[lo.@${ColumnNamePascalCase} == @${TableNameSingularCamelCase}.@${ColumnNamePascalCase}]]>
 							<If>
 								<If.Condition>
 									<BinaryExpression operator="Ne">
@@ -755,7 +755,7 @@ namespace ${ClrNamespace}
 				if((object)query == null)
 					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 				
-				ctx.Context.${TableNamePluralPascalCase}.DeleteOnSubmit(query);
+				ctx.Context.@${TableNamePluralPascalCase}.DeleteOnSubmit(query);
 				
 				try
 				{
@@ -763,36 +763,36 @@ namespace ${ClrNamespace}
 				}
 				catch (ChangeConflictException ccex)
 				{
-					this.OnDiscardConflict${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+					this.OnDiscardConflict${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 					
 					return false;
 				}
 
-				this.OnPostDelete${TableNameSingularPascalCase}(unitOfWorkContext, ${TableNameSingularCamelCase});
+				this.OnPostDelete${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 				
-				${TableNameSingularCamelCase}.IsNew = false;				
+				@${TableNameSingularCamelCase}.IsNew = false;				
 
 				return true;
 			}
 		}
 		
-		partial void OnPreInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnPreInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnPostInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPreUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnPreUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnPostUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnSaveConflict${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnSaveConflict${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnDiscardConflict${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnDiscardConflict${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 				
-		partial void OnPreDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnPreDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});
+		partial void OnPostDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnSelect${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} ${TableNameSingularCamelCase});		
+		partial void OnSelect${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});		
 ]]>
 						<If>
 							<If.Condition>

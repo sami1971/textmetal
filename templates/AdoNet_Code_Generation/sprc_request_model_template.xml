@@ -146,7 +146,7 @@ namespace ${ClrNamespace}.${FolderName}
 							<ForEach.Body>
 
 								<![CDATA[
-		public ${ParameterCSharpClrType} ${ParameterNamePascalCase}
+		public ${ParameterCSharpClrType} @${ParameterNamePascalCase}
 		{
 			get
 			{

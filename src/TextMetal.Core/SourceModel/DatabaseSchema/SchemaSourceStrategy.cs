@@ -20,7 +20,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 		/// <summary>
 		/// 	Initializes a new instance of the SchemaSourceStrategy class.
 		/// </summary>
-		public SchemaSourceStrategy()
+		protected SchemaSourceStrategy()
 		{
 		}
 
@@ -130,9 +130,9 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 				throw new InvalidOperationException(string.Format("Cannot infer parameter type from unsupported CLR type '{0}'.", clrType.FullName));
 		}
 
-		protected abstract short CoreCalculateColumnSize(string dataSourceTag, Column column);
+		protected abstract int CoreCalculateColumnSize(string dataSourceTag, Column column);
 
-		protected abstract short CoreCalculateParameterSize(string dataSourceTag, Parameter parameter);
+		protected abstract int CoreCalculateParameterSize(string dataSourceTag, Parameter parameter);
 
 		protected abstract IEnumerable<IDataParameter> CoreGetColumnParameters(UnitOfWorkContext unitOfWorkContext, string dataSourceTag, Database database, Schema schema, Table table);
 
@@ -218,6 +218,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 			Database database;
 			int recordsAffected;
 			const string RETURN_VALUE = "ReturnValue";
+			Type clrType;
 
 			if ((object)connectionString == null)
 				throw new ArgumentNullException("connectionString");
@@ -310,9 +311,9 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 												column.ColumnName = DataType.ChangeType<string>(drColumn["ColumnName"]);
 												column.ColumnOrdinal = DataType.ChangeType<int>(drColumn["ColumnOrdinal"]);
 												column.ColumnNullable = DataType.ChangeType<bool>(drColumn["ColumnNullable"]);
-												column.ColumnSize = DataType.ChangeType<short>(drColumn["ColumnSize"]);
-												column.ColumnPrecision = DataType.ChangeType<byte>(drColumn["ColumnPrecision"]);
-												column.ColumnScale = DataType.ChangeType<byte>(drColumn["ColumnScale"]);
+												column.ColumnSize = DataType.ChangeType<int>(drColumn["ColumnSize"]);
+												column.ColumnPrecision = DataType.ChangeType<int>(drColumn["ColumnPrecision"]);
+												column.ColumnScale = DataType.ChangeType<int>(drColumn["ColumnScale"]);
 												column.ColumnSqlType = DataType.ChangeType<string>(drColumn["ColumnSqlType"]);
 												column.ColumnIsIdentity = DataType.ChangeType<bool>(drColumn["ColumnIsIdentity"]);
 												column.ColumnIsComputed = DataType.ChangeType<bool>(drColumn["ColumnIsComputed"]);
@@ -329,49 +330,22 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 												column.ColumnNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(column.ColumnName));
 												column.ColumnNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(column.ColumnName));
 
+												clrType = this.CoreInferClrTypeForSqlType(dataSourceTag, column.ColumnSqlType);
+												column.ColumnDbType = InferDbTypeForClrType(clrType);
+												column.ColumnSize = this.CoreCalculateColumnSize(dataSourceTag, column); //recalculate
+
+												column.ColumnClrType = clrType ?? typeof(object);
+												column.ColumnClrNullableType = Reflexion.MakeNullableType(clrType);
+												column.ColumnClrNonNullableType = Reflexion.MakeNonNullableType(clrType);
+												column.ColumnCSharpNullableLiteral = column.ColumnNullable.ToString().ToLower();
+												column.ColumnCSharpDbType = string.Format("{0}.{1}", typeof(DbType).Name, column.ColumnDbType);
+												column.ColumnCSharpClrType = (object)column.ColumnClrType != null ? FormatCSharpType(column.ColumnClrType) : FormatCSharpType(typeof(object));
+												column.ColumnCSharpClrNullableType = (object)column.ColumnClrNullableType != null ? FormatCSharpType(column.ColumnClrNullableType) : FormatCSharpType(typeof(object));
+												column.ColumnCSharpClrNonNullableType = (object)column.ColumnClrNonNullableType != null ? FormatCSharpType(column.ColumnClrNonNullableType) : FormatCSharpType(typeof(object));
+
 												table.Columns.Add(column);
 											}
 										}
-									}
-
-									try
-									{
-										var dataReaderMetadata = AdoNetHelper.ExecuteSchema(unitOfWorkContext, CommandType.Text, string.Format(GetAllAssemblyResourceFileText(this.GetType(), dataSourceTag, "TableSchema"), schema.SchemaName, table.TableName), null);
-										{
-											if ((object)dataReaderMetadata != null)
-											{
-												foreach (var drMetadata in dataReaderMetadata)
-												{
-													Column column;
-													string columnName;
-													Type clrType;
-
-													columnName = DataType.ChangeType<string>(drMetadata["ColumnName"]);
-													clrType = DataType.ChangeType<Type>(drMetadata["DataType"]);
-
-													column = table.Columns.SingleOrDefault(x => x.ColumnName == columnName);
-
-													if ((object)column == null)
-														throw new InvalidOperationException(string.Format("Failed to match column name '{0}' during data reader metadata execution.", columnName));
-
-													column.ColumnClrType = clrType;
-													column.ColumnClrNullableType = Reflexion.MakeNullableType(clrType);
-													column.ColumnClrNonNullableType = Reflexion.MakeNonNullableType(clrType);
-													column.ColumnDbType = InferDbTypeForClrType(clrType);
-
-													column.ColumnSize = this.CoreCalculateColumnSize(dataSourceTag, column);
-													column.ColumnCSharpNullableLiteral = column.ColumnNullable.ToString().ToLower();
-													column.ColumnCSharpDbType = string.Format("{0}.{1}", typeof(DbType).Name, column.ColumnDbType);
-													column.ColumnCSharpClrType = (object)column.ColumnClrType != null ? FormatCSharpType(column.ColumnClrType) : null;
-													column.ColumnCSharpClrNullableType = (object)column.ColumnClrNullableType != null ? FormatCSharpType(column.ColumnClrNullableType) : null;
-													column.ColumnCSharpClrNonNullableType = (object)column.ColumnClrNonNullableType != null ? FormatCSharpType(column.ColumnClrNonNullableType) : null;
-												}
-											}
-										}
-									}
-									catch (Exception ex)
-									{
-										Console.Error.WriteLine(ex.Message);
 									}
 
 									if (table.Columns.Count(c => c.ColumnIsPrimaryKey) < 1)
@@ -463,7 +437,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 															uniqueKeyColumnRef = new UniqueKeyColumnRef();
 
 															uniqueKeyColumnRef.UniqueKeyColumnDescendingSort = DataType.ChangeType<bool>(drUniqueKeyColumn["UniqueKeyColumnDescendingSort"]);
-															uniqueKeyColumnRef.UniqueKeyColumnOrdinal = DataType.ChangeType<byte>(drUniqueKeyColumn["UniqueKeyColumnOrdinal"]);
+															uniqueKeyColumnRef.UniqueKeyColumnOrdinal = DataType.ChangeType<int>(drUniqueKeyColumn["UniqueKeyColumnOrdinal"]);
 															uniqueKeyColumnRef.UniqueKeyParentColumnOrdinal = DataType.ChangeType<int>(drUniqueKeyColumn["UniqueKeyParentColumnOrdinal"]);
 
 															uniqueKey.UniqueKeyColumnRefs.Add(uniqueKeyColumnRef);
@@ -505,16 +479,15 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 												foreach (var drParameter in dataReaderParameter)
 												{
 													Parameter parameter;
-													Type clrType;
 
 													parameter = new Parameter();
 
 													parameter.ParameterPrefix = DataType.ChangeType<string>(drParameter["ParameterName"]).Substring(0, 1);
 													parameter.ParameterName = DataType.ChangeType<string>(drParameter["ParameterName"]).Substring(1);
 													parameter.ParameterOrdinal = DataType.ChangeType<int>(drParameter["ParameterOrdinal"]);
-													parameter.ParameterSize = DataType.ChangeType<short>(drParameter["ParameterSize"]);
-													parameter.ParameterPrecision = DataType.ChangeType<byte>(drParameter["ParameterPrecision"]);
-													parameter.ParameterScale = DataType.ChangeType<byte>(drParameter["ParameterScale"]);
+													parameter.ParameterSize = DataType.ChangeType<int>(drParameter["ParameterSize"]);
+													parameter.ParameterPrecision = DataType.ChangeType<int>(drParameter["ParameterPrecision"]);
+													parameter.ParameterScale = DataType.ChangeType<int>(drParameter["ParameterScale"]);
 													parameter.ParameterSqlType = DataType.ChangeType<string>(drParameter["ParameterSqlType"]);
 													parameter.ParameterIsOutput = DataType.ChangeType<bool>(drParameter["ParameterIsOutput"]);
 													parameter.ParameterIsReadOnly = DataType.ChangeType<bool>(drParameter["ParameterIsReadOnly"]);
@@ -528,22 +501,21 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 													parameter.ParameterNamePluralPascalCase = Name.GetPascalCase(Name.GetPluralForm(parameter.ParameterName));
 													parameter.ParameterNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(parameter.ParameterName));
 													parameter.ParameterNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(parameter.ParameterName));
+													parameter.ParameterNullable = true;
+													parameter.ParameterDirection = (parameter.ParameterIsOutput || parameter.ParameterIsReadOnly) ? ParameterDirection.Output : ParameterDirection.Input;
 
 													clrType = this.CoreInferClrTypeForSqlType(dataSourceTag, parameter.ParameterSqlType);
+													parameter.ParameterDbType = InferDbTypeForClrType(clrType);
+													parameter.ParameterSize = this.CoreCalculateParameterSize(dataSourceTag, parameter);
+
 													parameter.ParameterClrType = clrType;
 													parameter.ParameterClrNullableType = Reflexion.MakeNullableType(clrType);
 													parameter.ParameterClrNonNullableType = Reflexion.MakeNonNullableType(clrType);
-													parameter.ParameterDbType = InferDbTypeForClrType(clrType);
-													parameter.ParameterNullable = true;
-
-													parameter.ParameterSize = this.CoreCalculateParameterSize(dataSourceTag, parameter);
 													parameter.ParameterCSharpDbType = string.Format("{0}.{1}", typeof(DbType).Name, parameter.ParameterDbType);
-													parameter.ParameterCSharpClrType = (object)parameter.ParameterClrType != null ? FormatCSharpType(parameter.ParameterClrType) : null;
-													parameter.ParameterCSharpClrNullableType = (object)parameter.ParameterClrNullableType != null ? FormatCSharpType(parameter.ParameterClrNullableType) : null;
-													parameter.ParameterCSharpClrNonNullableType = (object)parameter.ParameterClrNonNullableType != null ? FormatCSharpType(parameter.ParameterClrNonNullableType) : null;
+													parameter.ParameterCSharpClrType = (object)parameter.ParameterClrType != null ? FormatCSharpType(parameter.ParameterClrType) : FormatCSharpType(typeof(object));
+													parameter.ParameterCSharpClrNullableType = (object)parameter.ParameterClrNullableType != null ? FormatCSharpType(parameter.ParameterClrNullableType) : FormatCSharpType(typeof(object));
+													parameter.ParameterCSharpClrNonNullableType = (object)parameter.ParameterClrNonNullableType != null ? FormatCSharpType(parameter.ParameterClrNonNullableType) : FormatCSharpType(typeof(object));
 													parameter.ParameterCSharpNullableLiteral = parameter.ParameterNullable.ToString().ToLower();
-
-													parameter.ParameterDirection = (parameter.ParameterIsOutput || parameter.ParameterIsReadOnly) ? ParameterDirection.Output : ParameterDirection.Input;
 
 													procedure.Parameters.Add(parameter);
 												}
@@ -552,7 +524,6 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 											// implicit return value parameter
 											{
 												Parameter parameter;
-												Type clrType;
 
 												parameter = new Parameter();
 
@@ -575,22 +546,21 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 												parameter.ParameterNamePluralPascalCase = Name.GetPascalCase(Name.GetPluralForm(RETURN_VALUE));
 												parameter.ParameterNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(RETURN_VALUE));
 												parameter.ParameterNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(RETURN_VALUE));
+												parameter.ParameterNullable = true;
+												parameter.ParameterDirection = ParameterDirection.ReturnValue;
 
 												clrType = this.CoreInferClrTypeForSqlType(dataSourceTag, parameter.ParameterSqlType);
+												parameter.ParameterDbType = InferDbTypeForClrType(clrType);
+												parameter.ParameterSize = this.CoreCalculateParameterSize(dataSourceTag, parameter);
+
 												parameter.ParameterClrType = clrType;
 												parameter.ParameterClrNullableType = Reflexion.MakeNullableType(clrType);
 												parameter.ParameterClrNonNullableType = Reflexion.MakeNonNullableType(clrType);
-												parameter.ParameterDbType = InferDbTypeForClrType(clrType);
-												parameter.ParameterNullable = true;
-
-												parameter.ParameterSize = this.CoreCalculateParameterSize(dataSourceTag, parameter);
 												parameter.ParameterCSharpDbType = string.Format("{0}.{1}", typeof(DbType).Name, parameter.ParameterDbType);
-												parameter.ParameterCSharpClrType = (object)parameter.ParameterClrType != null ? FormatCSharpType(parameter.ParameterClrType) : null;
-												parameter.ParameterCSharpClrNullableType = (object)parameter.ParameterClrNullableType != null ? FormatCSharpType(parameter.ParameterClrNullableType) : null;
-												parameter.ParameterCSharpClrNonNullableType = (object)parameter.ParameterClrNonNullableType != null ? FormatCSharpType(parameter.ParameterClrNonNullableType) : null;
+												parameter.ParameterCSharpClrType = (object)parameter.ParameterClrType != null ? FormatCSharpType(parameter.ParameterClrType) : FormatCSharpType(typeof(object));
+												parameter.ParameterCSharpClrNullableType = (object)parameter.ParameterClrNullableType != null ? FormatCSharpType(parameter.ParameterClrNullableType) : FormatCSharpType(typeof(object));
+												parameter.ParameterCSharpClrNonNullableType = (object)parameter.ParameterClrNonNullableType != null ? FormatCSharpType(parameter.ParameterClrNonNullableType) : FormatCSharpType(typeof(object));
 												parameter.ParameterCSharpNullableLiteral = parameter.ParameterNullable.ToString().ToLower();
-
-												parameter.ParameterDirection = ParameterDirection.ReturnValue;
 
 												procedure.Parameters.Add(parameter);
 											}
@@ -599,7 +569,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 										// REFERENCE:
 										// http://connect.microsoft.com/VisualStudio/feedback/details/314650/sqm1014-sqlmetal-ignores-stored-procedures-that-use-temp-tables
 										IDataParameter[] parameters;
-										parameters = procedure.Parameters.Where(p => p.ParameterName != RETURN_VALUE).Select(p => unitOfWorkContext.CreateParameter(p.ParameterIsOutput ? ParameterDirection.Output : ParameterDirection.Input, p.ParameterDbType, p.ParameterSize, p.ParameterPrecision, p.ParameterScale, p.ParameterNullable, p.ParameterName, null)).ToArray();
+										parameters = procedure.Parameters.Where(p => p.ParameterName != RETURN_VALUE).Select(p => unitOfWorkContext.CreateParameter(p.ParameterIsOutput ? ParameterDirection.Output : ParameterDirection.Input, p.ParameterDbType, p.ParameterSize, (byte)p.ParameterPrecision, (byte)p.ParameterScale, p.ParameterNullable, p.ParameterName, null)).ToArray();
 
 										try
 										{
@@ -610,12 +580,22 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 													foreach (var drMetadata in dataReaderMetadata)
 													{
 														Column column;
-														Type clrType;
 
 														column = new Column();
-
+													
 														column.ColumnName = DataType.ChangeType<string>(drMetadata["ColumnName"]);
-														clrType = DataType.ChangeType<Type>(drMetadata["DataType"]);
+														column.ColumnOrdinal = DataType.ChangeType<int>(drMetadata["ColumnOrdinal"]);
+														column.ColumnNullable = DataType.ChangeType<bool>(drMetadata["AllowDBNull"]);
+														column.ColumnSize = DataType.ChangeType<int>(drMetadata["ColumnSize"]);
+														column.ColumnPrecision = DataType.ChangeType<int>(drMetadata["NumericPrecision"]);
+														column.ColumnScale = DataType.ChangeType<int>(drMetadata["NumericScale"]);
+														// TODO FIX
+														//column.ColumnSqlType = DataType.ChangeType<string>(drMetadata["DataTypeName"]);
+														//column.ColumnIsIdentity = DataType.ChangeType<bool>(drMetadata["IsIdentity"]);
+														//column.ColumnIsComputed = DataType.ChangeType<bool>(drMetadata["IsReadOnly"]);
+														//column.ColumnHasDefault = DataType.ChangeType<bool>(drMetadata["ColumnHasDefault"]);
+														//column.ColumnHasCheck = DataType.ChangeType<bool>(drMetadata["ColumnHasCheck"]);
+														//column.ColumnIsPrimaryKey = DataType.ChangeType<bool>(drMetadata["IsKey"]);
 														column.ColumnNamePascalCase = Name.GetPascalCase(column.ColumnName);
 														column.ColumnNameCamelCase = Name.GetCamelCase(column.ColumnName);
 														column.ColumnNameConstantCase = Name.GetConstantCase(column.ColumnName);
@@ -626,20 +606,18 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 														column.ColumnNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(column.ColumnName));
 														column.ColumnNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(column.ColumnName));
 
-														column.ColumnClrType = clrType;
+														clrType = this.CoreInferClrTypeForSqlType(dataSourceTag, column.ColumnSqlType);
+														column.ColumnDbType = InferDbTypeForClrType(clrType);
+														column.ColumnSize = this.CoreCalculateColumnSize(dataSourceTag, column); //recalculate
+
+														column.ColumnClrType = clrType ?? typeof(object);
 														column.ColumnClrNullableType = Reflexion.MakeNullableType(clrType);
 														column.ColumnClrNonNullableType = Reflexion.MakeNonNullableType(clrType);
-														column.ColumnDbType = InferDbTypeForClrType(clrType);
-
-														column.ColumnSize =
-															(column.ColumnDbType == DbType.String &&
-															 (column.ColumnSize != 0) ? (short)(column.ColumnSize / 2) : column.ColumnSize);
-
 														column.ColumnCSharpNullableLiteral = column.ColumnNullable.ToString().ToLower();
 														column.ColumnCSharpDbType = string.Format("{0}.{1}", typeof(DbType).Name, column.ColumnDbType);
-														column.ColumnCSharpClrType = (object)column.ColumnClrType != null ? FormatCSharpType(column.ColumnClrType) : null;
-														column.ColumnCSharpClrNullableType = (object)column.ColumnClrNullableType != null ? FormatCSharpType(column.ColumnClrNullableType) : null;
-														column.ColumnCSharpClrNonNullableType = (object)column.ColumnClrNonNullableType != null ? FormatCSharpType(column.ColumnClrNonNullableType) : null;
+														column.ColumnCSharpClrType = (object)column.ColumnClrType != null ? FormatCSharpType(column.ColumnClrType) : FormatCSharpType(typeof(object));
+														column.ColumnCSharpClrNullableType = (object)column.ColumnClrNullableType != null ? FormatCSharpType(column.ColumnClrNullableType) : FormatCSharpType(typeof(object));
+														column.ColumnCSharpClrNonNullableType = (object)column.ColumnClrNonNullableType != null ? FormatCSharpType(column.ColumnClrNonNullableType) : FormatCSharpType(typeof(object));
 
 														procedure.Columns.Add(column);
 													}
@@ -648,7 +626,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema
 										}
 										catch (Exception ex)
 										{
-											Console.Error.WriteLine(ex.Message);
+											Console.Error.WriteLine(Reflexion.GetErrors(ex, 0));
 										}
 									}
 								}

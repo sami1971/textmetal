@@ -5,8 +5,8 @@
 
 using System;
 
+using TextMetal.Hosting.Web.Email;
 using TextMetal.Plumbing.CommonFacilities;
-using TextMetal.WebHostSample.Objects.Hosts.Email;
 using TextMetal.WebHostSample.Objects.Model.Tables;
 
 namespace TextMetal.WebHostSample.Objects.Model

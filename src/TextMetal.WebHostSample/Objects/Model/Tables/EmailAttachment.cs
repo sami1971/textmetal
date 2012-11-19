@@ -6,7 +6,7 @@
 using System;
 
 using TextMetal.Core;
-using TextMetal.WebHostSample.Objects.Hosts.Email;
+using TextMetal.Hosting.Web.Email;
 
 namespace TextMetal.WebHostSample.Objects.Model.Tables
 {

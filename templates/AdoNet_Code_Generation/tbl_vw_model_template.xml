@@ -246,7 +246,7 @@ namespace ${ClrNamespace}.${FolderName}
 										</BinaryExpression>
 									</ForEach.Filter>
 									<ForEach.Body>
-										<![CDATA[this.${ColumnNamePascalCase} == default(${ColumnCSharpClrNullableType})]]>
+										<![CDATA[this.@${ColumnNamePascalCase} == default(${ColumnCSharpClrNullableType})]]>
 										<If>
 											<If.Condition>
 												<BinaryExpression operator="Ne">
@@ -299,7 +299,7 @@ namespace ${ClrNamespace}.${FolderName}
 										</BinaryExpression>
 									</ForEach.Filter>
 									<ForEach.Body>
-										<![CDATA[this.${ColumnNamePascalCase}]]>
+										<![CDATA[this.@${ColumnNamePascalCase}]]>
 										<If>
 											<If.Condition>
 												<BinaryExpression operator="Ne">
@@ -389,7 +389,7 @@ namespace ${ClrNamespace}.${FolderName}
 								</If>
 
 								<![CDATA[
-		public ${ColumnCSharpClrNullableType} ${ColumnNamePascalCase}
+		public ${ColumnCSharpClrNullableType} @${ColumnNamePascalCase}
 		{
 			get
 			{

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 using TextMetal.Plumbing.CommonFacilities;
 
-namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
+namespace TextMetal.Hosting.Web.AspNet
 {
 	public class TextMetalView : IView
 	{
@@ -91,7 +91,7 @@ namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
 			if (!string.IsNullOrEmpty(this.MasterName))
 				masterPageFilePath = viewContext.HttpContext.Server.MapPath(this.MasterName);
 
-			WebHost.Host(viewFilePath, viewContext.ViewData.Model, writer);
+			new WebHost().Host(viewFilePath, viewContext.ViewData.Model, writer);
 		}
 
 		#endregion

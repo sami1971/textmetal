@@ -98,7 +98,7 @@ namespace ${ClrNamespace}.${FolderName}
 							<ForEach.Body>
 
 								<![CDATA[
-		public ${ColumnCSharpClrNullableType} ${ColumnNamePascalCase}
+		public ${ColumnCSharpClrNullableType} @${ColumnNamePascalCase}
 		{
 			get
 			{

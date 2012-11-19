@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 using TextMetal.Plumbing.CommonFacilities;
 
-namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
+namespace TextMetal.Hosting.Web.AspNet
 {
 	public class TextMetalViewEngine : VirtualPathProviderViewEngine
 	{

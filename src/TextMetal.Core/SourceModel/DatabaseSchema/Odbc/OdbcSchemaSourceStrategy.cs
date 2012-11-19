@@ -27,7 +27,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Odbc
 
 		#region Methods/Operators
 
-		protected override short CoreCalculateColumnSize(string dataSourceTag, Column column)
+		protected override int CoreCalculateColumnSize(string dataSourceTag, Column column)
 		{
 			if ((object)dataSourceTag == null)
 				throw new ArgumentNullException("dataSourceTag");
@@ -39,11 +39,11 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Odbc
 			{
 				return column.ColumnSqlType == "image" ||
 				       column.ColumnSqlType == "text" ||
-				       column.ColumnSqlType == "ntext" ? (short)0 :
+					   column.ColumnSqlType == "ntext" ? (int)0 :
 					                                                  (column.ColumnDbType == DbType.String &&
 					                                                   column.ColumnSqlType.SafeToString().StartsWith("n") &&
 					                                                   column.ColumnSize != 0 ?
-						                                                                          (short)(column.ColumnSize / 2) :
+																								  (int)(column.ColumnSize / 2) :
 							                                                                                                         column.ColumnSize);
 			}
 			else if (dataSourceTag.SafeToString().ToLower() == "odbc.sybaseiq")
@@ -52,7 +52,7 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Odbc
 			throw new ArgumentOutOfRangeException(string.Format("dataSourceTag: '{0}'", dataSourceTag));
 		}
 
-		protected override short CoreCalculateParameterSize(string dataSourceTag, Parameter parameter)
+		protected override int CoreCalculateParameterSize(string dataSourceTag, Parameter parameter)
 		{
 			if ((object)dataSourceTag == null)
 				throw new ArgumentNullException("dataSourceTag");
@@ -64,11 +64,11 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Odbc
 			{
 				return parameter.ParameterSqlType == "image" ||
 				       parameter.ParameterSqlType == "text" ||
-				       parameter.ParameterSqlType == "ntext" ? (short)0 :
+					   parameter.ParameterSqlType == "ntext" ? (int)0 :
 					                                                        (parameter.ParameterDbType == DbType.String &&
 					                                                         parameter.ParameterSqlType.SafeToString().StartsWith("n") &&
 					                                                         parameter.ParameterSize != 0 ?
-						                                                                                      (short)(parameter.ParameterSize / 2) :
+																											  (int)(parameter.ParameterSize / 2) :
 							                                                                                                                           parameter.ParameterSize);
 			}
 			else if (dataSourceTag.SafeToString().ToLower() == "odbc.sybaseiq")
@@ -406,6 +406,9 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Odbc
 			{
 				switch (sqlType = sqlType.SafeToString().ToUpper())
 				{
+					case null:
+					case "":
+						return typeof(Object);
 					case "BIT":
 						return typeof(Boolean);
 					case "TINYINT":
@@ -460,6 +463,57 @@ namespace TextMetal.Core.SourceModel.DatabaseSchema.Odbc
 			}
 			else if (dataSourceTag.SafeToString().ToLower() == "odbc.sybaseiq")
 			{
+				switch (sqlType = sqlType.SafeToString().ToUpper())
+				{
+					case null:
+					case "":
+						return typeof(Object);
+					case "BIGINT":
+						return typeof(Int64);
+					case "BINARY":
+					case "LONG BINARY":
+					case "VARBINARY":
+						return typeof(Byte[]);
+					case "BIT":
+						return typeof(Boolean);
+					case "CHAR":
+					case "LONG NVARCHAR":
+					case "LONG VARCHAR":
+					case "VARCHAR":
+					case "ANSISTRING":
+						return typeof(String);
+					case "DATE":
+						return typeof(DateTime);
+					case "DECIMAL":
+					case "NUMERIC":
+						return typeof(Decimal);
+					case "DOUBLE":
+						return typeof(Double);
+					case "FLOAT":
+						return typeof(Single);
+					case "INTEGER":
+						return typeof(Int32);
+					case "LONG VARBIT":
+						return typeof(Boolean[]);
+					case "SMALLINT":
+						return typeof(Int16);
+					case "TIME":
+						return typeof(DateTime);
+					case "TIMESTAMP":
+						return typeof(TimeSpan);
+					case "TINYINT":
+						return typeof(Byte);
+					case "UNSIGNED BIGINT":
+						return typeof(UInt64);
+					case "UNSIGNED INT":
+						return typeof(UInt32);
+					case "UNSIGNED TINYINT":
+						return typeof(Byte);
+					case "UNSIGNED SMALLINT":
+						return typeof(UInt16);
+					default:
+						throw new ArgumentOutOfRangeException(string.Format("sqlType: '{0}'", sqlType));
+				}
 			}
 
 			throw new ArgumentOutOfRangeException(string.Format("dataSourceTag: '{0}'", dataSourceTag));

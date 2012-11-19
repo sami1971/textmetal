@@ -10,18 +10,29 @@ using System.Reflection;
 
 using TextMetal.Core;
 using TextMetal.Core.InputOutputModel;
-using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
+using TextMetal.Plumbing.CommonFacilities;
 
-namespace TextMetal.WebHostSample.Objects.Hosts.AspNet
+namespace TextMetal.Hosting.Web.AspNet
 {
-	public static class WebHost
+	public sealed class WebHost
 	{
+		#region Constructors/Destructors
+
+		/// <summary>
+		/// 	Initializes a new instance of the WebHost class.
+		/// </summary>
+		public WebHost()
+		{
+		}
+
+		#endregion
+
 		#region Methods/Operators
 
-		public static void Host(string templateFilePath, object source, TextWriter textWriter)
+		public void Host(string templateFilePath, object source, TextWriter textWriter)
 		{
 			IXmlPersistEngine xpe;
 			TemplateConstruct template;

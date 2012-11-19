@@ -79,13 +79,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Objects\EmailTemplateResourceNames.cs" />
-    <Compile Include="Objects\Hosts\AspNet\TextMetalHttpHandler.cs" />
-    <Compile Include="Objects\Hosts\AspNet\TextMetalView.cs" />
-    <Compile Include="Objects\Hosts\AspNet\TextMetalViewEngine.cs" />
-    <Compile Include="Objects\Hosts\AspNet\WebHost.cs" />
-    <Compile Include="Objects\Hosts\Email\IEmailAttachment.cs" />
-    <Compile Include="Objects\Hosts\Email\IEmailMessage.cs" />
-    <Compile Include="Objects\Hosts\Email\MessageTemplate.cs" />
     <Compile Include="Objects\LowercaseRoute.cs" />
     <Compile Include="Objects\Model\DatabaseFileManager.g.cs" />
     <Compile Include="Objects\Model\DatabaseHistory.g.cs" />
@@ -137,6 +130,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Objects\Hosts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -152,6 +146,10 @@
     <ProjectReference Include="..\TextMetal.Core\TextMetal.Core.csproj">
       <Project>{0fc50a3f-54c4-4112-80d9-42d68234574a}</Project>
       <Name>TextMetal.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Hosting.Web\TextMetal.Hosting.Web.csproj">
+      <Project>{32997ECF-2B2F-4BDB-AF4F-6E389C9F8235}</Project>
+      <Name>TextMetal.Hosting.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\TextMetal.Plumbing\TextMetal.Plumbing.csproj">
       <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>

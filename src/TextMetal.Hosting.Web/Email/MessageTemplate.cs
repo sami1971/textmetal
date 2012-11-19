@@ -12,12 +12,12 @@ using System.Xml.Serialization;
 
 using TextMetal.Core;
 using TextMetal.Core.InputOutputModel;
-using TextMetal.Plumbing.CommonFacilities;
 using TextMetal.Core.TemplateModel;
 using TextMetal.Core.TokenModel;
 using TextMetal.Core.XmlModel;
+using TextMetal.Plumbing.CommonFacilities;
 
-namespace TextMetal.WebHostSample.Objects.Hosts.Email
+namespace TextMetal.Hosting.Web.Email
 {
 	[Serializable]
 	[XmlRoot(ElementName = "MessageTemplate", Namespace = "http://www.textmetal.com/api/v4.4.0")]
