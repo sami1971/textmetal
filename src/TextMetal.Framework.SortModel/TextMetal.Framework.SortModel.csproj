@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83737E14-C89A-4CD6-93B5-B4C82C1F7969}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.Framework.SortModel</RootNamespace>
+    <AssemblyName>TextMetal.Framework.SortModel</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.Framework.SortModel.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.Framework.SortModel.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="AscendingConstruct.cs" />
+    <Compile Include="SortXmlObject.cs" />
+    <Compile Include="DescendingConstruct.cs" />
+    <Compile Include="OrderConstruct.cs" />
+    <Compile Include="SortContainerConstruct.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
+      <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
+      <Name>TextMetal.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Expressions\TextMetal.Common.Expressions.csproj">
+      <Project>{483501D9-4D73-4076-997B-3A5D8B5DDB2C}</Project>
+      <Name>TextMetal.Common.Expressions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Xml\TextMetal.Common.Xml.csproj">
+      <Project>{CEF6C9D5-D5F2-4F4E-81DD-0BFDF81A2C93}</Project>
+      <Name>TextMetal.Common.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.Core\TextMetal.Framework.Core.csproj">
+      <Project>{72DACF93-04D7-42A3-B851-2717915FFF89}</Project>
+      <Name>TextMetal.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.ExpressionModel\TextMetal.Framework.ExpressionModel.csproj">
+      <Project>{DDF068F4-CA5A-4CF9-AC02-C9B88E719F4E}</Project>
+      <Name>TextMetal.Framework.ExpressionModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

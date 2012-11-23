@@ -6,11 +6,11 @@ REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-li
 REM
 
 echo *** bob_execute ***
-"..\..\src\TextMetal.Console\bin\Debug\TextMetal.exe" ^
+"..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.exe" ^
 	-templatefile:"bob_master_template.xml" ^
 	-sourcefile:"*" ^
 	-basedir:".\output" ^
-	-sourcestrategy:"TextMetal.Core.SourceModel.Primative.NullSourceStrategy, TextMetal.Core" ^
+	-sourcestrategy:"TextMetal.Framework.SourceModel.Primative.NullSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^
 	-debug:"false"
 IF %ERRORLEVEL% NEQ 0 goto pkgError

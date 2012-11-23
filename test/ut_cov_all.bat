@@ -2,13 +2,13 @@
 
 set NCOVER_EXE=..\lib\PrivateBuilt\TestingFramework.Profiler.Console.exe
 set NUNIT_EXE=..\lib\PrivateBuilt\TestingFramework.Runner.Console.exe
-set ASSEMBLY_LIST=TextMetal.Core
+set ASSEMBLY_LIST=TextMetal.???
 
 echo NCOVER_EXE=%NCOVER_EXE%
 echo NUNIT_EXE=%NUNIT_EXE%
 echo ASSEMBLY_LIST=%ASSEMBLY_LIST%
 
-"%NCOVER_EXE%" "%NUNIT_EXE%" "..\src\TextMetal.Core.UnitTests\UnitTesting.nunit" //a "%ASSEMBLY_LIST%"
+"%NCOVER_EXE%" "%NUNIT_EXE%" "..\src\TextMetal.???.UnitTests\UnitTesting.nunit" //a "%ASSEMBLY_LIST%"
 IF %ERRORLEVEL% NEQ 0 GOTO testCovError
 
 GOTO testCovSuccess

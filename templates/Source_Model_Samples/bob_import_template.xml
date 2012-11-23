@@ -13,7 +13,13 @@
 	</Scrizzle>
 
 	<Reference name="" />
-	<Reference name="..\..\src\TextMetal.Console\bin\Debug\TextMetal.Core.dll" />
+	<Reference name="..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.Core.dll" />
+	<Reference name="..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.AssociativeModel.dll" />
+	<Reference name="..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.DebuggerProfilerModel.dll" />
+	<Reference name="..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.ExpressionModel.dll" />
+	<Reference name="..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.SortModel.dll" />
+	<Reference name="..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.TemplateModel.dll" />
+	
 	<Import name="bob_import_template2.xml" />
 	
 	<Write newline="true">

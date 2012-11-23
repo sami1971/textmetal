@@ -385,7 +385,7 @@ namespace ${ClrNamespace}
 		<ForEach.Filter>			
 		</ForEach.Filter>
 		<ForEach.Body>
-			<![CDATA[			if (result.TryGetValue("${ColumnNamePascalCase}", out value))
+			<![CDATA[			if (result.TryGetValue(${ProcedureNameSingularPascalCase}_Result.COLUMN_NAME_${ColumnNameConstantCase}, out value))
 				result${ProcedureNameSingularPascalCase}.${ColumnNamePascalCase} = value.ChangeType<${ColumnCSharpClrNullableType}>();
 ]]>
 			<If>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
+	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+-->
+<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+	<OutputScope name="get_bat_copy_frags_template_pkg.g.txt">
+		<ForEach in="TextFileLines" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+			<ForEach.Body>		
+<![CDATA[
+
+copy ".\src\${TextFileLine}\bin\%BUILD_FLAVOR_DIR%\${TextFileLine}.dll" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy ".\src\${TextFileLine}\bin\%BUILD_FLAVOR_DIR%\${TextFileLine}.xml" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy ".\src\${TextFileLine}\bin\%BUILD_FLAVOR_DIR%\${TextFileLine}.pdb" "%PACKAGE_DIR%\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+]]>
+			</ForEach.Body>
+		</ForEach>
+	</OutputScope>
+	
+	<OutputScope name="get_bat_copy_frags_template_tmpl.g.txt">
+		<ForEach in="TextFileLines" var-ct="#LoopCount" var-ix="#LoopIndex" var-item="#item">
+			<ForEach.Body>		
+<![CDATA[
+
+copy "..\..\src\${TextFileLine}\bin\%BUILD_FLAVOR_DIR%\${TextFileLine}.dll" "%PACKAGE_DIR%\lib\TextMetal\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy "..\..\src\${TextFileLine}\bin\%BUILD_FLAVOR_DIR%\${TextFileLine}.xml" "%PACKAGE_DIR%\lib\TextMetal\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+copy "..\..\src\${TextFileLine}\bin\%BUILD_FLAVOR_DIR%\${TextFileLine}.pdb" "%PACKAGE_DIR%\lib\TextMetal\."
+IF %ERRORLEVEL% NEQ 0 goto pkgError
+
+]]>
+			</ForEach.Body>
+		</ForEach>
+	</OutputScope>
+	
+</Template>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CA823F7-D73B-4CE5-BF71-1515F3C6940D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.Framework.SourceModel</RootNamespace>
+    <AssemblyName>TextMetal.Framework.SourceModel</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.Framework.SourceModel.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.Framework.SourceModel.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebFramework.Core">
+      <HintPath>..\..\lib\PrivateBuilt\WebFramework.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="DatabaseSchema\Odbc\OdbcSchemaSourceStrategy.cs" />
+    <Compile Include="DatabaseSchema\SchemaSourceStrategy.cs" />
+    <Compile Include="Primative\JsonSourceStrategy.cs" />
+    <Compile Include="SourceStrategy.cs" />
+    <Compile Include="Primative\AssociativeXmlSourceStrategy.cs" />
+    <Compile Include="Primative\NullSourceStrategy.cs" />
+    <Compile Include="Primative\ReflectionSourceStrategy.cs" />
+    <Compile Include="Primative\SqlDataSourceStrategy.cs" />
+    <Compile Include="Primative\TextSourceStrategy.cs" />
+    <Compile Include="Primative\XmlPersistEngineSourceStrategy.cs" />
+    <Compile Include="Primative\XmlSchemaSourceStrategy.cs" />
+    <Compile Include="Primative\XmlSerializerSourceStrategy.cs" />
+    <Compile Include="DatabaseSchema\Catalog.cs" />
+    <Compile Include="DatabaseSchema\Column.cs" />
+    <Compile Include="DatabaseSchema\Database.cs" />
+    <Compile Include="DatabaseSchema\ForeignKey.cs" />
+    <Compile Include="DatabaseSchema\ForeignKeyColumnRef.cs" />
+    <Compile Include="DatabaseSchema\Parameter.cs" />
+    <Compile Include="DatabaseSchema\Procedure.cs" />
+    <Compile Include="DatabaseSchema\Schema.cs" />
+    <Compile Include="DatabaseSchema\Sql\SqlSchemaSourceStrategy.cs" />
+    <Compile Include="DatabaseSchema\Table.cs" />
+    <Compile Include="DatabaseSchema\UniqueKey.cs" />
+    <Compile Include="DatabaseSchema\UniqueKeyColumnRef.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\Columns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\Database.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\ForeignKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\ForeignKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\Parameters.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\Procedures.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\Schemas.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\Tables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\UniqueKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\UniqueKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\Columns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\Database.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\ForeignKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\ForeignKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\Parameters.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\Procedures.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\Schemas.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\Tables.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\UniqueKeyColumns.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\UniqueKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DatabaseSchema\Sql\DML\net.sqlce\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\Columns.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\Database.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\ForeignKeyColumns.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\ForeignKeys.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\Parameters.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\Procedures.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\Schemas.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\Tables.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\UniqueKeyColumns.sql" />
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\UniqueKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sqlserver\ProcedureSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Odbc\DML\odbc.sybaseiq\ProcedureSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseSchema\Sql\DML\net.sqlserver\ProcedureSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
+      <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
+      <Name>TextMetal.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Data\TextMetal.Common.Data.csproj">
+      <Project>{e41e2352-4249-458e-b4f2-dbdf9b564bf5}</Project>
+      <Name>TextMetal.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Xml\TextMetal.Common.Xml.csproj">
+      <Project>{CEF6C9D5-D5F2-4F4E-81DD-0BFDF81A2C93}</Project>
+      <Name>TextMetal.Common.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.AssociativeModel\TextMetal.Framework.AssociativeModel.csproj">
+      <Project>{69F2FDCB-60AA-4B1E-B133-715D5EC29131}</Project>
+      <Name>TextMetal.Framework.AssociativeModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.Core\TextMetal.Framework.Core.csproj">
+      <Project>{72DACF93-04D7-42A3-B851-2717915FFF89}</Project>
+      <Name>TextMetal.Framework.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

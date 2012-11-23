@@ -6,11 +6,11 @@ REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-li
 REM
 
 echo *** xmlschema_execute ***
-"..\..\src\TextMetal.Console\bin\Debug\TextMetal.exe" ^
+"..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.exe" ^
 	-templatefile:"empty_template.xml" ^
 	-sourcefile:"xmlschema_source.xsd" ^
 	-basedir:".\output" ^
-	-sourcestrategy:"TextMetal.Core.SourceModel.Primative.XmlSchemaSourceStrategy, TextMetal.Core" ^
+	-sourcestrategy:"TextMetal.Framework.SourceModel.Primative.XmlSchemaSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^
 	-debug:"false"
 IF %ERRORLEVEL% NEQ 0 goto pkgError

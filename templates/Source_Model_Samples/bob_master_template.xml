@@ -32,7 +32,7 @@
 
 	<Include name="bob_include_content.txt" />
 	
-	<Alias local-name="Scrizzle" namespace-uri="http://www.textmetal.com/api/v4.4.0" aqt-name="TextMetal.Core.TemplateModel.WriteConstruct, TextMetal.Core" />
+	<Alias local-name="Scrizzle" namespace-uri="http://www.textmetal.com/api/v4.4.0" aqt-name="TextMetal.Framework.TemplateModel.WriteConstruct, TextMetal.Framework.TemplateModel" />
 
 	<Import name="bob_import_template.xml" />
 	

@@ -911,7 +911,7 @@ namespace ${ClrNamespace}
 			
 ]]><ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Body>
-			<![CDATA[			if (result.TryGetValue("${ColumnNamePascalCase}", out value))
+			<![CDATA[			if (result.TryGetValue(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}, out value))
 				${TableNameSingularCamelCase}.@${ColumnNamePascalCase} = value.ChangeType<${ColumnCSharpClrNullableType}>();
 ]]>
 			<If>

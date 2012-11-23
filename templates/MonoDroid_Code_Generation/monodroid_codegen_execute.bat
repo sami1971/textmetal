@@ -6,22 +6,22 @@ REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-li
 REM
 
 echo *** monodroid_codegen_execute - profile ***
-"..\..\src\TextMetal.Console\bin\Debug\TextMetal.exe" ^
+"..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.exe" ^
 	-templatefile:"profile_master_template.xml" ^
 	-sourcefile:"profile_linear_text_source.txt" ^
 	-basedir:".\output\src\profile" ^
-	-sourcestrategy:"TextMetal.Core.SourceModel.Primative.TextSourceStrategy, TextMetal.Core" ^
+	-sourcestrategy:"TextMetal.Framework.SourceModel.Primative.TextSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^
 	-debug:"false"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 
 echo *** monodroid_codegen_execute - estimate ***
-"..\..\src\TextMetal.Console\bin\Debug\TextMetal.exe" ^
+"..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.exe" ^
 	-templatefile:"estimate_master_template.xml" ^
 	-sourcefile:"estimate_linear_text_source.txt" ^
 	-basedir:".\output\src\estimate" ^
-	-sourcestrategy:"TextMetal.Core.SourceModel.Primative.TextSourceStrategy, TextMetal.Core" ^
+	-sourcestrategy:"TextMetal.Framework.SourceModel.Primative.TextSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^
 	-debug:"false"
 IF %ERRORLEVEL% NEQ 0 goto pkgError

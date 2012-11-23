@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B0EFC3C-AA91-4FB4-B2EE-BD8727230A94}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.Common.Solder</RootNamespace>
+    <AssemblyName>TextMetal.Common.Solder</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.Common.Solder.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.Common.Solder.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DependencyManagement\ActivatorDependencyResolution.cs" />
+    <Compile Include="DependencyManagement\ConstructorDependencyResolution~1.cs" />
+    <Compile Include="DependencyManagement\DelegateDependencyResolution.cs" />
+    <Compile Include="DependencyManagement\DependencyException.cs" />
+    <Compile Include="DependencyManagement\DependencyManager.cs" />
+    <Compile Include="DependencyManagement\DependencyRegistrationAttribute.cs" />
+    <Compile Include="DependencyManagement\IDependencyManager.cs" />
+    <Compile Include="DependencyManagement\IDependencyResolution.cs" />
+    <Compile Include="DependencyManagement\SingletonDependencyResolution.cs" />
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="RuntimeInterception\AspectDynamicInvoker.cs" />
+    <Compile Include="RuntimeInterception\DynamicInvoker.cs" />
+    <Compile Include="RuntimeInterception\IDynamicInvocation.cs" />
+    <Compile Include="RuntimeInterception\ProxyFactory~1.cs" />
+    <Compile Include="RuntimeInterception\RemotingImpl\DynamicInvokerRealProxy~1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DependencyManagement\Assertions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
+      <Project>{d1860a67-7efb-4c0f-89cd-a641d99dcc2a}</Project>
+      <Name>TextMetal.Common.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

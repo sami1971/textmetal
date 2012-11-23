@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0917FE0-AAF8-4388-87D5-59F90B602BAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.Common.UnitTests</RootNamespace>
+    <AssemblyName>TextMetal.Common.UnitTests</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="TestingFramework.Core">
+      <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Core\AppConfigTests.cs" />
+    <Compile Include="Core\DataTypeTests.cs" />
+    <Compile Include="Core\ExecutionPathStorageTests.cs" />
+    <Compile Include="Core\ReflexionTests.cs" />
+    <Compile Include="Core\StringTokens\DynamicValueTokenReplacementStrategyTests.cs" />
+    <Compile Include="Core\StringTokens\StaticValueTokenReplacementStrategyTests.cs" />
+    <Compile Include="Core\StringTokens\TokenizerTests.cs" />
+    <Compile Include="Data\AdoNetHelperTests.cs" />
+    <None Include="App.config" />
+    <None Include="Data\UnitOfWorkContextTests.cs" />
+    <Compile Include="Solder\DependencyManagement\ActivatorDependencyResolutionTests.cs" />
+    <Compile Include="Solder\DependencyManagement\ConstructorDependencyResolutionTests.cs" />
+    <Compile Include="Solder\DependencyManagement\DelegateDependencyResolutionTests.cs" />
+    <Compile Include="Solder\DependencyManagement\DependencyExceptionTests.cs" />
+    <Compile Include="Solder\DependencyManagement\DependencyManagerTests.cs" />
+    <Compile Include="Solder\DependencyManagement\DependencyRegistrationAttributeTests.cs" />
+    <Compile Include="Solder\DependencyManagement\SingletonDependencyResolutionTests.cs" />
+    <Compile Include="ProjectAssemblyInfo.cs" />
+    <Compile Include="Solder\RuntimeInterception\RemotingImpl\DynamicInvokerRealProxyTests.cs" />
+    <Compile Include="Solder\RuntimeInterception\root\AspectDynamicInvokerTests.cs" />
+    <Compile Include="Solder\RuntimeInterception\root\DynamicInvokerTests.cs" />
+    <Compile Include="Solder\RuntimeInterception\root\ProxyFactoryTests.cs" />
+    <Compile Include="TestingInfrastructure\IMockObject.cs" />
+    <Compile Include="TestingInfrastructure\MockAspectDynamicInvoker.cs" />
+    <Compile Include="TestingInfrastructure\MockConnection.cs" />
+    <Compile Include="TestingInfrastructure\MockDynamicInvoker.cs" />
+    <Compile Include="TestingInfrastructure\MockDynamicInvokerRealProxy.cs" />
+    <Compile Include="TestingInfrastructure\MockException.cs" />
+    <Compile Include="TestingInfrastructure\MockMultipleTestAttibute.cs" />
+    <Compile Include="TestingInfrastructure\MockObject.cs" />
+    <Compile Include="TestingInfrastructure\MockProxyFactory.cs" />
+    <Compile Include="TestingInfrastructure\MockSingleTestAttibute.cs" />
+    <Compile Include="TestingInfrastructure\MockTestAttributedClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+    <None Include="UnitTesting.nunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Expressions\" />
+    <Folder Include="Xml\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
+      <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
+      <Name>TextMetal.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Data\TextMetal.Common.Data.csproj">
+      <Project>{E41E2352-4249-458E-B4F2-DBDF9B564BF5}</Project>
+      <Name>TextMetal.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Expressions\TextMetal.Common.Expressions.csproj">
+      <Project>{483501d9-4d73-4076-997b-3a5d8b5ddb2c}</Project>
+      <Name>TextMetal.Common.Expressions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Solder\TextMetal.Common.Solder.csproj">
+      <Project>{3B0EFC3C-AA91-4FB4-B2EE-BD8727230A94}</Project>
+      <Name>TextMetal.Common.Solder</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

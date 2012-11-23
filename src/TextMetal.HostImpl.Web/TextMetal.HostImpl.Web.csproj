@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32997ECF-2B2F-4BDB-AF4F-6E389C9F8235}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TextMetal.HostImpl.Web</RootNamespace>
+    <AssemblyName>TextMetal.HostImpl.Web</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\TextMetal.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TextMetal.HostImpl.Web.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TextMetal.HostImpl.Web.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\SolutionAssemblyInfo.cs">
+      <Link>SolutionAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AspNet\TextMetalHttpHandler.cs" />
+    <Compile Include="AspNet\TextMetalView.cs" />
+    <Compile Include="AspNet\TextMetalViewEngine.cs" />
+    <Compile Include="AspNet\WebHost.cs" />
+    <Compile Include="Email\IEmailAttachment.cs" />
+    <Compile Include="Email\IEmailMessage.cs" />
+    <Compile Include="Email\MessageTemplate.cs" />
+    <Compile Include="ProjectAssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TextMetal.snk">
+      <Link>TextMetal.snk</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
+      <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
+      <Name>TextMetal.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Xml\TextMetal.Common.Xml.csproj">
+      <Project>{CEF6C9D5-D5F2-4F4E-81DD-0BFDF81A2C93}</Project>
+      <Name>TextMetal.Common.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.Core\TextMetal.Framework.Core.csproj">
+      <Project>{72DACF93-04D7-42A3-B851-2717915FFF89}</Project>
+      <Name>TextMetal.Framework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.HostingModel\TextMetal.Framework.HostingModel.csproj">
+      <Project>{D5226035-2438-4DFB-96D1-BB771D08CC65}</Project>
+      <Name>TextMetal.Framework.HostingModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.InputOutputModel\TextMetal.Framework.InputOutputModel.csproj">
+      <Project>{E5573166-2524-4971-A727-40E55ECD262A}</Project>
+      <Name>TextMetal.Framework.InputOutputModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.TemplateModel\TextMetal.Framework.TemplateModel.csproj">
+      <Project>{45C84934-57BE-457A-8B60-392D650D6C08}</Project>
+      <Name>TextMetal.Framework.TemplateModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

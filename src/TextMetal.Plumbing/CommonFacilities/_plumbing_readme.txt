@@ -1,1 +1,0 @@
-﻿The Plumbing namespace contains functionality that is not related to the TextMetal framework but is used by it or it's output artifacts.
