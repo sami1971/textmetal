@@ -43,6 +43,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SQLite">
       <HintPath>..\..\lib\SQLite\x64\System.Data.SQLite.dll</HintPath>
     </Reference>
@@ -81,7 +82,20 @@
     <Compile Include="Objects\EmailTemplateResourceNames.cs" />
     <Compile Include="Objects\LowercaseRoute.cs" />
     <Compile Include="Objects\Model\IRepository.cs" />
+    <Compile Include="Objects\Model\IRepository.g.cs" />
+    <Compile Include="Objects\Model\IRepository.tv.g.cs" />
+    <Compile Include="Objects\Model\L2S\TxtMtlPrimaryDataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TxtMtlPrimaryDataContext.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Objects\Model\Repository.cs" />
+    <Compile Include="Objects\Model\Repository.g.cs" />
+    <Compile Include="Objects\Model\Repository.tv.g.cs" />
+    <Compile Include="Objects\Model\Tables\EmailMessage.cs" />
+    <Compile Include="Objects\Model\Tables\EmailAttachment.g.cs" />
+    <Compile Include="Objects\Model\Tables\EmailMessage.g.cs" />
+    <Compile Include="Objects\Model\Tables\EventLog.g.cs" />
     <Compile Include="Pages\Index.tmpx.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
   </ItemGroup>
@@ -100,35 +114,53 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <None Include="Objects\Model\L2S\TxtMtlPrimaryDataContext.dbml.layout">
+      <DependentUpon>TxtMtlPrimaryDataContext.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Objects\Hosts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pages\Index.tmpx" />
+    <Content Include="Pages\Index.tmpx">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\SiteBase.Master" />
     <Content Include="Views\Test\Index.tm" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TextMetal.Core\TextMetal.Core.csproj">
-      <Project>{0fc50a3f-54c4-4112-80d9-42d68234574a}</Project>
-      <Name>TextMetal.Core</Name>
+    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
+      <Project>{d1860a67-7efb-4c0f-89cd-a641d99dcc2a}</Project>
+      <Name>TextMetal.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Data\TextMetal.Common.Data.csproj">
+      <Project>{E41E2352-4249-458E-B4F2-DBDF9B564BF5}</Project>
+      <Name>TextMetal.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.Core\TextMetal.Framework.Core.csproj">
+      <Project>{72DACF93-04D7-42A3-B851-2717915FFF89}</Project>
+      <Name>TextMetal.Framework.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TextMetal.HostImpl.Web\TextMetal.HostImpl.Web.csproj">
       <Project>{32997ECF-2B2F-4BDB-AF4F-6E389C9F8235}</Project>
       <Name>TextMetal.Hosting.Web</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TextMetal.Common.Core\TextMetal.Common.Core.csproj">
-      <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
-      <Name>TextMetal.Plumbing</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Objects\Model\L2S\TxtMtlPrimaryDataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>TxtMtlPrimaryDataContext1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

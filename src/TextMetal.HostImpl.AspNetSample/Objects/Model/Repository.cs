@@ -5,7 +5,10 @@
 
 using System;
 
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
 using TextMetal.HostImpl.AspNetSample.Objects.Model.Tables;
+using TextMetal.HostImpl.Web.Email;
 
 namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 {
@@ -13,7 +16,7 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 	{
 		#region Methods/Operators
 
-		partial void OnPreInsertEmailAttachment(UnitOfWorkContext unitOfWorkContext, EmailAttachment emailAttachment)
+		partial void OnPreInsertEmailAttachment(IUnitOfWorkContext unitOfWorkContext, EmailAttachment emailAttachment)
 		{
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -21,10 +24,10 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 			if ((object)emailAttachment == null)
 				throw new ArgumentNullException("emailAttachment");
 
-			emailAttachment.Mark();
+			//emailAttachment.Mark();
 		}
 
-		partial void OnPreInsertEmailMessage(UnitOfWorkContext unitOfWorkContext, EmailMessage emailMessage)
+		partial void OnPreInsertEmailMessage(IUnitOfWorkContext unitOfWorkContext, EmailMessage emailMessage)
 		{
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -32,10 +35,10 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 			if ((object)emailMessage == null)
 				throw new ArgumentNullException("emailMessage");
 
-			emailMessage.Mark();
+			//emailMessage.Mark();
 		}
 
-		partial void OnPreInsertEventLog(UnitOfWorkContext unitOfWorkContext, EventLog eventLog)
+		partial void OnPreInsertEventLog(IUnitOfWorkContext unitOfWorkContext, EventLog eventLog)
 		{
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -43,10 +46,10 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 			if ((object)eventLog == null)
 				throw new ArgumentNullException("eventLog");
 
-			eventLog.Mark();
+			//eventLog.Mark();
 		}
 
-		partial void OnPreUpdateEmailAttachment(UnitOfWorkContext unitOfWorkContext, EmailAttachment emailAttachment)
+		partial void OnPreUpdateEmailAttachment(IUnitOfWorkContext unitOfWorkContext, EmailAttachment emailAttachment)
 		{
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -54,10 +57,10 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 			if ((object)emailAttachment == null)
 				throw new ArgumentNullException("emailAttachment");
 
-			emailAttachment.Mark();
+			//emailAttachment.Mark();
 		}
 
-		partial void OnPreUpdateEmailMessage(UnitOfWorkContext unitOfWorkContext, EmailMessage emailMessage)
+		partial void OnPreUpdateEmailMessage(IUnitOfWorkContext unitOfWorkContext, EmailMessage emailMessage)
 		{
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -65,10 +68,10 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 			if ((object)emailMessage == null)
 				throw new ArgumentNullException("emailMessage");
 
-			emailMessage.Mark();
+			//emailMessage.Mark();
 		}
 
-		partial void OnPreUpdateEventLog(UnitOfWorkContext unitOfWorkContext, EventLog eventLog)
+		partial void OnPreUpdateEventLog(IUnitOfWorkContext unitOfWorkContext, EventLog eventLog)
 		{
 			if ((object)unitOfWorkContext == null)
 				throw new ArgumentNullException("unitOfWorkContext");
@@ -76,7 +79,7 @@ namespace TextMetal.HostImpl.AspNetSample.Objects.Model
 			if ((object)eventLog == null)
 				throw new ArgumentNullException("eventLog");
 
-			eventLog.Mark();
+			//eventLog.Mark();
 		}
 
 		public bool TrySendEmailTemplate(string templateReosurceName, object modelObject)

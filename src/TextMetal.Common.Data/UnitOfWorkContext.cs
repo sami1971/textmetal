@@ -165,7 +165,7 @@ namespace TextMetal.Common.Data
 		/// <param name="connectionString"> The ADO.NET provider connection string to use. </param>
 		/// <param name="transactional"> A value indicating whether a new local data source transaction isstarted on the connection. </param>
 		/// <returns> An instance of teh UnitOfWorkContext ready for execution of operations. This should be wrapped in a using(...){} block for an optimal usage scenario. </returns>
-		public static UnitOfWorkContext Create(Type connectionType, string connectionString, bool transactional)
+		public static IUnitOfWorkContext Create(Type connectionType, string connectionString, bool transactional)
 		{
 			UnitOfWorkContext unitOfWorkContext;
 			const bool OPEN = true;

@@ -16,8 +16,9 @@ using System.Data;
 using System.Data.Linq;
 using System.Linq;
 
-using TextMetal.Plumbing.CommonFacilities;
-using TextMetal.Plumbing.CommonFacilities.LinqToSql;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.LinqToSql;
 ]]>
 		<If>
 			<If.Condition>
@@ -149,7 +150,7 @@ namespace ${ClrNamespace}
 		{
 			${TableNameSingularPascalCase} retval;
 						
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, ]]>
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
 								<BinaryExpression operator="Eq">
@@ -249,7 +250,7 @@ namespace ${ClrNamespace}
 		
 ]]>
 				
-<![CDATA[		public ${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ]]>
+<![CDATA[		public ${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
 								<BinaryExpression operator="Eq">
@@ -386,12 +387,12 @@ namespace ${ClrNamespace}
 		{
 			IList<${TableNameSingularPascalCase}> @${TableNamePluralCamelCase};
 			
-			@${TableNamePluralCamelCase} = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Find${TableNamePluralPascalCase}(uowc, e), callback);
+			@${TableNamePluralCamelCase} = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, e) => this.Find${TableNamePluralPascalCase}(uowc, e), callback);
 			
 			return @${TableNamePluralCamelCase};
 		}
 		
-		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback)
+		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(IUnitOfWorkContext unitOfWorkContext, Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback)
 		{
 			IList<${TableNameSingularPascalCase}> @${TableNamePluralCamelCase};			
 			IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}> queryable;			
@@ -470,12 +471,12 @@ namespace ${ClrNamespace}
 		{
 			bool retval;					
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Save${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, e) => this.Save${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
 			
 			return retval;
 		}
 		
-		public bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
+		public bool Save${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase} query;
 			bool wasNew;
@@ -697,12 +698,12 @@ namespace ${ClrNamespace}
 		{
 			bool retval;
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Discard${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, e) => this.Discard${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
 			
 			return retval;
 		}
 		
-		public bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
+		public bool Discard${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase} query;
 			
@@ -776,23 +777,23 @@ namespace ${ClrNamespace}
 			}
 		}
 		
-		partial void OnPreInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPreInsert${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPostInsert${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPreUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPreUpdate${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPostUpdate${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnSaveConflict${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnSaveConflict${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnDiscardConflict${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnDiscardConflict${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 				
-		partial void OnPreDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPreDelete${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPostDelete${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnSelect${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});		
+		partial void OnSelect${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});		
 ]]>
 						<If>
 							<If.Condition>

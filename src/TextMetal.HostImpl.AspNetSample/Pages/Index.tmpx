@@ -6,7 +6,7 @@
 -->
 <Template xmlns="http://www.textmetal.com/api/v4.4.0">
 
-	<InvokeSourceStrategy aqt-name="TextMetal.WebHostSample.Pages.Index, TextMetal.WebHostSample">
+	<InvokeSourceStrategy aqt-name="TextMetal.HostImpl.AspNetSample.Pages.Index, TextMetal.HostImpl.AspNetSample">
 	<![CDATA[${ToolVersion}<br />]]>
 	<![CDATA[Y = ${Y}<br />]]>
 	<![CDATA[CT = ${CT}<br />]]>	

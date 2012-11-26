@@ -12,7 +12,7 @@ set SQL_METAL_EXE=C:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\bin\NETFX 
 set PACKAGE_DIR=.\output
 set PACKAGE_DIR_EXISTS=%PACKAGE_DIR%\nul
 
-set L2S_DIR=%PACKAGE_DIR%\src\TextMetal.WebHostSample.Objects.Model\L2S
+set L2S_DIR=%PACKAGE_DIR%\src\TextMetal.HostImpl.AspNetSample.Objects.Model\L2S
 set L2S_DIR_EXISTS=%L2S_DIR%\nul
 
 
@@ -240,9 +240,9 @@ echo *** linqtosql_codegen_execute ***
 	-basedir:".\output\src" ^
 	-sourcestrategy:"TextMetal.Framework.SourceModel.DatabaseSchema.Sql.SqlSchemaSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^
-	-property:"ClrNamespace=TextMetal.WebHostSample.Objects.Model" ^
+	-property:"ClrNamespace=TextMetal.HostImpl.AspNetSample.Objects.Model" ^
 	-property:"ClrSuperType=Object" ^
-	-property:"LinqToSqlDataContextRootNamespace=TextMetal.WebHostSample.Objects.Model.L2S" ^
+	-property:"LinqToSqlDataContextRootNamespace=TextMetal.HostImpl.AspNetSample.Objects.Model.L2S" ^
 	-property:"LinqToSqlTargetDataContextName=TxtMtlPrimaryDataContext" ^
 	-property:"ConnectionType=System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ^
 	-property:"DataSourceTag=net.sqlserver"
@@ -262,17 +262,17 @@ echo *** linqtosql_dbmlgen_execute ***
 "%SQL_METAL_EXE%" ^
 	/language:"C#" ^
 	/pluralize ^
-	/namespace:"TextMetal.WebHostSample.Objects.Model.L2S" ^
+	/namespace:"TextMetal.HostImpl.AspNetSample.Objects.Model.L2S" ^
 	/context:"TxtMtlPrimaryDataContext" ^
-	/dbml:".\output\src\TextMetal.WebHostSample.Objects.Model\L2S\TxtMtlPrimaryDataContext.dbml" ^
+	/dbml:".\output\src\TextMetal.HostImpl.AspNetSample.Objects.Model\L2S\TxtMtlPrimaryDataContext.dbml" ^
 	/conn:"Data Source=(local);User ID=TextMetalWebHostSampleLogin;Password=LrJGmP6UfW8TEp7x3wWhECUYULE6zzMcWQ03R6UxeB4xzVmnq5S4Lx0vApegZVH;Initial Catalog=TextMetalWebHostSample"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 
 "%SQL_METAL_EXE%" ^
 	/language:"C#" ^
-	/code:".\output\src\TextMetal.WebHostSample.Objects.Model\L2S\TxtMtlPrimaryDataContext.designer.cs" ^
-	".\output\src\TextMetal.WebHostSample.Objects.Model\L2S\TxtMtlPrimaryDataContext.dbml"
+	/code:".\output\src\TextMetal.HostImpl.AspNetSample.Objects.Model\L2S\TxtMtlPrimaryDataContext.designer.cs" ^
+	".\output\src\TextMetal.HostImpl.AspNetSample.Objects.Model\L2S\TxtMtlPrimaryDataContext.dbml"
 IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 

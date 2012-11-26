@@ -297,11 +297,20 @@ EndGlobal
 	<Reference Include="System.Data" />    
 	<Reference Include="System.Data.Linq" />  
 	
-	<Reference Include="TextMetal.Core">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
+	<Reference Include="TextMetal.Common.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
     </Reference>
-	<Reference Include="TextMetal.Plumbing">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+	<Reference Include="TextMetal.Common.Data">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Data.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Expressions">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Expressions.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Solder">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Solder.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Xml">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
     </Reference>
 	
   </ItemGroup>
@@ -428,15 +437,23 @@ EndGlobal
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     	
-	<Reference Include="TextMetal.Core">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
+	<Reference Include="TextMetal.Common.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
     </Reference>
-	<Reference Include="TextMetal.Plumbing">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+	<Reference Include="TextMetal.Common.Data">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Data.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Expressions">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Expressions.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Solder">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Solder.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Xml">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
     </Reference>
 	
-	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+	<Reference Include="TestingFramework.Core">
       <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
 	
@@ -558,15 +575,23 @@ EndGlobal
     <Reference Include="System.Core" />
 	<Reference Include="System.Data" />
 	
-	<Reference Include="TextMetal.Core">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
-    </Reference>    
-    <Reference Include="TextMetal.Plumbing">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+	<Reference Include="TextMetal.Common.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Data">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Data.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Expressions">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Expressions.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Solder">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Solder.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Xml">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
     </Reference>
 	
-	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+	<Reference Include="TestingFramework.Core">
       <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
 	

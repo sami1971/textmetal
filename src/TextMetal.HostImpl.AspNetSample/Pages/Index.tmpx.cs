@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using TextMetal.Framework.Core;
 using TextMetal.HostImpl.AspNetSample.Objects.Model;
 
 namespace TextMetal.HostImpl.AspNetSample.Pages
@@ -23,7 +24,7 @@ namespace TextMetal.HostImpl.AspNetSample.Pages
 
 			repository.TryWriteEventLogEntry(Guid.NewGuid().ToString());
 
-			var list = repository.FindEventLogs(new Query(new NullaryExpressionConstruct(), new Order[] { }, 0, 0)).ToList();
+			var list = repository.FindEventLogs((q) => q.OrderBy(ev => ev.CreationTimestamp)).ToList();
 			var ct = list.Count();
 
 			list.ForEach(el => repository.DiscardEventLog(el));

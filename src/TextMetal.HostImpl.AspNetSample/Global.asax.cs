@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using TextMetal.Common.Core;
 using TextMetal.HostImpl.AspNetSample.App_Start;
 using TextMetal.HostImpl.AspNetSample.Objects;
 using TextMetal.HostImpl.AspNetSample.Objects.Model;
+using TextMetal.HostImpl.Web.AspNet;
 
 namespace TextMetal.HostImpl.AspNetSample
 {

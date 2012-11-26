@@ -16,8 +16,9 @@ using System.Data;
 using System.Data.Linq;
 using System.Linq;
 
-using TextMetal.Plumbing.CommonFacilities;
-using TextMetal.Plumbing.CommonFacilities.LinqToSql;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.LinqToSql;
 ]]>
 		<If>
 			<If.Condition>
@@ -149,7 +150,7 @@ namespace ${ClrNamespace}
 						</ForEach>
 <![CDATA[);
 
-		${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ]]>
+		${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
 								<BinaryExpression operator="Eq">
@@ -184,15 +185,15 @@ namespace ${ClrNamespace}
 						
 		IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback);
 		
-		IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback);
+		IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(IUnitOfWorkContext unitOfWorkContext, Func<IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>, IQueryable<${LinqToSqlDataContextRootNamespace}.${TableNameSingularPascalCase}>> callback);
 		
 		bool Save${TableNameSingularPascalCase}(${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		bool Save${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
 		bool Discard${TableNameSingularPascalCase}(${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		bool Discard${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 ]]>
 						<If>
 							<If.Condition>
