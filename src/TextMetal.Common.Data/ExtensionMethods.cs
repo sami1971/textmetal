@@ -46,8 +46,6 @@ namespace TextMetal.Common.Data
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
 
-			//OnProfileCommand(typeof(TResult), commandType, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected);
-
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
 			if (executeAsCud && recordsAffected <= thisOrThatRecordsAffected)
@@ -108,8 +106,6 @@ namespace TextMetal.Common.Data
 
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
-
-			//OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
 
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
@@ -182,8 +178,6 @@ namespace TextMetal.Common.Data
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
 
-			//OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
-
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
 			if (recordsAffected != queryExpectedRecordsAffected)
@@ -226,8 +220,6 @@ namespace TextMetal.Common.Data
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
 
-			//OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, true, persistNotExpectedRecordsAffected);
-
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 
 			if (recordsAffected <= persistNotExpectedRecordsAffected)
@@ -268,8 +260,6 @@ namespace TextMetal.Common.Data
 
 			if (DataType.IsNullOrWhiteSpace(commandText))
 				throw new ArgumentOutOfRangeException("commandText");
-
-			//OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
 
 			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
 

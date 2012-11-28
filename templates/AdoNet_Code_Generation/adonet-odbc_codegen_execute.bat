@@ -240,7 +240,7 @@ echo *** adonet_codegen_execute ***
 	-basedir:".\output\src" ^
 	-sourcestrategy:"TextMetal.Framework.SourceModel.DatabaseSchema.Odbc.OdbcSchemaSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^
-	-property:"ClrNamespace=TextMetal.WebHostSample.Objects.Model" ^
+	-property:"ClrNamespace=TextMetal.HostImpl.AspNetSample.Objects.Model" ^
 	-property:"ClrSuperType=Object" ^
 	-property:"ConnectionType=System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" ^
 	-property:"DataSourceTag=odbc.sqlserver"

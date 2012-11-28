@@ -51,7 +51,10 @@
 
 using System;
 
-using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.Advanced;
+using TextMetal.Common.Expressions;
 ]]>
 						<If>
 							<If.Condition>

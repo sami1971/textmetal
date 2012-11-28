@@ -230,6 +230,7 @@ EndGlobal
 		<add name="${ClrNamespace}::ConnectionString" connectionString="Data Source={0};FailIfMissing=True" providerName="System.Data.SQLite.SQLiteConnection, System.Data.SQLite" />
 	</connectionStrings>
 	<appSettings>
+		<add key="${ClrNamespace}::DataSourceTag" value="net.sqlite" />
 		<add key="${ClrNamespace}::UseDatabaseFile" value="true" />
 		<add key="${ClrNamespace}::KillDatabaseFile" value="true" />
 		<add key="${ClrNamespace}::DatabaseFileName" value="${ClrNamespace}.database" />
@@ -321,20 +322,28 @@ EndGlobal
 	<Reference Include="System.Data.SQLite">
       <HintPath>..\..\lib\SQLite\System.Data.SQLite.dll</HintPath>
     </Reference>
-	<Reference Include="TextMetal.Core">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
+	
+	<Reference Include="TextMetal.Common.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
     </Reference>
-	<Reference Include="TextMetal.Plumbing">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+	<Reference Include="TextMetal.Common.Data">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Data.dll</HintPath>
     </Reference>
+	<Reference Include="TextMetal.Common.Expressions">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Expressions.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Solder">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Solder.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Xml">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
+    </Reference>
+
   </ItemGroup>
   <ItemGroup>
 	<Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DatabaseFileManager.g.cs" />
-	<Compile Include="DatabaseHistory.g.cs" />
-	<Compile Include="DatabaseRevision.g.cs" />
 	<Compile Include="IRepository.g.cs" />
 	<Compile Include="Repository.g.cs" />
     <Compile Include="IRepository.sp.g.cs" />
@@ -342,13 +351,10 @@ EndGlobal
 	<Compile Include="IRepository.tv.g.cs" />
 	<Compile Include="Repository.tv.g.cs" />
 	<Compile Include="ProjectAssemblyInfo.cs" />
-	<Compile Include="Repository.(net.sqlite).g.cs" />
-	<Compile Include="Repository.(net.sqlserver).g.cs" />
-	<Compile Include="Repository.(odbc.sybaseiq).g.cs" />
-	<Compile Include="Repository.(odbc.sqlserver).g.cs" />
-	<Compile Include="Order.g.cs" />
-	<Compile Include="Query.g.cs" />
-	<Compile Include="SqlExpressionVisitor.g.cs" />
+	<Compile Include="NetSqlServerSpecific.g.cs" />
+	<Compile Include="OdbcSqlServerSpecific.g.cs" />
+	<Compile Include="NetSqliteSpecific.g.cs" />
+	<Compile Include="OdbcSybaseIqSpecific.g.cs" />
 	
 ]]>
 
@@ -481,15 +487,23 @@ EndGlobal
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     	
-	<Reference Include="TextMetal.Core">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
+	<Reference Include="TextMetal.Common.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
     </Reference>
-    <Reference Include="TextMetal.Plumbing">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
+	<Reference Include="TextMetal.Common.Data">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Data.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Expressions">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Expressions.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Solder">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Solder.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Xml">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
     </Reference>
 	
-	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+	<Reference Include="TestingFramework.Core">
       <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
 	
@@ -632,19 +646,34 @@ EndGlobal
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
 	<Reference Include="System.Data" />
-	
-	<Reference Include="TextMetal.Core">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Core.dll</HintPath>
-    </Reference>    
-    <Reference Include="TextMetal.Plumbing">
-      <HintPath>..\..\lib\TextMetal\TextMetal.Plumbing.dll</HintPath>
-    </Reference>
-	
 	<Reference Include="System.Data.SQLite">
       <HintPath>..\..\lib\SQLite\System.Data.SQLite.dll</HintPath>
     </Reference>
-	<Reference Include="TestingFramework.Core, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+	
+	<Reference Include="TextMetal.Common.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Data">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Data.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Expressions">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Expressions.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Solder">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Solder.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Common.Xml">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
+    </Reference>
+	
+	<Reference Include="TextMetal.Framework.Core">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Framework.Core.dll</HintPath>
+    </Reference>
+	<Reference Include="TextMetal.Framework.ExpressionModel">
+      <HintPath>..\..\lib\TextMetal\TextMetal.Framework.ExpressionModel.dll</HintPath>
+    </Reference>
+	
+	<Reference Include="TestingFramework.Core">
       <HintPath>..\..\lib\PrivateBuilt\TestingFramework.Core.dll</HintPath>
     </Reference>
 	

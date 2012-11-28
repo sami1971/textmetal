@@ -8,7 +8,7 @@
 		
 	<!--<DebuggerBreakpoint />-->
 	
-	<![CDATA[commandText = @"INSERT INTO " + ConnectionSpecificGetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" ("]]>
+	<![CDATA[commandText = @"INSERT INTO " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" ("]]>
 
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Filter>
@@ -22,7 +22,7 @@
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-			<![CDATA[ + ConnectionSpecificGetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+			<![CDATA[ + GetDataSourceTagSpecificInstance().GetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
 			<If>
 				<If.Condition>
 					<BinaryExpression operator="Ne">
@@ -55,7 +55,7 @@
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-			<![CDATA[ + ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+			<![CDATA[ + GetDataSourceTagSpecificInstance().GetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
 			<If>
 				<If.Condition>
 					<BinaryExpression operator="Ne">

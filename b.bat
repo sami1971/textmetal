@@ -5,7 +5,7 @@ REM	Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
 REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 REM
 
-set BUILD_EXE=msbuild.exe
+set BUILD_EXE=C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe
 
 cd "."
 

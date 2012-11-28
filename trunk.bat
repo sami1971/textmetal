@@ -6,4 +6,4 @@ REM	Distributed under the MIT license: http://www.opensource.org/licenses/mit-li
 REM
 
 cd "."
-%comspec% /k "VsDevCmd.bat"
+%comspec% /k "cd ."

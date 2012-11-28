@@ -15,7 +15,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.Advanced;
+using TextMetal.Common.Expressions;
 ]]>
 		<If>
 			<If.Condition>
@@ -105,189 +108,6 @@ namespace ${ClrNamespace}
 	{		
 		#region Methods/Operators
 		
-		protected bool PersistModel<TModel>(UnitOfWorkContext unitOfWorkContext, TModel model, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int persistNotExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
-			where TModel : class, new()
-		{
-			int recordsAffected;
-			IList<IDictionary<string, object>> results;
-
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-
-			if ((object)model == null)
-				throw new ArgumentNullException("model");
-
-			if ((object)commandText == null)
-				throw new ArgumentNullException("commandText");
-
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-			if ((object)mapToCallback == null)
-				throw new ArgumentNullException("mapToCallback");
-
-			if (DataType.IsNullOrWhiteSpace(commandText))
-				throw new ArgumentOutOfRangeException("commandText");
-			
-			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, true, persistNotExpectedRecordsAffected);
-			
-			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
-
-			if (recordsAffected <= persistNotExpectedRecordsAffected)
-			{
-				// concurrency failure
-				unitOfWorkContext.Divergent();
-				return false;
-			}
-
-			if ((object)results == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			if (results.Count == 1)
-				mapToCallback(results[0], model);
-			
-			return true;
-		}
-		
-		protected IList<TModel> QueryModel<TModel>(UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
-			where TModel : class, new()
-		{
-			IList<TModel> models;
-			TModel model;
-			int recordsAffected;
-			IList<IDictionary<string, object>> results;
-
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-
-			if ((object)commandText == null)
-				throw new ArgumentNullException("commandText");
-
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-			if ((object)mapToCallback == null)
-				throw new ArgumentNullException("mapToCallback");
-
-			if (DataType.IsNullOrWhiteSpace(commandText))
-				throw new ArgumentOutOfRangeException("commandText");
-
-			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
-			
-			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
-
-			if (recordsAffected != queryExpectedRecordsAffected)
-			{
-				// idempotency failure
-				unitOfWorkContext.Divergent();
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-
-			if ((object)results == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			models = new List<TModel>();
-
-			foreach (IDictionary<string, object> result in results)
-			{
-				model = new TModel();
-				mapToCallback(result, model);
-				models.Add(model);
-			}
-
-			return models;
-		}
-		
-		protected TModel FetchModel<TModel>(UnitOfWorkContext unitOfWorkContext, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
-			where TModel: class, new()
-		{
-			TModel model;
-			int recordsAffected;
-			IList<IDictionary<string, object>> results;
-						
-			if ((object)unitOfWorkContext == null)		
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)commandText == null)
-				throw new ArgumentNullException("commandText");
-				
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			if ((object)mapToCallback == null)
-				throw new ArgumentNullException("mapToCallback");
-
-			if (DataType.IsNullOrWhiteSpace(commandText))
-				throw new ArgumentOutOfRangeException("commandText");
-			
-			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
-			
-			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
-			
-			if (recordsAffected != queryExpectedRecordsAffected)
-			{
-				// idempotency failure
-				unitOfWorkContext.Divergent();
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-				
-			if ((object)results == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			if (results.Count != 1)
-				return null;
-
-			model = new TModel();
-
-			mapToCallback(results[0], model);
-
-			return model;
-		}
-		
-		protected void FillModel<TModel>(UnitOfWorkContext unitOfWorkContext, TModel model, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, int queryExpectedRecordsAffected, Action<IDictionary<string, object>, TModel> mapToCallback)
-			where TModel: class, new()
-		{
-			int recordsAffected;
-			IList<IDictionary<string, object>> results;
-						
-			if ((object)unitOfWorkContext == null)		
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if ((object)model == null)
-				throw new ArgumentNullException("model");
-				
-			if ((object)commandText == null)
-				throw new ArgumentNullException("commandText");
-				
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-				
-			if ((object)mapToCallback == null)
-				throw new ArgumentNullException("mapToCallback");
-
-			if (DataType.IsNullOrWhiteSpace(commandText))
-				throw new ArgumentOutOfRangeException("commandText");
-			
-			OnProfileCommand(typeof(TModel), commandType, commandText, commandParameters, false, queryExpectedRecordsAffected);
-			
-			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
-			
-			if (recordsAffected != queryExpectedRecordsAffected)
-			{
-				// idempotency failure
-				unitOfWorkContext.Divergent();
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-				
-			if ((object)results == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			if (results.Count != 1)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			mapToCallback(results[0], model);
-		}
-		
 ]]>
 
 		<ForEach in="Schemas" var-ct="#LoopCount" var-ix="#LoopIndex">			
@@ -330,7 +150,7 @@ namespace ${ClrNamespace}
 		{
 			${TableNameSingularPascalCase} retval;
 						
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, ]]>
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
 								<BinaryExpression operator="Eq">
@@ -430,7 +250,7 @@ namespace ${ClrNamespace}
 		
 ]]>
 				
-<![CDATA[		public ${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ]]>
+<![CDATA[		public ${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
 								<BinaryExpression operator="Eq">
@@ -488,9 +308,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), @${ColumnNameCamelCase});
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), @${ColumnNameCamelCase});
 			commandParameters.Add(commandParameter);
-			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
+			GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -517,9 +337,11 @@ namespace ${ClrNamespace}
 			<Import name="import_selectone.xml" />
 <![CDATA[			
 			
-			ConnectionSpecificCommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
+			GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
+
+			OnProfileCommand(typeof(${TableNameSingularPascalCase}), CommandType.Text, commandText, commandParameters, false, queryExpectedRecordsAffected);			
 			
-			@${TableNameSingularCamelCase} = this.FetchModel<${TableNameSingularPascalCase}>(unitOfWorkContext, CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
+			@${TableNameSingularCamelCase} = unitOfWorkContext.FetchModel<${TableNameSingularPascalCase}>(CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 							
 			this.OnSelect${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 
@@ -530,12 +352,12 @@ namespace ${ClrNamespace}
 		{
 			IList<${TableNameSingularPascalCase}> retval;
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, q) => this.Find${TableNamePluralPascalCase}(uowc, q), ${TableNameSingularCamelCase}Query);
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, q) => this.Find${TableNamePluralPascalCase}(uowc, q), ${TableNameSingularCamelCase}Query);
 			
 			return retval;
 		}
 		
-		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(UnitOfWorkContext unitOfWorkContext, Query ${TableNameSingularCamelCase}Query)
+		public IList<${TableNameSingularPascalCase}> Find${TableNamePluralPascalCase}(IUnitOfWorkContext unitOfWorkContext, Query ${TableNameSingularCamelCase}Query)
 		{
 			IList<${TableNameSingularPascalCase}> @${TableNamePluralCamelCase};			
 			List<IDataParameter> commandParameters;
@@ -553,17 +375,19 @@ namespace ${ClrNamespace}
 
 			commandParameters = new List<IDataParameter>();
 			
-			filterFragment = SqlExpressionVisitor.GetFilterText(unitOfWorkContext, commandParameters, ${TableNameSingularCamelCase}Query.Expression);
-			sortFragment = SqlExpressionVisitor.GetSortText(unitOfWorkContext, commandParameters, ${TableNameSingularCamelCase}Query.Orders);
+			filterFragment = SqlExpressionVisitor.GetFilterText(GetDataSourceTagSpecificInstance(), unitOfWorkContext, commandParameters, ${TableNameSingularCamelCase}Query.Expression);
+			sortFragment = SqlExpressionVisitor.GetSortText(GetDataSourceTagSpecificInstance(), unitOfWorkContext, commandParameters, ${TableNameSingularCamelCase}Query.Orders);
 
 			]]>
 			<Import name="import_selectfor.xml" />
 <![CDATA[
 			commandText = string.Format(commandText, filterFragment, sortFragment);
 			
-			ConnectionSpecificCommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
+			GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
 			
-			@${TableNamePluralCamelCase} = this.QueryModel<${TableNameSingularPascalCase}>(unitOfWorkContext, CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});			
+			OnProfileCommand(typeof(${TableNameSingularPascalCase}), CommandType.Text, commandText, commandParameters, false, queryExpectedRecordsAffected);
+			
+			@${TableNamePluralCamelCase} = unitOfWorkContext.QueryModel<${TableNameSingularPascalCase}>(CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});			
 			
 			foreach (${TableNameSingularPascalCase} @${TableNameSingularCamelCase} in @${TableNamePluralCamelCase})
 				this.OnSelect${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
@@ -575,12 +399,12 @@ namespace ${ClrNamespace}
 		{
 			bool retval;
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Save${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, e) => this.Save${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
 			
 			return retval;
 		}
 		
-		public bool Save${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
+		public bool Save${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			IDataParameter commandParameter;
 			List<IDataParameter> commandParameters;
@@ -617,9 +441,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName("${ColumnNamePascalCase}"), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
+<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName("${ColumnNamePascalCase}"), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
 				commandParameters.Add(commandParameter);
-				ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
+				GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -648,7 +472,7 @@ namespace ${ClrNamespace}
 				<Import name="import_insert.xml" />
 <![CDATA[
 			
-				ConnectionSpecificCommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
+				GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
 			}
 			else
 			{
@@ -683,9 +507,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
+<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
 				commandParameters.Add(commandParameter);
-				ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
+				GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -738,9 +562,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
+<![CDATA[				commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
 				commandParameters.Add(commandParameter);
-				ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
+				GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -769,10 +593,12 @@ namespace ${ClrNamespace}
 				<Import name="import_update.xml" />
 <![CDATA[
 				
-				ConnectionSpecificCommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
+				GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
 			}			
 			
-			retval = this.PersistModel<${TableNameSingularPascalCase}>(unitOfWorkContext, @${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, persistNotExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
+			OnProfileCommand(typeof(${TableNameSingularPascalCase}), CommandType.Text, commandText, commandParameters, true, persistNotExpectedRecordsAffected);
+			
+			retval = unitOfWorkContext.PersistModel<${TableNameSingularPascalCase}>(@${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, persistNotExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 		
 			if (!retval)
 				return retval;
@@ -782,12 +608,14 @@ namespace ${ClrNamespace}
 			<Import name="import_identity.xml" />
 <![CDATA[
 				
-			ConnectionSpecificCommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
+			GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, false, out queryExpectedRecordsAffected);
 				
 			if (wasNew && !DataType.IsNullOrWhiteSpace(commandText))
 			{
+				OnProfileCommand(typeof(${TableNameSingularPascalCase}), CommandType.Text, commandText, commandParameters, false, queryExpectedRecordsAffected);
+				
 				// select the identity on the same connection
-				this.FillModel<${TableNameSingularPascalCase}>(unitOfWorkContext, @${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
+				unitOfWorkContext.FillModel<${TableNameSingularPascalCase}>(@${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, queryExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 			}
 			
 			if (wasNew)
@@ -806,12 +634,12 @@ namespace ${ClrNamespace}
 		{
 			bool retval;
 			
-			retval = this.ExecuteAmbientUnitOfWorkAware((uowc, e) => this.Discard${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
+			retval = Ambient.ExecuteAmbientUnitOfWorkAware(Repository.UowcFactory.Instance, (uowc, e) => this.Discard${TableNameSingularPascalCase}(uowc, e), @${TableNameSingularCamelCase});
 			
 			return retval;
 		}
 		
-		public bool Discard${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
+		public bool Discard${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase})
 		{
 			IDataParameter commandParameter;
 			List<IDataParameter> commandParameters;
@@ -857,9 +685,9 @@ namespace ${ClrNamespace}
 		</ForEach.Filter>
 		<ForEach.Body>
 			
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.Input, DbType.${ColumnDbType}, ${ColumnSize}, ${ColumnPrecision}, ${ColumnScale}, ${ColumnCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}), ${TableNameSingularCamelCase}.@${ColumnNamePascalCase});
 			commandParameters.Add(commandParameter);
-			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
+			GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ColumnSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -888,9 +716,11 @@ namespace ${ClrNamespace}
 			<Import name="import_delete.xml" />
 <![CDATA[
 			
-			ConnectionSpecificCommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
+			GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, true, out persistNotExpectedRecordsAffected);
 			
-			retval = this.PersistModel<${TableNameSingularPascalCase}>(unitOfWorkContext, @${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, persistNotExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
+			OnProfileCommand(typeof(${TableNameSingularPascalCase}), CommandType.Text, commandText, commandParameters, true, persistNotExpectedRecordsAffected);
+			
+			retval = unitOfWorkContext.PersistModel<${TableNameSingularPascalCase}>(@${TableNameSingularCamelCase}, CommandType.Text, commandText, commandParameters, persistNotExpectedRecordsAffected, MapTo${TableNameSingularPascalCase});
 
 			this.OnPostDelete${TableNameSingularPascalCase}(unitOfWorkContext, @${TableNameSingularCamelCase});
 						
@@ -934,19 +764,19 @@ namespace ${ClrNamespace}
 	 </ForEach>
 <![CDATA[		}
 		
-		partial void OnPreInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPreInsert${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostInsert${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPostInsert${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPreUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPreUpdate${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostUpdate${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPostUpdate${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPreDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPreDelete${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnPostDelete${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
+		partial void OnPostDelete${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});
 		
-		partial void OnSelect${TableNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});		
+		partial void OnSelect${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${TableNameSingularPascalCase} @${TableNameSingularCamelCase});		
 ]]>
 						<If>
 							<If.Condition>

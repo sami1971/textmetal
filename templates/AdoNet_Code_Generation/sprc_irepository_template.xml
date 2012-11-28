@@ -10,7 +10,10 @@
 		<Include name="include_gen_cprt_message.cs.txt" />
 <![CDATA[
 
-using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.Advanced;
+using TextMetal.Common.Expressions;
 ]]>
 		<If>
 			<If.Condition>
@@ -63,7 +66,7 @@ namespace ${ClrNamespace}
 					<ForEach.Body>
 						<![CDATA[		${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(${ProcedureNameSingularPascalCase}_Request request);
 						
-		${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request);
+		${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request);
 ]]>
 						<If>
 							<If.Condition>

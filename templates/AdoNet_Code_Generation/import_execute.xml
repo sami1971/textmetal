@@ -8,6 +8,6 @@
 		
 	<!--<DebuggerBreakpoint />-->
 	
-	<![CDATA[commandText = ConnectionSpecificGetTableName(${ProcedureNameSingularPascalCase}_Request.SCHEMA_NAME_${SchemaNameConstantCase}, ${ProcedureNameSingularPascalCase}_Request.PROCEDURE_NAME_${ProcedureNameConstantCase});]]>
+	<![CDATA[commandText = GetDataSourceTagSpecificInstance().GetTableName(${ProcedureNameSingularPascalCase}_Request.SCHEMA_NAME_${SchemaNameConstantCase}, ${ProcedureNameSingularPascalCase}_Request.PROCEDURE_NAME_${ProcedureNameConstantCase});]]>
 
 </Template>

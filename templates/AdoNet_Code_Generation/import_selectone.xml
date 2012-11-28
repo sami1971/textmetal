@@ -19,7 +19,7 @@
 
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Body>
-			<![CDATA[ + ConnectionSpecificGetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+			<![CDATA[ + GetDataSourceTagSpecificInstance().GetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
 			<If>
 				<If.Condition>
 					<BinaryExpression operator="Ne">
@@ -38,7 +38,7 @@
 		</ForEach.Body>
 	</ForEach>
 
-	<![CDATA[ + @" FROM  " + ConnectionSpecificGetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" " + ConnectionSpecificGetTableAlias("${TableAlias}")]]>
+	<![CDATA[ + @" FROM  " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" " + GetDataSourceTagSpecificInstance().GetTableAlias("${TableAlias}")]]>
 	
 	<If>
 		<If.Condition>
@@ -76,7 +76,7 @@
 					</BinaryExpression>
 				</ForEach.Filter>
 				<ForEach.Body>
-					<![CDATA[ + ConnectionSpecificGetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}) + @" = " + ConnectionSpecificGetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+					<![CDATA[ + GetDataSourceTagSpecificInstance().GetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}) + @" = " + GetDataSourceTagSpecificInstance().GetParameterName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
 					<If>
 						<If.Condition>
 							<BinaryExpression operator="Ne">
@@ -123,7 +123,7 @@
 					</BinaryExpression>
 				</ForEach.Filter>
 				<ForEach.Body>
-					<![CDATA[ + ConnectionSpecificGetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}) + @" ASC"]]>
+					<![CDATA[ + GetDataSourceTagSpecificInstance().GetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}) + @" ASC"]]>
 					<If>
 						<If.Condition>
 							<BinaryExpression operator="Ne">

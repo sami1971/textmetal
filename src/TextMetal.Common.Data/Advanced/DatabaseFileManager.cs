@@ -16,83 +16,79 @@ namespace TextMetal.Common.Data.Advanced
 	{
 		#region Constructors/Destructors
 
-		public DatabaseFileManager(INativeDatabaseFileCreator nativeDatabaseFileCreator, string underlyingDatabaseFilePath)
+		public DatabaseFileManager(string appSettingsPrefix, INativeDatabaseFileCreator nativeDatabaseFileCreator)
 		{
+			if ((object)appSettingsPrefix == null)
+				throw new ArgumentNullException("appSettingsPrefix");
+
 			if ((object)nativeDatabaseFileCreator == null)
 				throw new ArgumentNullException("nativeDatabaseFileCreator");
 
-			if ((object)underlyingDatabaseFilePath == null)
-				throw new ArgumentNullException("underlyingDatabaseFilePath");
+			if (DataType.IsWhiteSpace(appSettingsPrefix))
+				throw new ArgumentOutOfRangeException("appSettingsPrefix");
 
-			if (DataType.IsWhiteSpace(underlyingDatabaseFilePath))
-				throw new ArgumentOutOfRangeException("underlyingDatabaseFilePath");
-
+			this.appSettingsPrefix = appSettingsPrefix;
 			this.nativeDatabaseFileCreator = nativeDatabaseFileCreator;
-			this.underlyingDatabaseFilePath = underlyingDatabaseFilePath;
 		}
 
 		#endregion
 
 		#region Fields/Constants
 
+		private readonly string appSettingsPrefix;
 		private readonly INativeDatabaseFileCreator nativeDatabaseFileCreator;
-		private readonly string underlyingDatabaseFilePath;
 
 		#endregion
 
 		#region Properties/Indexers/Events
 
-		public static string DatabaseDirectoryPath
+		private string AppSettingsPrefix
 		{
 			get
 			{
-				return AppConfig.GetAppSetting<string>("TextMetal.WebHostSample.Objects.Model::DatabaseDirectoryPath");
+				return this.appSettingsPrefix;
 			}
 		}
 
-		public static string DatabaseFileName
+		public string DatabaseDirectoryPath
 		{
 			get
 			{
-				return AppConfig.GetAppSetting<string>("TextMetal.WebHostSample.Objects.Model::DatabaseFileName");
+				return AppConfig.GetAppSetting<string>(string.Format("{0}::DatabaseDirectoryPath", this.AppSettingsPrefix));
 			}
 		}
 
-		public static string DatabaseFilePath
+		public string DatabaseFileName
+		{
+			get
+			{
+				return AppConfig.GetAppSetting<string>(string.Format("{0}::DatabaseFileName", this.AppSettingsPrefix));
+			}
+		}
+
+		public string DatabaseFilePath
 		{
 			get
 			{
 				string value;
 
 				// {0} == GetApplicationUserSpecificDirectoryPath()
-				value = Path.Combine(string.Format(DatabaseDirectoryPath ?? "", GetApplicationUserSpecificDirectoryPath()), DatabaseFileName);
+				value = Path.Combine(string.Format(this.DatabaseDirectoryPath ?? "", GetApplicationUserSpecificDirectoryPath()), this.DatabaseFileName);
 
 				return value;
 			}
 		}
 
-		public static bool KillDatabaseFile
+		public bool KillDatabaseFile
 		{
 			get
 			{
 				bool value;
 
-				if (!AppConfig.HasAppSetting("TextMetal.WebHostSample.Objects.Model::KillDatabaseFile"))
+				if (!AppConfig.HasAppSetting(string.Format("{0}::KillDatabaseFile", this.AppSettingsPrefix)))
 					return false;
 
-				value = AppConfig.GetAppSetting<bool>("TextMetal.WebHostSample.Objects.Model::KillDatabaseFile");
-
-				return value;
-			}
-		}
-
-		public static bool UseDatabaseFile
-		{
-			get
-			{
-				bool value;
-
-				value = AppConfig.GetAppSetting<bool>("TextMetal.WebHostSample.Objects.Model::UseDatabaseFile");
+				value = AppConfig.GetAppSetting<bool>(string.Format("{0}::KillDatabaseFile", this.AppSettingsPrefix));
 
 				return value;
 			}
@@ -106,11 +102,15 @@ namespace TextMetal.Common.Data.Advanced
 			}
 		}
 
-		public string UnderlyingDatabaseFilePath
+		public bool UseDatabaseFile
 		{
 			get
 			{
-				return this.underlyingDatabaseFilePath;
+				bool value;
+
+				value = AppConfig.GetAppSetting<bool>(string.Format("{0}::UseDatabaseFile", this.AppSettingsPrefix));
+
+				return value;
 			}
 		}
 
@@ -147,70 +147,13 @@ namespace TextMetal.Common.Data.Advanced
 			return userSpecificDirectoryPath;
 		}
 
-		/*private static string GetConnectionString(string databaseFilePath)
-		{
-			if ((object)databaseFilePath == null)
-				throw new ArgumentNullException("databaseFilePath");
-
-			if (DataType.IsNullOrWhiteSpace(databaseFilePath))
-				throw new ArgumentOutOfRangeException("databaseFilePath");
-
-			return string.Format("Data Source={0}", databaseFilePath);
-		}*/
-
-		public static void InitDatabase(INativeDatabaseFileCreator nativeDatabaseFileCreator, IUnitOfWorkContextFactory unitOfWorkContextFactory, Type type, string resource)
-		{
-			DatabaseHistory history;
-			DatabaseFileManager databaseFileManager;
-
-			if ((object)nativeDatabaseFileCreator == null)
-				throw new ArgumentNullException("nativeDatabaseFileCreator");
-
-			if ((object)unitOfWorkContextFactory == null)
-				throw new ArgumentNullException("unitOfWorkContextFactory");
-
-			if ((object)type == null)
-				throw new ArgumentNullException("type");
-
-			if ((object)resource == null)
-				throw new ArgumentNullException("resource");
-
-			if (DataType.IsNullOrWhiteSpace(resource))
-				throw new ArgumentOutOfRangeException("resource");
-
-			if (UseDatabaseFile)
-			{
-				if (!DataType.IsNullOrWhiteSpace(DatabaseFilePath))
-				{
-					if (KillDatabaseFile)
-					{
-						if (File.Exists(DatabaseFilePath))
-							File.Delete(DatabaseFilePath);
-					}
-
-					databaseFileManager = new DatabaseFileManager(nativeDatabaseFileCreator, DatabaseFilePath);
-					databaseFileManager.EnsureDatabaseFile();
-				}
-
-				if (!Cerealization.TryGetFromAssemblyResource<DatabaseHistory>(type, resource, out history))
-					throw new InvalidOperationException(string.Format("Unable to deserialize instance of '{0}' from the manifest resource name '{1}' in the assembly '{2}'.", typeof(DatabaseHistory).FullName, resource, type.Assembly.FullName));
-
-				using (IUnitOfWorkContext unitOfWorkContext = unitOfWorkContextFactory.GetUnitOfWorkContext())
-				{
-					history.PerformSchemaUpgrade(unitOfWorkContext);
-
-					unitOfWorkContext.Complete();
-				}
-			}
-		}
-
 		private bool EnsureDatabaseFile()
 		{
 			string databaseFilePath;
 			string databaseDirectoryPath;
 			bool retval = false;
 
-			databaseFilePath = Path.GetFullPath(this.UnderlyingDatabaseFilePath);
+			databaseFilePath = Path.GetFullPath(this.DatabaseFilePath);
 			databaseDirectoryPath = Path.GetDirectoryName(databaseFilePath);
 
 			if (!Directory.Exists(databaseDirectoryPath))
@@ -220,6 +163,47 @@ namespace TextMetal.Common.Data.Advanced
 				retval = this.NativeDatabaseFileCreator.CreateNativeDatabaseFile(databaseFilePath);
 
 			return retval;
+		}
+
+		public void InitializeFromRevisionHistoryResource(IUnitOfWorkContextFactory unitOfWorkContextFactory, Type revisionHistoryResourceAssemblyType, string revisionHistoryResourceName)
+		{
+			DatabaseHistory history;
+
+			if ((object)unitOfWorkContextFactory == null)
+				throw new ArgumentNullException("unitOfWorkContextFactory");
+
+			if ((object)revisionHistoryResourceAssemblyType == null)
+				throw new ArgumentNullException("revisionHistoryResourceAssemblyType");
+
+			if ((object)revisionHistoryResourceName == null)
+				throw new ArgumentNullException("revisionHistoryResourceName");
+
+			if (DataType.IsNullOrWhiteSpace(revisionHistoryResourceName))
+				throw new ArgumentOutOfRangeException("revisionHistoryResourceName");
+
+			if (this.UseDatabaseFile)
+			{
+				if (!DataType.IsNullOrWhiteSpace(this.DatabaseFilePath))
+				{
+					if (this.KillDatabaseFile)
+					{
+						if (File.Exists(this.DatabaseFilePath))
+							File.Delete(this.DatabaseFilePath);
+					}
+
+					this.EnsureDatabaseFile();
+				}
+
+				if (!Cerealization.TryGetFromAssemblyResource<DatabaseHistory>(revisionHistoryResourceAssemblyType, revisionHistoryResourceName, out history))
+					throw new InvalidOperationException(string.Format("Unable to deserialize instance of '{0}' from the manifest resource name '{1}' in the assembly '{2}'.", typeof(DatabaseHistory).FullName, revisionHistoryResourceName, revisionHistoryResourceAssemblyType.Assembly.FullName));
+
+				using (IUnitOfWorkContext unitOfWorkContext = unitOfWorkContextFactory.GetUnitOfWorkContext())
+				{
+					history.PerformSchemaUpgrade(unitOfWorkContext);
+
+					unitOfWorkContext.Complete();
+				}
+			}
 		}
 
 		#endregion

@@ -9,6 +9,15 @@ namespace TextMetal.Common.Data.Advanced
 {
 	public interface IDataSourceTagSpecific
 	{
+		#region Properties/Indexers/Events
+
+		string DataSourceTag
+		{
+			get;
+		}
+
+		#endregion
+
 		#region Methods/Operators
 
 		void CommandMagic(IUnitOfWorkContext unitOfWorkContext, bool executeAsCud, out int thisOrThatRecordsAffected);

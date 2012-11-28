@@ -60,7 +60,6 @@
     <Compile Include="AdoNetHelper.cs" />
     <Compile Include="IUnitOfWorkContext.cs" />
     <Compile Include="IUnitOfWorkContextFactory.cs" />
-    <Compile Include="Advanced\SqlQuery.cs" />
     <Compile Include="UnitOfWorkContext.cs" />
     <Compile Include="LinqToSql\ContextWrapper~1.cs" />
     <Compile Include="LinqToSql\LinqToSqlHelper.cs" />
@@ -82,7 +81,7 @@
       <Name>TextMetal.Common.Expressions</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

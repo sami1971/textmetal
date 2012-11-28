@@ -15,7 +15,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data;
 
-using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.Advanced;
+using TextMetal.Common.Expressions;
 ]]>
 		<If>
 			<If.Condition>
@@ -75,77 +78,6 @@ namespace ${ClrNamespace}
 	{		
 		#region Methods/Operators
 		
-		protected TResponse ExecuteReReRe<TRequest, TResult, TResponse>(UnitOfWorkContext unitOfWorkContext, TRequest request, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, bool executeAsCud, int thisOrThatRecordsAffected, Action<IDictionary<string, object>, TResult> mapToCallback)
-			where TRequest : class, new()
-			where TResult : class, new()
-			where TResponse : class, new()
-		{
-			TResponse response;
-			TResult result;
-			int recordsAffected;
-			IList<IDictionary<string, object>> results;
-			IList<TResult> list = null;
-			object value;
-
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-
-			if ((object)request == null)
-				throw new ArgumentNullException("request");
-
-			if ((object)commandText == null)
-				throw new ArgumentNullException("commandText");
-
-			if ((object)commandParameters == null)
-				throw new ArgumentNullException("commandParameters");
-
-			if ((object)mapToCallback == null)
-				throw new ArgumentNullException("mapToCallback");
-
-			if (DataType.IsNullOrWhiteSpace(commandText))
-				throw new ArgumentOutOfRangeException("commandText");
-
-			OnProfileCommand(typeof(TResult), commandType, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected);
-			
-			results = unitOfWorkContext.ExecuteDictionary(commandType, commandText, commandParameters, out recordsAffected);
-
-			if (executeAsCud && recordsAffected <= thisOrThatRecordsAffected)
-			{
-				// concurrency failure
-				unitOfWorkContext.Divergent();
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-			else if (!executeAsCud && recordsAffected != thisOrThatRecordsAffected)
-			{
-				// idempotency failure
-				unitOfWorkContext.Divergent();
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-
-			if ((object)results == null)
-				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-
-			response = new TResponse();
-
-			if (Reflexion.GetLogicalPropertyValue(response, "Results", out value))
-				list = value as IList<TResult>;
-
-			if ((object)list != null)
-				list.Clear();
-
-			foreach (IDictionary<string, object> _result in results)
-			{
-				result = new TResult();
-
-				mapToCallback(_result, result);
-
-				if ((object)list != null)
-					list.Add(result);
-			}
-
-			return response;
-		}
-		
 ]]>
 
 		<ForEach in="Schemas" var-ct="#LoopCount" var-ix="#LoopIndex">
@@ -161,7 +93,7 @@ namespace ${ClrNamespace}
 			
 			if ((object)UnitOfWorkContext.Current == null)
 			{
-				using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
+				using (IUnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
 				{
 					retval = this.Execute_${ProcedureNameSingularPascalCase}(unitOfWorkContext, request${ProcedureNameSingularPascalCase});
 						
@@ -176,7 +108,7 @@ namespace ${ClrNamespace}
 			}
 		}
 						
-		public ${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase})
+		public ${ProcedureNameSingularPascalCase}_Response Execute_${ProcedureNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase})
 		{	
 			${ProcedureNameSingularPascalCase}_Response response${ProcedureNameSingularPascalCase};						
 			IDataParameter commandParameter;
@@ -209,9 +141,9 @@ namespace ${ClrNamespace}
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}), request${ProcedureNameSingularPascalCase}.${ParameterNamePascalCase});
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}), request${ProcedureNameSingularPascalCase}.${ParameterNamePascalCase});
 			commandParameters.Add(commandParameter);
-			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ParameterSqlType}");]]>
+			GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ParameterSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -249,9 +181,9 @@ namespace ${ClrNamespace}
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, ConnectionSpecificGetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}), null);
+<![CDATA[			commandParameter = unitOfWorkContext.CreateParameter(ParameterDirection.${ParameterDirection}, DbType.${ParameterDbType}, ${ParameterSize}, ${ParameterPrecision}, ${ParameterScale}, ${ParameterCSharpNullableLiteral}, GetDataSourceTagSpecificInstance().GetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}), null);
 			commandParameters.Add(commandParameter);
-			ConnectionSpecificParameterMagic(unitOfWorkContext, commandParameter, "${ParameterSqlType}");]]>
+			GetDataSourceTagSpecificInstance().ParameterMagic(unitOfWorkContext, commandParameter, "${ParameterSqlType}");]]>
 			
 			<If>
 				<If.Condition>
@@ -302,9 +234,11 @@ namespace ${ClrNamespace}
 			]]>
 			<Import name="import_execute.xml" />
 <![CDATA[
-			ConnectionSpecificCommandMagic(unitOfWorkContext, executeAsCud, out thisOrThatRecordsAffected);
+			GetDataSourceTagSpecificInstance().CommandMagic(unitOfWorkContext, executeAsCud, out thisOrThatRecordsAffected);
 
-			response${ProcedureNameSingularPascalCase} = this.ExecuteReReRe<${ProcedureNameSingularPascalCase}_Request, ${ProcedureNameSingularPascalCase}_Result, ${ProcedureNameSingularPascalCase}_Response>(unitOfWorkContext, request${ProcedureNameSingularPascalCase}, CommandType.StoredProcedure, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected, MapTo${ProcedureNameSingularPascalCase}_Result);	
+			OnProfileCommand(typeof(${ProcedureNameSingularPascalCase}_Result), CommandType.StoredProcedure, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected);
+
+			response${ProcedureNameSingularPascalCase} = unitOfWorkContext.ExecuteReReRe<${ProcedureNameSingularPascalCase}_Request, ${ProcedureNameSingularPascalCase}_Result, ${ProcedureNameSingularPascalCase}_Response>(request${ProcedureNameSingularPascalCase}, CommandType.StoredProcedure, commandText, commandParameters, executeAsCud, thisOrThatRecordsAffected, MapTo${ProcedureNameSingularPascalCase}_Result);	
 			
 			foreach (${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase}2 in response${ProcedureNameSingularPascalCase}.Results)
 				this.OnExecuteResult${ProcedureNameSingularPascalCase}(unitOfWorkContext, result${ProcedureNameSingularPascalCase}2);
@@ -337,7 +271,7 @@ namespace ${ClrNamespace}
 			</BinaryExpression>
 		</ForEach.Filter>
 		<ForEach.Body>
-			<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == ConnectionSpecificGetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}));
+			<![CDATA[			commandParameter = commandParameters.SingleOrDefault(p => p.ParameterName == GetDataSourceTagSpecificInstance().GetParameterName(${ProcedureNameSingularPascalCase}_Request.PARAMETER_NAME_${ParameterNameConstantCase}));
 			
 			if ((object)commandParameter == null)
 				throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
@@ -408,11 +342,11 @@ namespace ${ClrNamespace}
 	 </ForEach>
 <![CDATA[		}
 		
-		partial void OnPreExecute${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase});
+		partial void OnPreExecute${ProcedureNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Request request${ProcedureNameSingularPascalCase});
 		
-		partial void OnExecuteResult${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase});
+		partial void OnExecuteResult${ProcedureNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Result result${ProcedureNameSingularPascalCase});
 		
-		partial void OnPostExecute${ProcedureNameSingularPascalCase}(UnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Response response${ProcedureNameSingularPascalCase});
+		partial void OnPostExecute${ProcedureNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ${ProcedureNameSingularPascalCase}_Response response${ProcedureNameSingularPascalCase});
 ]]>
 
 						<If>

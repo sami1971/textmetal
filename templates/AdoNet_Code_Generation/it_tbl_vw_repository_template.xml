@@ -17,8 +17,12 @@ using NUnit.Framework;
 
 using TestingFramework.Core.Customization;
 
-using TextMetal.Core.ExpressionModel;
-using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.Advanced;
+using TextMetal.Common.Expressions;
+
+using TextMetal.Framework.ExpressionModel;
 ]]>
 		<If>
 			<If.Condition>
@@ -138,7 +142,7 @@ namespace ${ClrNamespace}.IntegrationTests
 			
 			repository = new Repository();
 				
-			using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
+			using (IUnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
 			{
 				try
 				{
@@ -292,7 +296,7 @@ namespace ${ClrNamespace}.IntegrationTests
 
 			repository = new Repository();
 
-			using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
+			using (IUnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
 			{
 				try
 				{

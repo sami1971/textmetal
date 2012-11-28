@@ -14,7 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-using TextMetal.Plumbing.CommonFacilities;
+using TextMetal.Common.Core;
+using TextMetal.Common.Data;
+using TextMetal.Common.Data.Advanced;
+using TextMetal.Common.Expressions;
 ]]>
 		<If>
 			<If.Condition>
@@ -49,7 +52,10 @@ namespace ${ClrNamespace}
 		
 		#region Fields/Constants
 		
-		private const string CONNECTION_STRING_NAME = "${ClrNamespace}::ConnectionString";
+		private const string APP_CONFIG_PREFIX = "${ClrNamespace}";
+		private const string RESOURCE_NAME_FORMAT = "${ClrNamespace}.SQL.RevisionHistory({0}).xml";
+		
+		private static readonly DatabaseFileManager databaseFileManager = new DatabaseFileManager(APP_CONFIG_PREFIX, NetSqliteSpecific.Instance);
 						
 		#endregion
 		
@@ -61,7 +67,7 @@ namespace ${ClrNamespace}
 			{
 				string connectionString;
 
-				connectionString = AppConfig.GetConnectionString(CONNECTION_STRING_NAME);
+				connectionString = AppConfig.GetConnectionString(string.Format("{0}::ConnectionString", APP_CONFIG_PREFIX));
 
 				OnPreProcessConnectionString(ref connectionString);
 				
@@ -73,20 +79,28 @@ namespace ${ClrNamespace}
 		{
 			get
 			{
-				return Type.GetType(AppConfig.GetConnectionProvider(CONNECTION_STRING_NAME), true);
+				return Type.GetType(AppConfig.GetConnectionProvider(string.Format("{0}::ConnectionString", APP_CONFIG_PREFIX)), true);
 			}
 		}
 
+		public static DatabaseFileManager DatabaseFileManager
+		{
+			get
+			{
+				return databaseFileManager;
+			}
+		}
+		
 		public static string DataSourceTag
 		{
 			get
 			{
 				string value;
 
-				if (!AppConfig.HasAppSetting("${ClrNamespace}::DataSourceTag"))
+				if (!AppConfig.HasAppSetting(string.Format("{0}::DataSourceTag", APP_CONFIG_PREFIX)))
 					return null;
 
-				value = AppConfig.GetAppSetting<string>("${ClrNamespace}::DataSourceTag");
+				value = AppConfig.GetAppSetting<string>(string.Format("{0}::DataSourceTag", APP_CONFIG_PREFIX));
 
 				return value;
 			}
@@ -111,7 +125,7 @@ namespace ${ClrNamespace}
 		{
 			/* THIS METHOD SHOULD NOT BE DEFINED IN RELEASE/PRODUCTION BUILDS */
 			
-			// these are by convention in the TextMetal.Plumbing.CommonFacilities.AdoNetHelper.ExecuteDictionary(...) API.
+			// these are by convention in the TextMetal.Common.Data.AdoNetHelper.ExecuteDictionary(...) API.
 			const bool COMMAND_PREPARE = false;
 			/* const */ int? COMMAND_TIMEOUT = null;
 			const CommandBehavior COMMAND_BEHAVIOR = CommandBehavior.Default;
@@ -137,7 +151,7 @@ namespace ${ClrNamespace}
 		}
 #endif		
 		
-		public static UnitOfWorkContext GetUnitOfWorkContext()
+		public static IUnitOfWorkContext GetUnitOfWorkContext()
 		{
 			return UnitOfWorkContext.Create(ConnectionType, ConnectionString, true);
 		}
@@ -145,682 +159,72 @@ namespace ${ClrNamespace}
 		public static void InitDatabase()
 		{
 			string resourceName;
-			const string CONNECTION_SPECIFIC_RESOURCE_NAME = "${ClrNamespace}.SQL.RevisionHistory({0}).xml";
 			
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-				case "net.sqlite":
-				case "odbc.sqlserver":
-				case "odbc.sybaseiq":
-					resourceName = string.Format(CONNECTION_SPECIFIC_RESOURCE_NAME, DataSourceTag.SafeToString().ToLower());
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-			}
-
-			DatabaseFileManager.InitDatabase(typeof(Repository), resourceName);
+			resourceName = string.Format(RESOURCE_NAME_FORMAT, GetDataSourceTagSpecificInstance().DataSourceTag.SafeToString().ToLower());
+			
+			DatabaseFileManager.InitializeFromRevisionHistoryResource(UowcFactory.Instance, typeof(Repository), resourceName);
 		}
 		
-		private static string ConnectionSpecificGetIdentityCommand()
+		private static IDataSourceTagSpecific GetDataSourceTagSpecificInstance()
 		{
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					return NetSqlServerSpecificGetIdentityCommand();
-				case "net.sqlite":
-					return NetSqliteSpecificGetIdentityCommand();
-				case "odbc.sqlserver":
-					return OdbcSqlServerSpecificGetIdentityCommand();
-				case "odbc.sybaseiq":
-					return OdbcSybaseIqSpecificGetIdentityCommand();
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-		
-		private static string ConnectionSpecificGetTableName(string schemaName, string tableName)
-		{
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					return NetSqlServerSpecificGetTableName(schemaName, tableName);
-				case "net.sqlite":
-					return NetSqliteSpecificGetTableName(schemaName, tableName);
-				case "odbc.sqlserver":
-					return OdbcSqlServerSpecificGetTableName(schemaName, tableName);
-				case "odbc.sybaseiq":
-					return OdbcSybaseIqSpecificGetTableName(schemaName, tableName);
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-
-		private static string ConnectionSpecificGetTableAlias(string tableAlias)
-		{
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					return NetSqlServerSpecificGetTableAlias(tableAlias);
-				case "net.sqlite":
-					return NetSqliteSpecificGetTableAlias(tableAlias);
-				case "odbc.sqlserver":
-					return OdbcSqlServerSpecificGetTableAlias(tableAlias);
-				case "odbc.sybaseiq":
-					return OdbcSybaseIqSpecificGetTableAlias(tableAlias);
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-
-		internal static string ConnectionSpecificGetParameterName(string parameterName)
-		{
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					return NetSqlServerSpecificGetParameterName(parameterName);
-				case "net.sqlite":
-					return NetSqliteSpecificGetParameterName(parameterName);
-				case "odbc.sqlserver":
-					return OdbcSqlServerSpecificGetParameterName(parameterName);
-				case "odbc.sybaseiq":
-					return OdbcSybaseIqSpecificGetParameterName(parameterName);
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-
-		private static string ConnectionSpecificGetColumnName(string columnName)
-		{
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					return NetSqlServerSpecificGetColumnName(columnName);
-				case "net.sqlite":
-					return NetSqliteSpecificGetColumnName(columnName);
-				case "odbc.sqlserver":
-					return OdbcSqlServerSpecificGetColumnName(columnName);
-				case "odbc.sybaseiq":
-					return OdbcSybaseIqSpecificGetColumnName(columnName);
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-
-		internal static string ConnectionSpecificGetAliasedColumnName(string tableAlias, string columnName)
-		{
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					return NetSqlServerSpecificGetAliasedColumnName(tableAlias, columnName);
-				case "net.sqlite":
-					return NetSqliteSpecificGetAliasedColumnName(tableAlias, columnName);
-				case "odbc.sqlserver":
-					return OdbcSqlServerSpecificGetAliasedColumnName(tableAlias, columnName);
-				case "odbc.sybaseiq":
-					return OdbcSybaseIqSpecificGetAliasedColumnName(tableAlias, columnName);
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-
-		private static void ConnectionSpecificParameterMagic(UnitOfWorkContext unitOfWorkContext, IDataParameter commandParameter, string generatedFromColumnNativeType)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-
-			if ((object)commandParameter == null)
-				throw new ArgumentNullException("commandParameter");
-
-			switch (DataSourceTag.SafeToString().ToLower())
-			{
-				case "net.sqlserver":
-					NetSqlServerSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
-					break;
-				case "net.sqlite":
-					NetSqliteSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
-					break;
-				case "odbc.sqlserver":
-					OdbcSqlServerSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
-					break;
-				case "odbc.sybaseiq":
-					OdbcSybaseIqSpecificParameterMagic(unitOfWorkContext, commandParameter, generatedFromColumnNativeType);
-					break;
-				default:
-					throw new InvalidOperationException("TODO (enhancement): add meaningful message");
-			}
-		}
-
-		private static void ConnectionSpecificCommandMagic(UnitOfWorkContext unitOfWorkContext, bool executeAsCud, out int thisOrThatRecordsAffected)
-		{
-			if ((object)unitOfWorkContext == null)
-				throw new ArgumentNullException("unitOfWorkContext");
-			
-			if (executeAsCud)
-			{
-				switch (DataSourceTag.SafeToString().ToLower())
-				{
-					case "net.sqlserver":
-						thisOrThatRecordsAffected = NET_SQL_SERVER_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-						break;
-					case "net.sqlite":
-						thisOrThatRecordsAffected = NET_SQLITE_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-						break;
-					case "odbc.sqlserver":
-						thisOrThatRecordsAffected = ODBC_SQL_SERVER_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-						break;
-					case "odbc.sybaseiq":
-						thisOrThatRecordsAffected = ODBC_SYBASE_IQ_PERSIST_NOT_EXPECTED_RECORDS_AFFECTED;
-						break;
-					default:
-						throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-				}
-			}
+			if (DataSourceTag.SafeToString().ToLower() == NetSqlServerSpecific.Instance.DataSourceTag.SafeToString().ToLower())
+				return NetSqlServerSpecific.Instance;
+			else if (DataSourceTag.SafeToString().ToLower() == NetSqliteSpecific.Instance.DataSourceTag.SafeToString().ToLower())
+				return NetSqliteSpecific.Instance;
+			else if (DataSourceTag.SafeToString().ToLower() == OdbcSybaseIqSpecific.Instance.DataSourceTag.SafeToString().ToLower())
+				return OdbcSybaseIqSpecific.Instance;
+			else if (DataSourceTag.SafeToString().ToLower() == OdbcSqlServerSpecific.Instance.DataSourceTag.SafeToString().ToLower())
+				return OdbcSqlServerSpecific.Instance;
 			else
-			{
-				switch (DataSourceTag.SafeToString().ToLower())
-				{
-					case "net.sqlserver":
-						thisOrThatRecordsAffected = NET_SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED;
-						break;
-					case "net.sqlite":
-						thisOrThatRecordsAffected = NET_SQLITE_QUERY_EXPECTED_RECORDS_AFFECTED;
-						break;
-					case "odbc.sqlserver":
-						thisOrThatRecordsAffected = ODBC_SQL_SERVER_QUERY_EXPECTED_RECORDS_AFFECTED;
-						break;
-					case "odbc.sybaseiq":
-						thisOrThatRecordsAffected = ODBC_SYBASE_IQ_QUERY_EXPECTED_RECORDS_AFFECTED;
-						break;
-					default:
-						throw new InvalidOperationException("TODO (enhancement): add meaningful message"); 
-				}
-			}
+				throw new InvalidOperationException("TODO (enhancement): add meaningful message");
 		}
-		
+				
 		static partial void OnProfileCommand(Type modelType, CommandType commandType, string commandText, IList<IDataParameter> commandParameters, bool executeAsCud, int thisOrThatRecordsAffected);
 		
 		static partial void OnPreProcessConnectionString(ref string connectionString);
 		
-]]>
-		<Alloc token="#LoopCount" />
+		#endregion
 		
-		<Assign token="#LoopCount">
-			<Assign.Expression>
-				<Value data="100" type="System.Int32" />
-			</Assign.Expression>
-		</Assign>
-		
-		<For var-ix="#LoopIndex">
-			<For.Intializer>
-				<BinaryExpression operator="VarPut">
-					<BinaryExpression.LeftExpression>
-						<Aspect name="#LoopIndex" />
-					</BinaryExpression.LeftExpression>
-					<BinaryExpression.RightExpression>
-						<Value data="1" type="System.Int32" />
-					</BinaryExpression.RightExpression>
-				</BinaryExpression>
-			</For.Intializer>
-			
-			<For.Condition>
-				<BinaryExpression operator="Le">
-					<BinaryExpression.LeftExpression>
-						<Facet name="#LoopIndex" />
-					</BinaryExpression.LeftExpression>
-					<BinaryExpression.RightExpression>
-						<Facet name="#LoopCount" />
-					</BinaryExpression.RightExpression>
-				</BinaryExpression>
-			</For.Condition>
-			
-			<For.Iterator>
-				<BinaryExpression operator="VarPut">
-					<BinaryExpression.LeftExpression>
-						<Aspect name="#LoopIndex" />
-					</BinaryExpression.LeftExpression>
-					<BinaryExpression.RightExpression>
-						<UnaryExpression operator="Incr">
-							<UnaryExpression.TheExpression>
-								<Facet name="#LoopIndex" />
-							</UnaryExpression.TheExpression>							
-						</UnaryExpression>
-					</BinaryExpression.RightExpression>
-				</BinaryExpression>
-			</For.Iterator>
-			
-			<For.Body>
-			
-<![CDATA[		protected delegate TResult Stank<]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body><![CDATA[T${#LoopIndex2}, ]]></For.Body>
-				</For>				
-
-<![CDATA[TResult>(]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body>
-						<![CDATA[T${#LoopIndex2} p${#LoopIndex2}]]>
-						
-						<If>
-							<If.Condition>
-								<BinaryExpression operator="Ne">
-									<BinaryExpression.LeftExpression>
-										<Facet name="#LoopIndex" />
-									</BinaryExpression.LeftExpression>
-									<BinaryExpression.RightExpression>
-										<Facet name="#LoopIndex2" />
-									</BinaryExpression.RightExpression>
-								</BinaryExpression>
-							</If.Condition>
-							<If.True>
-<![CDATA[, ]]>
-							</If.True>
-						</If>
-					</For.Body>
-				</For>				
-
-<![CDATA[);
-]]>
-				<If>
-					<If.Condition>
-						<BinaryExpression operator="Ne">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopCount" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</If.Condition>
-					<If.True>
-<![CDATA[
-]]>
-					</If.True>
-				</If>
-			</For.Body>
-		</For>
-		
-		<Assign token="#LoopCount">
-			<Assign.Expression>
-				<Value data="99" type="System.Int32" />
-			</Assign.Expression>
-		</Assign>
-		
-		<Write newline="true" />
-		
-		<For var-ix="#LoopIndex">
-			<For.Intializer>
-				<BinaryExpression operator="VarPut">
-					<BinaryExpression.LeftExpression>
-						<Aspect name="#LoopIndex" />
-					</BinaryExpression.LeftExpression>
-					<BinaryExpression.RightExpression>
-						<Value data="1" type="System.Int32" />
-					</BinaryExpression.RightExpression>
-				</BinaryExpression>
-			</For.Intializer>
-			
-			<For.Condition>
-				<BinaryExpression operator="Le">
-					<BinaryExpression.LeftExpression>
-						<Facet name="#LoopIndex" />
-					</BinaryExpression.LeftExpression>
-					<BinaryExpression.RightExpression>
-						<Facet name="#LoopCount" />
-					</BinaryExpression.RightExpression>
-				</BinaryExpression>
-			</For.Condition>
-			
-			<For.Iterator>
-				<BinaryExpression operator="VarPut">
-					<BinaryExpression.LeftExpression>
-						<Aspect name="#LoopIndex" />
-					</BinaryExpression.LeftExpression>
-					<BinaryExpression.RightExpression>
-						<UnaryExpression operator="Incr">
-							<UnaryExpression.TheExpression>
-								<Facet name="#LoopIndex" />
-							</UnaryExpression.TheExpression>							
-						</UnaryExpression>
-					</BinaryExpression.RightExpression>
-				</BinaryExpression>
-			</For.Iterator>
-			
-			<For.Body>
-			
-<![CDATA[		protected TResult ExecuteAmbientUnitOfWorkAware<]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body><![CDATA[T${#LoopIndex2}, ]]></For.Body>
-				</For>				
-
-<![CDATA[TResult>(Stank<UnitOfWorkContext]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body><![CDATA[, T${#LoopIndex2}]]></For.Body>
-				</For>				
-
-<![CDATA[, TResult> callbackMethod]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body><![CDATA[, T${#LoopIndex2} p${#LoopIndex2}]]></For.Body>
-				</For>				
+		#region Classes/Structs/Interfaces/Enums/Delegates
 				
-<![CDATA[)
-		{			
-			TResult retval;
-			
-			if ((object)UnitOfWorkContext.Current == null)
+		internal sealed class UowcFactory : IUnitOfWorkContextFactory
+		{
+			#region Constructors/Destructors
+
+			private UowcFactory()
 			{
-				using (UnitOfWorkContext unitOfWorkContext = Repository.GetUnitOfWorkContext())
-				{
-					retval = callbackMethod(unitOfWorkContext]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body><![CDATA[, p${#LoopIndex2}]]></For.Body>
-				</For>				
-
-<![CDATA[);
-											
-					unitOfWorkContext.Complete();
-					
-					return retval;
-				}
-			}			
-			else
-			{
-				return callbackMethod(UnitOfWorkContext.Current]]>
-
-				<For var-ix="#LoopIndex2">
-					<For.Intializer>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Value data="1" type="System.Int32" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Intializer>
-					
-					<For.Condition>
-						<BinaryExpression operator="Le">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Condition>
-					
-					<For.Iterator>
-						<BinaryExpression operator="VarPut">
-							<BinaryExpression.LeftExpression>
-								<Aspect name="#LoopIndex2" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<UnaryExpression operator="Incr">
-									<UnaryExpression.TheExpression>
-										<Facet name="#LoopIndex2" />
-									</UnaryExpression.TheExpression>							
-								</UnaryExpression>
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</For.Iterator>
-					
-					<For.Body><![CDATA[, p${#LoopIndex2}]]></For.Body>
-				</For>				
-
-<![CDATA[);
 			}
+
+			#endregion
+
+			#region Fields/Constants
+
+			private static readonly IUnitOfWorkContextFactory instance = new UowcFactory();
+
+			#endregion
+
+			#region Properties/Indexers/Events
+
+			public static IUnitOfWorkContextFactory Instance
+			{
+				get
+				{
+					return instance;
+				}
+			}
+
+			#endregion
+
+			#region Methods/Operators
+
+			public IUnitOfWorkContext GetUnitOfWorkContext()
+			{
+				return Repository.GetUnitOfWorkContext();
+			}
+
+			#endregion
 		}
-]]>
-				<If>
-					<If.Condition>
-						<BinaryExpression operator="Ne">
-							<BinaryExpression.LeftExpression>
-								<Facet name="#LoopCount" />
-							</BinaryExpression.LeftExpression>
-							<BinaryExpression.RightExpression>
-								<Facet name="#LoopIndex" />
-							</BinaryExpression.RightExpression>
-						</BinaryExpression>
-					</If.Condition>
-					<If.True>
-<![CDATA[
-]]>
-					</If.True>
-				</If>
-			</For.Body>
-		</For>
-		
-		<Free token="#LoopCount" />
-<![CDATA[
+
 		#endregion
 	}
 }

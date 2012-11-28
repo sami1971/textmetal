@@ -15,7 +15,7 @@
 		</Assign.Expression>
 	</Assign>
 	
-	<![CDATA[commandText = @"SELECT " + ConnectionSpecificGetIdentityCommand() + @" AS "]]>
+	<![CDATA[commandText = @"SELECT " + GetDataSourceTagSpecificInstance().GetIdentityCommand() + @" AS "]]>
 	
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Filter>
@@ -41,7 +41,7 @@
 					</BinaryExpression>
 				</If.Condition>
 				<If.True>
-					<![CDATA[ + ConnectionSpecificGetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+					<![CDATA[ + GetDataSourceTagSpecificInstance().GetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
 				</If.True>
 			</If>
 		</ForEach.Body>

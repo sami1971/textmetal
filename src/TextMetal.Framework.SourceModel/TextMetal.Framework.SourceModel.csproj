@@ -50,6 +50,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Primative\SqlQuery.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="DatabaseSchema\Odbc\OdbcSchemaSourceStrategy.cs" />
     <Compile Include="DatabaseSchema\SchemaSourceStrategy.cs" />
@@ -187,7 +188,7 @@
       <Name>TextMetal.Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

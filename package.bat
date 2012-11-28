@@ -7,7 +7,7 @@ REM
 
 set PACKAGE_DIR=.\pkg
 set PACKAGE_DIR_EXISTS=%PACKAGE_DIR%\nul
-set BUILD_EXE=msbuild.exe
+set BUILD_EXE=C:\WINDOWS\Microsoft.NET\Framework64\v4.0.30319\msbuild.exe
 
 cd "."
 

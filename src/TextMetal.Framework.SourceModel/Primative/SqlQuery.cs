@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 using TextMetal.Common.Core;
 
-namespace TextMetal.Common.Data.Advanced
+namespace TextMetal.Framework.SourceModel.Primative
 {
 	/// <summary>
 	/// 	Represents an ordered, keyed set of N-level nested and corrolated SQL queries.
