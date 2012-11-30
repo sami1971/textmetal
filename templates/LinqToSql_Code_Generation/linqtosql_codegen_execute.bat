@@ -260,6 +260,7 @@ IF %ERRORLEVEL% NEQ 0 goto pkgError
 
 echo *** linqtosql_dbmlgen_execute ***
 "%SQL_METAL_EXE%" ^
+	/views /sprocs ^
 	/language:"C#" ^
 	/pluralize ^
 	/namespace:"TextMetal.HostImpl.AspNetSample.Objects.Model.L2S" ^

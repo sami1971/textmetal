@@ -19,7 +19,7 @@
 
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Body>
-			<![CDATA[ + GetDataSourceTagSpecificInstance().GetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
+			<![CDATA[ + GetDataSourceTagSpecificInstance().GetAliasedColumnName("${TableAlias}", ${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase}) + @" AS " + GetDataSourceTagSpecificInstance().GetColumnName(${TableNameSingularPascalCase}.COLUMN_NAME_${ColumnNameConstantCase})]]>
 			<If>
 				<If.Condition>
 					<BinaryExpression operator="Ne">
