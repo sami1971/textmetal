@@ -45,6 +45,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ExpandoConstruct.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="AliasConstruct.cs" />
     <Compile Include="AllocConstruct.cs" />
@@ -82,6 +83,10 @@
     <ProjectReference Include="..\TextMetal.Common.Xml\TextMetal.Common.Xml.csproj">
       <Project>{CEF6C9D5-D5F2-4F4E-81DD-0BFDF81A2C93}</Project>
       <Name>TextMetal.Common.Xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.AssociativeModel\TextMetal.Framework.AssociativeModel.csproj">
+      <Project>{69F2FDCB-60AA-4B1E-B133-715D5EC29131}</Project>
+      <Name>TextMetal.Framework.AssociativeModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\TextMetal.Framework.Core\TextMetal.Framework.Core.csproj">
       <Project>{72DACF93-04D7-42A3-B851-2717915FFF89}</Project>

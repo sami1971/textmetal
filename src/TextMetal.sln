@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMetal.HostImpl.ConsoleT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMetal.HostImpl.AspNetSample", "TextMetal.HostImpl.AspNetSample\TextMetal.HostImpl.AspNetSample.csproj", "{5F7E56EC-CC97-42A5-8D30-E5C906A54C28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextMetal.HostImpl.WindowsTool", "TextMetal.HostImpl.WindowsTool\TextMetal.HostImpl.WindowsTool.csproj", "{968CC832-8A75-4D2D-8A59-582B2304DD67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -144,6 +146,10 @@ Global
 		{5F7E56EC-CC97-42A5-8D30-E5C906A54C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F7E56EC-CC97-42A5-8D30-E5C906A54C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F7E56EC-CC97-42A5-8D30-E5C906A54C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{968CC832-8A75-4D2D-8A59-582B2304DD67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968CC832-8A75-4D2D-8A59-582B2304DD67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968CC832-8A75-4D2D-8A59-582B2304DD67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968CC832-8A75-4D2D-8A59-582B2304DD67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,5 +176,6 @@ Global
 		{32997ECF-2B2F-4BDB-AF4F-6E389C9F8235} = {16F2C045-568A-4FFE-A03A-647C1667FAF0}
 		{579ADD09-25FD-4776-8CF1-829BAAB46519} = {16F2C045-568A-4FFE-A03A-647C1667FAF0}
 		{5F7E56EC-CC97-42A5-8D30-E5C906A54C28} = {16F2C045-568A-4FFE-A03A-647C1667FAF0}
+		{968CC832-8A75-4D2D-8A59-582B2304DD67} = {16F2C045-568A-4FFE-A03A-647C1667FAF0}
 	EndGlobalSection
 EndGlobal

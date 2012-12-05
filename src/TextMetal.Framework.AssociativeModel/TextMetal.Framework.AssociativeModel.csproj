@@ -50,7 +50,7 @@
     <Compile Include="ObjectConstruct.cs" />
     <Compile Include="PropertyConstruct.cs" />
     <Compile Include="ProxyConstruct.cs" />
-    <Compile Include="AssModContainerConstruct.cs" />
+    <Compile Include="AssociativeContainerConstruct.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

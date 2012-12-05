@@ -12,15 +12,15 @@ namespace TextMetal.Framework.AssociativeModel
 	/// <summary>
 	/// 	Provides an XML construct for associative model containers.
 	/// </summary>
-	[XmlElementMapping(LocalName = "AssModContainer", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Content)]
-	public sealed class AssModContainerConstruct : AssociativeXmlObject
+	[XmlElementMapping(LocalName = "AssociativeContainer", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Content)]
+	public sealed class AssociativeContainerConstruct : AssociativeXmlObject
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the AssModContainerConstruct class.
+		/// 	Initializes a new instance of the AssociativeContainerConstruct class.
 		/// </summary>
-		public AssModContainerConstruct()
+		public AssociativeContainerConstruct()
 		{
 		}
 

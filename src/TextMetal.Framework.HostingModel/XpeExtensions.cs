@@ -34,6 +34,7 @@ namespace TextMetal.Framework.HostingModel
 
 			xpe.RegisterKnownXmlObject<DebuggerBreakpointConstruct>();
 
+			xpe.RegisterKnownXmlObject<AssociativeContainerConstruct>();
 			xpe.RegisterKnownXmlObject<ArrayConstruct>();
 			xpe.RegisterKnownXmlObject<ModelConstruct>();
 			xpe.RegisterKnownXmlObject<ObjectConstruct>();
@@ -56,6 +57,7 @@ namespace TextMetal.Framework.HostingModel
 			xpe.RegisterKnownXmlObject<AliasConstruct>();
 			xpe.RegisterKnownXmlObject<AllocConstruct>();
 			xpe.RegisterKnownXmlObject<AssignConstruct>();
+			xpe.RegisterKnownXmlObject<ExpandoConstruct>();
 			xpe.RegisterKnownXmlObject<ForConstruct>();
 			xpe.RegisterKnownXmlObject<ForEachConstruct>();
 			xpe.RegisterKnownXmlObject<FreeConstruct>();

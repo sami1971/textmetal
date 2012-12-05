@@ -15,19 +15,20 @@ using TextMetal.Framework.AssociativeModel;
 using TextMetal.Framework.Core;
 using TextMetal.Framework.HostingModel;
 using TextMetal.Framework.InputOutputModel;
+using TextMetal.Framework.SourceModel.Primative;
 using TextMetal.Framework.TemplateModel;
 
 namespace TextMetal.HostImpl.Tool
 {
 	/// <summary>
-	/// 	This class contains code to bootstrap TextMetal proper. This code is a specific implementation for TextMetal 'tool' hosting, concerned with leveraging file paths. Other host implementations will vary (see web host sample for instance). This code can be used by any interactive or batch application (console, windows, WPF, service, etc.).
+	///     This class contains code to bootstrap TextMetal proper. This code is a specific implementation for TextMetal 'tool' hosting, concerned with leveraging file paths. Other host implementations will vary (see web host sample for instance). This code can be used by any interactive or batch application (console, windows, WPF, service, etc.).
 	/// </summary>
-	public sealed class ToolHost
+	public sealed class ToolHost : IToolHost
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ToolHost class.
+		///     Initializes a new instance of the ToolHost class.
 		/// </summary>
 		public ToolHost()
 		{
@@ -38,7 +39,7 @@ namespace TextMetal.HostImpl.Tool
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Provides a hosting shim between a 'tool' host and the underlying TextMetal run-time.
+		///     Provides a hosting shim between a 'tool' host and the underlying TextMetal run-time.
 		/// </summary>
 		/// <param name="templateFilePath"> The file path of the input TextMetal template file to execute. </param>
 		/// <param name="sourceFilePath"> The file path (or source specific URI) of the input data source to leverage. </param>
@@ -153,6 +154,119 @@ namespace TextMetal.HostImpl.Tool
 					templatingContext.VariableTables.Pop();
 				}
 			}
+		}
+
+		public object LoadModelOnly(string filePath)
+		{
+			IXmlPersistEngine xpe;
+			ModelConstruct model;
+
+			if ((object)filePath == null)
+				throw new ArgumentNullException("filePath");
+
+			if (DataType.IsWhiteSpace(filePath))
+				throw new ArgumentOutOfRangeException("filePath");
+
+			filePath = Path.GetFullPath(filePath);
+
+			xpe = new XmlPersistEngine();
+			xpe.RegisterWellKnownConstructs();
+
+			model = (ModelConstruct)xpe.DeserializeFromXml(filePath);
+
+			return model;
+		}
+
+		public object LoadSqlQueryOnly(string filePath)
+		{
+			if ((object)filePath == null)
+				throw new ArgumentNullException("filePath");
+
+			if (DataType.IsWhiteSpace(filePath))
+				throw new ArgumentOutOfRangeException("filePath");
+
+			filePath = Path.GetFullPath(filePath);
+
+			return Cerealization.GetObjectFromFile<SqlQuery>(filePath);
+		}
+
+		public TemplateConstruct LoadTemplateOnly(string filePath)
+		{
+			IXmlPersistEngine xpe;
+			TemplateConstruct template;
+
+			if ((object)filePath == null)
+				throw new ArgumentNullException("filePath");
+
+			if (DataType.IsWhiteSpace(filePath))
+				throw new ArgumentOutOfRangeException("filePath");
+
+			filePath = Path.GetFullPath(filePath);
+
+			xpe = new XmlPersistEngine();
+			xpe.RegisterWellKnownConstructs();
+
+			template = (TemplateConstruct)xpe.DeserializeFromXml(filePath);
+
+			return template;
+		}
+
+		public void SaveModelOnly(ModelConstruct model, string filePath)
+		{
+			IXmlPersistEngine xpe;
+
+			if ((object)model == null)
+				throw new ArgumentNullException("model");
+
+			if ((object)filePath == null)
+				throw new ArgumentNullException("filePath");
+
+			if (DataType.IsWhiteSpace(filePath))
+				throw new ArgumentOutOfRangeException("filePath");
+
+			filePath = Path.GetFullPath(filePath);
+
+			xpe = new XmlPersistEngine();
+			xpe.RegisterWellKnownConstructs();
+
+			xpe.SerializeToXml(model, filePath);
+		}
+
+		public void SaveSqlQueryOnly(SqlQuery sqlQuery, string filePath)
+		{
+			if ((object)sqlQuery == null)
+				throw new ArgumentNullException("sqlQuery");
+
+			if ((object)filePath == null)
+				throw new ArgumentNullException("filePath");
+
+			if (DataType.IsWhiteSpace(filePath))
+				throw new ArgumentOutOfRangeException("filePath");
+
+			filePath = Path.GetFullPath(filePath);
+
+			Cerealization.SetObjectToFile<SqlQuery>(filePath, sqlQuery);
+		}
+
+		public void SaveTemplateOnly(TemplateConstruct template, string filePath)
+		{
+			IXmlPersistEngine xpe;
+
+			if ((object)template == null)
+				throw new ArgumentNullException("template");
+
+			if ((object)filePath == null)
+				throw new ArgumentNullException("filePath");
+
+			if (DataType.IsWhiteSpace(filePath))
+				throw new ArgumentOutOfRangeException("filePath");
+
+			filePath = Path.GetFullPath(filePath);
+
+			xpe = new XmlPersistEngine();
+			xpe.RegisterWellKnownConstructs();
+
+			xpe.SerializeToXml(template, filePath);
 		}
 
 		#endregion

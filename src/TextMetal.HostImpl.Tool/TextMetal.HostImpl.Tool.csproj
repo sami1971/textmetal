@@ -46,6 +46,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="IToolHost.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="ToolHost.cs" />
   </ItemGroup>
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\TextMetal.Framework.InputOutputModel\TextMetal.Framework.InputOutputModel.csproj">
       <Project>{E5573166-2524-4971-A727-40E55ECD262A}</Project>
       <Name>TextMetal.Framework.InputOutputModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Framework.SourceModel\TextMetal.Framework.SourceModel.csproj">
+      <Project>{9CA823F7-D73B-4CE5-BF71-1515F3C6940D}</Project>
+      <Name>TextMetal.Framework.SourceModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\TextMetal.Framework.TemplateModel\TextMetal.Framework.TemplateModel.csproj">
       <Project>{45C84934-57BE-457A-8B60-392D650D6C08}</Project>
