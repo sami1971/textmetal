@@ -165,12 +165,12 @@ namespace ${ClrNamespace}
 			if ((object)commandParameter == null)
 				throw new ArgumentNullException("commandParameter");
 
-			if (generatedFromColumnNativeType == "ntext")
-				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));
-			else if (generatedFromColumnNativeType == "text")
-				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));
-			else if (generatedFromColumnNativeType == "image")
-				Reflexion.SetLogicalPropertyValue(commandParameter, "SqlDbType", Enum.Parse(Type.GetType("System.Data.SqlDbType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));
+			if (generatedFromColumnNativeType.SafeToString().ToUpper() == "NTEXT")
+				Reflexion.SetLogicalPropertyValue(commandParameter, "OdbcType", Enum.Parse(Type.GetType("System.Data.Odbc.OdbcType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "NText", true));
+			else if (generatedFromColumnNativeType.SafeToString().ToUpper() == "TEXT")
+				Reflexion.SetLogicalPropertyValue(commandParameter, "OdbcType", Enum.Parse(Type.GetType("System.Data.Odbc.OdbcType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Text", true));
+			else if (generatedFromColumnNativeType.SafeToString().ToUpper() == "IMAGE")
+				Reflexion.SetLogicalPropertyValue(commandParameter, "OdbcType", Enum.Parse(Type.GetType("System.Data.Odbc.OdbcType, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", true), "Image", true));
 		}
 
 		#endregion
