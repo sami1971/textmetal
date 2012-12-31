@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 namespace TextMetal.Common.Data.Advanced
 {
 	/// <summary>
-	/// 	Represents a single historical revsion to a database (file).
+	/// Represents a single historical revsion to a database (file).
 	/// </summary>
 	[Serializable]
 	public sealed class DatabaseRevision
@@ -18,7 +18,7 @@ namespace TextMetal.Common.Data.Advanced
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DatabaseRevision class.
+		/// Initializes a new instance of the DatabaseRevision class.
 		/// </summary>
 		public DatabaseRevision()
 		{
@@ -36,7 +36,7 @@ namespace TextMetal.Common.Data.Advanced
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the revision number.
+		/// Gets or sets the revision number.
 		/// </summary>
 		[XmlAttribute("number")]
 		public int Number
@@ -52,7 +52,7 @@ namespace TextMetal.Common.Data.Advanced
 		}
 
 		/// <summary>
-		/// 	Gets an ordered list of statements to execute for this revision.
+		/// Gets an ordered list of statements to execute for this revision.
 		/// </summary>
 		[XmlArray(ElementName = "Statements")]
 		[XmlArrayItem(ElementName = "Statement")]

@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	Provides the Factory Method pattern used to resolve dependencies.
+	/// Provides the Factory Method pattern used to resolve dependencies.
 	/// </summary>
 	/// <typeparam name="TObject"> The actual type of the resolution. </typeparam>
 	public sealed class ConstructorDependencyResolution<TObject> : IDependencyResolution
@@ -17,7 +17,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ConstructorDependencyResolution`1 class.
+		/// Initializes a new instance of the ConstructorDependencyResolution`1 class.
 		/// </summary>
 		public ConstructorDependencyResolution()
 		{
@@ -28,7 +28,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Resolves a dependency.
+		/// Resolves a dependency.
 		/// </summary>
 		/// <returns> An instance of an object or null. </returns>
 		public object Resolve()

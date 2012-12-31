@@ -9,14 +9,14 @@ using System.Reflection;
 namespace TextMetal.Common.Core.StringTokens
 {
 	/// <summary>
-	/// 	Provides a dynamic token replacement strategy which executes an on-demand callback method to obtain a replacement value.
+	/// Provides a dynamic token replacement strategy which executes an on-demand callback method to obtain a replacement value.
 	/// </summary>
 	public class DynamicValueTokenReplacementStrategy : ITokenReplacementStrategy
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DynamicValueTokenReplacementStrategy class.
+		/// Initializes a new instance of the DynamicValueTokenReplacementStrategy class.
 		/// </summary>
 		/// <param name="method"> The callback method to evaluate during token replacement. </param>
 		public DynamicValueTokenReplacementStrategy(Func<string[], object> method)
@@ -38,7 +38,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the callback method to evaluate during token replacement.
+		/// Gets the callback method to evaluate during token replacement.
 		/// </summary>
 		public Func<string[], object> Method
 		{
@@ -53,7 +53,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Used by the token model to execute public, static methods with zero parameters in a dynamic manner.
+		/// Used by the token model to execute public, static methods with zero parameters in a dynamic manner.
 		/// </summary>
 		/// <param name="parameters"> An array of parameters in the form: assembly-qualified-type-name, method-name, [parameters, ...] </param>
 		/// <returns> The return value of the executed method. </returns>
@@ -111,7 +111,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Used by the token model to get the value of public, static properties with zero parameters in a dynamic manner.
+		/// Used by the token model to get the value of public, static properties with zero parameters in a dynamic manner.
 		/// </summary>
 		/// <param name="parameters"> An array of parameters in the form: assembly-qualified-type-name, property-name </param>
 		/// <returns> The return value of the property getter. </returns>
@@ -172,7 +172,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Evaluate a token using any parameters specified.
+		/// Evaluate a token using any parameters specified.
 		/// </summary>
 		/// <param name="parameters"> Should be null for value semantics; or a valid string array for function semantics. </param>
 		/// <returns> An approapriate token replacement value. </returns>

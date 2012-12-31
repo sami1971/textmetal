@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using TextMetal.Common.Core;
 using TextMetal.Common.Data;
 
@@ -18,7 +19,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the SchemaSourceStrategy class.
+		/// Initializes a new instance of the SchemaSourceStrategy class.
 		/// </summary>
 		protected SchemaSourceStrategy()
 		{
@@ -122,6 +123,8 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 				return DbType.UInt64;
 			else if (clrType == typeof(Byte[]))
 				return DbType.Binary;
+			else if (clrType == typeof(Boolean[]))
+				return DbType.Byte;
 			else if (clrType == typeof(String))
 				return DbType.String;
 			else if (clrType == typeof(Object))
@@ -157,10 +160,12 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 			const string CMDLN_TOKEN_CONNECTION_AQTN = "ConnectionType";
 			const string CMDLN_TOKEN_CONNECTION_STRING = "ConnectionString";
 			const string CMDLN_TOKEN_DATA_SOURCE_TAG = "DataSourceTag";
+			const string CMDLN_TOKEN_SCHEMA_FILTER = "SchemaFilter";
 			string connectionAqtn;
 			Type connectionType = null;
 			string connectionString = null;
 			string dataSourceTag;
+			string[] schemaFilter;
 			IList<string> values;
 
 			if ((object)sourceFilePath == null)
@@ -204,7 +209,14 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 					dataSourceTag = values[0];
 			}
 
-			return this.GetSchemaModel(connectionString, connectionType, dataSourceTag);
+			schemaFilter = null;
+			if (properties.TryGetValue(CMDLN_TOKEN_SCHEMA_FILTER, out values))
+			{
+				if ((object)values != null && values.Count > 0)
+					schemaFilter = values.ToArray();
+			}
+
+			return this.GetSchemaModel(connectionString, connectionType, dataSourceTag, schemaFilter);
 		}
 
 		protected abstract IEnumerable<IDataParameter> CoreGetTableParameters(IUnitOfWorkContext unitOfWorkContext, string dataSourceTag, Database database, Schema schema);
@@ -215,7 +227,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 
 		protected abstract Type CoreInferClrTypeForSqlType(string dataSourceTag, string sqlType);
 
-		private object GetSchemaModel(string connectionString, Type connectionType, string dataSourceTag)
+		private object GetSchemaModel(string connectionString, Type connectionType, string dataSourceTag, string[] schemaFilter)
 		{
 			Database database;
 			int recordsAffected;
@@ -277,6 +289,13 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 							schema.SchemaNamePluralCamelCase = Name.GetCamelCase(Name.GetPluralForm(schema.SchemaName));
 							schema.SchemaNamePluralConstantCase = Name.GetConstantCase(Name.GetPluralForm(schema.SchemaName));
 
+							// filter unwanted schemas
+							if ((object)schemaFilter != null)
+							{
+								if (!schemaFilter.Contains(schema.SchemaName))
+									continue;
+							}
+
 							database.Schemas.Add(schema);
 
 							var dataReaderTable = unitOfWorkContext.ExecuteDictionary(CommandType.Text, GetAllAssemblyResourceFileText(this.GetType(), dataSourceTag, "Tables"), this.CoreGetTableParameters(unitOfWorkContext, dataSourceTag, database, schema), out recordsAffected);
@@ -322,6 +341,8 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 												column.ColumnHasDefault = DataType.ChangeType<bool>(drColumn["ColumnHasDefault"]);
 												column.ColumnHasCheck = DataType.ChangeType<bool>(drColumn["ColumnHasCheck"]);
 												column.ColumnIsPrimaryKey = DataType.ChangeType<bool>(drColumn["ColumnIsPrimaryKey"]);
+												column.PrimaryKeyName = DataType.ChangeType<string>(drColumn["PrimaryKeyName"]);
+												column.PrimaryKeyColumnOrdinal = DataType.ChangeType<int>(drColumn["PrimaryKeyColumnOrdinal"]);
 												column.ColumnNamePascalCase = Name.GetPascalCase(column.ColumnName);
 												column.ColumnNameCamelCase = Name.GetCamelCase(column.ColumnName);
 												column.ColumnNameConstantCase = Name.GetConstantCase(column.ColumnName);
@@ -351,7 +372,10 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 									}
 
 									if (table.Columns.Count(c => c.ColumnIsPrimaryKey) < 1)
+									{
+										table.HasNoDefinedPrimaryKeyColumns = true;
 										table.Columns.ForEach(c => c.ColumnIsPrimaryKey = true);
+									}
 
 									var dataReaderForeignKey = unitOfWorkContext.ExecuteDictionary(CommandType.Text, GetAllAssemblyResourceFileText(this.GetType(), dataSourceTag, "ForeignKeys"), this.CoreGetForeignKeyParameters(unitOfWorkContext, dataSourceTag, database, schema, table), out recordsAffected);
 									{
@@ -364,12 +388,12 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 												foreignKey = new ForeignKey();
 
 												foreignKey.ForeignKeyName = DataType.ChangeType<string>(drForeignKey["ForeignKeyName"]);
+												foreignKey.ForeignKeyIsDisabled = DataType.ChangeType<bool>(drForeignKey["ForeignKeyIsDisabled"]);
+												foreignKey.ForeignKeyIsForReplication = DataType.ChangeType<bool>(drForeignKey["ForeignKeyIsForReplication"]);
 												foreignKey.ForeignKeyOnDeleteRefIntAction = DataType.ChangeType<byte>(drForeignKey["ForeignKeyOnDeleteRefIntAction"]);
 												foreignKey.ForeignKeyOnDeleteRefIntActionSqlName = DataType.ChangeType<string>(drForeignKey["ForeignKeyOnDeleteRefIntActionSqlName"]);
 												foreignKey.ForeignKeyOnUpdateRefIntAction = DataType.ChangeType<byte>(drForeignKey["ForeignKeyOnUpdateRefIntAction"]);
 												foreignKey.ForeignKeyOnUpdateRefIntActionSqlName = DataType.ChangeType<string>(drForeignKey["ForeignKeyOnUpdateRefIntActionSqlName"]);
-												foreignKey.ForeignKeyIsDisabled = DataType.ChangeType<bool>(drForeignKey["ForeignKeyIsDisabled"]);
-												foreignKey.ForeignKeyIsForReplication = DataType.ChangeType<bool>(drForeignKey["ForeignKeyIsForReplication"]);
 												foreignKey.ForeignKeyNamePascalCase = Name.GetPascalCase(foreignKey.ForeignKeyName);
 												foreignKey.ForeignKeyNameCamelCase = Name.GetCamelCase(foreignKey.ForeignKeyName);
 												foreignKey.ForeignKeyNameConstantCase = Name.GetConstantCase(foreignKey.ForeignKeyName);
@@ -392,10 +416,15 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 
 															foreignKeyColumnRef = new ForeignKeyColumnRef();
 
-															foreignKeyColumnRef.ForeignKeyChildColumnOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["ForeignKeyChildColumnOrdinal"]);
-															foreignKeyColumnRef.ForeignKeyChildTableName = DataType.ChangeType<string>(drForeignKeyColumn["ForeignKeyChildTableName"]);
-															foreignKeyColumnRef.ForeignKeyColumnOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["ForeignKeyColumnOrdinal"]);
-															foreignKeyColumnRef.ForeignKeyParentColumnOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["ForeignKeyParentColumnOrdinal"]);
+															foreignKeyColumnRef.ForeignKeyOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["ForeignKeyOrdinal"]);
+															foreignKeyColumnRef.ColumnOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["ColumnOrdinal"]);
+															foreignKeyColumnRef.ColumnName = DataType.ChangeType<string>(drForeignKeyColumn["ColumnName"]);
+															foreignKeyColumnRef.PrimarySchemaName = DataType.ChangeType<string>(drForeignKeyColumn["PrimarySchemaName"]);
+															foreignKeyColumnRef.PrimaryTableName = DataType.ChangeType<string>(drForeignKeyColumn["PrimaryTableName"]);
+															foreignKeyColumnRef.PrimaryKeyName = DataType.ChangeType<string>(drForeignKeyColumn["PrimaryKeyName"]);
+															foreignKeyColumnRef.PrimaryKeyOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["PrimaryKeyOrdinal"]);
+															foreignKeyColumnRef.PrimaryKeyColumnOrdinal = DataType.ChangeType<int>(drForeignKeyColumn["PrimaryKeyColumnOrdinal"]);
+															foreignKeyColumnRef.PrimaryKeyColumnName = DataType.ChangeType<string>(drForeignKeyColumn["PrimaryKeyColumnName"]);
 
 															foreignKey.ForeignKeyColumnRefs.Add(foreignKeyColumnRef);
 														}
@@ -416,6 +445,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 												uniqueKey = new UniqueKey();
 
 												uniqueKey.UniqueKeyName = DataType.ChangeType<string>(drUniqueKey["UniqueKeyName"]);
+												uniqueKey.UniqueKeyIsDisabled = DataType.ChangeType<bool>(drUniqueKey["UniqueKeyIsDisabled"]);
 												uniqueKey.UniqueKeyNamePascalCase = Name.GetPascalCase(uniqueKey.UniqueKeyName);
 												uniqueKey.UniqueKeyNameCamelCase = Name.GetCamelCase(uniqueKey.UniqueKeyName);
 												uniqueKey.UniqueKeyNameConstantCase = Name.GetConstantCase(uniqueKey.UniqueKeyName);
@@ -438,9 +468,10 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 
 															uniqueKeyColumnRef = new UniqueKeyColumnRef();
 
+															uniqueKeyColumnRef.UniqueKeyOrdinal = DataType.ChangeType<int>(drUniqueKeyColumn["UniqueKeyOrdinal"]);
+															uniqueKeyColumnRef.ColumnOrdinal = DataType.ChangeType<int>(drUniqueKeyColumn["ColumnOrdinal"]);
+															uniqueKeyColumnRef.ColumnName = DataType.ChangeType<string>(drUniqueKeyColumn["ColumnName"]);
 															uniqueKeyColumnRef.UniqueKeyColumnDescendingSort = DataType.ChangeType<bool>(drUniqueKeyColumn["UniqueKeyColumnDescendingSort"]);
-															uniqueKeyColumnRef.UniqueKeyColumnOrdinal = DataType.ChangeType<int>(drUniqueKeyColumn["UniqueKeyColumnOrdinal"]);
-															uniqueKeyColumnRef.UniqueKeyParentColumnOrdinal = DataType.ChangeType<int>(drUniqueKeyColumn["UniqueKeyParentColumnOrdinal"]);
 
 															uniqueKey.UniqueKeyColumnRefs.Add(uniqueKeyColumnRef);
 														}
@@ -622,7 +653,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 												column.ColumnCSharpClrNullableType = (object)column.ColumnClrNullableType != null ? FormatCSharpType(column.ColumnClrNullableType) : FormatCSharpType(typeof(object));
 												column.ColumnCSharpClrNonNullableType = (object)column.ColumnClrNonNullableType != null ? FormatCSharpType(column.ColumnClrNonNullableType) : FormatCSharpType(typeof(object));
 
-												procedure.Columns.Add(column);
+												//procedure.Columns.Add(column);
 												procedure.Parameters.Remove(columnParameter);
 											}
 										}

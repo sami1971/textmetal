@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Provides a strategy pattern around aquiring source objects.
+	/// Provides a strategy pattern around aquiring source objects.
 	/// </summary>
 	public interface ISourceStrategy
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets the source object.
+		/// Gets the source object.
 		/// </summary>
 		/// <param name="sourceFilePath"> The source file path or lossely, a URI to the source repository (e.g. database). </param>
 		/// <param name="properties"> A list of arbitrary properties (key/value pairs). </param>

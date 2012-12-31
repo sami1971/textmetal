@@ -9,14 +9,14 @@ using System.Web;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Manages execution path storage of objects in a manner which is safe in standard executables and libraries and ASP.NET code.
+	/// Manages execution path storage of objects in a manner which is safe in standard executables and libraries and ASP.NET code.
 	/// </summary>
 	public static class ExecutionPathStorage
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating if the current application domain is running under ASP.NET.
+		/// Gets a value indicating if the current application domain is running under ASP.NET.
 		/// </summary>
 		public static bool IsInHttpContext
 		{
@@ -61,7 +61,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets a named value from the current execution context storage mechanism.
+		/// Gets a named value from the current execution context storage mechanism.
 		/// </summary>
 		/// <param name="key"> The key to lookup in execution path storage. </param>
 		/// <returns> An object value or null. </returns>
@@ -74,7 +74,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Remove a named value from the current execution context storage mechanism.
+		/// Remove a named value from the current execution context storage mechanism.
 		/// </summary>
 		/// <param name="key"> The key to remove in execution path storage. </param>
 		public static void RemoveValue(string key)
@@ -86,7 +86,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Set a named value in the current execution context storage mechanism.
+		/// Set a named value in the current execution context storage mechanism.
 		/// </summary>
 		/// <param name="key"> The key to store in execution path storage. </param>
 		/// <param name="value"> An object instance or null. </param>

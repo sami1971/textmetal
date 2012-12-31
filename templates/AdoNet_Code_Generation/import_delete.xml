@@ -8,7 +8,7 @@
 		
 	<!--<DebuggerBreakpoint />-->
 	
-	<![CDATA[commandText = @"DELETE FROM " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" WHERE "]]>
+	<![CDATA[commandText = @"DELETE FROM " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME, ${TableNameSingularPascalCase}.TABLE_NAME) + @" WHERE "]]>
 
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Filter>
@@ -16,7 +16,7 @@
 				<BinaryExpression.LeftExpression>
 					<BinaryExpression operator="Eq">
 						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsIdentity" />
+							<Facet name="ColumnIsPrimaryKey" />
 						</BinaryExpression.LeftExpression>
 						<BinaryExpression.RightExpression>
 							<Value type="System.Boolean" data="True" />
@@ -26,7 +26,7 @@
 				<BinaryExpression.RightExpression>
 					<BinaryExpression operator="Eq">
 						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
+							<Facet name="HasNoDefinedPrimaryKeyColumns" />
 						</BinaryExpression.LeftExpression>
 						<BinaryExpression.RightExpression>
 							<Value type="System.Boolean" data="True" />

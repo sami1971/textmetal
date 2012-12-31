@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	The exception thrown when a specific dependency resolution error occurs.
+	/// The exception thrown when a specific dependency resolution error occurs.
 	/// </summary>
 	[Serializable]
 	public sealed class DependencyException : Exception
@@ -16,7 +16,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DependencyException class.
+		/// Initializes a new instance of the DependencyException class.
 		/// </summary>
 		/// <param name="message"> The message that describes the error. </param>
 		public DependencyException(string message)

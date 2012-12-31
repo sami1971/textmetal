@@ -4,10 +4,9 @@
 */
 
 -- schemas
-select distinct
-dbo_u.name as SchemaName
+select 
+	sys_u.user_name as SchemaName
 from
-dbo.sysusers dbo_u
-inner join dbo.sysobjects dbo_o on dbo_o.uid = dbo_u.uid
-where dbo_o.type = 'U'
-order by dbo_u.name asc
+	sys.sysuser sys_u
+order by
+	sys_u.user_name asc

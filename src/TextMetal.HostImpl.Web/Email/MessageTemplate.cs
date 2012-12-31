@@ -246,6 +246,9 @@ namespace TextMetal.HostImpl.Web.Email
 								mailMessage.ReplyToList.Add(address);
 						}
 					}
+
+					// IF !NET40+
+					// mailMessage.ReplyTo = emailMessage.ReplyTo;
 				}
 
 				if (!DataType.IsNullOrWhiteSpace(emailMessage.Bcc))

@@ -9,14 +9,14 @@ using System.Collections;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Provides for sort mechanics.
+	/// Provides for sort mechanics.
 	/// </summary>
 	public interface ISortMechanism
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Re-orders an enumerable of values, yielding a re-ordered enumerable.
+		/// Re-orders an enumerable of values, yielding a re-ordered enumerable.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <param name="values"> </param>

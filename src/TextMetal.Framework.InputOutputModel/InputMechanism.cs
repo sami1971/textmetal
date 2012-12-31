@@ -15,7 +15,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the InputMechanism class.
+		/// Initializes a new instance of the InputMechanism class.
 		/// </summary>
 		protected InputMechanism()
 		{
@@ -32,7 +32,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -57,7 +57,7 @@ namespace TextMetal.Framework.InputOutputModel
 		protected abstract ITemplateXmlObject CoreLoadFragment(string resourceName);
 
 		/// <summary>
-		/// 	Dispose of the data source transaction.
+		/// Dispose of the data source transaction.
 		/// </summary>
 		public void Dispose()
 		{
@@ -75,7 +75,7 @@ namespace TextMetal.Framework.InputOutputModel
 		}
 
 		/// <summary>
-		/// 	Loads an assembly by name.
+		/// Loads an assembly by name.
 		/// </summary>
 		/// <param name="assemblyName"> The assembly name to load. </param>
 		/// <returns> An assembly object or null. </returns>
@@ -85,7 +85,7 @@ namespace TextMetal.Framework.InputOutputModel
 		}
 
 		/// <summary>
-		/// 	Loads content by resource name. Resource name semantics is implementation specific.
+		/// Loads content by resource name. Resource name semantics is implementation specific.
 		/// </summary>
 		/// <param name="resourceName"> The resource name to load. </param>
 		/// <returns> The text content or null. </returns>
@@ -95,7 +95,7 @@ namespace TextMetal.Framework.InputOutputModel
 		}
 
 		/// <summary>
-		/// 	Loads an template fragment by resource name. Resource name semantics is implementation specific.
+		/// Loads an template fragment by resource name. Resource name semantics is implementation specific.
 		/// </summary>
 		/// <param name="resourceName"> The resource name to load. </param>
 		/// <returns> The template fragment root object or null. </returns>

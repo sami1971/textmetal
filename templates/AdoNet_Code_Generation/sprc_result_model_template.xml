@@ -27,6 +27,7 @@
 <![CDATA[
 
 using System;
+using System.Xml;
 ]]>
 						<If>
 							<If.Condition>

@@ -38,6 +38,6 @@
 		</ForEach.Body>
 	</ForEach>
 
-	<![CDATA[ + @" FROM  " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" " + GetDataSourceTagSpecificInstance().GetTableAlias("${TableAlias}") + @" WHERE {0} ORDER BY {1}";]]>
+	<![CDATA[ + @" FROM  " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME, ${TableNameSingularPascalCase}.TABLE_NAME) + @" " + GetDataSourceTagSpecificInstance().GetTableAlias("${TableAlias}") + @" WHERE {0} ORDER BY {1}";]]>
 
 </Template>

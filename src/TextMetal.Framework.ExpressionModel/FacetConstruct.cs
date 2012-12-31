@@ -17,7 +17,7 @@ namespace TextMetal.Framework.ExpressionModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the FacetConstruct class.
+		/// Initializes a new instance of the FacetConstruct class.
 		/// </summary>
 		public FacetConstruct()
 		{

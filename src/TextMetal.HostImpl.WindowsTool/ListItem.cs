@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.HostImpl.WindowsTool
 {
 	/// <summary>
-	///     Represents a list item.
+	/// Represents a list item.
 	/// </summary>
 	[Serializable]
 	public class ListItem : IListItem
@@ -16,10 +16,10 @@ namespace TextMetal.HostImpl.WindowsTool
 		#region Constructors/Destructors
 
 		/// <summary>
-		///     Initializes a new instance of the ListItem class.
+		/// Initializes a new instance of the ListItem class.
 		/// </summary>
-		/// <param name="value">The value of the list item.</param>
-		/// <param name="text">The text of the list item.</param>
+		/// <param name="value"> The value of the list item. </param>
+		/// <param name="text"> The text of the list item. </param>
 		public ListItem(object value, string text)
 		{
 			this.value = value;
@@ -43,7 +43,7 @@ namespace TextMetal.HostImpl.WindowsTool
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		///     Gets the singleton 'empty' instance.
+		/// Gets the singleton 'empty' instance.
 		/// </summary>
 		public static ListItem Empty
 		{
@@ -54,7 +54,7 @@ namespace TextMetal.HostImpl.WindowsTool
 		}
 
 		/// <summary>
-		///     Gets the list item text.
+		/// Gets the list item text.
 		/// </summary>
 		public string Text
 		{
@@ -69,7 +69,7 @@ namespace TextMetal.HostImpl.WindowsTool
 		}
 
 		/// <summary>
-		///     Gets the list item value.
+		/// Gets the list item value.
 		/// </summary>
 		public object Value
 		{
@@ -88,10 +88,10 @@ namespace TextMetal.HostImpl.WindowsTool
 		#region Methods/Operators
 
 		/// <summary>
-		///     Returns a string that represents the current object.
+		/// Returns a string that represents the current object.
 		/// </summary>
 		/// <returns>
-		///     A string that represents the current object.
+		/// A string that represents the current object.
 		/// </returns>
 		public override string ToString()
 		{

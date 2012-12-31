@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml;
 
 using NUnit.Framework;
 
@@ -155,26 +156,12 @@ namespace ${ClrNamespace}.IntegrationTests
 
 								<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 									<ForEach.Filter>
-										<BinaryExpression operator="And">
+										<BinaryExpression operator="Ne">
 											<BinaryExpression.LeftExpression>
-												<BinaryExpression operator="Ne">
-													<BinaryExpression.LeftExpression>
-														<Facet name="ColumnIsIdentity" />
-													</BinaryExpression.LeftExpression>
-													<BinaryExpression.RightExpression>
-														<Value type="System.Boolean" data="True" />
-													</BinaryExpression.RightExpression>
-												</BinaryExpression>
+												<Facet name="IsColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
-												<BinaryExpression operator="Ne">
-													<BinaryExpression.LeftExpression>
-														<Facet name="ColumnIsComputed" />
-													</BinaryExpression.LeftExpression>
-													<BinaryExpression.RightExpression>
-														<Value type="System.Boolean" data="True" />
-													</BinaryExpression.RightExpression>
-												</BinaryExpression>
+												<Value type="System.Boolean" data="True" />
 											</BinaryExpression.RightExpression>
 										</BinaryExpression>
 									</ForEach.Filter>
@@ -204,6 +191,8 @@ namespace ${ClrNamespace}.IntegrationTests
 <![CDATA[
 
 					// do INSERT first
+					Assert.IsTrue(@${TableNameSingularCamelCase}.IsNew);
+					
 					result = repository.Save${TableNameSingularPascalCase}(@${TableNameSingularCamelCase});
 
 					Assert.IsTrue(result);
@@ -212,26 +201,12 @@ namespace ${ClrNamespace}.IntegrationTests
 
 								<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 									<ForEach.Filter>
-										<BinaryExpression operator="And">
+										<BinaryExpression operator="Ne">
 											<BinaryExpression.LeftExpression>
-												<BinaryExpression operator="Ne">
-													<BinaryExpression.LeftExpression>
-														<Facet name="ColumnIsIdentity" />
-													</BinaryExpression.LeftExpression>
-													<BinaryExpression.RightExpression>
-														<Value type="System.Boolean" data="True" />
-													</BinaryExpression.RightExpression>
-												</BinaryExpression>
+												<Facet name="IsColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
-												<BinaryExpression operator="Ne">
-													<BinaryExpression.LeftExpression>
-														<Facet name="ColumnIsComputed" />
-													</BinaryExpression.LeftExpression>
-													<BinaryExpression.RightExpression>
-														<Value type="System.Boolean" data="True" />
-													</BinaryExpression.RightExpression>
-												</BinaryExpression>
+												<Value type="System.Boolean" data="True" />
 											</BinaryExpression.RightExpression>
 										</BinaryExpression>
 									</ForEach.Filter>
@@ -261,6 +236,8 @@ namespace ${ClrNamespace}.IntegrationTests
 <![CDATA[
 
 					// do UPDATE next
+					Assert.IsFalse(@${TableNameSingularCamelCase}.IsNew);
+					
 					result = repository.Save${TableNameSingularPascalCase}(@${TableNameSingularCamelCase});
 
 					Assert.IsTrue(result);

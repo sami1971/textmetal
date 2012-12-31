@@ -13,7 +13,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.AssociativeModel
 {
 	/// <summary>
-	/// 	Provides an XML construct for associative properties.
+	/// Provides an XML construct for associative properties.
 	/// </summary>
 	[XmlElementMapping(LocalName = "Property", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class PropertyConstruct : AssociativeXmlObject
@@ -21,7 +21,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the PropertyConstruct class.
+		/// Initializes a new instance of the PropertyConstruct class.
 		/// </summary>
 		public PropertyConstruct()
 		{
@@ -39,7 +39,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gts or sets the assembly qualified type of the value, used during strongly-typed parsing.
+		/// Gts or sets the assembly qualified type of the value, used during strongly-typed parsing.
 		/// </summary>
 		[XmlAttributeMapping(LocalName = "type", NamespaceUri = "")]
 		public string Type
@@ -55,7 +55,7 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Gets a string representation of the value of this associative XML object value.
+		/// Gets a string representation of the value of this associative XML object value.
 		/// </summary>
 		[XmlAttributeMapping(LocalName = "value", NamespaceUri = "")]
 		public string Value
@@ -75,7 +75,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Determines whether a left-hand-side associative XML object is equal to any right-hand-side object using value semantics (instead of reference semantics).
+		/// Determines whether a left-hand-side associative XML object is equal to any right-hand-side object using value semantics (instead of reference semantics).
 		/// </summary>
 		/// <param name="leftAssociativeXmlObject"> The left-hand-side associative XML object to test. </param>
 		/// <param name="rightObject"> The right-hand-side object to test. </param>
@@ -102,7 +102,7 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Determines the hash code for an associative XML object.
+		/// Determines the hash code for an associative XML object.
 		/// </summary>
 		/// <param name="associativeXmlObject"> The associative XML object used to get a hash code. </param>
 		/// <returns> The hash code of the associative XML object's value. </returns>
@@ -122,7 +122,7 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Gets a string represnetation for an associative XML object value.
+		/// Gets a string represnetation for an associative XML object value.
 		/// </summary>
 		/// <param name="associativeXmlObject"> The associative XML object used to get a string representation. </param>
 		/// <returns> The string representation of the associative XML object's value. </returns>
@@ -142,7 +142,7 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Gets the enumerator for the current associative object instance. Overrides the default behavior to always return null.
+		/// Gets the enumerator for the current associative object instance. Overrides the default behavior to always return null.
 		/// </summary>
 		/// <returns> An instance of IEnumerator or null. </returns>
 		protected override IEnumerator CoreGetAssociativeObjectEnumerator()
@@ -151,7 +151,7 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Gets the value of the current associative object instance. Overrides the default behavior to return a strongly-typed, parsed value from using the Type and Value properties.
+		/// Gets the value of the current associative object instance. Overrides the default behavior to return a strongly-typed, parsed value from using the Type and Value properties.
 		/// </summary>
 		/// <returns> A value or null. </returns>
 		protected override object CoreGetAssociativeObjectValue()
@@ -174,29 +174,37 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> .
+		/// Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> .
 		/// </summary>
-		/// <returns> true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> ; otherwise, false. </returns>
-		/// <param name="obj"> The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" /> . </param>
-		/// <filterpriority>2</filterpriority>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> ; otherwise, false.
+		/// </returns>
+		/// <param name="obj">
+		/// The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" /> .
+		/// </param>
+		/// <filterpriority> 2 </filterpriority>
 		public override bool Equals(object obj)
 		{
 			return CommonEquals(this, obj);
 		}
 
 		/// <summary>
-		/// 	Serves as a hash function for a particular type.
+		/// Serves as a hash function for a particular type.
 		/// </summary>
-		/// <returns> A hash code for the current <see cref="T:System.Object" /> . </returns>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object" /> .
+		/// </returns>
 		public override int GetHashCode()
 		{
 			return CommonGetHashCode(this);
 		}
 
 		/// <summary>
-		/// 	Returns a <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
+		/// Returns a <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
 		/// </summary>
-		/// <returns> A <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> . </returns>
+		/// <returns>
+		/// A <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
+		/// </returns>
 		public override string ToString()
 		{
 			return CommonToString(this);

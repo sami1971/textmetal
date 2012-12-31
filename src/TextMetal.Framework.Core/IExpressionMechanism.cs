@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Provides for expression mechanics.
+	/// Provides for expression mechanics.
 	/// </summary>
 	public interface IExpressionMechanism
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Evaluates at run-time, an expression tree yielding an object value result.
+		/// Evaluates at run-time, an expression tree yielding an object value result.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <returns> An expression return value or null. </returns>

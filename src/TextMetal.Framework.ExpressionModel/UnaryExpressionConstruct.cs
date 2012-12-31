@@ -14,7 +14,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.ExpressionModel
 {
 	/// <summary>
-	/// 	This class uses the C# compiler style of numeric promotions.
+	/// This class uses the C# compiler style of numeric promotions.
 	/// </summary>
 	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class UnaryExpressionConstruct : ExpressionXmlObject, IUnaryExpression
@@ -22,7 +22,7 @@ namespace TextMetal.Framework.ExpressionModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the UnaryExpressionConstruct class.
+		/// Initializes a new instance of the UnaryExpressionConstruct class.
 		/// </summary>
 		public UnaryExpressionConstruct()
 		{

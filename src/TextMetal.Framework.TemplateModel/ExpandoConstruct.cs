@@ -5,7 +5,6 @@
 
 using System;
 
-using TextMetal.Common.Core.StringTokens;
 using TextMetal.Common.Xml;
 using TextMetal.Framework.AssociativeModel;
 using TextMetal.Framework.Core;
@@ -18,7 +17,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		///     Initializes a new instance of the ExpandoConstruct class.
+		/// Initializes a new instance of the ExpandoConstruct class.
 		/// </summary>
 		public ExpandoConstruct()
 		{

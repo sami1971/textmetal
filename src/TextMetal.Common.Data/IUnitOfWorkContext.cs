@@ -13,7 +13,7 @@ namespace TextMetal.Common.Data
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been completed.
+		/// Gets a value indicating whether the current instance has been completed.
 		/// </summary>
 		bool Completed
 		{
@@ -21,7 +21,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets the underlying ADO.NET connection.
+		/// Gets the underlying ADO.NET connection.
 		/// </summary>
 		IDbConnection Connection
 		{
@@ -29,7 +29,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets the context object.
+		/// Gets the context object.
 		/// </summary>
 		IDisposable Context
 		{
@@ -38,7 +38,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		bool Disposed
 		{
@@ -46,7 +46,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been diverged.
+		/// Gets a value indicating whether the current instance has been diverged.
 		/// </summary>
 		bool Diverged
 		{
@@ -54,7 +54,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets the underlying ADO.NET transaction.
+		/// Gets the underlying ADO.NET transaction.
 		/// </summary>
 		IDbTransaction Transaction
 		{
@@ -66,12 +66,12 @@ namespace TextMetal.Common.Data
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Indicates that all operations within the unit of work context have completed successfully. This method should only be called once.
+		/// Indicates that all operations within the unit of work context have completed successfully. This method should only be called once.
 		/// </summary>
 		void Complete();
 
 		/// <summary>
-		/// 	Indicates that at least one operation within the unit of work context cause a failure in data concurrency or idempotency. This forces the entire unit of work to yield an incomplete status. This method can be called any number of times.
+		/// Indicates that at least one operation within the unit of work context cause a failure in data concurrency or idempotency. This forces the entire unit of work to yield an incomplete status. This method can be called any number of times.
 		/// </summary>
 		void Divergent();
 

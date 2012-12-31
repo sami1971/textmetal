@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for core data type functionality such as validation and parsing.
+	/// Provides static helper and/or extension methods for core data type functionality such as validation and parsing.
 	/// </summary>
 	public static partial class DataType
 	{

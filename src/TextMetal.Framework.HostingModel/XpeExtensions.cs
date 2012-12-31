@@ -15,14 +15,14 @@ using TextMetal.Framework.TemplateModel;
 namespace TextMetal.Framework.HostingModel
 {
 	/// <summary>
-	/// 	A set of extension methods to manage the XML Persist Engine model. NOTE: This file must be updated when adding or removing constructs.
+	/// A set of extension methods to manage the XML Persist Engine model. NOTE: This file must be updated when adding or removing constructs.
 	/// </summary>
 	public static class XpeExtensions
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Quickly register all well-known constructs within this framework.
+		/// Quickly register all well-known constructs within this framework.
 		/// </summary>
 		/// <param name="xpe"> The target XML Persist Engine instance. </param>
 		public static void RegisterWellKnownConstructs(this IXmlPersistEngine xpe)

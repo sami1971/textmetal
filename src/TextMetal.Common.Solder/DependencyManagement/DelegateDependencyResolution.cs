@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	Provides the Factory Method pattern used to resolve dependencies.
+	/// Provides the Factory Method pattern used to resolve dependencies.
 	/// </summary>
 	public sealed class DelegateDependencyResolution : IDependencyResolution
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DelegateDependencyResolution class.
+		/// Initializes a new instance of the DelegateDependencyResolution class.
 		/// </summary>
 		/// <param name="method"> The callback method to execute during resolution. </param>
 		public DelegateDependencyResolution(Delegate method)
@@ -49,7 +49,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets an instance of DelegateDependencyResolution from the specified Func`1 delegate.
+		/// Gets an instance of DelegateDependencyResolution from the specified Func`1 delegate.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type of resolution. </typeparam>
 		/// <param name="func"> The callback method to execute during resolution. </param>
@@ -63,7 +63,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Resolves a dependency.
+		/// Resolves a dependency.
 		/// </summary>
 		/// <returns> An instance of an object or null. </returns>
 		public object Resolve()

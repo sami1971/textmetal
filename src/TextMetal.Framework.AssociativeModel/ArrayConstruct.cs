@@ -13,7 +13,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.AssociativeModel
 {
 	/// <summary>
-	/// 	Provides an XML construct for associative arrays.
+	/// Provides an XML construct for associative arrays.
 	/// </summary>
 	[XmlElementMapping(LocalName = "Array", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class ArrayConstruct : AssociativeXmlObject, IActualThing
@@ -21,7 +21,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ArrayConstruct class.
+		/// Initializes a new instance of the ArrayConstruct class.
 		/// </summary>
 		public ArrayConstruct()
 		{
@@ -32,7 +32,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets the enumerator for the current associative object instance. Overrides the default behavior by returning an enumerator from a list of only IActualThing implementing child objects.
+		/// Gets the enumerator for the current associative object instance. Overrides the default behavior by returning an enumerator from a list of only IActualThing implementing child objects.
 		/// </summary>
 		/// <returns> An instance of IEnumerator or null. </returns>
 		protected override IEnumerator CoreGetAssociativeObjectEnumerator()

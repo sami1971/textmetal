@@ -6,22 +6,22 @@
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Specifies the allowed child element types for an XML object properties (applicable only to those which are well-known via properties with mapping attributes).
+	/// Specifies the allowed child element types for an XML object properties (applicable only to those which are well-known via properties with mapping attributes).
 	/// </summary>
 	public enum ChildElementType
 	{
 		/// <summary>
-		/// 	The element is a text element using it's local name and namespace. This is the default.
+		/// The element is a text element using it's local name and namespace. This is the default.
 		/// </summary>
 		TextValue = 0,
 
 		/// <summary>
-		/// 	The element will be rendered as a non-text element using it's local name and namespace.
+		/// The element will be rendered as a non-text element using it's local name and namespace.
 		/// </summary>
 		Unqualified = 1,
 
 		/// <summary>
-		/// 	The element will be rendered as a non-text element using it's local name dot prefixed with the local name of it's parent node, and namespace. This resembles XAML markup.
+		/// The element will be rendered as a non-text element using it's local name dot prefixed with the local name of it's parent node, and namespace. This resembles XAML markup.
 		/// </summary>
 		ParentQualified = 2
 	}

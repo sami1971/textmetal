@@ -13,7 +13,7 @@ using TextMetal.Common.Core;
 namespace TextMetal.Framework.SourceModel.Primative
 {
 	/// <summary>
-	/// 	Represents an ordered, keyed set of N-level nested and corrolated SQL queries.
+	/// Represents an ordered, keyed set of N-level nested and corrolated SQL queries.
 	/// </summary>
 	[Serializable]
 	[XmlRoot(ElementName = "SqlQuery", Namespace = "http://www.textmetal.com/api/v4.4.0")]
@@ -22,7 +22,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the SqlQuery class.
+		/// Initializes a new instance of the SqlQuery class.
 		/// </summary>
 		public SqlQuery()
 		{
@@ -43,7 +43,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the key of this SQL query.
+		/// Gets or sets the key of this SQL query.
 		/// </summary>
 		[XmlAttribute("key")]
 		public string Key
@@ -59,7 +59,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		}
 
 		/// <summary>
-		/// 	Gets or sets the ordinal (order) of this SQL query.
+		/// Gets or sets the ordinal (order) of this SQL query.
 		/// </summary>
 		[XmlIgnore]
 		public int? Order
@@ -75,7 +75,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		}
 
 		/// <summary>
-		/// 	Gets a list of corrolated subqueries.
+		/// Gets a list of corrolated subqueries.
 		/// </summary>
 		[XmlArray(ElementName = "SubQueries", Order = 1)]
 		[XmlArrayItem(ElementName = "SqlQuery")]
@@ -88,7 +88,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		}
 
 		/// <summary>
-		/// 	Gets or sets the SQL command text for this SQL query.
+		/// Gets or sets the SQL command text for this SQL query.
 		/// </summary>
 		[XmlElement("Text", Order = 0)]
 		public string Text
@@ -104,7 +104,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		}
 
 		/// <summary>
-		/// 	Gets or set the command type of this SQL query.
+		/// Gets or set the command type of this SQL query.
 		/// </summary>
 		[XmlAttribute("type")]
 		public CommandType Type
@@ -120,7 +120,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		}
 
 		/// <summary>
-		/// 	Gets or sets the ordinal (order) of this SQL query. Do not use directly; rather use the Order property.
+		/// Gets or sets the ordinal (order) of this SQL query. Do not use directly; rather use the Order property.
 		/// </summary>
 		[XmlAttribute("order")]
 		public string _Order

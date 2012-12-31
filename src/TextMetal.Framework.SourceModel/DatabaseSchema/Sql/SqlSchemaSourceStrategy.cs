@@ -18,7 +18,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Sql
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the SqlSchemaSourceStrategy class.
+		/// Initializes a new instance of the SqlSchemaSourceStrategy class.
 		/// </summary>
 		public SqlSchemaSourceStrategy()
 		{
@@ -42,11 +42,11 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Sql
 				return column.ColumnSqlType == "image" ||
 				       column.ColumnSqlType == "text" ||
 				       column.ColumnSqlType == "ntext" ? (int)0 :
-					                                                (column.ColumnDbType == DbType.String &&
-					                                                 column.ColumnSqlType.SafeToString().StartsWith("n") &&
-					                                                 column.ColumnSize != 0 ?
-						                                                                        (int)(column.ColumnSize / 2) :
-							                                                                                                     column.ColumnSize);
+					       (column.ColumnDbType == DbType.String &&
+					        column.ColumnSqlType.SafeToString().StartsWith("n") &&
+					        column.ColumnSize != 0 ?
+						        (int)(column.ColumnSize / 2) :
+						        column.ColumnSize);
 			}
 
 			throw new ArgumentOutOfRangeException(string.Format("dataSourceTag: '{0}'", dataSourceTag));
@@ -66,11 +66,11 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Sql
 				return parameter.ParameterSqlType == "image" ||
 				       parameter.ParameterSqlType == "text" ||
 				       parameter.ParameterSqlType == "ntext" ? (int)0 :
-					                                                      (parameter.ParameterDbType == DbType.String &&
-					                                                       parameter.ParameterSqlType.SafeToString().StartsWith("n") &&
-					                                                       parameter.ParameterSize != 0 ?
-						                                                                                    (int)(parameter.ParameterSize / 2) :
-							                                                                                                                       parameter.ParameterSize);
+					       (parameter.ParameterDbType == DbType.String &&
+					        parameter.ParameterSqlType.SafeToString().StartsWith("n") &&
+					        parameter.ParameterSize != 0 ?
+						        (int)(parameter.ParameterSize / 2) :
+						        parameter.ParameterSize);
 			}
 			throw new ArgumentOutOfRangeException(string.Format("dataSourceTag: '{0}'", dataSourceTag));
 		}

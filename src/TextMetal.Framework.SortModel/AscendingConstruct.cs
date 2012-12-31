@@ -15,7 +15,7 @@ namespace TextMetal.Framework.SortModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the AscendingConstruct class.
+		/// Initializes a new instance of the AscendingConstruct class.
 		/// </summary>
 		public AscendingConstruct()
 			: base(true)

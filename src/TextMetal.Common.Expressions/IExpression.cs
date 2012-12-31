@@ -6,7 +6,7 @@
 namespace TextMetal.Common.Expressions
 {
 	/// <summary>
-	/// 	Represents an expression.
+	/// Represents an expression.
 	/// </summary>
 	public interface IExpression
 	{

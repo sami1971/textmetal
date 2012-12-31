@@ -6,14 +6,14 @@
 namespace TextMetal.Common.Core.StringTokens
 {
 	/// <summary>
-	/// 	Represents a token replacement strategy.
+	/// Represents a token replacement strategy.
 	/// </summary>
 	public interface ITokenReplacementStrategy
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Evaluate a token using any parameters specified.
+		/// Evaluate a token using any parameters specified.
 		/// </summary>
 		/// <param name="parameters"> Should be null for value semantics; or a valid string array for function semantics. </param>
 		/// <returns> An approapriate token replacement value. </returns>

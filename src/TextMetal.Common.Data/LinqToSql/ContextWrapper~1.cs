@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Common.Data.LinqToSql
 {
 	/// <summary>
-	/// 	Used to 'wrap' a context (e.g. DataContext, ObjectContext, SessionImpl, etc.) in a manner such that consuming code can leverage a 'using' block which respects an ambient DataSourceTransaction context if one is present. Essentially, the disposal of this object forwards disposal to the wrapped context if no ambient DataSourceTransaction context if one is present; otherwise, no action is performed leaving disposal of the context up to the adjudication of the ambient DataSourceTransaction context.
+	/// Used to 'wrap' a context (e.g. DataContext, ObjectContext, SessionImpl, etc.) in a manner such that consuming code can leverage a 'using' block which respects an ambient DataSourceTransaction context if one is present. Essentially, the disposal of this object forwards disposal to the wrapped context if no ambient DataSourceTransaction context if one is present; otherwise, no action is performed leaving disposal of the context up to the adjudication of the ambient DataSourceTransaction context.
 	/// </summary>
 	/// <typeparam name="TContext"> The type of the underlying or 'wrapped' context. </typeparam>
 	public sealed class ContextWrapper<TContext> : IDisposable
@@ -17,7 +17,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ContextWrapper`1 class.
+		/// Initializes a new instance of the ContextWrapper`1 class.
 		/// </summary>
 		/// <param name="context"> The underlying or 'wrapped' context. </param>
 		public ContextWrapper(TContext context)
@@ -40,7 +40,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the underlying or 'wrapped' context.
+		/// Gets the underlying or 'wrapped' context.
 		/// </summary>
 		public TContext Context
 		{
@@ -58,7 +58,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -73,7 +73,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether resources need to be disposed of.
+		/// Gets a value indicating whether resources need to be disposed of.
 		/// </summary>
 		private bool ShouldDisposeResources
 		{
@@ -88,7 +88,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Disposes of the inner context. Once disposed, the instance cannot be reused.
+		/// Disposes of the inner context. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public void Dispose()
 		{

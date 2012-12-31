@@ -15,14 +15,14 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	Provides dependency registration and resoltuion services. Uses reader-writer lock for asynchronous protection (i.e. thread-safety).
+	/// Provides dependency registration and resoltuion services. Uses reader-writer lock for asynchronous protection (i.e. thread-safety).
 	/// </summary>
 	public sealed class DependencyManager : IDependencyManager
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DependencyManager class.
+		/// Initializes a new instance of the DependencyManager class.
 		/// </summary>
 		public DependencyManager()
 		{
@@ -44,7 +44,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the singleton instance associated with the current application domain. Most applications will use this instance instead of creating their own instance.
+		/// Gets the singleton instance associated with the current application domain. Most applications will use this instance instead of creating their own instance.
 		/// </summary>
 		public static IDependencyManager AppDomainInstance
 		{
@@ -55,7 +55,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Gets the current app setting for disabling of resolution auto-wiring.
+		/// Gets the current app setting for disabling of resolution auto-wiring.
 		/// </summary>
 		private static bool DisableResolutionAutoWire
 		{
@@ -82,7 +82,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -109,7 +109,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Private method to handle the assembly load events on application domains.
+		/// Private method to handle the assembly load events on application domains.
 		/// </summary>
 		/// <param name="sender"> The sending object. </param>
 		/// <param name="args"> The event arguments. </param>
@@ -119,7 +119,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Private method to handle the assembly unload events on application domains.
+		/// Private method to handle the assembly unload events on application domains.
 		/// </summary>
 		/// <param name="sender"> The sending object. </param>
 		/// <param name="e"> The event arguments. </param>
@@ -129,7 +129,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Private method that will scan all asemblies specified to perform auto-wiring of dependencies.
+		/// Private method that will scan all asemblies specified to perform auto-wiring of dependencies.
 		/// </summary>
 		/// <param name="assemblies"> An arry of ssemblies to scan and load dependency resolutions automatically ("auto-wire" feature). </param>
 		private static void ScanAssemblies(Assembly[] assemblies)
@@ -194,7 +194,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Private thread-safe method which bootstraps an app domain for dependency management.
+		/// Private thread-safe method which bootstraps an app domain for dependency management.
 		/// </summary>
 		private static void SetUpApplicationDomain()
 		{
@@ -212,7 +212,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Private thread-safe method which dismantles an app domain for dependency management.
+		/// Private thread-safe method which dismantles an app domain for dependency management.
 		/// </summary>
 		private static void TearDownApplicationDomain()
 		{
@@ -231,7 +231,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Adds a new dependency resolution for a given target type and selector key. Throws a DependencyException if the target type and selector key combination has been previously registered in this instance. This is the generic overload.
+		/// Adds a new dependency resolution for a given target type and selector key. Throws a DependencyException if the target type and selector key combination has been previously registered in this instance. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type of resolution. </typeparam>
 		/// <param name="selectorKey"> An non-null, zero or greater length string selector key. </param>
@@ -255,7 +255,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Adds a new dependency resolution for a given target type and selector key. Throws a DependencyException if the target type and selector key combination has been previously registered in this instance. This is the non-generic overload.
+		/// Adds a new dependency resolution for a given target type and selector key. Throws a DependencyException if the target type and selector key combination has been previously registered in this instance. This is the non-generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type of resolution. </param>
 		/// <param name="selectorKey"> An non-null, zero or greater length string selector key. </param>
@@ -306,7 +306,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Clears all registered dependency resolutions from this instance.
+		/// Clears all registered dependency resolutions from this instance.
 		/// </summary>
 		/// <returns> A value indicating if at least one dependency resolution was removed. </returns>
 		public bool ClearAllResolutions()
@@ -345,7 +345,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Clears all registered dependency resolutions of the specified target type from this instance. This is the generic overload.
+		/// Clears all registered dependency resolutions of the specified target type from this instance. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type of removal. </typeparam>
 		/// <returns> A value indicating if at least one dependency resolution was removed. </returns>
@@ -362,7 +362,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Clears all registered dependency resolutions of the specified target type from this instance. This is the non-generic overload.
+		/// Clears all registered dependency resolutions of the specified target type from this instance. This is the non-generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type of removal. </param>
 		/// <returns> A value indicating if at least one dependency resolution was removed. </returns>
@@ -412,7 +412,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Clears all dependency resolutions and cleans up any resources. Once disposed, the instance cannot be reused.
+		/// Clears all dependency resolutions and cleans up any resources. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public void Dispose()
 		{
@@ -447,7 +447,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether there are any registered dependency resolutions of the specified target type in this instance. If selector key is a null value, then this method will return true if any resolution exists for the specified target type, regardless of selector key; otherwise, this method will return true only if a resolution exists for the specified target type and selector key. This is the generic overload.
+		/// Gets a value indicating whether there are any registered dependency resolutions of the specified target type in this instance. If selector key is a null value, then this method will return true if any resolution exists for the specified target type, regardless of selector key; otherwise, this method will return true only if a resolution exists for the specified target type and selector key. This is the generic overload.
 		/// </summary>
 		/// <param name="selectorKey"> An null or zero or greater length string selector key. </param>
 		/// <typeparam name="TObject"> The target type of the check. </typeparam>
@@ -465,7 +465,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether there are any registered dependency resolutions of the specified target type in this instance. If selector key is a null value, then this method will return true if any resolution exists for the specified target type, regardless of selector key; otherwise, this method will return true only if a resolution exists for the specified target type and selector key. This is the non-generic overload.
+		/// Gets a value indicating whether there are any registered dependency resolutions of the specified target type in this instance. If selector key is a null value, then this method will return true if any resolution exists for the specified target type, regardless of selector key; otherwise, this method will return true only if a resolution exists for the specified target type and selector key. This is the non-generic overload.
 		/// </summary>
 		/// <param name="selectorKey"> An null or zero or greater length string selector key. </param>
 		/// <param name="targetType"> The target type of the check. </param>
@@ -499,7 +499,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Removes the registered dependency resolution of the specified target type and selector key from this instance. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. This is the generic overload.
+		/// Removes the registered dependency resolution of the specified target type and selector key from this instance. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type of removal. </typeparam>
 		/// <param name="selectorKey"> An non-null, zero or greater length string selector key. </param>
@@ -519,7 +519,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Removes the registered dependency resolution of the specified target type and selector key from this instance. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. This is the non-generic overload.
+		/// Removes the registered dependency resolution of the specified target type and selector key from this instance. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. This is the non-generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type of removal. </param>
 		/// <param name="selectorKey"> An non-null, zero or greater length string selector key. </param>
@@ -566,7 +566,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Resolves a dependency for the given target type and selector key combination. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. Throws a DependencyException if the resolved value cannot be assigned to the target type. This is the non-generic overload.
+		/// Resolves a dependency for the given target type and selector key combination. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. Throws a DependencyException if the resolved value cannot be assigned to the target type. This is the non-generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type of resolution. </typeparam>
 		/// <param name="selectorKey"> An non-null, zero or greater length string selector key. </param>
@@ -590,7 +590,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Resolves a dependency for the given target type and selector key combination. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. Throws a DependencyException if the resolved value cannot be assigned to the target type. This is the non-generic overload.
+		/// Resolves a dependency for the given target type and selector key combination. Throws a DependencyException if the target type and selector key combination has not been previously registered in this instance. Throws a DependencyException if the resolved value cannot be assigned to the target type. This is the non-generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type of resolution. </param>
 		/// <param name="selectorKey"> An non-null, zero or greater length string selector key. </param>
@@ -664,7 +664,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Classes/Structs/Interfaces/Enums/Delegates
 
 		/// <summary>
-		/// 	http://www.yoda.arachsys.com/csharp/singleton.html
+		/// http://www.yoda.arachsys.com/csharp/singleton.html
 		/// </summary>
 		private class LazySingleton
 		{

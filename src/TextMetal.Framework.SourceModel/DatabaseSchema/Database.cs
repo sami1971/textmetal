@@ -17,7 +17,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the Database class.
+		/// Initializes a new instance of the Database class.
 		/// </summary>
 		public Database()
 		{

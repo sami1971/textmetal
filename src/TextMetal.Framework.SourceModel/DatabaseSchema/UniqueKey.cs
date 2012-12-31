@@ -15,7 +15,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the UniqueKey class.
+		/// Initializes a new instance of the UniqueKey class.
 		/// </summary>
 		public UniqueKey()
 		{
@@ -26,6 +26,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Fields/Constants
 
 		private readonly List<UniqueKeyColumnRef> uniqueKeyColumnRef = new List<UniqueKeyColumnRef>();
+		private bool uniqueKeyIsDisabled;
 		private string uniqueKeyName;
 		private string uniqueKeyNameCamelCase;
 		private string uniqueKeyNameConstantCase;
@@ -48,6 +49,19 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 			get
 			{
 				return this.uniqueKeyColumnRef;
+			}
+		}
+
+		[XmlAttribute]
+		public bool UniqueKeyIsDisabled
+		{
+			get
+			{
+				return this.uniqueKeyIsDisabled;
+			}
+			set
+			{
+				this.uniqueKeyIsDisabled = value;
 			}
 		}
 

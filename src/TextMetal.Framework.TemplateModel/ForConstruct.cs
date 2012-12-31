@@ -19,7 +19,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ForConstruct class.
+		/// Initializes a new instance of the ForConstruct class.
 		/// </summary>
 		public ForConstruct()
 		{

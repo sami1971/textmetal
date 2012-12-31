@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Provides for template mechanics.
+	/// Provides for template mechanics.
 	/// </summary>
 	public interface ITemplateMechanism
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Expands the template tree into the templating context current output.
+		/// Expands the template tree into the templating context current output.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		void ExpandTemplate(TemplatingContext templatingContext);

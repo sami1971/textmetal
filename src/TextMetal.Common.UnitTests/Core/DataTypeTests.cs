@@ -14,7 +14,7 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.UnitTests.Core
 {
 	/// <summary>
-	/// 	Unit tests.
+	/// Unit tests.
 	/// </summary>
 	[TestFixture]
 	public class DataTypeTests

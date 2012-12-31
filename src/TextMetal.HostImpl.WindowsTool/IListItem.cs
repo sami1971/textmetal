@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.HostImpl.WindowsTool
 {
 	/// <summary>
-	///     Represents a list item.
+	/// Represents a list item.
 	/// </summary>
 	public interface IListItem
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		///     Gets the list item text.
+		/// Gets the list item text.
 		/// </summary>
 		string Text
 		{
@@ -24,7 +24,7 @@ namespace TextMetal.HostImpl.WindowsTool
 		}
 
 		/// <summary>
-		///     Gets the list item value.
+		/// Gets the list item value.
 		/// </summary>
 		object Value
 		{

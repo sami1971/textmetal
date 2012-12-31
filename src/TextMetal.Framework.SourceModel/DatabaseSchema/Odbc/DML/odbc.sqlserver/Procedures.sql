@@ -5,10 +5,11 @@
 
 -- procedures[schema]
 select	
+	sys_s.name as SchemaName,
 	sys_p.name as ProcedureName
 from
-    sys.procedures sys_p -- procedures
-	inner join sys.schemas sys_s ON sys_s.schema_id = sys_p.schema_id -- owner schema
+    sys.procedures sys_p
+	inner join sys.schemas sys_s on sys_s.schema_id = sys_p.schema_id
 where
 	sys_s.name = ?
 order by

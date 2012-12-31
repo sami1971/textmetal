@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for core data type functionality such as validation and parsing.
+	/// Provides static helper and/or extension methods for core data type functionality such as validation and parsing.
 	/// </summary>
 	public static partial class DataType
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Performs a run-time type change on a given value.
+		/// Performs a run-time type change on a given value.
 		/// </summary>
 		/// <typeparam name="T"> The type to change value to. </typeparam>
 		/// <param name="value"> The value to change type. </param>
@@ -26,7 +26,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Performs a run-time type change on a given value.
+		/// Performs a run-time type change on a given value.
 		/// </summary>
 		/// <param name="value"> The value to change type. </param>
 		/// <param name="conversionType"> The type to change value to. </param>
@@ -51,7 +51,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Obtains the default value for a given type using reflection.
+		/// Obtains the default value for a given type using reflection.
 		/// </summary>
 		/// <param name="targetType"> The target type. </param>
 		/// <returns> The default value for the target type. </returns>
@@ -64,7 +64,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Determines if a string value is null, zero length, or only contains white space.
+		/// Determines if a string value is null, zero length, or only contains white space.
 		/// </summary>
 		/// <param name="value"> The string value to check. </param>
 		/// <returns> A boolean value indicating whether the value is null, zero length, or only contains white space. </returns>
@@ -74,7 +74,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Determines if a string value is zero length or only contains white space.
+		/// Determines if a string value is zero length or only contains white space.
 		/// </summary>
 		/// <param name="value"> The string value to check. </param>
 		/// <returns> A boolean value indicating whether the value is zero length or only contains white space. </returns>
@@ -93,7 +93,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Checks whether two object instances are equal using the Object.Equals() method. Value coercion is performed.
+		/// Checks whether two object instances are equal using the Object.Equals() method. Value coercion is performed.
 		/// </summary>
 		/// <param name="objA"> An object instance or null. </param>
 		/// <param name="objB"> Another object instance or null. </param>
@@ -112,7 +112,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Returns a string that represents the specified type with the format specification. If the value is null, then the default value of a zero length string is returned.
+		/// Returns a string that represents the specified type with the format specification. If the value is null, then the default value of a zero length string is returned.
 		/// </summary>
 		/// <typeparam name="TValue"> The type of the value to obtain a string representation. </typeparam>
 		/// <param name="value"> The target value. </param>
@@ -123,7 +123,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Returns a string that represents the specified type with the format specification. If the value is null, then the default value of a zero length string is returned. No trimming is performed.
+		/// Returns a string that represents the specified type with the format specification. If the value is null, then the default value of a zero length string is returned. No trimming is performed.
 		/// </summary>
 		/// <typeparam name="TValue"> The type of the value to obtain a string representation. </typeparam>
 		/// <param name="value"> The target value. </param>
@@ -135,7 +135,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Returns a string that represents the specified type with the format specification. If the value is null, then the default value is returned. No trimming is performed.
+		/// Returns a string that represents the specified type with the format specification. If the value is null, then the default value is returned. No trimming is performed.
 		/// </summary>
 		/// <typeparam name="TValue"> The type of the value to obtain a string representation. </typeparam>
 		/// <param name="value"> The target value. </param>
@@ -148,7 +148,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Returns a string that represents the specified type with the format specification. If the value is null, then the default value is returned. No trimming is performed.
+		/// Returns a string that represents the specified type with the format specification. If the value is null, then the default value is returned. No trimming is performed.
 		/// </summary>
 		/// <typeparam name="TValue"> The type of the value to obtain a string representation. </typeparam>
 		/// <param name="value"> The target value. </param>
@@ -177,7 +177,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Converts the specified string representation to its valueType equivalent and returns a value that indicates whether the conversion succeeded.
+		/// Converts the specified string representation to its valueType equivalent and returns a value that indicates whether the conversion succeeded.
 		/// </summary>
 		/// <param name="valueType"> The type to convert the string value. </param>
 		/// <param name="value"> A string containing a valueType to convert. </param>
@@ -333,7 +333,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Converts the specified string representation to its TValue equivalent and returns a value that indicates whether the conversion succeeded.
+		/// Converts the specified string representation to its TValue equivalent and returns a value that indicates whether the conversion succeeded.
 		/// </summary>
 		/// <typeparam name="TValue"> The type to parse the string value. </typeparam>
 		/// <param name="value"> A string containing a TValue to convert. </param>

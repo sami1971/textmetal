@@ -13,7 +13,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the TextWriterOutputMechanism class.
+		/// Initializes a new instance of the TextWriterOutputMechanism class.
 		/// </summary>
 		public TextWriterOutputMechanism(TextWriter textWriter)
 		{

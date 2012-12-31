@@ -14,7 +14,7 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.Data.Advanced
 {
 	/// <summary>
-	/// 	Represents an ordered set of historical revsions to a database (file).
+	/// Represents an ordered set of historical revsions to a database (file).
 	/// </summary>
 	[Serializable]
 	[XmlRoot(ElementName = "History", Namespace = "http://www.textmetal.com/api/v4.4.0")]
@@ -23,7 +23,7 @@ namespace TextMetal.Common.Data.Advanced
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DatabaseHistory class.
+		/// Initializes a new instance of the DatabaseHistory class.
 		/// </summary>
 		public DatabaseHistory()
 		{
@@ -43,7 +43,7 @@ namespace TextMetal.Common.Data.Advanced
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the SQL required to determine if schema tracking is enabled in the database (file).
+		/// Gets or sets the SQL required to determine if schema tracking is enabled in the database (file).
 		/// </summary>
 		[XmlElement("DoesSchemaTrackingExistCommandText", Order = 0)]
 		public string DoesSchemaTrackingExistCommandText
@@ -59,7 +59,7 @@ namespace TextMetal.Common.Data.Advanced
 		}
 
 		/// <summary>
-		/// 	Gets or sets the SQL required to determine the schema version of the database (file).
+		/// Gets or sets the SQL required to determine the schema version of the database (file).
 		/// </summary>
 		[XmlElement("GetSchemaVersionCommandText", Order = 1)]
 		public string GetSchemaVersionCommandText
@@ -75,7 +75,7 @@ namespace TextMetal.Common.Data.Advanced
 		}
 
 		/// <summary>
-		/// 	Gets or sets the SQL required to increment the schema version in the database (file).
+		/// Gets or sets the SQL required to increment the schema version in the database (file).
 		/// </summary>
 		[XmlElement("IncrementSchemaVersionCommandText", Order = 2)]
 		public string IncrementSchemaVersionCommandText
@@ -91,7 +91,7 @@ namespace TextMetal.Common.Data.Advanced
 		}
 
 		/// <summary>
-		/// 	Gets a list of ordered revisions.
+		/// Gets a list of ordered revisions.
 		/// </summary>
 		[XmlArray(ElementName = "Revisions", Order = 3)]
 		[XmlArrayItem(ElementName = "Revision")]
@@ -108,7 +108,7 @@ namespace TextMetal.Common.Data.Advanced
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	For a given UnitOfWorkContext, perform a schema upgrade if necessary. The ordered set of revisions are executed from version+1 to version[n].
+		/// For a given UnitOfWorkContext, perform a schema upgrade if necessary. The ordered set of revisions are executed from version+1 to version[n].
 		/// </summary>
 		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
 		/// <returns> A value indicating whether any changes were needed against the target database (file). </returns>

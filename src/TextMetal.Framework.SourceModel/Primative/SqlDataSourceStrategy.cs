@@ -12,7 +12,6 @@ using System.Linq;
 using TextMetal.Common.Core;
 using TextMetal.Common.Core.StringTokens;
 using TextMetal.Common.Data;
-using TextMetal.Common.Data.Advanced;
 using TextMetal.Framework.AssociativeModel;
 using TextMetal.Framework.Core;
 
@@ -23,7 +22,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the SqlDataSourceStrategy class.
+		/// Initializes a new instance of the SqlDataSourceStrategy class.
 		/// </summary>
 		public SqlDataSourceStrategy()
 		{

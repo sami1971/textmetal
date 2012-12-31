@@ -10,14 +10,14 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Represents a local name and namespace URI of an XML element.
+	/// Represents a local name and namespace URI of an XML element.
 	/// </summary>
 	public sealed class XmlName
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the XmlName class.
+		/// Initializes a new instance of the XmlName class.
 		/// </summary>
 		public XmlName()
 		{
@@ -35,7 +35,7 @@ namespace TextMetal.Common.Xml
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the local name of the XML element.
+		/// Gets or sets the local name of the XML element.
 		/// </summary>
 		public string LocalName
 		{
@@ -50,7 +50,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the namespace URI of the XML element.
+		/// Gets or sets the namespace URI of the XML element.
 		/// </summary>
 		public string NamespaceUri
 		{
@@ -69,7 +69,7 @@ namespace TextMetal.Common.Xml
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Performs a custom equals test against two XML name objects using value semantics over the local name and namespace URI.
+		/// Performs a custom equals test against two XML name objects using value semantics over the local name and namespace URI.
 		/// </summary>
 		/// <param name="a"> The first XML name to test. </param>
 		/// <param name="b"> The second XML name object to test. </param>
@@ -81,11 +81,15 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> .
+		/// Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> .
 		/// </summary>
-		/// <returns> true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> ; otherwise, false. </returns>
-		/// <param name="obj"> The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" /> . </param>
-		/// <filterpriority>2</filterpriority>
+		/// <returns>
+		/// true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" /> ; otherwise, false.
+		/// </returns>
+		/// <param name="obj">
+		/// The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" /> .
+		/// </param>
+		/// <filterpriority> 2 </filterpriority>
 		public override bool Equals(object obj)
 		{
 			XmlName that;
@@ -102,25 +106,29 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Serves as a hash function for a particular type.
+		/// Serves as a hash function for a particular type.
 		/// </summary>
-		/// <returns> A hash code for the current <see cref="T:System.Object" /> . </returns>
+		/// <returns>
+		/// A hash code for the current <see cref="T:System.Object" /> .
+		/// </returns>
 		public override int GetHashCode()
 		{
 			return this.ToString().GetHashCode();
 		}
 
 		/// <summary>
-		/// 	Returns a <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
+		/// Returns a <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
 		/// </summary>
-		/// <returns> A <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> . </returns>
+		/// <returns>
+		/// A <see cref="T:System.String" /> that represents the current <see cref="T:System.Object" /> .
+		/// </returns>
 		public override string ToString()
 		{
 			return (this.NamespaceUri.SafeToString() + "#" + this.LocalName.SafeToString());
 		}
 
 		/// <summary>
-		/// 	Determines whether two specified XML name objects are equal.
+		/// Determines whether two specified XML name objects are equal.
 		/// </summary>
 		/// <param name="a"> The first XML name to test. </param>
 		/// <param name="b"> The second XML name object to test. </param>
@@ -131,7 +139,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Determines whether two specified XML name objects are not equal.
+		/// Determines whether two specified XML name objects are not equal.
 		/// </summary>
 		/// <param name="a"> The first XML name to test. </param>
 		/// <param name="b"> The second XML name object to test. </param>

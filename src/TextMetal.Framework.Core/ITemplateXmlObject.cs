@@ -10,7 +10,7 @@ using TextMetal.Common.Xml;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Represents a template XML object.
+	/// Represents a template XML object.
 	/// </summary>
 	public interface ITemplateXmlObject : ITemplateMechanism, IXmlObject
 	{

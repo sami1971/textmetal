@@ -17,7 +17,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the AliasConstruct class.
+		/// Initializes a new instance of the AliasConstruct class.
 		/// </summary>
 		public AliasConstruct()
 		{

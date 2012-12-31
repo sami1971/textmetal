@@ -8,13 +8,13 @@
 		
 	<!--<DebuggerBreakpoint />-->
 	
-	<![CDATA[commandText = @"INSERT INTO " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" ("]]>
+	<![CDATA[commandText = @"INSERT INTO " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME, ${TableNameSingularPascalCase}.TABLE_NAME) + @" ("]]>
 
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Filter>
 			<BinaryExpression operator="Ne">
 				<BinaryExpression.LeftExpression>
-					<Facet name="ColumnIsIdentity" />
+					<Facet name="IsColumnServerGeneratedPrimaryKey" />
 				</BinaryExpression.LeftExpression>
 				<BinaryExpression.RightExpression>
 					<Value type="System.Boolean" data="True" />
@@ -47,7 +47,7 @@
 		<ForEach.Filter>
 			<BinaryExpression operator="Ne">
 				<BinaryExpression.LeftExpression>
-					<Facet name="ColumnIsIdentity" />
+					<Facet name="IsColumnServerGeneratedPrimaryKey" />
 				</BinaryExpression.LeftExpression>
 				<BinaryExpression.RightExpression>
 					<Value type="System.Boolean" data="True" />

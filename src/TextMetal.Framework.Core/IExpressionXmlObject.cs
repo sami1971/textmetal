@@ -10,7 +10,7 @@ using TextMetal.Common.Xml;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Represents an expression XML object.
+	/// Represents an expression XML object.
 	/// </summary>
 	public interface IExpressionXmlObject : IExpressionMechanism, IXmlObject
 	{

@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	Provides the Factory Method pattern used to resolve dependencies.
+	/// Provides the Factory Method pattern used to resolve dependencies.
 	/// </summary>
 	public sealed class SingletonDependencyResolution : IDependencyResolution
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the SingletonDependencyResolution class.
+		/// Initializes a new instance of the SingletonDependencyResolution class.
 		/// </summary>
 		/// <param name="instance"> The singleton instance. </param>
 		public SingletonDependencyResolution(object instance)
@@ -46,7 +46,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets an instance of SingletonDependencyResolution from the specified object instance.
+		/// Gets an instance of SingletonDependencyResolution from the specified object instance.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type of resolution. </typeparam>
 		/// <param name="instance"> The singleton instance. </param>
@@ -57,7 +57,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		}
 
 		/// <summary>
-		/// 	Resolves a dependency.
+		/// Resolves a dependency.
 		/// </summary>
 		/// <returns> An instance of an object or null. </returns>
 		public object Resolve()

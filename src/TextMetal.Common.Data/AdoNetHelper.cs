@@ -12,14 +12,14 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.Data
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for ADO.NET.
+	/// Provides static helper and/or extension methods for ADO.NET.
 	/// </summary>
 	public static class AdoNetHelper
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	An extension method to create a new data parameter from the data source.
+		/// An extension method to create a new data parameter from the data source.
 		/// </summary>
 		/// <param name="unitOfWorkContext"> The target unit of work context. </param>
 		/// <param name="direction"> Specifies the parameter direction. </param>
@@ -57,7 +57,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	An extension method to execute a dictionary query operation against a target UnitOfWorkContext.
+		/// An extension method to execute a dictionary query operation against a target UnitOfWorkContext.
 		/// </summary>
 		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
 		/// <param name="commandType"> The type of the command. </param>
@@ -118,7 +118,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Executes a reader query operation against the database.
+		/// Executes a reader query operation against the database.
 		/// </summary>
 		/// <param name="dbConnection"> The database connection. </param>
 		/// <param name="dbTransaction"> An optional local database transaction. </param>
@@ -182,7 +182,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	An extension method to execute a schema query operation against a target UnitOfWorkContext.
+		/// An extension method to execute a schema query operation against a target UnitOfWorkContext.
 		/// </summary>
 		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
 		/// <param name="commandType"> The type of the command. </param>

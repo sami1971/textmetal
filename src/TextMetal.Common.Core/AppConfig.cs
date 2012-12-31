@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for strongly typed read access to an app.config or web.config file.
+	/// Provides static helper and/or extension methods for strongly typed read access to an app.config or web.config file.
 	/// </summary>
 	public static class AppConfig
 	{
@@ -25,7 +25,7 @@ namespace TextMetal.Common.Core
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the regular expression pattern for arguments.
+		/// Gets the regular expression pattern for arguments.
 		/// </summary>
 		public static string ArgsRegEx
 		{
@@ -36,7 +36,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the regular expression pattern for properties.
+		/// Gets the regular expression pattern for properties.
 		/// </summary>
 		public static string PropsRegEx
 		{
@@ -51,7 +51,7 @@ namespace TextMetal.Common.Core
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets the value of an app settings for the current application's default configuration. A ConfigurationErrorsException is thrown if the key does not exist.
+		/// Gets the value of an app settings for the current application's default configuration. A ConfigurationErrorsException is thrown if the key does not exist.
 		/// </summary>
 		/// <typeparam name="TValue"> The type to convert the app settings value. </typeparam>
 		/// <param name="key"> The key to get a value. </param>
@@ -78,7 +78,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the value of an app settings for the current application's default configuration. A ConfigurationErrorsException is thrown if the key does not exist.
+		/// Gets the value of an app settings for the current application's default configuration. A ConfigurationErrorsException is thrown if the key does not exist.
 		/// </summary>
 		/// <param name="valueType"> The type to convert the app settings value. </param>
 		/// <param name="key"> The key to get a value. </param>
@@ -106,7 +106,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the value of a connection provider for the current application's default configuration. A ConfigurationErrorsException is thrown if the name does not exist.
+		/// Gets the value of a connection provider for the current application's default configuration. A ConfigurationErrorsException is thrown if the name does not exist.
 		/// </summary>
 		/// <param name="name"> The name to get a value. </param>
 		/// <returns> The connection provider. </returns>
@@ -129,7 +129,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the value of a connection string for the current application's default configuration. A ConfigurationErrorsException is thrown if the name does not exist.
+		/// Gets the value of a connection string for the current application's default configuration. A ConfigurationErrorsException is thrown if the name does not exist.
 		/// </summary>
 		/// <param name="name"> The name to get a value. </param>
 		/// <returns> The connection string. </returns>
@@ -152,7 +152,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Checks to see if an app settings key exists for the current application's default configuration.
+		/// Checks to see if an app settings key exists for the current application's default configuration.
 		/// </summary>
 		/// <param name="key"> The key to check. </param>
 		/// <returns> A boolean value indicating the app setting key presence. </returns>
@@ -169,7 +169,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Checks to see if a connection string name exists for the current application's default configuration.
+		/// Checks to see if a connection string name exists for the current application's default configuration.
 		/// </summary>
 		/// <param name="name"> The name to check. </param>
 		/// <returns> A boolean value indicating the connection string name presence. </returns>
@@ -186,7 +186,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Given a string array of command line arguments, this method will parse the arguments using a well know pattern match to obtain a loosely typed dictionary of key/multi-value pairs for use by applications.
+		/// Given a string array of command line arguments, this method will parse the arguments using a well know pattern match to obtain a loosely typed dictionary of key/multi-value pairs for use by applications.
 		/// </summary>
 		/// <param name="args"> The command line argument array to parse. </param>
 		/// <returns> A loosely typed dictionary of key/multi-value pairs. </returns>
@@ -242,7 +242,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Given a string property, this method will parse the property using a well know pattern match to obtain an output key/value pair for use by applications.
+		/// Given a string property, this method will parse the property using a well know pattern match to obtain an output key/value pair for use by applications.
 		/// </summary>
 		/// <param name="arg"> The property to parse. </param>
 		/// <param name="key"> The output property key. </param>

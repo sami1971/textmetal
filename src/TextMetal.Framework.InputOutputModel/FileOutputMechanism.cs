@@ -16,7 +16,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the FileOutputMechanism class.
+		/// Initializes a new instance of the FileOutputMechanism class.
 		/// </summary>
 		/// <param name="baseDirectoryPath"> The base output directory path. </param>
 		public FileOutputMechanism(string baseDirectoryPath)

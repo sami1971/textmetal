@@ -16,7 +16,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the NullInputMechanism class.
+		/// Initializes a new instance of the NullInputMechanism class.
 		/// </summary>
 		public NullInputMechanism()
 		{

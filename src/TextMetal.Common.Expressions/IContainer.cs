@@ -6,7 +6,7 @@
 namespace TextMetal.Common.Expressions
 {
 	/// <summary>
-	/// 	Represents a container.
+	/// Represents a container.
 	/// </summary>
 	public interface IContainer : IExpression
 	{

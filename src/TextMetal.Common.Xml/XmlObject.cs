@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Provides a base for all XML objects.
+	/// Provides a base for all XML objects.
 	/// </summary>
 	public abstract class XmlObject : IXmlObject
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the XmlObject class.
+		/// Initializes a new instance of the XmlObject class.
 		/// </summary>
 		protected XmlObject()
 		{
@@ -35,7 +35,7 @@ namespace TextMetal.Common.Xml
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets an array of allowed child XML object types.
+		/// Gets an array of allowed child XML object types.
 		/// </summary>
 		public virtual Type[] AllowedChildTypes
 		{
@@ -46,7 +46,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets an array of allowed parent XML object types.
+		/// Gets an array of allowed parent XML object types.
 		/// </summary>
 		public virtual Type[] AllowedParentTypes
 		{
@@ -57,7 +57,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the optional single XML object content.
+		/// Gets or sets the optional single XML object content.
 		/// </summary>
 		public IXmlObject Content
 		{
@@ -73,7 +73,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets a list of XML object items.
+		/// Gets a list of XML object items.
 		/// </summary>
 		public IXmlObjectCollection<IXmlObject> Items
 		{
@@ -84,7 +84,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the parent XML object or null if this is the document root.
+		/// Gets or sets the parent XML object or null if this is the document root.
 		/// </summary>
 		public IXmlObject Parent
 		{
@@ -103,10 +103,10 @@ namespace TextMetal.Common.Xml
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Ensures that for any XML object property, the correct parent instance is set/unset.
-		/// 	Should be called in the setter for all XML object properties, before assigning the value.
-		/// 	Example:
-		/// 	set { this.EnsureParentOnPropertySet(this.content, value); this.content = value; }
+		/// Ensures that for any XML object property, the correct parent instance is set/unset.
+		/// Should be called in the setter for all XML object properties, before assigning the value.
+		/// Example:
+		/// set { this.EnsureParentOnPropertySet(this.content, value); this.content = value; }
 		/// </summary>
 		/// <param name="oldValueObj"> The old XML object value (the backing field). </param>
 		/// <param name="newValueObj"> The new XML object value (value). </param>

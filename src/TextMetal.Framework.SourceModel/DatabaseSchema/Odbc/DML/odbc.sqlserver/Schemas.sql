@@ -7,6 +7,6 @@
 select
     sys_s.name as SchemaName	
 from
-    sys.schemas sys_s -- schemas
+    sys.schemas sys_s
 order by
 	sys_s.name asc

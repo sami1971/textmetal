@@ -4,23 +4,24 @@
 */
 
 -- tables[schema]
-select	
+select
+	sys_s.name as SchemaName,
 	sys_t.name as TableName,
 	cast(0 as bit) as IsView
 from
-    sys.tables sys_t -- tables
-	inner join sys.schemas sys_s ON sys_s.schema_id = sys_t.schema_id -- owner schema
+    sys.tables sys_t
+	inner join sys.schemas sys_s on sys_s.schema_id = sys_t.schema_id
 where
 	sys_s.name = ?
 
 union all
 
--- views[schema]
-select	
+select
+	sys_s.name as SchemaName,
     sys_v.name as TableName,
 	cast(1 as bit) as IsView
 from
-    sys.views sys_v -- views
-	inner join sys.schemas sys_s ON sys_s.schema_id = sys_v.schema_id -- owner schema
+    sys.views sys_v
+	inner join sys.schemas sys_s on sys_s.schema_id = sys_v.schema_id
 where
 	sys_s.name = ?

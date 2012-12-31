@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Internal set of static methods used to format a name (symbol) in US English.
+	/// Internal set of static methods used to format a name (symbol) in US English.
 	/// </summary>
 	public static class Name
 	{
@@ -23,7 +23,7 @@ namespace TextMetal.Common.Core
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the C# identifier regular expression pattern.
+		/// Gets the C# identifier regular expression pattern.
 		/// </summary>
 		public static string CSharpIdentifierRegEx
 		{
@@ -38,7 +38,7 @@ namespace TextMetal.Common.Core
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets the camel (e.g. 'myVariableName') form of a name. This method strips underscores.
+		/// Gets the camel (e.g. 'myVariableName') form of a name. This method strips underscores.
 		/// </summary>
 		/// <param name="value"> The value to which to get the camel case form. </param>
 		/// <returns> The camel case, valid C# identifier form of the specified value. </returns>
@@ -84,7 +84,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the contant (e.g. 'MY_VARIABLE_NAME') form of a name. This method adds underscores at case change boundaries.
+		/// Gets the contant (e.g. 'MY_VARIABLE_NAME') form of a name. This method adds underscores at case change boundaries.
 		/// </summary>
 		/// <param name="value"> The value to which to get the constant case form. </param>
 		/// <returns> The constant case, valid C# identifier form of the specified value. </returns>
@@ -120,7 +120,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the Pascal (e.g. 'myVariableName') form of a name. This method strips underscores.
+		/// Gets the Pascal (e.g. 'myVariableName') form of a name. This method strips underscores.
 		/// </summary>
 		/// <param name="value"> The value to which to get the Pascal case form. </param>
 		/// <returns> The Pascal case, valid C# identifier form of the specified value. </returns>
@@ -145,7 +145,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the plural (e.g. 'myVariableNames') form of a name. This method uses basic stemming.
+		/// Gets the plural (e.g. 'myVariableNames') form of a name. This method uses basic stemming.
 		/// </summary>
 		/// <param name="value"> The value to which to get the plural form. </param>
 		/// <returns> The plural, valid C# identifier form of the specified value. </returns>
@@ -184,7 +184,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the singular (e.g. 'myVariableName') form of a name. This method uses basic stemming.
+		/// Gets the singular (e.g. 'myVariableName') form of a name. This method uses basic stemming.
 		/// </summary>
 		/// <param name="value"> The value to which to get the singular form. </param>
 		/// <returns> The singular, valid C# identifier form of the specified value. </returns>
@@ -239,7 +239,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets a valid C# identifier from the specified name (symbol).
+		/// Gets a valid C# identifier from the specified name (symbol).
 		/// </summary>
 		/// <param name="value"> The value to which to derive the C# identifier. </param>
 		/// <returns> The valid C# identifier form of the specified value. </returns>
@@ -264,7 +264,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the specified value is a valid C# identifier.
+		/// Gets a value indicating whether the specified value is a valid C# identifier.
 		/// </summary>
 		/// <param name="value"> The value to test as a C# identifier. </param>
 		/// <returns> True if the specified value is a valid C# identifier; otherwise false. </returns>
@@ -274,7 +274,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the specified character is a vowel (US English).
+		/// Gets a value indicating whether the specified character is a vowel (US English).
 		/// </summary>
 		/// <param name="ch"> The value to test as a vowel (US English). </param>
 		/// <returns> True if the specified value is a vowel (US English); otherwise false. </returns>

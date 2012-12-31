@@ -15,7 +15,7 @@ namespace TextMetal.Framework.ExpressionModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the SurfaceConstruct class.
+		/// Initializes a new instance of the SurfaceConstruct class.
 		/// </summary>
 		protected SurfaceConstruct()
 		{

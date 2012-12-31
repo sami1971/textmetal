@@ -9,14 +9,14 @@ using System.Reflection;
 namespace TextMetal.Common.Solder.RuntimeInterception
 {
 	/// <summary>
-	/// 	Represents a dynamic invocation using reflection.
+	/// Represents a dynamic invocation using reflection.
 	/// </summary>
 	public interface IDynamicInvocation : IDisposable
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Represnts a dynamic invocation of a proxied type member.
+		/// Represnts a dynamic invocation of a proxied type member.
 		/// </summary>
 		/// <param name="proxiedType"> The run-time type of the proxied type (may differ from MethodInfo.DeclaringType). </param>
 		/// <param name="invokedMethodInfo"> The MethodInfo of the invoked member. </param>

@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Represents an XML object and it's "schema".
+	/// Represents an XML object and it's "schema".
 	/// </summary>
 	public interface IXmlObject
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets an array of allowed child XML object types.
+		/// Gets an array of allowed child XML object types.
 		/// </summary>
 		Type[] AllowedChildTypes
 		{
@@ -23,7 +23,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets an array of allowed parent XML object types.
+		/// Gets an array of allowed parent XML object types.
 		/// </summary>
 		Type[] AllowedParentTypes
 		{
@@ -31,7 +31,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the optional single XML object content.
+		/// Gets or sets the optional single XML object content.
 		/// </summary>
 		IXmlObject Content
 		{
@@ -40,7 +40,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets a list of XML object items.
+		/// Gets a list of XML object items.
 		/// </summary>
 		IXmlObjectCollection<IXmlObject> Items
 		{
@@ -48,7 +48,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the parent XML object or null if this is the document root.
+		/// Gets or sets the parent XML object or null if this is the document root.
 		/// </summary>
 		IXmlObject Parent
 		{

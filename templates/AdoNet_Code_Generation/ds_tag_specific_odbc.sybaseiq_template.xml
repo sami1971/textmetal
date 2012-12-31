@@ -59,7 +59,7 @@ namespace ${ClrNamespace}
 
 		private const string ODBC_SYBASE_IQ_COLUMN_ALIASED_FORMAT = "{0}.[{1}]";
 		private const string ODBC_SYBASE_IQ_COLUMN_NAME_FORMAT = "[{0}]";
-		private const string ODBC_SYBASE_IQ_PARAMETER_NAME_FORMAT = "@{0}";
+		private const string ODBC_SYBASE_IQ_PARAMETER_NAME_FORMAT = "?";
 		private const string ODBC_SYBASE_IQ_SCHEMA_TABLE_NAME_FORMAT = "[{0}].[{1}]";
 		private const string ODBC_SYBASE_IQ_TABLE_ALIAS_FORMAT = "{0}";
 		private const string ODBC_SYBASE_IQ_TABLE_NAME_FORMAT = "[{0}]";

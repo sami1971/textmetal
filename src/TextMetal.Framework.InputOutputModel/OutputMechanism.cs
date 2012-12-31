@@ -16,7 +16,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the OutputMechanism class.
+		/// Initializes a new instance of the OutputMechanism class.
 		/// </summary>
 		protected OutputMechanism()
 		{
@@ -43,7 +43,7 @@ namespace TextMetal.Framework.InputOutputModel
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -94,7 +94,7 @@ namespace TextMetal.Framework.InputOutputModel
 		protected abstract void CoreLeave(string scopeName);
 
 		/// <summary>
-		/// 	Dispose of the data source transaction.
+		/// Dispose of the data source transaction.
 		/// </summary>
 		public void Dispose()
 		{

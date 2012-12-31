@@ -17,7 +17,7 @@ namespace TextMetal.Common.Expressions
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the PrintExpressionVisitor class.
+		/// Initializes a new instance of the PrintExpressionVisitor class.
 		/// </summary>
 		private PrintExpressionVisitor()
 		{

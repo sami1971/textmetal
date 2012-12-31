@@ -5,21 +5,28 @@
 
 -- unique key columns (refs)[schema, unique key]
 select
-sys_ixc.sequence as UniqueKeyColumnOrdinal,		
-sys_ixc.column_id as UniqueKeyParentColumnOrdinal,	
-case
-    when sys_ixc."order" = 'D' then 1
-    when sys_ixc."order" = 'A' then 0
-    else null
-end as UniqueKeyColumnDescendingSort
+	sys_u_us.user_name as SchemaName,
+	sys_t_us.table_name as TableName,
+	sys_ix_us.index_name as UniqueKeyName,
+	sys_ixc_us.sequence as UniqueKeyOrdinal,
+	sys_ixc_us.column_id as ColumnOrdinal,	
+	sys_c_us.column_name as ColumnName,
+	case
+		when sys_ixc_us."order" = 'D' then 1
+		when sys_ixc_us."order" = 'A' then 0
+		else null
+	end as UniqueKeyColumnDescendingSort
 from
-sys.sysidx sys_ix
-inner join sys.systable sys_t_uk on sys_t_uk.table_id = sys_ix.table_id
-inner join dbo.sysusers sys_u_uk on sys_u_uk.uid = sys_t_uk.creator
-inner join sys.sysidxcol sys_ixc on sys_ixc.index_id = sys_ix.index_id and sys_ixc.table_id = sys_ix.table_id
+	sys.sysidx sys_ix_us
+	inner join sys.sysidxcol sys_ixc_us on sys_ixc_us.table_id = sys_ix_us.table_id and sys_ixc_us.index_id = sys_ix_us.index_id
+	inner join sys.systab sys_t_us on sys_t_us.table_id = sys_ix_us.table_id
+	inner join sys.systabcol sys_c_us on sys_c_us.table_id = sys_ixc_us.table_id and sys_c_us.column_id = sys_ixc_us.column_id
+	inner join sys.sysuser sys_u_us on sys_u_us.user_id = sys_t_us.creator
 where
-sys_u_uk.name = ?
-and sys_t_uk.table_name = ?
-and sys_ix.index_category = 3
-and sys_ix.index_name = ?
-and sys_ix."unique" = 2
+	sys_u_us.user_name = ?
+	and sys_t_us.table_name = ?
+	and sys_ix_us.index_name = ?
+	and sys_ix_us.index_category = 3
+	and (sys_ix_us."unique" = 1 or sys_ix_us."unique" = 2)
+order by
+	sys_ixc_us.sequence asc

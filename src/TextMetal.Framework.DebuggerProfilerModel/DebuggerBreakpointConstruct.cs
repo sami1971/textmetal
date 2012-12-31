@@ -14,7 +14,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.DebuggerProfilerModel
 {
 	/// <summary>
-	/// 	Allows an author of a TextMetal template file to declaratively set a CLR breakpoint anywhere in the object tree.
+	/// Allows an author of a TextMetal template file to declaratively set a CLR breakpoint anywhere in the object tree.
 	/// </summary>
 	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public class DebuggerBreakpointConstruct : ITemplateXmlObject, IExpressionXmlObject, IAssociativeXmlObject, ISortXmlObject
@@ -22,7 +22,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DebuggerBreakpointConstruct class.
+		/// Initializes a new instance of the DebuggerBreakpointConstruct class.
 		/// </summary>
 		public DebuggerBreakpointConstruct()
 		{
@@ -39,7 +39,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets an array of allowed child XML object types.
+		/// Gets an array of allowed child XML object types.
 		/// </summary>
 		public Type[] AllowedChildTypes
 		{
@@ -50,7 +50,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets an array of allowed parent XML object types.
+		/// Gets an array of allowed parent XML object types.
 		/// </summary>
 		public Type[] AllowedParentTypes
 		{
@@ -60,9 +60,9 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 			}
 		}
 
-		///<summary>
-		///	Gets or sets the optional single XML object content. This implementation always return null.
-		///</summary>
+		/// <summary>
+		/// Gets or sets the optional single XML object content. This implementation always return null.
+		/// </summary>
 		public IXmlObject Content
 		{
 			get
@@ -75,9 +75,9 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 			}
 		}
 
-		///<summary>
-		///	Gets a list of XML object items. This implementation always return null.
-		///</summary>
+		/// <summary>
+		/// Gets a list of XML object items. This implementation always return null.
+		/// </summary>
 		public IXmlObjectCollection<IXmlObject> Items
 		{
 			get
@@ -87,7 +87,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets the associative name of the current associative XML object.
+		/// Gets the associative name of the current associative XML object.
 		/// </summary>
 		public string Name
 		{
@@ -98,7 +98,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets or sets the parent XML object or null if this is the document root.
+		/// Gets or sets the parent XML object or null if this is the document root.
 		/// </summary>
 		public IXmlObject Parent
 		{
@@ -117,7 +117,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Evaluates at run-time, an expression tree yielding an object value result.
+		/// Evaluates at run-time, an expression tree yielding an object value result.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <returns> An expression return value or null. </returns>
@@ -130,7 +130,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Re-orders an enumerable of values, yielding a re-ordered enumerable.
+		/// Re-orders an enumerable of values, yielding a re-ordered enumerable.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <param name="values"> </param>
@@ -144,7 +144,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Expands the template tree into the templating context current output.
+		/// Expands the template tree into the templating context current output.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		public void ExpandTemplate(TemplatingContext templatingContext)
@@ -154,7 +154,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets the enumerator for the current associative object instance.
+		/// Gets the enumerator for the current associative object instance.
 		/// </summary>
 		/// <returns> An instance of IEnumerator or null. </returns>
 		public IEnumerator GetAssociativeObjectEnumerator()
@@ -163,7 +163,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets the dictionary enumerator for the current associative object instance.
+		/// Gets the dictionary enumerator for the current associative object instance.
 		/// </summary>
 		/// <returns> An instance of IDictionaryEnumerator or null. </returns>
 		public IDictionaryEnumerator GetAssociativeObjectEnumeratorDict()
@@ -172,7 +172,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets the enumerator (tick one) for the current associative object instance.
+		/// Gets the enumerator (tick one) for the current associative object instance.
 		/// </summary>
 		/// <returns> An instance of IEnumerator`1 or null. </returns>
 		public IEnumerator<KeyValuePair<string, object>> GetAssociativeObjectEnumeratorTickOne()
@@ -181,7 +181,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		}
 
 		/// <summary>
-		/// 	Gets the value of the current associative object instance.
+		/// Gets the value of the current associative object instance.
 		/// </summary>
 		/// <returns> A value or null. </returns>
 		public object GetAssociativeObjectValue()

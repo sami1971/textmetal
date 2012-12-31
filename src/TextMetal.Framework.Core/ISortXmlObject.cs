@@ -10,7 +10,7 @@ using TextMetal.Common.Xml;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Represents a sort XML object.
+	/// Represents a sort XML object.
 	/// </summary>
 	public interface ISortXmlObject : ISortMechanism, IXmlObject
 	{

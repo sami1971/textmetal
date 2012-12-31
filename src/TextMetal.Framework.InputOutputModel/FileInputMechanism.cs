@@ -18,7 +18,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the FileInputMechanism class.
+		/// Initializes a new instance of the FileInputMechanism class.
 		/// </summary>
 		/// <param name="baseDirectoryPath"> The base input directory path. </param>
 		/// <param name="xpe"> The XML persist engine in-effect. </param>

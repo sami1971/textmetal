@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq;
 using System.Linq;
+using System.Xml;
 
 using TextMetal.Common.Core;
 using TextMetal.Common.Data;
@@ -120,12 +121,26 @@ namespace ${ClrNamespace}
 <![CDATA[		${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
-								<BinaryExpression operator="Eq">
+								<BinaryExpression operator="Or">
 									<BinaryExpression.LeftExpression>
-										<Facet name="ColumnIsPrimaryKey" />
+										<BinaryExpression operator="Eq">
+											<BinaryExpression.LeftExpression>
+												<Facet name="ColumnIsPrimaryKey" />
+											</BinaryExpression.LeftExpression>
+											<BinaryExpression.RightExpression>
+												<Value type="System.Boolean" data="True" />
+											</BinaryExpression.RightExpression>
+										</BinaryExpression>
 									</BinaryExpression.LeftExpression>
 									<BinaryExpression.RightExpression>
-										<Value type="System.Boolean" data="True" />
+										<BinaryExpression operator="Eq">
+											<BinaryExpression.LeftExpression>
+												<Facet name="HasNoDefinedPrimaryKeyColumns" />
+											</BinaryExpression.LeftExpression>
+											<BinaryExpression.RightExpression>
+												<Value type="System.Boolean" data="True" />
+											</BinaryExpression.RightExpression>
+										</BinaryExpression>
 									</BinaryExpression.RightExpression>
 								</BinaryExpression>
 							</ForEach.Filter>
@@ -153,12 +168,26 @@ namespace ${ClrNamespace}
 		${TableNameSingularPascalCase} Load${TableNameSingularPascalCase}(IUnitOfWorkContext unitOfWorkContext, ]]>
 						<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 							<ForEach.Filter>
-								<BinaryExpression operator="Eq">
+								<BinaryExpression operator="Or">
 									<BinaryExpression.LeftExpression>
-										<Facet name="ColumnIsPrimaryKey" />
+										<BinaryExpression operator="Eq">
+											<BinaryExpression.LeftExpression>
+												<Facet name="ColumnIsPrimaryKey" />
+											</BinaryExpression.LeftExpression>
+											<BinaryExpression.RightExpression>
+												<Value type="System.Boolean" data="True" />
+											</BinaryExpression.RightExpression>
+										</BinaryExpression>
 									</BinaryExpression.LeftExpression>
 									<BinaryExpression.RightExpression>
-										<Value type="System.Boolean" data="True" />
+										<BinaryExpression operator="Eq">
+											<BinaryExpression.LeftExpression>
+												<Facet name="HasNoDefinedPrimaryKeyColumns" />
+											</BinaryExpression.LeftExpression>
+											<BinaryExpression.RightExpression>
+												<Value type="System.Boolean" data="True" />
+											</BinaryExpression.RightExpression>
+										</BinaryExpression>
 									</BinaryExpression.RightExpression>
 								</BinaryExpression>
 							</ForEach.Filter>

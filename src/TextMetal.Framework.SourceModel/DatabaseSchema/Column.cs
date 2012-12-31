@@ -17,7 +17,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the Column class.
+		/// Initializes a new instance of the Column class.
 		/// </summary>
 		public Column()
 		{
@@ -57,6 +57,8 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		private int columnScale;
 		private int columnSize;
 		private string columnSqlType;
+		private int primaryKeyColumnOrdinal;
+		private string primaryKeyName;
 
 		#endregion
 
@@ -449,6 +451,40 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 			set
 			{
 				this.columnSqlType = value;
+			}
+		}
+
+		public bool IsColumnServerGeneratedPrimaryKey
+		{
+			get
+			{
+				return this.ColumnIsPrimaryKey && this.ColumnIsIdentity;
+			}
+		}
+
+		[XmlAttribute]
+		public int PrimaryKeyColumnOrdinal
+		{
+			get
+			{
+				return this.primaryKeyColumnOrdinal;
+			}
+			set
+			{
+				this.primaryKeyColumnOrdinal = value;
+			}
+		}
+
+		[XmlAttribute]
+		public string PrimaryKeyName
+		{
+			get
+			{
+				return this.primaryKeyName;
+			}
+			set
+			{
+				this.primaryKeyName = value;
 			}
 		}
 

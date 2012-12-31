@@ -14,14 +14,14 @@ using TextMetal.HostImpl.Tool;
 namespace TextMetal.HostImpl.ConsoleTool
 {
 	/// <summary>
-	/// 	Entry point class for the application.
+	/// Entry point class for the application.
 	/// </summary>
 	internal class Program
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	When called, displays an interactive folder browser dialog to prompt for a directory path.
+		/// When called, displays an interactive folder browser dialog to prompt for a directory path.
 		/// </summary>
 		/// <param name="directoryPath"> The resulting directory path or null if the user canceled. </param>
 		/// <returns> A value indicating whether the user canceled the dialog. </returns>
@@ -45,7 +45,7 @@ namespace TextMetal.HostImpl.ConsoleTool
 		}
 
 		/// <summary>
-		/// 	When called, displays an interactive open file dialog to prompt for a file path.
+		/// When called, displays an interactive open file dialog to prompt for a file path.
 		/// </summary>
 		/// <param name="filePath"> The resulting file path or null if the user canceled. </param>
 		/// <returns> A value indicating whether the user canceled the dialog. </returns>
@@ -71,7 +71,7 @@ namespace TextMetal.HostImpl.ConsoleTool
 		}
 
 		/// <summary>
-		/// 	The entry point method for this application.
+		/// The entry point method for this application.
 		/// </summary>
 		/// <param name="args"> The command line arguments passed from the executing environment. </param>
 		/// <returns> The resulting exit code. </returns>
@@ -86,7 +86,7 @@ namespace TextMetal.HostImpl.ConsoleTool
 		}
 
 		/// <summary>
-		/// 	The indirect entry point method for this application. Code is wrapped in this method to leverage the 'TryStartup'/'Startup' pattern. This method contains the TextMetal console application host environment setup code (logic that is specific to a console application to transition to the more generic 'tool' host code).
+		/// The indirect entry point method for this application. Code is wrapped in this method to leverage the 'TryStartup'/'Startup' pattern. This method contains the TextMetal console application host environment setup code (logic that is specific to a console application to transition to the more generic 'tool' host code).
 		/// </summary>
 		/// <param name="args"> The command line arguments passed from the executing environment. </param>
 		/// <returns> The resulting exit code. </returns>
@@ -188,7 +188,7 @@ namespace TextMetal.HostImpl.ConsoleTool
 		}
 
 		/// <summary>
-		/// 	The indirect entry point method for this application. Code is wrapped in this method to leverage the 'TryStartup'/'Startup' pattern. This method, if used, wraps the Startup() method in an exception handler. The handler will catch all exceptions and report a full detailed stack trace to the Console.Error stream; -1 is then returned as the exit code. Otherwise, if no exception is thrown, the exit code returned is that which is returned by Startup().
+		/// The indirect entry point method for this application. Code is wrapped in this method to leverage the 'TryStartup'/'Startup' pattern. This method, if used, wraps the Startup() method in an exception handler. The handler will catch all exceptions and report a full detailed stack trace to the Console.Error stream; -1 is then returned as the exit code. Otherwise, if no exception is thrown, the exit code returned is that which is returned by Startup().
 		/// </summary>
 		/// <param name="args"> The command line arguments passed from the executing environment. </param>
 		/// <returns> The resulting exit code. </returns>

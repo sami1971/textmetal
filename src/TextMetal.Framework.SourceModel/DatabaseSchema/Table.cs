@@ -16,7 +16,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the Table class.
+		/// Initializes a new instance of the Table class.
 		/// </summary>
 		public Table()
 		{
@@ -29,6 +29,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		private readonly List<Column> columns = new List<Column>();
 		private readonly List<ForeignKey> foreignKeys = new List<ForeignKey>();
 		private readonly List<UniqueKey> uniqueKeys = new List<UniqueKey>();
+		private bool hasNoDefinedPrimaryKeyColumns;
 		private bool isView;
 		private string tableName;
 		private string tableNameCamelCase;
@@ -71,6 +72,27 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 			get
 			{
 				return this.Columns.Count(c => c.ColumnIsIdentity) > 0;
+			}
+		}
+
+		[XmlAttribute]
+		public bool HasNoDefinedPrimaryKeyColumns
+		{
+			get
+			{
+				return this.hasNoDefinedPrimaryKeyColumns;
+			}
+			set
+			{
+				this.hasNoDefinedPrimaryKeyColumns = value;
+			}
+		}
+
+		public bool HasSingleColumnServerGeneratedPrimaryKey
+		{
+			get
+			{
+				return this.Columns.Count(c => c.IsColumnServerGeneratedPrimaryKey) == 1;
 			}
 		}
 

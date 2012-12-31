@@ -5,10 +5,12 @@
 
 -- procedures[schema]
 select
-sys_p.proc_name as ProcedureName
+	sys_u.user_name as SchemaName,
+	sys_p.proc_name as ProcedureName
 from
-sys.sysprocedure sys_p
-inner join dbo.sysusers sys_u on sys_u.uid = sys_p.creator
+	sys.sysprocedure sys_p
+	inner join sys.sysuser sys_u on sys_u.user_id = sys_p.creator
 where
-sys_u.name = ?
-order by sys_p.proc_name asc
+	sys_u.user_name = ?
+order by
+	sys_p.proc_name asc

@@ -6,14 +6,14 @@
 namespace TextMetal.Common.Core.StringTokens
 {
 	/// <summary>
-	/// 	Represents a token replacement strategy.
+	/// Represents a token replacement strategy.
 	/// </summary>
 	public interface IWildcardTokenReplacementStrategy
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Evaluate a token using any parameters specified.
+		/// Evaluate a token using any parameters specified.
 		/// </summary>
 		/// <param name="token"> The wildcard token to evaludate. </param>
 		/// <param name="parameters"> Should be null for value semantics; or a valid object array for function semantics. </param>

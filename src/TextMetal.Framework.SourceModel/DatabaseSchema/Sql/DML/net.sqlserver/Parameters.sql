@@ -4,7 +4,9 @@
 */
 
 -- parameters[schema, procedure]
-select	
+select
+	sys_s.name as SchemaName,
+	sys_o.name as ProcedureName,
 	sys_p.name as ParameterName,
 	sys_p.parameter_id as ParameterOrdinal,
 	sys_p.max_length as ParameterSize,
@@ -19,13 +21,13 @@ select
 	null as ParameterDefaultValue,
 	cast(0 as bit) as ParameterIsResultColumn
 from
-    sys.parameters sys_p -- parameters
-	inner join sys.objects sys_o on sys_o.object_id = sys_p.object_id -- owner procedure
-	inner join sys.schemas sys_s ON sys_s.schema_id = sys_o.schema_id -- owner schema
-	inner join sys.types sys_t on sys_t.user_type_id = sys_p.user_type_id -- parameter type
+    sys.parameters sys_p
+	inner join sys.objects sys_o on sys_o.object_id = sys_p.object_id
+	inner join sys.schemas sys_s on sys_s.schema_id = sys_o.schema_id
+	inner join sys.types sys_t on sys_t.user_type_id = sys_p.user_type_id
 where
-	sys_o.type in ('P') and -- owner is procedure
-	(sys_s.name = @SchemaName) and
-	(sys_o.name = @ProcedureName)
+	sys_o.type in ('P')
+	and sys_s.name = @SchemaName
+	and sys_o.name = @ProcedureName
 order by	
-	sys_p.parameter_id asc -- parameter ordinal
+	sys_p.parameter_id asc

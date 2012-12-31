@@ -4,7 +4,6 @@
 */
 
 -- database (not catalog, actual dataabse)
-
 select
 	SERVERPROPERTY('MachineName') as MachineName,
 	SERVERPROPERTY('InstanceName') as InstanceName,

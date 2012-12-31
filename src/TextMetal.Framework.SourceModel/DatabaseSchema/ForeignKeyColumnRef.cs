@@ -14,7 +14,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ForeignKeyColumnRef class.
+		/// Initializes a new instance of the ForeignKeyColumnRef class.
 		/// </summary>
 		public ForeignKeyColumnRef()
 		{
@@ -24,64 +24,134 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 
 		#region Fields/Constants
 
-		private int foreignKeyChildColumnOrdinal;
-		private string foreignKeyChildTableName;
-		private int foreignKeyColumnOrdinal;
-		private int foreignKeyParentColumnOrdinal;
+		private string columnName;
+		private int columnOrdinal;
+		private int foreignKeyOrdinal;
+		private string primaryKeyColumnName;
+		private int primaryKeyColumnOrdinal;
+		private string primaryKeyName;
+		private int primaryKeyOrdinal;
+		private string primarySchemaName;
+		private string primaryTableName;
 
 		#endregion
 
 		#region Properties/Indexers/Events
 
 		[XmlAttribute]
-		public int ForeignKeyChildColumnOrdinal
+		public string ColumnName
 		{
 			get
 			{
-				return this.foreignKeyChildColumnOrdinal;
+				return this.columnName;
 			}
 			set
 			{
-				this.foreignKeyChildColumnOrdinal = value;
+				this.columnName = value;
 			}
 		}
 
 		[XmlAttribute]
-		public string ForeignKeyChildTableName
+		public int ColumnOrdinal
 		{
 			get
 			{
-				return this.foreignKeyChildTableName;
+				return this.columnOrdinal;
 			}
 			set
 			{
-				this.foreignKeyChildTableName = value;
+				this.columnOrdinal = value;
 			}
 		}
 
 		[XmlAttribute]
-		public int ForeignKeyColumnOrdinal
+		public int ForeignKeyOrdinal
 		{
 			get
 			{
-				return this.foreignKeyColumnOrdinal;
+				return this.foreignKeyOrdinal;
 			}
 			set
 			{
-				this.foreignKeyColumnOrdinal = value;
+				this.foreignKeyOrdinal = value;
 			}
 		}
 
 		[XmlAttribute]
-		public int ForeignKeyParentColumnOrdinal
+		public string PrimaryKeyColumnName
 		{
 			get
 			{
-				return this.foreignKeyParentColumnOrdinal;
+				return this.primaryKeyColumnName;
 			}
 			set
 			{
-				this.foreignKeyParentColumnOrdinal = value;
+				this.primaryKeyColumnName = value;
+			}
+		}
+
+		[XmlAttribute]
+		public int PrimaryKeyColumnOrdinal
+		{
+			get
+			{
+				return this.primaryKeyColumnOrdinal;
+			}
+			set
+			{
+				this.primaryKeyColumnOrdinal = value;
+			}
+		}
+
+		[XmlAttribute]
+		public string PrimaryKeyName
+		{
+			get
+			{
+				return this.primaryKeyName;
+			}
+			set
+			{
+				this.primaryKeyName = value;
+			}
+		}
+
+		[XmlAttribute]
+		public int PrimaryKeyOrdinal
+		{
+			get
+			{
+				return this.primaryKeyOrdinal;
+			}
+			set
+			{
+				this.primaryKeyOrdinal = value;
+			}
+		}
+
+		[XmlAttribute]
+		public string PrimarySchemaName
+		{
+			get
+			{
+				return this.primarySchemaName;
+			}
+			set
+			{
+				this.primarySchemaName = value;
+			}
+		}
+
+		[XmlAttribute]
+		public string PrimaryTableName
+		{
+			get
+			{
+				return this.primaryTableName;
+			}
+			set
+			{
+				this.primaryTableName = value;
 			}
 		}
 

@@ -6,15 +6,15 @@
 namespace TextMetal.HostImpl.WindowsTool
 {
 	/// <summary>
-	///     Represents a list item with a strongly typed value.
+	/// Represents a list item with a strongly typed value.
 	/// </summary>
-	/// <typeparam name="TValue">The type of the list item value.</typeparam>
+	/// <typeparam name="TValue"> The type of the list item value. </typeparam>
 	public interface IListItem<TValue> : IListItem
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		///     Gets the list item value.
+		/// Gets the list item value.
 		/// </summary>
 		new TValue Value
 		{

@@ -18,7 +18,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the JsonSourceStrategy class.
+		/// Initializes a new instance of the JsonSourceStrategy class.
 		/// </summary>
 		public JsonSourceStrategy()
 		{

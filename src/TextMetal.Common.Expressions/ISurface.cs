@@ -6,7 +6,7 @@
 namespace TextMetal.Common.Expressions
 {
 	/// <summary>
-	/// 	Represents a surface.
+	/// Represents a surface.
 	/// </summary>
 	public interface ISurface : IExpression
 	{

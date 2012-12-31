@@ -5,6 +5,8 @@
 
 -- foreign keys[schema, table]
 select	
+	sys_s_fs.name as SchemaName,
+	sys_t_fs.name as TableName,
 	sys_fk.name as ForeignKeyName,	
 	sys_fk.is_disabled as ForeignKeyIsDisabled,
 	sys_fk.is_not_for_replication as ForeignKeyIsForReplication,
@@ -13,12 +15,12 @@ select
 	sys_fk.update_referential_action as ForeignKeyOnUpdateRefIntAction,
 	sys_fk.update_referential_action_desc as ForeignKeyOnUpdateRefIntActionSqlName
 from
-    sys.foreign_keys sys_fk -- foreign key	
-	inner join sys.tables as sys_t on sys_t.object_id = sys_fk.parent_object_id -- owner table
-	inner join sys.schemas sys_s ON sys_s.schema_id = sys_fk.schema_id -- owner schema
+    sys.foreign_keys sys_fk
+	inner join sys.tables sys_t_fs on sys_t_fs.object_id = sys_fk.parent_object_id
+	inner join sys.schemas sys_s_fs on sys_s_fs.schema_id = sys_fk.schema_id
 where
-	sys_fk.type in ('F') and -- is foreign key
-	(sys_s.name = ?) and
-	(sys_t.name = ?)
+	sys_fk.type in ('F')
+	and sys_s_fs.name = ?
+	and sys_t_fs.name = ?
 order by
 	sys_fk.name asc

@@ -12,7 +12,7 @@ using TextMetal.Common.Core.StringTokens;
 namespace TextMetal.Common.UnitTests.Core.StringTokens
 {
 	/// <summary>
-	/// 	Unit tests.
+	/// Unit tests.
 	/// </summary>
 	[TestFixture]
 	public class DynamicValueTokenReplacementStrategyTests

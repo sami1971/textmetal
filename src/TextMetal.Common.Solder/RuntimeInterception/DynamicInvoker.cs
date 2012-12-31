@@ -9,14 +9,14 @@ using System.Reflection;
 namespace TextMetal.Common.Solder.RuntimeInterception
 {
 	/// <summary>
-	/// 	Represents a dynamic invocation. Provides mechanisms to handle System.Object and System.IDisposable message propagation.
+	/// Represents a dynamic invocation. Provides mechanisms to handle System.Object and System.IDisposable message propagation.
 	/// </summary>
 	public abstract class DynamicInvoker : IDynamicInvocation
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DynamicInvoker class.
+		/// Initializes a new instance of the DynamicInvoker class.
 		/// </summary>
 		protected DynamicInvoker()
 		{
@@ -33,7 +33,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -52,7 +52,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Represnts a dynamic invocation of a proxied type member.
+		/// Represnts a dynamic invocation of a proxied type member.
 		/// </summary>
 		/// <param name="proxiedType"> The run-time type of the proxied type (may differ from MethodInfo.DeclaringType). </param>
 		/// <param name="invokedMethodInfo"> The MethodInfo of the invoked member. </param>
@@ -123,7 +123,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		}
 
 		/// <summary>
-		/// 	Disposes of the inner resources, if present. Once disposed, the instance cannot be reused.
+		/// Disposes of the inner resources, if present. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public virtual void Dispose()
 		{
@@ -141,7 +141,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		}
 
 		/// <summary>
-		/// 	Represnts a dynamic invocation of a proxied type member.
+		/// Represnts a dynamic invocation of a proxied type member.
 		/// </summary>
 		/// <param name="proxiedType"> The run-time type of the proxied type (may differ from MethodInfo.DeclaringType). </param>
 		/// <param name="invokedMethodInfo"> The MethodInfo of the invoked member. </param>

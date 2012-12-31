@@ -13,14 +13,14 @@ using System.Reflection;
 namespace TextMetal.Common.Data.LinqToSql
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for LINQ to SQL.
+	/// Provides static helper and/or extension methods for LINQ to SQL.
 	/// </summary>
 	public static class LinqToSqlHelper
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	For a given UnitOfWorkContext, this method returns a ContextWrapper`1 for a target data context type.
+		/// For a given UnitOfWorkContext, this method returns a ContextWrapper`1 for a target data context type.
 		/// </summary>
 		/// <typeparam name="TContext"> The desired data context type. </typeparam>
 		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
@@ -50,7 +50,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		}
 
 		/// <summary>
-		/// 	For a given UnitOfWorkContext, this method returns a DataContext of the target data context type.
+		/// For a given UnitOfWorkContext, this method returns a DataContext of the target data context type.
 		/// </summary>
 		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>
 		/// <param name="dataContextType"> The desired data context type. </param>
@@ -99,7 +99,7 @@ namespace TextMetal.Common.Data.LinqToSql
 		}
 
 		/// <summary>
-		/// 	For a given UnitOfWorkContext, this method returns a DataContext of the target data context type.
+		/// For a given UnitOfWorkContext, this method returns a DataContext of the target data context type.
 		/// </summary>
 		/// <param name="dataContextType"> The desired data context type. </param>
 		/// <param name="dbConnection"> The target database connection. </param>

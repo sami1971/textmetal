@@ -19,7 +19,7 @@ namespace TextMetal.Framework.ExpressionModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ValueConstruct class.
+		/// Initializes a new instance of the ValueConstruct class.
 		/// </summary>
 		public ValueConstruct()
 		{

@@ -19,7 +19,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the WriteConstruct class.
+		/// Initializes a new instance of the WriteConstruct class.
 		/// </summary>
 		public WriteConstruct()
 		{

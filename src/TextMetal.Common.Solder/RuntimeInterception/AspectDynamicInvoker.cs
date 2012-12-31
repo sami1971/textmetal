@@ -9,14 +9,14 @@ using System.Reflection;
 namespace TextMetal.Common.Solder.RuntimeInterception
 {
 	/// <summary>
-	/// 	Represents a dynamic invocation used for AOP. Provides hooks into pre and post processing of invocations.
+	/// Represents a dynamic invocation used for AOP. Provides hooks into pre and post processing of invocations.
 	/// </summary>
 	public abstract class AspectDynamicInvoker : DynamicInvoker
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the AspectDynamicInvoker class.
+		/// Initializes a new instance of the AspectDynamicInvoker class.
 		/// </summary>
 		protected AspectDynamicInvoker()
 		{
@@ -27,7 +27,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the intercepted instance.
+		/// Gets the intercepted instance.
 		/// </summary>
 		public abstract object InterceptedInstance
 		{
@@ -39,7 +39,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Represnts a dynamic invocation of a proxied type member.
+		/// Represnts a dynamic invocation of a proxied type member.
 		/// </summary>
 		/// <param name="proxiedType"> The run-time type of the proxied type (may differ from MethodInfo.DeclaringType). </param>
 		/// <param name="invokedMethodInfo"> The MethodInfo of the invoked member. </param>
@@ -106,7 +106,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		}
 
 		/// <summary>
-		/// 	This method is executed after the invoking the intercepted member on the intercepted instance. NOTE: The intercepted member can be accessed via the InterceptedInstance property. Do not confuse the intercepted member for the target instance. The target instance is the underlying proxy object.
+		/// This method is executed after the invoking the intercepted member on the intercepted instance. NOTE: The intercepted member can be accessed via the InterceptedInstance property. Do not confuse the intercepted member for the target instance. The target instance is the underlying proxy object.
 		/// </summary>
 		/// <param name="invocationPreceeded"> A value indicating whether the invocation of the member preceeded this interception point. </param>
 		/// <param name="proxiedType"> The runtime type of the invoking instance (may differ from MethodInfo.DeclaringType). </param>
@@ -119,7 +119,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		protected abstract void OnInterceptAfterInvoke(bool invocationPreceeded, Type proxiedType, MethodInfo invokedMethodInfo, object proxyInstance, object[] invocationParameters, ref object returnValue, ref Exception thrownException);
 
 		/// <summary>
-		/// 	This method is executed before the invoking the intercepted member on the intercepted instance. NOTE: The intercepted member can be accessed via the InterceptedInstance property. Do not confuse the intercepted member for the target instance. The target instance is the underlying proxy object.
+		/// This method is executed before the invoking the intercepted member on the intercepted instance. NOTE: The intercepted member can be accessed via the InterceptedInstance property. Do not confuse the intercepted member for the target instance. The target instance is the underlying proxy object.
 		/// </summary>
 		/// <param name="proceedWithInvocation"> A value indicating whether to proceed with the invoking the member. </param>
 		/// <param name="proxiedType"> The runtime type of the invoking instance (may differ from MethodInfo.DeclaringType). </param>
@@ -129,7 +129,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		protected abstract void OnInterceptBeforeInvoke(out bool proceedWithInvocation, Type proxiedType, MethodInfo invokedMethodInfo, object proxyInstance, object[] invocationParameters);
 
 		/// <summary>
-		/// 	This method is executes the the intercepted member on the intercepted instance. NOTE: The intercepted member can be accessed via the InterceptedInstance property. Do not confuse the intercepted member for the target instance. The target instance is the underlying proxy object. Generally, inheritors will use the default implementation of this method but advanced scenarios can override this method ensuring a base call.
+		/// This method is executes the the intercepted member on the intercepted instance. NOTE: The intercepted member can be accessed via the InterceptedInstance property. Do not confuse the intercepted member for the target instance. The target instance is the underlying proxy object. Generally, inheritors will use the default implementation of this method but advanced scenarios can override this method ensuring a base call.
 		/// </summary>
 		/// <param name="proxiedType"> The run-time type of the proxied type (may differ from MethodInfo.DeclaringType). </param>
 		/// <param name="invokedMethodInfo"> The MethodInfo of the invoked member. </param>

@@ -21,14 +21,14 @@ using TextMetal.Framework.TemplateModel;
 namespace TextMetal.HostImpl.Tool
 {
 	/// <summary>
-	///     This class contains code to bootstrap TextMetal proper. This code is a specific implementation for TextMetal 'tool' hosting, concerned with leveraging file paths. Other host implementations will vary (see web host sample for instance). This code can be used by any interactive or batch application (console, windows, WPF, service, etc.).
+	/// This class contains code to bootstrap TextMetal proper. This code is a specific implementation for TextMetal 'tool' hosting, concerned with leveraging file paths. Other host implementations will vary (see web host sample for instance). This code can be used by any interactive or batch application (console, windows, WPF, service, etc.).
 	/// </summary>
 	public sealed class ToolHost : IToolHost
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		///     Initializes a new instance of the ToolHost class.
+		/// Initializes a new instance of the ToolHost class.
 		/// </summary>
 		public ToolHost()
 		{
@@ -39,7 +39,7 @@ namespace TextMetal.HostImpl.Tool
 		#region Methods/Operators
 
 		/// <summary>
-		///     Provides a hosting shim between a 'tool' host and the underlying TextMetal run-time.
+		/// Provides a hosting shim between a 'tool' host and the underlying TextMetal run-time.
 		/// </summary>
 		/// <param name="templateFilePath"> The file path of the input TextMetal template file to execute. </param>
 		/// <param name="sourceFilePath"> The file path (or source specific URI) of the input data source to leverage. </param>

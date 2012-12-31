@@ -50,6 +50,7 @@
 <![CDATA[
 
 using System;
+using System.Xml;
 
 using TextMetal.Common.Core;
 using TextMetal.Common.Data;
@@ -88,10 +89,30 @@ namespace ${ClrNamespace}.${FolderName}
 		
 		#region Fields/Constants
 		
-		public const string SCHEMA_NAME_${SchemaNameConstantCase} = "${SchemaName}";
-		public const string TABLE_NAME_${TableNameConstantCase} = "${TableName}";
-		
+		public const string SCHEMA_NAME = "${SchemaName}";
+		public const string TABLE_NAME = "${TableName}";
 ]]>
+
+					<If>
+						<If.Condition>
+							<BinaryExpression operator="Eq">
+								<BinaryExpression.LeftExpression>
+									<Value type="System.Boolean" data="true" />
+								</BinaryExpression.LeftExpression>
+								<BinaryExpression.RightExpression>
+									<Facet name="HasSingleColumnServerGeneratedPrimaryKey" />
+								</BinaryExpression.RightExpression>
+							</BinaryExpression>
+						</If.Condition>
+						<If.True>
+								<![CDATA[		public const bool HAS_SINGLE_COLUMN_SERVER_GENERATED_PRIMARY_KEY = true;
+]]>
+						</If.True>
+						<If.False>
+								<![CDATA[		public const bool HAS_SINGLE_COLUMN_SERVER_GENERATED_PRIMARY_KEY = false;
+]]>
+						</If.False>
+					</If>
 
 					<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">							
 						<ForEach.Body>
@@ -128,7 +149,7 @@ namespace ${ClrNamespace}.${FolderName}
 												<Value type="System.Boolean" data="false" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
-												<Facet name="HasIdentityColumns" />
+												<Facet name="HasSingleColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.RightExpression>
 										</BinaryExpression>
 									</BinaryExpression.LeftExpression>
@@ -171,7 +192,7 @@ namespace ${ClrNamespace}.${FolderName}
 												<Value type="System.Boolean" data="false" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
-												<Facet name="HasIdentityColumns" />
+												<Facet name="HasSingleColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.RightExpression>
 										</BinaryExpression>
 									</BinaryExpression.LeftExpression>
@@ -213,7 +234,7 @@ namespace ${ClrNamespace}.${FolderName}
 												<Value type="System.Boolean" data="true" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
-												<Facet name="HasIdentityColumns" />
+												<Facet name="HasSingleColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.RightExpression>
 										</BinaryExpression>
 									</BinaryExpression.LeftExpression>
@@ -241,7 +262,7 @@ namespace ${ClrNamespace}.${FolderName}
 									<ForEach.Filter>
 										<BinaryExpression operator="Eq">
 											<BinaryExpression.LeftExpression>
-												<Facet name="ColumnIsIdentity" />
+												<Facet name="IsColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
 												<Value type="System.Boolean" data="True" />
@@ -294,7 +315,7 @@ namespace ${ClrNamespace}.${FolderName}
 									<ForEach.Filter>
 										<BinaryExpression operator="Eq">
 											<BinaryExpression.LeftExpression>
-												<Facet name="ColumnIsIdentity" />
+												<Facet name="IsColumnServerGeneratedPrimaryKey" />
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
 												<Value type="System.Boolean" data="True" />
@@ -375,13 +396,26 @@ namespace ${ClrNamespace}.${FolderName}
 							<ForEach.Body>
 								<If>
 									<If.Condition>
-										<BinaryExpression operator="Eq">
+										<BinaryExpression operator="Or">
 											<BinaryExpression.LeftExpression>
-												<!--<DebuggerBreakpoint />-->
-												<Value type="System.Boolean" data="true" />
+												<BinaryExpression operator="Eq">
+													<BinaryExpression.LeftExpression>
+														<Facet name="ColumnIsPrimaryKey" />
+													</BinaryExpression.LeftExpression>
+													<BinaryExpression.RightExpression>
+														<Value type="System.Boolean" data="True" />
+													</BinaryExpression.RightExpression>
+												</BinaryExpression>
 											</BinaryExpression.LeftExpression>
 											<BinaryExpression.RightExpression>
-												<Facet name="ColumnIsIdentity" />
+												<BinaryExpression operator="Eq">
+													<BinaryExpression.LeftExpression>
+														<Facet name="HasNoDefinedPrimaryKeyColumns" />
+													</BinaryExpression.LeftExpression>
+													<BinaryExpression.RightExpression>
+														<Value type="System.Boolean" data="True" />
+													</BinaryExpression.RightExpression>
+												</BinaryExpression>
 											</BinaryExpression.RightExpression>
 										</BinaryExpression>
 									</If.Condition>

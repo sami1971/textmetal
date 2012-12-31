@@ -18,7 +18,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Odbc
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the OdbcSchemaSourceStrategy class.
+		/// Initializes a new instance of the OdbcSchemaSourceStrategy class.
 		/// </summary>
 		public OdbcSchemaSourceStrategy()
 		{
@@ -41,11 +41,11 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Odbc
 				return column.ColumnSqlType == "image" ||
 				       column.ColumnSqlType == "text" ||
 				       column.ColumnSqlType == "ntext" ? (int)0 :
-					                                                (column.ColumnDbType == DbType.String &&
-					                                                 column.ColumnSqlType.SafeToString().StartsWith("n") &&
-					                                                 column.ColumnSize != 0 ?
-						                                                                        (int)(column.ColumnSize / 2) :
-							                                                                                                     column.ColumnSize);
+					       (column.ColumnDbType == DbType.String &&
+					        column.ColumnSqlType.SafeToString().StartsWith("n") &&
+					        column.ColumnSize != 0 ?
+						        (int)(column.ColumnSize / 2) :
+						        column.ColumnSize);
 			}
 			else if (dataSourceTag.SafeToString().ToLower() == "odbc.sybaseiq")
 				return 0;
@@ -66,11 +66,11 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Odbc
 				return parameter.ParameterSqlType == "image" ||
 				       parameter.ParameterSqlType == "text" ||
 				       parameter.ParameterSqlType == "ntext" ? (int)0 :
-					                                                      (parameter.ParameterDbType == DbType.String &&
-					                                                       parameter.ParameterSqlType.SafeToString().StartsWith("n") &&
-					                                                       parameter.ParameterSize != 0 ?
-						                                                                                    (int)(parameter.ParameterSize / 2) :
-							                                                                                                                       parameter.ParameterSize);
+					       (parameter.ParameterDbType == DbType.String &&
+					        parameter.ParameterSqlType.SafeToString().StartsWith("n") &&
+					        parameter.ParameterSize != 0 ?
+						        (int)(parameter.ParameterSize / 2) :
+						        parameter.ParameterSize);
 			}
 			else if (dataSourceTag.SafeToString().ToLower() == "odbc.sybaseiq")
 				return 0;
@@ -532,6 +532,8 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Odbc
 						return typeof(Object);
 					case "NUMERIC":
 						return typeof(Decimal);
+					case "NVARCHAR":
+						return typeof(String);
 					case "OLDBIT":
 						return typeof(Object);
 					case "REAL":
@@ -542,12 +544,16 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Odbc
 						return typeof(Int16);
 					case "SMALLMONEY":
 						return typeof(Decimal);
+					case "ST_GEOMETRY":
+						return typeof(Byte[]);
 					case "SYSNAME":
 						return typeof(String);
 					case "TIME":
 						return typeof(DateTime);
 					case "TIMESTAMP":
 						return typeof(DateTime);
+					case "TIMESTAMP WITH TIME ZONE":
+						return typeof(DateTimeOffset);
 					case "TINYINT":
 						return typeof(Byte);
 					case "UNIQUEIDENTIFIER":
@@ -575,7 +581,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema.Odbc
 					case "UNSIGNED TINYINT":
 						return typeof(Byte);
 					case "UNSIGNED SMALLINT":
-						return typeof(UInt16);
+						return typeof(Int16);
 					default:
 						throw new ArgumentOutOfRangeException(string.Format("sqlType: '{0}'", sqlType));
 				}

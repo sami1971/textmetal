@@ -9,14 +9,14 @@ using System.IO;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Provides for output mechanics.
+	/// Provides for output mechanics.
 	/// </summary>
 	public interface IOutputMechanism : IDisposable
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the current text writer instance.
+		/// Gets the current text writer instance.
 		/// </summary>
 		TextWriter CurrentTextWriter
 		{
@@ -24,7 +24,7 @@ namespace TextMetal.Framework.Core
 		}
 
 		/// <summary>
-		/// 	Gets the current log text writer instance.
+		/// Gets the current log text writer instance.
 		/// </summary>
 		TextWriter LogTextWriter
 		{
@@ -36,13 +36,13 @@ namespace TextMetal.Framework.Core
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Enters (pushes) an output scope as deliniated by scope name. Scope name semantics is implementation specific.
+		/// Enters (pushes) an output scope as deliniated by scope name. Scope name semantics is implementation specific.
 		/// </summary>
 		/// <param name="scopeName"> The scope name to push. </param>
 		void EnterScope(string scopeName);
 
 		/// <summary>
-		/// 	Leaves (pops) an output scope as deliniated by scope name. Scope name semantics is implementation specific.
+		/// Leaves (pops) an output scope as deliniated by scope name. Scope name semantics is implementation specific.
 		/// </summary>
 		/// <param name="scopeName"> The scope name to pop. </param>
 		void LeaveScope(string scopeName);

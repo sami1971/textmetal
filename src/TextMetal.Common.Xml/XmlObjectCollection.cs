@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Provides a concrete implementation for XML object collections.
+	/// Provides a concrete implementation for XML object collections.
 	/// </summary>
 	public class XmlObjectCollection<TXmlObject> : Collection<TXmlObject>, IXmlObjectCollection<TXmlObject>
 		where TXmlObject : IXmlObject
@@ -17,7 +17,7 @@ namespace TextMetal.Common.Xml
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the XmlObjectCollection class.
+		/// Initializes a new instance of the XmlObjectCollection class.
 		/// </summary>
 		/// <param name="site"> The containing site XML object. </param>
 		public XmlObjectCollection(IXmlObject site)
@@ -39,7 +39,7 @@ namespace TextMetal.Common.Xml
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the site XML object or null if this is unattached.
+		/// Gets the site XML object or null if this is unattached.
 		/// </summary>
 		public IXmlObject Site
 		{
@@ -54,7 +54,7 @@ namespace TextMetal.Common.Xml
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Removes all elements from the collection.
+		/// Removes all elements from the collection.
 		/// </summary>
 		protected override void ClearItems()
 		{
@@ -65,7 +65,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Inserts an element into the collection at the specified index.
+		/// Inserts an element into the collection at the specified index.
 		/// </summary>
 		/// <param name="index"> The zero-based index at which item should be inserted. </param>
 		/// <param name="item"> The object to insert. The value can be null for reference types. </param>
@@ -80,7 +80,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Removes the element at the specified index of the collection.
+		/// Removes the element at the specified index of the collection.
 		/// </summary>
 		/// <param name="index"> The zero-based index of the element to remove. </param>
 		protected override void RemoveItem(int index)
@@ -96,7 +96,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Replaces the element at the specified index.
+		/// Replaces the element at the specified index.
 		/// </summary>
 		/// <param name="index"> The zero-based index of the element to replace. </param>
 		/// <param name="item"> The new value for the element at the specified index. The value can be null for reference types. </param>

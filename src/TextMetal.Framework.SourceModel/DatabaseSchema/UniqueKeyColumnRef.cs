@@ -14,7 +14,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the UniqueKeyColumnRef class.
+		/// Initializes a new instance of the UniqueKeyColumnRef class.
 		/// </summary>
 		public UniqueKeyColumnRef()
 		{
@@ -24,13 +24,41 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 
 		#region Fields/Constants
 
+		private string columnName;
+		private int columnOrdinal;
+
 		private bool uniqueKeyColumnDescendingSort;
-		private int uniqueKeyColumnOrdinal;
-		private int uniqueKeyParentColumnOrdinal;
+		private int uniqueKeyOrdinal;
 
 		#endregion
 
 		#region Properties/Indexers/Events
+
+		[XmlAttribute]
+		public string ColumnName
+		{
+			get
+			{
+				return this.columnName;
+			}
+			set
+			{
+				this.columnName = value;
+			}
+		}
+
+		[XmlAttribute]
+		public int ColumnOrdinal
+		{
+			get
+			{
+				return this.columnOrdinal;
+			}
+			set
+			{
+				this.columnOrdinal = value;
+			}
+		}
 
 		[XmlAttribute]
 		public bool UniqueKeyColumnDescendingSort
@@ -46,28 +74,15 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		}
 
 		[XmlAttribute]
-		public int UniqueKeyColumnOrdinal
+		public int UniqueKeyOrdinal
 		{
 			get
 			{
-				return this.uniqueKeyColumnOrdinal;
+				return this.uniqueKeyOrdinal;
 			}
 			set
 			{
-				this.uniqueKeyColumnOrdinal = value;
-			}
-		}
-
-		[XmlAttribute]
-		public int UniqueKeyParentColumnOrdinal
-		{
-			get
-			{
-				return this.uniqueKeyParentColumnOrdinal;
-			}
-			set
-			{
-				this.uniqueKeyParentColumnOrdinal = value;
+				this.uniqueKeyOrdinal = value;
 			}
 		}
 

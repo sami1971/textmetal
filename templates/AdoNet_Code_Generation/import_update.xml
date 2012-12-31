@@ -8,30 +8,16 @@
 		
 	<!--<DebuggerBreakpoint />-->
 	
-	<![CDATA[commandText = @"UPDATE " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME_${SchemaNameConstantCase}, ${TableNameSingularPascalCase}.TABLE_NAME_${TableNameConstantCase}) + @" SET "]]>
+	<![CDATA[commandText = @"UPDATE " + GetDataSourceTagSpecificInstance().GetTableName(${TableNameSingularPascalCase}.SCHEMA_NAME, ${TableNameSingularPascalCase}.TABLE_NAME) + @" SET "]]>
 	
 	<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">
 		<ForEach.Filter>
-			<BinaryExpression operator="And">
+			<BinaryExpression operator="Ne">
 				<BinaryExpression.LeftExpression>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsIdentity" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
+					<Facet name="IsColumnServerGeneratedPrimaryKey" />
 				</BinaryExpression.LeftExpression>
 				<BinaryExpression.RightExpression>
-					<BinaryExpression operator="Ne">
-						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
-						</BinaryExpression.LeftExpression>
-						<BinaryExpression.RightExpression>
-							<Value type="System.Boolean" data="True" />
-						</BinaryExpression.RightExpression>
-					</BinaryExpression>
+					<Value type="System.Boolean" data="True" />
 				</BinaryExpression.RightExpression>
 			</BinaryExpression>
 		</ForEach.Filter>
@@ -63,7 +49,7 @@
 				<BinaryExpression.LeftExpression>
 					<BinaryExpression operator="Eq">
 						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsIdentity" />
+							<Facet name="ColumnIsPrimaryKey" />
 						</BinaryExpression.LeftExpression>
 						<BinaryExpression.RightExpression>
 							<Value type="System.Boolean" data="True" />
@@ -73,7 +59,7 @@
 				<BinaryExpression.RightExpression>
 					<BinaryExpression operator="Eq">
 						<BinaryExpression.LeftExpression>
-							<Facet name="ColumnIsPrimaryKey" />
+							<Facet name="HasNoDefinedPrimaryKeyColumns" />
 						</BinaryExpression.LeftExpression>
 						<BinaryExpression.RightExpression>
 							<Value type="System.Boolean" data="True" />

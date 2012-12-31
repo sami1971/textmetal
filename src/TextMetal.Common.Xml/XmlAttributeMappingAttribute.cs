@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Marks a property of an XML object as being mapped to/from an XML attribute.
+	/// Marks a property of an XML object as being mapped to/from an XML attribute.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public sealed class XmlAttributeMappingAttribute : Attribute
@@ -16,7 +16,7 @@ namespace TextMetal.Common.Xml
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the XmlAttributeMappingAttribute class.
+		/// Initializes a new instance of the XmlAttributeMappingAttribute class.
 		/// </summary>
 		public XmlAttributeMappingAttribute()
 		{
@@ -35,7 +35,7 @@ namespace TextMetal.Common.Xml
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the local name of the XML attribute.
+		/// Gets or sets the local name of the XML attribute.
 		/// </summary>
 		public string LocalName
 		{
@@ -50,7 +50,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the namespace URI of the XML attribute.
+		/// Gets or sets the namespace URI of the XML attribute.
 		/// </summary>
 		public string NamespaceUri
 		{
@@ -65,7 +65,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the order of rendering of the attribute to the XML stream. Order is only applicable to XML output and is ignored during XML input.
+		/// Gets or sets the order of rendering of the attribute to the XML stream. Order is only applicable to XML output and is ignored during XML input.
 		/// </summary>
 		public int Order
 		{

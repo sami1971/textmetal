@@ -11,14 +11,14 @@ using System.Reflection;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for reflection.
+	/// Provides static helper and/or extension methods for reflection.
 	/// </summary>
 	public static class Reflexion
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Gets all custom attributes of the specified type. If no custom attributes of the specified type are defined, then null is returned.
+		/// Gets all custom attributes of the specified type. If no custom attributes of the specified type are defined, then null is returned.
 		/// </summary>
 		/// <typeparam name="TAttribute"> The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.) </typeparam>
 		/// <param name="target"> The target object. </param>
@@ -40,7 +40,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Returns the concatenation of error messages from an exception object. All inner exceptions and collected exceptions (public properties implementing IEnumerable&lt;Exception&gt;) are returned.
+		/// Returns the concatenation of error messages from an exception object. All inner exceptions and collected exceptions (public properties implementing IEnumerable&lt;Exception&gt;) are returned.
 		/// </summary>
 		/// <param name="exception"> The root exception to get errors. </param>
 		/// <param name="indent"> The indent level count. </param>
@@ -118,7 +118,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Attempts to get the property type for a logical property (CLR, associative, etc.).
+		/// Attempts to get the property type for a logical property (CLR, associative, etc.).
 		/// </summary>
 		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
 		/// <param name="propertyName"> The logical property name to get the type for. </param>
@@ -176,7 +176,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Attempts to get the property value for a logical property (CLR, associative, etc.).
+		/// Attempts to get the property value for a logical property (CLR, associative, etc.).
 		/// </summary>
 		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
 		/// <param name="propertyName"> The logical property name to get the value for. </param>
@@ -229,7 +229,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	A private extension method used to obtain the least-derived public, instance property of a given name.
+		/// A private extension method used to obtain the least-derived public, instance property of a given name.
 		/// </summary>
 		/// <param name="propertyType"> The property type to interogate. </param>
 		/// <param name="propertyName"> The property name to lookup. </param>
@@ -252,7 +252,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Get the single custom attribute of the attribute specified type. If more than one custom attribute exists for the requested type, an InvalidOperationException is thrown. If no custom attributes of the specified type are defined, then null is returned.
+		/// Get the single custom attribute of the attribute specified type. If more than one custom attribute exists for the requested type, an InvalidOperationException is thrown. If no custom attributes of the specified type are defined, then null is returned.
 		/// </summary>
 		/// <typeparam name="TAttribute"> The custom attribute type. </typeparam>
 		/// <param name="target"> The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.) </param>
@@ -280,7 +280,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Asserts that the custom attribute is not defined on the target. If more than zero custom attributes exist for the requested type, an InvalidOperationException is thrown.
+		/// Asserts that the custom attribute is not defined on the target. If more than zero custom attributes exist for the requested type, an InvalidOperationException is thrown.
 		/// </summary>
 		/// <typeparam name="TAttribute"> The custom attribute type. </typeparam>
 		/// <param name="target"> The target ICustomAttributeProvider (Assembly, Type, MemberInfo, etc.) </param>
@@ -305,7 +305,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Transforms a nullable type to its underlying non-nullable equivalent.
+		/// Transforms a nullable type to its underlying non-nullable equivalent.
 		/// </summary>
 		/// <param name="conversionType"> The nullable run-time type to transform. </param>
 		/// <returns> Teh non-nullbale run-time type. </returns>
@@ -330,7 +330,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Transforms a nullable type to its underlying non-nullable equivalent.
+		/// Transforms a nullable type to its underlying non-nullable equivalent.
 		/// </summary>
 		/// <param name="conversionType"> The nullable run-time type to transform. </param>
 		/// <returns> Teh non-nullbale run-time type. </returns>
@@ -357,7 +357,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Attempts to set the property value for a logical property (CLR, associative, etc.). This overload assume stayHard=false and makeSoft=true semantics.
+		/// Attempts to set the property value for a logical property (CLR, associative, etc.). This overload assume stayHard=false and makeSoft=true semantics.
 		/// </summary>
 		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
 		/// <param name="propertyName"> The logical property name to set the value for. </param>
@@ -369,7 +369,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Attempts to set the property value for a logical property (CLR, associative, etc.).
+		/// Attempts to set the property value for a logical property (CLR, associative, etc.).
 		/// </summary>
 		/// <param name="targetInstance"> The target instance to search for a logical property. </param>
 		/// <param name="propertyName"> The logical property name to set the value for. </param>

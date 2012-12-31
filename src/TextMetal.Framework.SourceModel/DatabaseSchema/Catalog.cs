@@ -14,7 +14,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the Catalog class.
+		/// Initializes a new instance of the Catalog class.
 		/// </summary>
 		public Catalog()
 		{

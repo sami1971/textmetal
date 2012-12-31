@@ -6,37 +6,37 @@
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Specifies the severity of a message.
+	/// Specifies the severity of a message.
 	/// </summary>
 	public enum Severity : uint
 	{
 		/// <summary>
-		/// 	None.
+		/// None.
 		/// </summary>
 		None = 0,
 
 		/// <summary>
-		/// 	Information.
+		/// Information.
 		/// </summary>
 		Information = 1,
 
 		/// <summary>
-		/// 	Warning.
+		/// Warning.
 		/// </summary>
 		Warning = 2,
 
 		/// <summary>
-		/// 	Error.
+		/// Error.
 		/// </summary>
 		Error = 3,
 
 		/// <summary>
-		/// 	Hit.
+		/// Hit.
 		/// </summary>
 		Hit = 0xF0F0F0F0,
 
 		/// <summary>
-		/// 	Debug.
+		/// Debug.
 		/// </summary>
 		Debug = 0xFFFFFFFF
 	}

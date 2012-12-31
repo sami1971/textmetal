@@ -10,14 +10,14 @@ using System.Xml.Serialization;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Provides static helper and/or extension methods for serialization/deserialization.
+	/// Provides static helper and/or extension methods for serialization/deserialization.
 	/// </summary>
 	public static class Cerealization
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Deserializes an object from the specified input file.
+		/// Deserializes an object from the specified input file.
 		/// </summary>
 		/// <param name="inputFilePath"> The input file path to deserialize. </param>
 		/// <param name="targetType"> The target run-time type of the root of the deserialized object graph. </param>
@@ -42,7 +42,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Deserializes an object from the specified input file. This is the generic overload.
+		/// Deserializes an object from the specified input file. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target run-time type of the root of the deserialized object graph. </typeparam>
 		/// <param name="inputFilePath"> The input file path to deserialize. </param>
@@ -65,7 +65,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Deserializes an object from the specified readable stream.
+		/// Deserializes an object from the specified readable stream.
 		/// </summary>
 		/// <param name="stream"> The readable stream to deserialize. </param>
 		/// <param name="targetType"> The target run-time type of the root of the deserialized object graph. </param>
@@ -88,7 +88,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Deserializes an object from the specified readable stream. This is the generic overload.
+		/// Deserializes an object from the specified readable stream. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target run-time type of the root of the deserialized object graph. </typeparam>
 		/// <param name="stream"> The readable stream to deserialize. </param>
@@ -108,7 +108,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Serializes an object to the specified output file.
+		/// Serializes an object to the specified output file.
 		/// </summary>
 		/// <typeparam name="TObject"> The target run-time type of the root of the object graph to serialize. </typeparam>
 		/// <param name="outputFilePath"> The output file path to serialize. </param>
@@ -128,7 +128,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Serializes an object to the specified output file.
+		/// Serializes an object to the specified output file.
 		/// </summary>
 		/// <param name="outputFilePath"> The output file path to serialize. </param>
 		/// <param name="obj"> The object graph to serialize. </param>
@@ -148,7 +148,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Serializes an object to the specified writable stream.
+		/// Serializes an object to the specified writable stream.
 		/// </summary>
 		/// <param name="stream"> The writable stream to serialize. </param>
 		/// <param name="obj"> The object graph to serialize. </param>
@@ -169,7 +169,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Serializes an object to the specified writable stream.
+		/// Serializes an object to the specified writable stream.
 		/// </summary>
 		/// <typeparam name="TObject"> The target run-time type of the root of the object graph to serialize. </typeparam>
 		/// <param name="stream"> The writable stream to serialize. </param>
@@ -186,7 +186,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Deserializes an object from an assembly manifest resource.
+		/// Deserializes an object from an assembly manifest resource.
 		/// </summary>
 		/// <typeparam name="TObject"> The run-time type of the object root to deserialize. </typeparam>
 		/// <param name="resourceType"> A type within the source assembly where the manifest resource lives. </param>
@@ -220,7 +220,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Deserializes a string from an assembly manifest resource.
+		/// Deserializes a string from an assembly manifest resource.
 		/// </summary>
 		/// <param name="resourceType"> A type within the source assembly where the manifest resource lives. </param>
 		/// <param name="resourceName"> The fully qualified manifest resource name to load. </param>

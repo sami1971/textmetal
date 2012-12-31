@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Represents an XML object collection.
+	/// Represents an XML object collection.
 	/// </summary>
 	public interface IXmlObjectCollection<TXmlObject> : IList<TXmlObject>
 		where TXmlObject : IXmlObject
@@ -16,7 +16,7 @@ namespace TextMetal.Common.Xml
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the site XML object or null if this is unattached.
+		/// Gets the site XML object or null if this is unattached.
 		/// </summary>
 		IXmlObject Site
 		{

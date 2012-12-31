@@ -18,7 +18,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the AssignConstruct class.
+		/// Initializes a new instance of the AssignConstruct class.
 		/// </summary>
 		public AssignConstruct()
 		{

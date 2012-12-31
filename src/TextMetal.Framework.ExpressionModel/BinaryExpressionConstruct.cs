@@ -15,7 +15,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.ExpressionModel
 {
 	/// <summary>
-	/// 	This class uses the C# compiler style of numeric promotions.
+	/// This class uses the C# compiler style of numeric promotions.
 	/// </summary>
 	[XmlElementMapping(LocalName = "BinaryExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class BinaryExpressionConstruct : ExpressionXmlObject, IBinaryExpression
@@ -23,7 +23,7 @@ namespace TextMetal.Framework.ExpressionModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the BinaryExpressionConstruct class.
+		/// Initializes a new instance of the BinaryExpressionConstruct class.
 		/// </summary>
 		public BinaryExpressionConstruct()
 		{

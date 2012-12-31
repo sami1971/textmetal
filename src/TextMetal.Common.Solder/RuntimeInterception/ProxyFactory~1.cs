@@ -10,7 +10,7 @@ using System.Threading;
 namespace TextMetal.Common.Solder.RuntimeInterception
 {
 	/// <summary>
-	/// 	Acts as an abstract factory for proxy objects, with cache support. Uses reader-writer lock for asynchronous protection (i.e. thread-safety). Provides agregated disposal of all cached proxies in the cache by calling Dispose() (if IDisposable).
+	/// Acts as an abstract factory for proxy objects, with cache support. Uses reader-writer lock for asynchronous protection (i.e. thread-safety). Provides agregated disposal of all cached proxies in the cache by calling Dispose() (if IDisposable).
 	/// </summary>
 	/// <typeparam name="TCacheTrait"> The type of the cache trait. </typeparam>
 	public abstract class ProxyFactory<TCacheTrait> : IDisposable
@@ -18,7 +18,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ProxyFactory`1 class.
+		/// Initializes a new instance of the ProxyFactory`1 class.
 		/// </summary>
 		protected ProxyFactory()
 		{
@@ -38,7 +38,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -73,7 +73,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Disposes of the inner proxies, if present. Once disposed, the instance cannot be reused.
+		/// Disposes of the inner proxies, if present. Once disposed, the instance cannot be reused.
 		/// </summary>
 		/// <param name="proxy"> The proxy to dispose of. </param>
 		protected static void DisposeOf(object proxy)
@@ -83,7 +83,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		}
 
 		/// <summary>
-		/// 	Returns an instance of the specified proxy type for the given key-value pair for a type and cache trait. If the instance is in the cache, it will be returned; otherwise a new instacne is created, added to the cache, and returned. This method is thread-safe: a reader-writer-lock is used to serialize access in the case of a new addition to the cahce.
+		/// Returns an instance of the specified proxy type for the given key-value pair for a type and cache trait. If the instance is in the cache, it will be returned; otherwise a new instacne is created, added to the cache, and returned. This method is thread-safe: a reader-writer-lock is used to serialize access in the case of a new addition to the cahce.
 		/// </summary>
 		/// <typeparam name="TProxy"> The type of proxy object to return. </typeparam>
 		/// <param name="keyValuePair"> The cahce trait used to check cache existence. </param>
@@ -135,7 +135,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		}
 
 		/// <summary>
-		/// 	Notifies any registered listeners to the DisposeInstances event to dispose then clears the internal cache. Once disposed, the instance cannot be reused.
+		/// Notifies any registered listeners to the DisposeInstances event to dispose then clears the internal cache. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public void Dispose()
 		{
@@ -173,7 +173,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether an object of a type exists in the cache with the specified cache trait.
+		/// Gets a value indicating whether an object of a type exists in the cache with the specified cache trait.
 		/// </summary>
 		/// <param name="keyValuePair"> A key-value pair object representing the cache trait for a given type. </param>
 		/// <returns> True if an object exists in the cache with the given cache trait for the typr; otherwise false. </returns>

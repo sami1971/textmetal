@@ -18,14 +18,14 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	This is a custom XML serializer/deserializer that does not suffer from the rigidities of the .NET Framework supplied ones. This implementation was designed to be fast and flexible for XML driven tools.
+	/// This is a custom XML serializer/deserializer that does not suffer from the rigidities of the .NET Framework supplied ones. This implementation was designed to be fast and flexible for XML driven tools.
 	/// </summary>
 	public sealed class XmlPersistEngine : IXmlPersistEngine
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the XmlPersistEngine class.
+		/// Initializes a new instance of the XmlPersistEngine class.
 		/// </summary>
 		public XmlPersistEngine()
 		{
@@ -43,7 +43,7 @@ namespace TextMetal.Common.Xml
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the known XML object type registrations.
+		/// Gets the known XML object type registrations.
 		/// </summary>
 		private Dictionary<XmlName, Type> KnownXmlObjectTypeRegistrations
 		{
@@ -54,7 +54,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the known XML text object type registration.
+		/// Gets or sets the known XML text object type registration.
 		/// </summary>
 		private Type KnownXmlTextObjectTypeRegistration
 		{
@@ -73,7 +73,7 @@ namespace TextMetal.Common.Xml
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Determines whether an element is a text element.
+		/// Determines whether an element is a text element.
 		/// </summary>
 		/// <param name="contextStack"> The effective context stack. </param>
 		/// <param name="xmlName"> The XML name to use. </param>
@@ -141,7 +141,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Clears all known XML object registrations.
+		/// Clears all known XML object registrations.
 		/// </summary>
 		public void ClearAllKnowns()
 		{
@@ -150,7 +150,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Deserialize an XML object graph from the specified XML file.
+		/// Deserialize an XML object graph from the specified XML file.
 		/// </summary>
 		/// <param name="fileName"> The XML file to load. </param>
 		/// <returns> An XML object graph. </returns>
@@ -172,7 +172,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Deserialize an XML object graph from the specified stream.
+		/// Deserialize an XML object graph from the specified stream.
 		/// </summary>
 		/// <param name="stream"> The stream to load. </param>
 		/// <returns> An XML object graph. </returns>
@@ -191,7 +191,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Private method that processes XML object deserialization.
+		/// Private method that processes XML object deserialization.
 		/// </summary>
 		/// <param name="contextStack"> The context stack used to manage deserialization. </param>
 		/// <param name="previousElementXmlName"> The previously encountered XML name (parent). </param>
@@ -456,7 +456,7 @@ namespace TextMetal.Common.Xml
 					// get the raw string value
 					svalue = attributes.Where(a => a.Key.LocalName == _currentPropertyToAttributeMapping.Value.LocalName &&
 					                               a.Key.NamespaceUri == _currentPropertyToAttributeMapping.Value.NamespaceUri)
-						.Select(a => a.Value).SingleOrDefault();
+					                   .Select(a => a.Value).SingleOrDefault();
 
 					// convert to strongly-typed value
 					if (!DataType.TryParse(currentPropertyToAttributeMapping.Key.PropertyType, svalue, out ovalue))
@@ -517,7 +517,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Deserialize an XML object graph from the specified XML text reader.
+		/// Deserialize an XML object graph from the specified XML text reader.
 		/// </summary>
 		/// <param name="xmlTextReader"> The XML text reader to load. </param>
 		/// <returns> An XML object graph. </returns>
@@ -660,7 +660,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Private method that processes XML text object deserialization.
+		/// Private method that processes XML text object deserialization.
 		/// </summary>
 		/// <param name="contextStack"> The context stack used to manage deserialization. </param>
 		/// <param name="textValue"> The string value of the text element. </param>
@@ -733,7 +733,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the generic overload.
+		/// Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type to register. </typeparam>
 		/// <param name="xmlName"> The XML name (local name and namespace URI). </param>
@@ -751,7 +751,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the non-generic overload.
+		/// Registers a known XML object by target type and explicit XML name (local name and namespace URI). This is the non-generic overload.
 		/// </summary>
 		/// <param name="xmlName"> The XML name (local name and namespace URI). </param>
 		/// <param name="targetType"> The target type to register. </param>
@@ -773,7 +773,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Registers a known XML object by target type and implicit attribute-based XML name (local name and namespace URI). This is the generic overload.
+		/// Registers a known XML object by target type and implicit attribute-based XML name (local name and namespace URI). This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type to register. </typeparam>
 		public void RegisterKnownXmlObject<TObject>()
@@ -787,7 +787,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Registers a known XML object by target type. This is the non-generic overload.
+		/// Registers a known XML object by target type. This is the non-generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type to register. </param>
 		public void RegisterKnownXmlObject(Type targetType)
@@ -813,7 +813,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Registers a known XML text object by target type. This is the generic overload.
+		/// Registers a known XML text object by target type. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type to register. </typeparam>
 		public void RegisterKnownXmlTextObject<TObject>()
@@ -827,7 +827,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Registers a known XML text object by target type and implicit attribute-based XML name (local name and namespace URI). This is the non-generic overload.
+		/// Registers a known XML text object by target type and implicit attribute-based XML name (local name and namespace URI). This is the non-generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type to register. </param>
 		public void RegisterKnownXmlTextObject(Type targetType)
@@ -845,7 +845,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Private method to resolve an XML object by XML name.
+		/// Private method to resolve an XML object by XML name.
 		/// </summary>
 		/// <param name="xmlName"> The XML name to lookup in the known registrations. </param>
 		/// <returns> An IXmlObject instance or null if the XML name is not known. </returns>
@@ -875,7 +875,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Private method to resolve an XML text object.
+		/// Private method to resolve an XML text object.
 		/// </summary>
 		/// <param name="text"> The string value of the XML text object. </param>
 		/// <returns> An IXmlTextObject instance or null if it is not known. </returns>
@@ -906,7 +906,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Serializes an XML object graph to the specified XML file.
+		/// Serializes an XML object graph to the specified XML file.
 		/// </summary>
 		/// <param name="document"> The document root XML object. </param>
 		/// <param name="fileName"> The XML file to save. </param>
@@ -926,7 +926,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Serializes an XML object graph to the specified stream.
+		/// Serializes an XML object graph to the specified stream.
 		/// </summary>
 		/// <param name="document"> The document root XML object. </param>
 		/// <param name="stream"> The stream to save. </param>
@@ -947,7 +947,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Serializes an XML object graph to the specified XmlTextWriter.
+		/// Serializes an XML object graph to the specified XmlTextWriter.
 		/// </summary>
 		/// <param name="document"> The document root XML object. </param>
 		/// <param name="xmlTextWriter"> The XmlTextWriter to save. </param>
@@ -1179,7 +1179,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Unregisters a known XML object by target type. This is the generic overload.
+		/// Unregisters a known XML object by target type. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type to unregister. </typeparam>
 		/// <returns> A value indicating if the registration was present. </returns>
@@ -1193,7 +1193,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Unregisters a known XML object by target type. This is the generic overload.
+		/// Unregisters a known XML object by target type. This is the generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type to unregister. </param>
 		/// <returns> A value indicating if the registration was present. </returns>
@@ -1224,7 +1224,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Unregisters a known XML text object by target type. This is the generic overload.
+		/// Unregisters a known XML text object by target type. This is the generic overload.
 		/// </summary>
 		/// <typeparam name="TObject"> The target type to unregister. </typeparam>
 		/// <returns> A value indicating if the registration was present. </returns>
@@ -1238,7 +1238,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Unregisters a known XML text object by target type. This is the generic overload.
+		/// Unregisters a known XML text object by target type. This is the generic overload.
 		/// </summary>
 		/// <param name="targetType"> The target type to unregister. </param>
 		/// <returns> A value indicating if the registration was present. </returns>

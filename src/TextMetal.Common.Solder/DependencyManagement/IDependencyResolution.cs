@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	Provides the Factory Method pattern used to resolve dependencies.
+	/// Provides the Factory Method pattern used to resolve dependencies.
 	/// </summary>
 	public interface IDependencyResolution
 	{
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Resolves a dependency.
+		/// Resolves a dependency.
 		/// </summary>
 		/// <returns> An instance of an object or null. </returns>
 		object Resolve();

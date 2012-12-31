@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Represents a message with a category, description, and severity.
+	/// Represents a message with a category, description, and severity.
 	/// </summary>
 	public sealed class Message
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the Message class.
+		/// Initializes a new instance of the Message class.
 		/// </summary>
 		/// <param name="category"> The category of the message. </param>
 		/// <param name="description"> The description of the message. </param>
@@ -34,7 +34,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Initializes a new instance of the Message class.
+		/// Initializes a new instance of the Message class.
 		/// </summary>
 		public Message()
 		{
@@ -53,7 +53,7 @@ namespace TextMetal.Common.Core
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the message category.
+		/// Gets the message category.
 		/// </summary>
 		public string Category
 		{
@@ -64,7 +64,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the message description.
+		/// Gets the message description.
 		/// </summary>
 		public string Description
 		{
@@ -75,7 +75,7 @@ namespace TextMetal.Common.Core
 		}
 
 		/// <summary>
-		/// 	Gets the message severity.
+		/// Gets the message severity.
 		/// </summary>
 		public Severity Severity
 		{

@@ -6,14 +6,14 @@
 namespace TextMetal.Common.Core.StringTokens
 {
 	/// <summary>
-	/// 	Provides a static token replacement strategy which returns the same static value each request.
+	/// Provides a static token replacement strategy which returns the same static value each request.
 	/// </summary>
 	public class StaticValueTokenReplacementStrategy : ITokenReplacementStrategy
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the StaticValueTokenReplacementStrategy class.
+		/// Initializes a new instance of the StaticValueTokenReplacementStrategy class.
 		/// </summary>
 		/// <param name="value"> The static value to evaluate during token replacement. </param>
 		public StaticValueTokenReplacementStrategy(object value)
@@ -32,7 +32,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the static value to evaluate during token replacement.
+		/// Gets the static value to evaluate during token replacement.
 		/// </summary>
 		public object Value
 		{
@@ -47,7 +47,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Evaluate a token using any parameters specified.
+		/// Evaluate a token using any parameters specified.
 		/// </summary>
 		/// <param name="parameters"> Should be null for value semantics; or a string object array for function semantics. </param>
 		/// <returns> An approapriate token replacement value. </returns>

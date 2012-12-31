@@ -5,15 +5,18 @@
 
 -- tables[schema]
 select
-sys_t.table_name as TableName,
-case
-    when sys_t.table_type = 'VIEW' then 1
-    when sys_t.table_type = 'BASE' then 0
-    else null
-end as IsView
+	sys_u.user_name as SchemaName,
+	sys_t.table_name as TableName,
+	case
+		when sys_t.table_type = 21 then 1
+		when sys_t.table_type = 2 then 1
+		when sys_t.table_type = 1 then 0
+		else null
+	end as IsView
 from
-sys.systable sys_t
-inner join dbo.sysusers sys_u on sys_u.uid = sys_t.creator
+	sys.systab sys_t
+	inner join sys.sysuser sys_u on sys_u.user_id = sys_t.creator
 where
-sys_u.name = ?
-order by sys_t.table_name asc
+	sys_u.user_name =?
+order by
+	sys_t.table_name asc

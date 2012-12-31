@@ -11,14 +11,14 @@ using TextMetal.Common.Core;
 namespace TextMetal.Common.Data
 {
 	/// <summary>
-	/// 	Represents an atomic set of data operations on a single connection/transaction.
+	/// Represents an atomic set of data operations on a single connection/transaction.
 	/// </summary>
 	public sealed class UnitOfWorkContext : IUnitOfWorkContext
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the UnitOfWorkContext class.
+		/// Initializes a new instance of the UnitOfWorkContext class.
 		/// </summary>
 		private UnitOfWorkContext()
 		{
@@ -41,7 +41,7 @@ namespace TextMetal.Common.Data
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the current ambient unit of work context active on the current thread and application domain.
+		/// Gets the current ambient unit of work context active on the current thread and application domain.
 		/// </summary>
 		public static IUnitOfWorkContext Current
 		{
@@ -56,7 +56,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been completed.
+		/// Gets a value indicating whether the current instance has been completed.
 		/// </summary>
 		public bool Completed
 		{
@@ -71,7 +71,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets the underlying ADO.NET connection.
+		/// Gets the underlying ADO.NET connection.
 		/// </summary>
 		public IDbConnection Connection
 		{
@@ -89,7 +89,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets the context object.
+		/// Gets the context object.
 		/// </summary>
 		public IDisposable Context
 		{
@@ -107,7 +107,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -122,7 +122,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been diverged.
+		/// Gets a value indicating whether the current instance has been diverged.
 		/// </summary>
 		public bool Diverged
 		{
@@ -137,7 +137,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Gets the underlying ADO.NET transaction.
+		/// Gets the underlying ADO.NET transaction.
 		/// </summary>
 		public IDbTransaction Transaction
 		{
@@ -159,7 +159,7 @@ namespace TextMetal.Common.Data
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Creates a new unit of work context (and opens the underlying connection) for the given connection type and connection string with an optional transaction started.
+		/// Creates a new unit of work context (and opens the underlying connection) for the given connection type and connection string with an optional transaction started.
 		/// </summary>
 		/// <param name="connectionType"> The run-time type of the connection to use. </param>
 		/// <param name="connectionString"> The ADO.NET provider connection string to use. </param>
@@ -195,7 +195,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Contains the logic to 'adjudicate' or realize a transaction based on state of the current unit of work context instance.
+		/// Contains the logic to 'adjudicate' or realize a transaction based on state of the current unit of work context instance.
 		/// </summary>
 		private void Adjudicate()
 		{
@@ -235,7 +235,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Indicates that all operations within the unit of work context have completed successfully. This method should only be called once.
+		/// Indicates that all operations within the unit of work context have completed successfully. This method should only be called once.
 		/// </summary>
 		public void Complete()
 		{
@@ -249,7 +249,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Dispose of the unit of work context.
+		/// Dispose of the unit of work context.
 		/// </summary>
 		public void Dispose()
 		{
@@ -268,7 +268,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Indicates that at least one operation within the unit of work context cause a failure in data concurrency or idempotency. This forces the entire unit of work to yield an incomplete status. This method can be called any number of times.
+		/// Indicates that at least one operation within the unit of work context cause a failure in data concurrency or idempotency. This forces the entire unit of work to yield an incomplete status. This method can be called any number of times.
 		/// </summary>
 		public void Divergent()
 		{

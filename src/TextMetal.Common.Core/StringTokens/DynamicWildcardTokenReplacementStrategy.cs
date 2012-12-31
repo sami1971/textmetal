@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Core.StringTokens
 {
 	/// <summary>
-	/// 	Provides a wldcard token replacement strategy which returns the data using reflection or dictionary semantics against an object property path.
+	/// Provides a wldcard token replacement strategy which returns the data using reflection or dictionary semantics against an object property path.
 	/// </summary>
 	public class DynamicWildcardTokenReplacementStrategy : IWildcardTokenReplacementStrategy
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DynamicWildcardTokenReplacementStrategy class.
+		/// Initializes a new instance of the DynamicWildcardTokenReplacementStrategy class.
 		/// </summary>
 		/// <param name="targets"> The tagret object instances to evaluate (in linear order) during wildcard token replacement. </param>
 		public DynamicWildcardTokenReplacementStrategy(object[] targets)
@@ -25,7 +25,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Initializes a new instance of the DynamicWildcardTokenReplacementStrategy class. This overload overrides the default strict setting (true).
+		/// Initializes a new instance of the DynamicWildcardTokenReplacementStrategy class. This overload overrides the default strict setting (true).
 		/// </summary>
 		/// <param name="targets"> The tagret object instances to evaluate (in linear order) during wildcard token replacement. </param>
 		/// <param name="strict"> A value indicating if exceptions are thrown for bad token matches. </param>
@@ -47,7 +47,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating whether strict matching semantics are enabled.
+		/// Gets a value indicating whether strict matching semantics are enabled.
 		/// </summary>
 		public bool Strict
 		{
@@ -58,7 +58,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Gets the target object instance value to evaluate (in linear order) during wildcard token replacement.
+		/// Gets the target object instance value to evaluate (in linear order) during wildcard token replacement.
 		/// </summary>
 		public object[] Targets
 		{
@@ -73,7 +73,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Evaluate a token using any parameters specified.
+		/// Evaluate a token using any parameters specified.
 		/// </summary>
 		/// <param name="token"> The wildcard token to evaludate. </param>
 		/// <param name="parameters"> Should be null for value semantics; or a valid object array for function semantics. </param>
@@ -92,7 +92,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Gets a value by path from the array of target objects. This method obeys the strict matching semantics flag in effect and if enabled, will throw an exception on path lookup failure.
+		/// Gets a value by path from the array of target objects. This method obeys the strict matching semantics flag in effect and if enabled, will throw an exception on path lookup failure.
 		/// </summary>
 		/// <param name="path"> The logical path (i.e. property name, dictionary key, etc.) to lookup. </param>
 		/// <param name="value"> The output value or null if the path was not found. </param>
@@ -117,7 +117,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Sets a value by path to the array of target objects. This method obeys the strict matching semantics flag in effect and if enabled, will throw an exception on path lookup failure.
+		/// Sets a value by path to the array of target objects. This method obeys the strict matching semantics flag in effect and if enabled, will throw an exception on path lookup failure.
 		/// </summary>
 		/// <param name="path"> The logical path (i.e. property name, dictionary key, etc.) to lookup. </param>
 		/// <param name="value"> The value to set or null. </param>

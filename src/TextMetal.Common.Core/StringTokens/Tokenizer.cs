@@ -10,15 +10,15 @@ using System.Text.RegularExpressions;
 
 namespace TextMetal.Common.Core.StringTokens
 {
-	///<summary>
-	///	Replaces a tokenized input string with replacement values. A token is in the following format: ${token(`arg0`, `arg1`, ...)} token: a required 'key' into a 'dictionary' of token replacement strategies. A missing token is considered invalid and no replacement will be made. An unknown token considered invalid and no replacement will be made. The minimum length of a token is 1; the maximum length of a token is 1024. Tokens are case insensative. An token may be proceded by an optional function call operator with zero or more arguments. Each function call argument must be enclosed in tick marks e.g. `some value`. Recursion/nested token expressions is not supported.
-	///</summary>
+	/// <summary>
+	/// Replaces a tokenized input string with replacement values. A token is in the following format: ${token(`arg0`, `arg1`, ...)} token: a required 'key' into a 'dictionary' of token replacement strategies. A missing token is considered invalid and no replacement will be made. An unknown token considered invalid and no replacement will be made. The minimum length of a token is 1; the maximum length of a token is 1024. Tokens are case insensative. An token may be proceded by an optional function call operator with zero or more arguments. Each function call argument must be enclosed in tick marks e.g. `some value`. Recursion/nested token expressions is not supported.
+	/// </summary>
 	public sealed class Tokenizer
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the Tokenizer class.
+		/// Initializes a new instance of the Tokenizer class.
 		/// </summary>
 		/// <param name="tokenReplacementStrategies"> A dictionary of token replacement strategies. </param>
 		/// <param name="strictMatching"> A value indicating if exceptions are thrown for bad token matches. </param>
@@ -32,7 +32,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Initializes a new instance of the Tokenizer class.
+		/// Initializes a new instance of the Tokenizer class.
 		/// </summary>
 		/// <param name="strictMatching"> A value indicating if exceptions are thrown for bad token matches. </param>
 		public Tokenizer(bool strictMatching)
@@ -62,7 +62,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets the tokenizer regular expression.
+		/// Gets the tokenizer regular expression.
 		/// </summary>
 		public static string TokenizerRegEx
 		{
@@ -73,7 +73,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Gets an ordered array of the previous execution of expansion tokens encountered.
+		/// Gets an ordered array of the previous execution of expansion tokens encountered.
 		/// </summary>
 		public string[] OrderedPreviousExpansionTokens
 		{
@@ -92,7 +92,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Gets a value indicating if exceptions are thrown for bad token matches.
+		/// Gets a value indicating if exceptions are thrown for bad token matches.
 		/// </summary>
 		public bool StrictMatching
 		{
@@ -103,7 +103,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Gets a dictionary of token replacement strategies.
+		/// Gets a dictionary of token replacement strategies.
 		/// </summary>
 		public IDictionary<string, ITokenReplacementStrategy> TokenReplacementStrategies
 		{
@@ -118,7 +118,7 @@ namespace TextMetal.Common.Core.StringTokens
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	A private method to parse an argument array from a tokenized call list.
+		/// A private method to parse an argument array from a tokenized call list.
 		/// </summary>
 		/// <param name="call"> The call list from a tokenized call site. </param>
 		/// <returns> A string array of call site arguments. </returns>
@@ -140,7 +140,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	A private method that obeys the strict matching semantics flag in effect and if enabled, will throw an exception. Otherwise, returns the original unmatched value without alteration.
+		/// A private method that obeys the strict matching semantics flag in effect and if enabled, will throw an exception. Otherwise, returns the original unmatched value without alteration.
 		/// </summary>
 		/// <param name="strictMatching"> A value indicating whether strict matching semantics are in effect. </param>
 		/// <param name="originalValue"> The original unmatched value. </param>
@@ -155,7 +155,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Replaces a tokenized input string with replacement values. No wildcard support is assumed.
+		/// Replaces a tokenized input string with replacement values. No wildcard support is assumed.
 		/// </summary>
 		/// <param name="tokenizedValue"> The input string containing tokenized values. </param>
 		/// <returns> A string value with all possible replacements made. </returns>
@@ -165,7 +165,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Replaces a tokenized input string with replacement values. Wildcard support is optional.
+		/// Replaces a tokenized input string with replacement values. Wildcard support is optional.
 		/// </summary>
 		/// <param name="tokenizedValue"> The input string containing tokenized values. </param>
 		/// <param name="optionalWildcardTokenReplacementStrategy"> An optional wildcard token replacement strategy. </param>
@@ -184,7 +184,7 @@ namespace TextMetal.Common.Core.StringTokens
 		}
 
 		/// <summary>
-		/// 	Private method used to match and process tokenized regular expressions.
+		/// Private method used to match and process tokenized regular expressions.
 		/// </summary>
 		/// <param name="match"> The regular express match object. </param>
 		/// <param name="wildcardTokenReplacementStrategy"> The wildcard token replacement strategy to use in the event a predefined token replacement strategy lookup failed. </param>

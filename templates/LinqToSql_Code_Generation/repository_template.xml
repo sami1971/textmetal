@@ -11,6 +11,7 @@
 <![CDATA[
 
 using System;
+using System.Xml;
 
 using TextMetal.Common.Core;
 using TextMetal.Common.Data;

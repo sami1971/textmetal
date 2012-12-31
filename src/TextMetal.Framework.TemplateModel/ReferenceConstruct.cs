@@ -19,7 +19,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ReferenceConstruct class.
+		/// Initializes a new instance of the ReferenceConstruct class.
 		/// </summary>
 		public ReferenceConstruct()
 		{

@@ -130,7 +130,7 @@ namespace TextMetal.Common.Data
 		}
 
 		/// <summary>
-		/// 	Allows for easy scalar query execution over a UnitOfWorkContext.
+		/// Allows for easy scalar query execution over a UnitOfWorkContext.
 		/// </summary>
 		/// <typeparam name="TValue"> The scalar type. </typeparam>
 		/// <param name="unitOfWorkContext"> The target UnitOfWorkContext. </param>

@@ -15,7 +15,7 @@ using System.Runtime.Remoting.Proxies;
 namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 {
 	/// <summary>
-	/// 	Provides an abstract base for real proxy objects which leverage the dynamic invoker infrastructure (i.e. IDynamicInvocation).
+	/// Provides an abstract base for real proxy objects which leverage the dynamic invoker infrastructure (i.e. IDynamicInvocation).
 	/// </summary>
 	/// <typeparam name="TTransparentProxy"> The type of the transparent proxy object served up by this class. </typeparam>
 	public abstract class DynamicInvokerRealProxy<TTransparentProxy> : RealProxy, IDisposable, IRemotingTypeInfo
@@ -24,7 +24,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the DynamicInvokerRealProxy`1 class.
+		/// Initializes a new instance of the DynamicInvokerRealProxy`1 class.
 		/// </summary>
 		/// <param name="dynamicInvocation"> The dynamic invoker object to use. </param>
 		protected DynamicInvokerRealProxy(IDynamicInvocation dynamicInvocation)
@@ -52,7 +52,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets a value indicating whether the current instance has been disposed.
+		/// Gets a value indicating whether the current instance has been disposed.
 		/// </summary>
 		public bool Disposed
 		{
@@ -67,7 +67,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 		}
 
 		/// <summary>
-		/// 	Gets or sets the fully qualified type name of the server object in a ObjRef. No implementation is provided; any calls will throw a NotSupportedException.
+		/// Gets or sets the fully qualified type name of the server object in a ObjRef. No implementation is provided; any calls will throw a NotSupportedException.
 		/// </summary>
 		/// <returns> The fully qualified type name of the server object in a ObjRef. </returns>
 		public string TypeName
@@ -109,7 +109,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Checks whether the proxy that represents the specified object type can be cast to the type represented by the IRemotingTypeInfo interface.
+		/// Checks whether the proxy that represents the specified object type can be cast to the type represented by the IRemotingTypeInfo interface.
 		/// </summary>
 		/// <returns> true if cast will succeed; otherwise, false. </returns>
 		/// <param name="fromType"> The type to cast to. </param>
@@ -121,7 +121,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 		}
 
 		/// <summary>
-		/// 	Disposes of the inner dynamic invoker. Once disposed, the instance cannot be reused.
+		/// Disposes of the inner dynamic invoker. Once disposed, the instance cannot be reused.
 		/// </summary>
 		public void Dispose()
 		{
@@ -140,7 +140,7 @@ namespace TextMetal.Common.Solder.RuntimeInterception.RemotingImpl
 		}
 
 		/// <summary>
-		/// 	Runtime real proxy invocation.
+		/// Runtime real proxy invocation.
 		/// </summary>
 		/// <param name="msg"> Invocation call message </param>
 		/// <returns> Invocation return message. </returns>

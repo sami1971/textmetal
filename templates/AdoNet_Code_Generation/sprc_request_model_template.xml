@@ -27,6 +27,7 @@
 <![CDATA[
 
 using System;
+using System.Xml;
 ]]>
 						<If>
 							<If.Condition>
@@ -60,8 +61,8 @@ namespace ${ClrNamespace}.${FolderName}
 		
 		#region Fields/Constants
 		
-		public const string SCHEMA_NAME_${SchemaNameConstantCase} = "${SchemaName}";
-		public const string PROCEDURE_NAME_${ProcedureNameConstantCase} = "${ProcedureName}";
+		public const string SCHEMA_NAME = "${SchemaName}";
+		public const string PROCEDURE_NAME = "${ProcedureName}";
 		
 ]]>
 

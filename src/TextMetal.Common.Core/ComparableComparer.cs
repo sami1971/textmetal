@@ -9,14 +9,14 @@ using System.Collections.Generic;
 namespace TextMetal.Common.Core
 {
 	/// <summary>
-	/// 	Internal IComparer`1 implementation using IComparable.
+	/// Internal IComparer`1 implementation using IComparable.
 	/// </summary>
 	public class ComparableComparer : IComparer<IComparable>
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ComparableComparer class.
+		/// Initializes a new instance of the ComparableComparer class.
 		/// </summary>
 		public ComparableComparer()
 		{
@@ -27,11 +27,17 @@ namespace TextMetal.Common.Core
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+		/// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
 		/// </summary>
-		/// <returns> A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" /> , as shown in the following table.Value Meaning Less than zero <paramref
-		/// 	 name="x" /> is less than <paramref name="y" /> .Zero <paramref name="x" /> equals <paramref name="y" /> .Greater than zero <paramref
-		/// 	 name="x" /> is greater than <paramref name="y" /> . </returns>
+		/// <returns>
+		/// A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" /> , as shown in the following table.Value Meaning Less than zero
+		///     <paramref
+		///         name="x" />
+		/// is less than <paramref name="y" /> .Zero <paramref name="x" /> equals <paramref name="y" /> .Greater than zero
+		///     <paramref
+		///         name="x" />
+		/// is greater than <paramref name="y" /> .
+		/// </returns>
 		/// <param name="x"> The first object to compare. </param>
 		/// <param name="y"> The second object to compare. </param>
 		public int Compare(IComparable x, IComparable y)

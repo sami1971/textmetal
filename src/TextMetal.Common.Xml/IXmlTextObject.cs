@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Xml
 {
 	/// <summary>
-	/// 	Represents an XML text object and it's text value.
+	/// Represents an XML text object and it's text value.
 	/// </summary>
 	public interface IXmlTextObject : IXmlObject
 	{
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the XML name (local name and namespace URI).
+		/// Gets or sets the XML name (local name and namespace URI).
 		/// </summary>
 		XmlName Name
 		{
@@ -24,7 +24,7 @@ namespace TextMetal.Common.Xml
 		}
 
 		/// <summary>
-		/// 	Gets or sets the text value.
+		/// Gets or sets the text value.
 		/// </summary>
 		string Text
 		{

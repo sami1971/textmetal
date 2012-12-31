@@ -8,14 +8,14 @@ using System;
 namespace TextMetal.Common.Solder.DependencyManagement
 {
 	/// <summary>
-	/// 	Provides the Factory Method pattern used to resolve dependencies.
+	/// Provides the Factory Method pattern used to resolve dependencies.
 	/// </summary>
 	public sealed class ActivatorDependencyResolution : IDependencyResolution
 	{
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ConstructorDependencyResolution class.
+		/// Initializes a new instance of the ConstructorDependencyResolution class.
 		/// </summary>
 		/// <param name="actualType"> The actual type of the resolution. </param>
 		public ActivatorDependencyResolution(Type actualType)
@@ -49,7 +49,7 @@ namespace TextMetal.Common.Solder.DependencyManagement
 		#region Methods/Operators
 
 		/// <summary>
-		/// 	Resolves a dependency.
+		/// Resolves a dependency.
 		/// </summary>
 		/// <returns> An instance of an object or null. </returns>
 		public object Resolve()

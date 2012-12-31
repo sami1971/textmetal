@@ -12,7 +12,7 @@ namespace TextMetal.Common.Expressions
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ExpressionVisitor class.
+		/// Initializes a new instance of the ExpressionVisitor class.
 		/// </summary>
 		protected ExpressionVisitor()
 		{

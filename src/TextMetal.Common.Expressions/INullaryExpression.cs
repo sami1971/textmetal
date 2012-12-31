@@ -6,7 +6,7 @@
 namespace TextMetal.Common.Expressions
 {
 	/// <summary>
-	/// 	Represents an expression with zero operands.
+	/// Represents an expression with zero operands.
 	/// </summary>
 	public interface INullaryExpression : IExpression
 	{

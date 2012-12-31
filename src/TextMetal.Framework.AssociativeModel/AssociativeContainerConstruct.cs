@@ -10,7 +10,7 @@ using TextMetal.Common.Xml;
 namespace TextMetal.Framework.AssociativeModel
 {
 	/// <summary>
-	/// 	Provides an XML construct for associative model containers.
+	/// Provides an XML construct for associative model containers.
 	/// </summary>
 	[XmlElementMapping(LocalName = "AssociativeContainer", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Content)]
 	public sealed class AssociativeContainerConstruct : AssociativeXmlObject
@@ -18,7 +18,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the AssociativeContainerConstruct class.
+		/// Initializes a new instance of the AssociativeContainerConstruct class.
 		/// </summary>
 		public AssociativeContainerConstruct()
 		{
@@ -35,7 +35,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
-		/// 	Gets or sets the optional single XML object content as a strongly-typed associative XML object.
+		/// Gets or sets the optional single XML object content as a strongly-typed associative XML object.
 		/// </summary>
 		public new AssociativeXmlObject Content
 		{
@@ -50,7 +50,7 @@ namespace TextMetal.Framework.AssociativeModel
 		}
 
 		/// <summary>
-		/// 	Gets the associative ID of the current associative model container XML object.
+		/// Gets the associative ID of the current associative model container XML object.
 		/// </summary>
 		[XmlAttributeMapping(LocalName = "id", NamespaceUri = "")]
 		public string Id

@@ -8,7 +8,7 @@ using System;
 namespace TextMetal.Framework.Core
 {
 	/// <summary>
-	/// 	Serves as a marker interface to distinguish between 'objects' and not...in the loose sense.
+	/// Serves as a marker interface to distinguish between 'objects' and not...in the loose sense.
 	/// </summary>
 	public interface IActualThing
 	{

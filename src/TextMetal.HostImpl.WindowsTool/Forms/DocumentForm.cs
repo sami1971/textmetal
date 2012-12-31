@@ -99,6 +99,13 @@ namespace TextMetal.HostImpl.WindowsTool.Forms
 		{
 		}
 
+		protected override void CoreSetup()
+		{
+			base.CoreSetup();
+
+			this.ApplyModelToView();
+		}
+
 		protected override void CoreShown()
 		{
 			DialogResult dialogResult;
@@ -109,10 +116,10 @@ namespace TextMetal.HostImpl.WindowsTool.Forms
 			base.CoreShown();
 
 			dialogResult = BackgroundTaskForm.Show(this, "Loading document...", o =>
-			{
-				//Thread.Sleep(1000);
-				return this.DocumentStrategy.LoadDocument(this.DocumentFilePath);
-			}, null, out asyncWasCanceled, out asyncExceptionOrNull, out asyncResult);
+			                                                                    {
+				                                                                    //Thread.Sleep(1000);
+				                                                                    return this.DocumentStrategy.LoadDocument(this.DocumentFilePath);
+			                                                                    }, null, out asyncWasCanceled, out asyncExceptionOrNull, out asyncResult);
 
 			if (asyncWasCanceled || dialogResult == DialogResult.Cancel)
 				this.Close(); // direct
@@ -130,13 +137,6 @@ namespace TextMetal.HostImpl.WindowsTool.Forms
 
 			this.CoreText = string.Format("{0}", this.DocumentFilePath.SafeToString(null, "<new>"));
 			this.StatusText = this.DocumentStrategy.DisplayText;
-
-			this.ApplyModelToView();
-		}
-
-		protected override void CoreSetup()
-		{
-			base.CoreSetup();
 
 			this.ApplyModelToView();
 		}

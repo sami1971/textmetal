@@ -6,7 +6,7 @@
 namespace TextMetal.Common.Expressions
 {
 	/// <summary>
-	/// 	Represents an expression with one operand.
+	/// Represents an expression with one operand.
 	/// </summary>
 	public interface IUnaryExpression : IExpression
 	{

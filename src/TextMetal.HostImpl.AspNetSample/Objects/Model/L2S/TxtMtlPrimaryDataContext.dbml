@@ -1,43 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="TextMetalWebHostSample" EntityNamespace="TextMetal.HostImpl.AspNetSample.Objects.Model.L2S" ContextNamespace="TextMetal.HostImpl.AspNetSample.Objects.Model.L2S" Class="TxtMtlPrimaryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.EmailAttachment" Member="EmailAttachments">
-    <Type Name="EmailAttachment">
-      <Column Name="EmailAttachmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="true" />
-      <Column Name="EmailMessageId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="true" />
-      <Column Name="MimeType" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
-      <Column Name="AttachmentBits" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="CreationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
-      <Column Name="ModificationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
-      <Column Name="LogicalDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
-      <Association Name="fk_EmailAttachment_EmailMessage" Member="EmailMessage" ThisKey="EmailMessageId" OtherKey="EmailMessageId" Type="EmailMessage" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.EmailMessage" Member="EmailMessages">
-    <Type Name="EmailMessage">
-      <Column Name="EmailMessageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="true" />
-      <Column Name="From" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
-      <Column Name="Sender" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
-      <Column Name="ReplyTo" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
-      <Column Name="To" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
-      <Column Name="CC" Member="Cc" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
-      <Column Name="BCC" Member="Bcc" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
-      <Column Name="Subject" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
-      <Column Name="IsBodyHtml" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
-      <Column Name="Body" Type="System.String" DbType="NText NOT NULL" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Processed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
-      <Column Name="CreationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
-      <Column Name="ModificationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
-      <Column Name="LogicalDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
-      <Association Name="fk_EmailAttachment_EmailMessage" Member="EmailAttachments" ThisKey="EmailMessageId" OtherKey="EmailMessageId" Type="EmailAttachment" DeleteRule="NO ACTION" />
-    </Type>
-  </Table>
-  <Table Name="dbo.EventLog" Member="EventLogs">
-    <Type Name="EventLog">
-      <Column Name="EventLogId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="true" />
-      <Column Name="EventText" Type="System.String" DbType="NText NOT NULL" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="CreationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
-      <Column Name="ModificationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
-      <Column Name="LogicalDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
-    </Type>
-  </Table>
+
+<Database Name="TextMetalWebHostSample" EntityNamespace="TextMetal.HostImpl.AspNetSample.Objects.Model.L2S"
+          ContextNamespace="TextMetal.HostImpl.AspNetSample.Objects.Model.L2S" Class="TxtMtlPrimaryDataContext"
+          xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+	<Table Name="dbo.EmailAttachment" Member="EmailAttachments">
+		<Type Name="EmailAttachment">
+			<Column Name="EmailAttachmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true"
+			        IsDbGenerated="true" CanBeNull="true" />
+			<Column Name="EmailMessageId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="true" />
+			<Column Name="MimeType" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
+			<Column Name="AttachmentBits" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="true"
+			        UpdateCheck="Never" />
+			<Column Name="CreationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+			<Column Name="ModificationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+			<Column Name="LogicalDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
+			<Association Name="fk_EmailAttachment_EmailMessage" Member="EmailMessage" ThisKey="EmailMessageId"
+			             OtherKey="EmailMessageId" Type="EmailMessage" IsForeignKey="true" />
+		</Type>
+	</Table>
+	<Table Name="dbo.EmailMessage" Member="EmailMessages">
+		<Type Name="EmailMessage">
+			<Column Name="EmailMessageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true"
+			        IsDbGenerated="true" CanBeNull="true" />
+			<Column Name="From" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
+			<Column Name="Sender" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
+			<Column Name="ReplyTo" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
+			<Column Name="To" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
+			<Column Name="CC" Member="Cc" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
+			<Column Name="BCC" Member="Bcc" Type="System.String" DbType="NVarChar(2047)" CanBeNull="true" />
+			<Column Name="Subject" Type="System.String" DbType="NVarChar(2047) NOT NULL" CanBeNull="true" />
+			<Column Name="IsBodyHtml" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
+			<Column Name="Body" Type="System.String" DbType="NText NOT NULL" CanBeNull="true" UpdateCheck="Never" />
+			<Column Name="Processed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
+			<Column Name="CreationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+			<Column Name="ModificationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+			<Column Name="LogicalDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
+			<Association Name="fk_EmailAttachment_EmailMessage" Member="EmailAttachments" ThisKey="EmailMessageId"
+			             OtherKey="EmailMessageId" Type="EmailAttachment" DeleteRule="NO ACTION" />
+		</Type>
+	</Table>
+	<Table Name="dbo.EventLog" Member="EventLogs">
+		<Type Name="EventLog">
+			<Column Name="EventLogId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true"
+			        IsDbGenerated="true" CanBeNull="true" />
+			<Column Name="EventText" Type="System.String" DbType="NText NOT NULL" CanBeNull="true" UpdateCheck="Never" />
+			<Column Name="CreationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+			<Column Name="ModificationTimestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="true" />
+			<Column Name="LogicalDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
+		</Type>
+	</Table>
 </Database>

@@ -486,7 +486,8 @@ EndGlobal
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    	
+    <Reference Include="System.Xml" />
+	
 	<Reference Include="TextMetal.Common.Core">
       <HintPath>..\..\lib\TextMetal\TextMetal.Common.Core.dll</HintPath>
     </Reference>
@@ -646,6 +647,8 @@ EndGlobal
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
 	<Reference Include="System.Data" />
+	<Reference Include="System.Xml" />
+	
 	<Reference Include="System.Data.SQLite">
       <HintPath>..\..\lib\SQLite\System.Data.SQLite.dll</HintPath>
     </Reference>

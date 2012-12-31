@@ -16,7 +16,7 @@ namespace TextMetal.Framework.Core
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the TemplatingContext class.
+		/// Initializes a new instance of the TemplatingContext class.
 		/// </summary>
 		/// <param name="xpe"> The XML persist engine in-effect. </param>
 		/// <param name="tokenizer"> The tokenizer in-efect. </param>

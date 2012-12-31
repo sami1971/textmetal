@@ -11,7 +11,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.AssociativeModel
 {
 	/// <summary>
-	/// 	Provides an XML construct for associative objects (not a base class however).
+	/// Provides an XML construct for associative objects (not a base class however).
 	/// </summary>
 	[XmlElementMapping(LocalName = "Object", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
 	public class ObjectConstruct : AssociativeXmlObject, IActualThing
@@ -19,7 +19,7 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ObjectConstruct class.
+		/// Initializes a new instance of the ObjectConstruct class.
 		/// </summary>
 		public ObjectConstruct()
 		{

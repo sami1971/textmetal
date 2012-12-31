@@ -23,7 +23,7 @@ namespace TextMetal.HostImpl.Web.AspNet
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the WebHost class.
+		/// Initializes a new instance of the WebHost class.
 		/// </summary>
 		public WebHost()
 		{

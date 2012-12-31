@@ -16,7 +16,7 @@ namespace TextMetal.Framework.ExpressionModel
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the ExpressionXmlObject class.
+		/// Initializes a new instance of the ExpressionXmlObject class.
 		/// </summary>
 		protected ExpressionXmlObject()
 		{

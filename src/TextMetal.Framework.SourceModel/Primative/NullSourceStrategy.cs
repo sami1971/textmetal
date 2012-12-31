@@ -13,7 +13,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		#region Constructors/Destructors
 
 		/// <summary>
-		/// 	Initializes a new instance of the NullSourceStrategy class.
+		/// Initializes a new instance of the NullSourceStrategy class.
 		/// </summary>
 		public NullSourceStrategy()
 		{
