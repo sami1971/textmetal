@@ -1,6 +1,6 @@
 ﻿TextMetal
 
-Copyright ©2002-2012 Daniel Bullington (dpbullington@gmail.com)
+Copyright ©2002-2013 Daniel Bullington (dpbullington@gmail.com)
 
 TextMetal is released under the MIT License
 
