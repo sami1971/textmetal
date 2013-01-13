@@ -15,7 +15,7 @@ namespace TextMetal.Framework.AssociativeModel
 	/// <summary>
 	/// Provides an XML construct for associative arrays.
 	/// </summary>
-	[XmlElementMapping(LocalName = "Array", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
+	[XmlElementMapping(LocalName = "Array", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class ArrayConstruct : AssociativeXmlObject, IActualThing
 	{
 		#region Constructors/Destructors

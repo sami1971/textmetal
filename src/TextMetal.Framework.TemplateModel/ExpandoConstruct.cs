@@ -11,7 +11,7 @@ using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Expando", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "Expando", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class ExpandoConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -33,7 +33,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Dynamic", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Dynamic", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public AssociativeContainerConstruct Expression
 		{
 			get

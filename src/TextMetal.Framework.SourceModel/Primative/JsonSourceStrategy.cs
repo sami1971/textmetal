@@ -9,7 +9,7 @@ using System.IO;
 
 using TextMetal.Common.Core;
 
-using WebFramework.Core.Jaysun;
+using Newtonsoft.Json;
 
 namespace TextMetal.Framework.SourceModel.Primative
 {

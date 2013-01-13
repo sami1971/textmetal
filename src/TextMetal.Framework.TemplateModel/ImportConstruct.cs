@@ -11,7 +11,7 @@ using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Import", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "Import", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class ImportConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors

@@ -15,7 +15,7 @@ using TextMetal.Framework.SortModel;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "ForEach", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "ForEach", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class ForEachConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -43,7 +43,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Body", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Body", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public TemplateContainerConstruct Body
 		{
 			get
@@ -56,7 +56,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Filter", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Filter", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct Filter
 		{
 			get
@@ -90,7 +90,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Sort", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Sort", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public SortContainerConstruct Sort
 		{
 			get

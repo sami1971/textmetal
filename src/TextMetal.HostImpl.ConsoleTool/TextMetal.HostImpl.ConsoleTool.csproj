@@ -47,16 +47,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="IronRuby">
-      <HintPath>..\..\lib\IronRuby\bin-rb\IronRuby.dll</HintPath>
+      <HintPath>..\..\lib\IronRuby\IronRuby.dll</HintPath>
     </Reference>
     <Reference Include="IronRuby.Libraries">
-      <HintPath>..\..\lib\IronRuby\bin-rb\IronRuby.Libraries.dll</HintPath>
+      <HintPath>..\..\lib\IronRuby\IronRuby.Libraries.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Dynamic">
-      <HintPath>..\..\lib\IronRuby\bin-rb\Microsoft.Dynamic.dll</HintPath>
+      <HintPath>..\..\lib\IronRuby\Microsoft.Dynamic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting">
-      <HintPath>..\..\lib\IronRuby\bin-rb\Microsoft.Scripting.dll</HintPath>
+      <HintPath>..\..\lib\IronRuby\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

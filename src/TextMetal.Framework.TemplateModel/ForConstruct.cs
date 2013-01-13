@@ -13,7 +13,7 @@ using TextMetal.Framework.ExpressionModel;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "For", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "For", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class ForConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -39,7 +39,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Body", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Body", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public TemplateContainerConstruct Body
 		{
 			get
@@ -52,7 +52,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Condition", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Condition", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct Condition
 		{
 			get
@@ -65,7 +65,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Intializer", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Intializer", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct Initializer
 		{
 			get
@@ -86,7 +86,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Iterator", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Iterator", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct Iterator
 		{
 			get

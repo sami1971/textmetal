@@ -12,7 +12,7 @@ using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Template", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
+	[XmlElementMapping(LocalName = "Template", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class TemplateConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors

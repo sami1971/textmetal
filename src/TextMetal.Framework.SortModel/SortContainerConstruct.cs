@@ -13,7 +13,7 @@ using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.SortModel
 {
-	[XmlElementMapping(LocalName = "SortContainer", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
+	[XmlElementMapping(LocalName = "SortContainer", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class SortContainerConstruct : SortXmlObject
 	{
 		#region Constructors/Destructors

@@ -13,7 +13,7 @@ namespace TextMetal.Framework.AssociativeModel
 	/// <summary>
 	/// Provides an XML construct for associative objects (not a base class however).
 	/// </summary>
-	[XmlElementMapping(LocalName = "Object", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
+	[XmlElementMapping(LocalName = "Object", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Items)]
 	public class ObjectConstruct : AssociativeXmlObject, IActualThing
 	{
 		#region Constructors/Destructors

@@ -46,7 +46,6 @@ namespace TextMetal.Framework.HostingModel
 			xpe.RegisterKnownXmlObject<ExpressionContainerConstruct>();
 			xpe.RegisterKnownXmlObject<FacetConstruct>();
 			xpe.RegisterKnownXmlObject<NullaryExpressionConstruct>();
-			xpe.RegisterKnownXmlObject<PowerShellConstruct>();
 			xpe.RegisterKnownXmlObject<RubyConstruct>();
 			xpe.RegisterKnownXmlObject<UnaryExpressionConstruct>();
 			xpe.RegisterKnownXmlObject<ValueConstruct>();

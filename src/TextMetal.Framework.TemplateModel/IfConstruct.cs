@@ -12,7 +12,7 @@ using TextMetal.Framework.ExpressionModel;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "If", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "If", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class IfConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -36,7 +36,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Condition", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Condition", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct Condition
 		{
 			get
@@ -49,7 +49,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "False", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "False", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public TemplateContainerConstruct False
 		{
 			get
@@ -70,7 +70,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "True", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "True", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public TemplateContainerConstruct True
 		{
 			get

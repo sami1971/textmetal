@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<SqlQuery xmlns="http://www.textmetal.com/api/v4.4.0" key="this" order="" type="Text">	
+<SqlQuery xmlns="http://www.textmetal.com/api/v5.0.0" key="this" order="" type="Text">	
 	<Text>
 		SELECT 1 as a, 2 as b;
 	</Text>
 	<SubQueries>
-		<SqlQuery xmlns="http://www.textmetal.com/api/v4.4.0" key="this" order="" type="Text">	
+		<SqlQuery xmlns="http://www.textmetal.com/api/v5.0.0" key="this" order="" type="Text">	
 			<Text>
 				SELECT 3 + ${a} as c, 4 - ${b} as d;
 			</Text>

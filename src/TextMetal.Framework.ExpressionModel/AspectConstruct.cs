@@ -11,7 +11,7 @@ using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.ExpressionModel
 {
-	[XmlElementMapping(LocalName = "Aspect", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "Aspect", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class AspectConstruct : SurfaceConstruct
 	{
 		#region Constructors/Destructors

@@ -12,7 +12,7 @@ using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.ExpressionModel
 {
-	[XmlElementMapping(LocalName = "NullaryExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "NullaryExpression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class NullaryExpressionConstruct : ExpressionXmlObject, INullaryExpression
 	{
 		#region Constructors/Destructors

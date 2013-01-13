@@ -17,7 +17,7 @@ namespace TextMetal.Common.Data.Advanced
 	/// Represents an ordered set of historical revsions to a database (file).
 	/// </summary>
 	[Serializable]
-	[XmlRoot(ElementName = "History", Namespace = "http://www.textmetal.com/api/v4.4.0")]
+	[XmlRoot(ElementName = "History", Namespace = "http://www.textmetal.com/api/v5.0.0")]
 	public sealed class DatabaseHistory
 	{
 		#region Constructors/Destructors

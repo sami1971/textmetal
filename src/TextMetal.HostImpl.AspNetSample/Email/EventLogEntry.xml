@@ -4,40 +4,40 @@
 	Copyright ©2002-2013 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<MessageTemplate xmlns="http://www.textmetal.com/api/v4.4.0">
+<MessageTemplate xmlns="http://www.textmetal.com/api/v5.0.0">
 
 	<From>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0"><![CDATA[alice@example.com]]></Template>
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0"><![CDATA[alice@example.com]]></Template>
 	</From>
 
 	<Sender>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0" />
 	</Sender>
 
 	<ReplyTo>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0" />
 	</ReplyTo>
 
 	<To>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0"><![CDATA[bob@example.com]]></Template>
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0"><![CDATA[bob@example.com]]></Template>
 	</To>
 
 	<CC>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0" />
 	</CC>
 
 	<BCC>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0" />
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0" />
 	</BCC>
 
 	<Subject>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0"><![CDATA[Unhandled Exception]]></Template>
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0"><![CDATA[Unhandled Exception]]></Template>
 	</Subject>
 
 	<IsBodyHtml>false</IsBodyHtml>
 
 	<Body>
-		<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+		<Template xmlns="http://www.textmetal.com/api/v5.0.0">
 			<![CDATA[The following error occured:
 
 ${Error}

@@ -12,7 +12,7 @@ namespace TextMetal.Framework.AssociativeModel
 	/// <summary>
 	/// Provides an XML construct for associative models (root object of object graph).
 	/// </summary>
-	[XmlElementMapping(LocalName = "Model", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Items)]
+	[XmlElementMapping(LocalName = "Model", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Items)]
 	public sealed class ModelConstruct : ObjectConstruct
 	{
 		#region Constructors/Destructors

@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 namespace TextMetal.Framework.SourceModel.DatabaseSchema
 {
 	[Serializable]
-	[XmlRoot(ElementName = "Database", Namespace = "http://www.textmetal.com/api/v4.4.0")]
+	[XmlRoot(ElementName = "Database", Namespace = "http://www.textmetal.com/api/v5.0.0")]
 	public class Database
 	{
 		#region Constructors/Destructors

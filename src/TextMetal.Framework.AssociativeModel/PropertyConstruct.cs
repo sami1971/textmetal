@@ -15,7 +15,7 @@ namespace TextMetal.Framework.AssociativeModel
 	/// <summary>
 	/// Provides an XML construct for associative properties.
 	/// </summary>
-	[XmlElementMapping(LocalName = "Property", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "Property", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class PropertyConstruct : AssociativeXmlObject
 	{
 		#region Constructors/Destructors

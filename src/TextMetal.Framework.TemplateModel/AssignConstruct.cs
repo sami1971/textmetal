@@ -12,7 +12,7 @@ using TextMetal.Framework.ExpressionModel;
 
 namespace TextMetal.Framework.TemplateModel
 {
-	[XmlElementMapping(LocalName = "Assign", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "Assign", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class AssignConstruct : TemplateXmlObject
 	{
 		#region Constructors/Destructors
@@ -35,7 +35,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Expression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Expression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct Expression
 		{
 			get

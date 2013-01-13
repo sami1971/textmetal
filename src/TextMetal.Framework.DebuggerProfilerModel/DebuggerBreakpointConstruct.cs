@@ -16,7 +16,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 	/// <summary>
 	/// Allows an author of a TextMetal template file to declaratively set a CLR breakpoint anywhere in the object tree.
 	/// </summary>
-	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "DebuggerBreakpoint", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public class DebuggerBreakpointConstruct : ITemplateXmlObject, IExpressionXmlObject, IAssociativeXmlObject, ISortXmlObject
 	{
 		#region Constructors/Destructors

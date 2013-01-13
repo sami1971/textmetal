@@ -5,17 +5,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 
 using Microsoft.Scripting.Hosting;
 
+using TextMetal.Common.Core;
 using TextMetal.Common.Core.StringTokens;
 using TextMetal.Common.Xml;
 using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.ExpressionModel
 {
-	[XmlElementMapping(LocalName = "Ruby", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "Ruby", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class RubyConstruct : ExpressionXmlObject
 	{
 		#region Constructors/Destructors
@@ -31,13 +33,42 @@ namespace TextMetal.Framework.ExpressionModel
 
 		#region Fields/Constants
 
+		private string expr;
+		private string file;
 		private string script;
+		private RubySource src;
 
 		#endregion
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(LocalName = "Script", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementType = ChildElementType.TextValue)]
+		[XmlAttributeMapping(LocalName = "expr", NamespaceUri = "")]
+		public string Expr
+		{
+			get
+			{
+				return this.expr;
+			}
+			set
+			{
+				this.expr = value;
+			}
+		}
+
+		[XmlAttributeMapping(LocalName = "file", NamespaceUri = "")]
+		public string File
+		{
+			get
+			{
+				return this.file;
+			}
+			set
+			{
+				this.file = value;
+			}
+		}
+
+		[XmlChildElementMapping(LocalName = "Script", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementType = ChildElementType.TextValue)]
 		public string Script
 		{
 			get
@@ -50,6 +81,36 @@ namespace TextMetal.Framework.ExpressionModel
 			}
 		}
 
+		public RubySource Src
+		{
+			get
+			{
+				return this.src;
+			}
+			set
+			{
+				this.src = value;
+			}
+		}
+
+		[XmlAttributeMapping(LocalName = "src", NamespaceUri = "")]
+		public string _Src
+		{
+			get
+			{
+				return this.Src.SafeToString();
+			}
+			set
+			{
+				RubySource src;
+
+				if (!DataType.TryParse<RubySource>(value, out src))
+					this.Src = RubySource.Unknown;
+				else
+					this.Src = src;
+			}
+		}
+
 		#endregion
 
 		#region Methods/Operators
@@ -57,17 +118,30 @@ namespace TextMetal.Framework.ExpressionModel
 		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
+			ScriptRuntimeSetup scriptRuntimeSetup;
 			ScriptRuntime scriptRuntime;
 			ScriptEngine scriptEngine;
 			ScriptScope scriptScope;
 			List<string> paths;
 			dynamic result;
+			dynamic textMetal;
+			dynamic dvalue;
+			Func<string, object> func;
 
 			if ((object)templatingContext == null)
 				throw new ArgumentNullException("templatingContext");
 
 			dynamicWildcardTokenReplacementStrategy = templatingContext.GetDynamicWildcardTokenReplacementStrategy();
-			scriptRuntime = ScriptRuntime.CreateFromConfiguration();
+
+			scriptRuntimeSetup = new ScriptRuntimeSetup();
+			scriptRuntimeSetup.LanguageSetups.Add(
+				new LanguageSetup(
+					"IronRuby.Runtime.RubyContext, IronRuby",
+					"IronRuby",
+					new[] { "IronRuby", "Ruby", "rb" },
+					new[] { ".rb" }));
+
+			scriptRuntime = new ScriptRuntime(scriptRuntimeSetup);
 			scriptEngine = scriptRuntime.GetEngine("Ruby");
 			scriptScope = scriptEngine.CreateScope();
 
@@ -76,10 +150,38 @@ namespace TextMetal.Framework.ExpressionModel
 			//paths.Add(System.IO.Directory.GetCurrentDirectory());
 			scriptEngine.SetSearchPaths(paths);
 
-			scriptScope.SetVariable("__tm__", new RubyProxy(dynamicWildcardTokenReplacementStrategy));
+			textMetal = new ExpandoObject();
+			func = (token) => dynamicWildcardTokenReplacementStrategy.Evaluate(token, null);
+			textMetal.EvaluateToken = func;
+			//TODO: templatingContext.Tokenizer.ExpandTokens(tokenizedValue, dynamicWildcardTokenReplacementStrategy);
 
-			result = scriptEngine.Execute(this.Script, scriptScope);
-			//result = scriptEngine.ExecuteFile("", scriptScope);
+			scriptScope.SetVariable("textMetal", textMetal);
+
+			foreach (KeyValuePair<string, object> variableEntry in templatingContext.CurrentVariableTable)
+			{
+				if (scriptScope.TryGetVariable(variableEntry.Key, out dvalue))
+					throw new InvalidOperationException(string.Format("Cannot set variable '{0}' in Ruby script scope; the specified variable name already exists.", variableEntry.Key));
+
+				scriptScope.SetVariable(variableEntry.Key, variableEntry.Value);
+			}
+			
+			switch (this.Src)
+			{
+				case RubySource.Script:
+					result = scriptEngine.Execute(this.Script, scriptScope);
+					break;
+				case RubySource.Expr:
+					result = scriptEngine.Execute(this.Expr, scriptScope);
+					break;
+				case RubySource.File:
+					string file;
+					file = templatingContext.Tokenizer.ExpandTokens(this.File, dynamicWildcardTokenReplacementStrategy);
+					result = scriptEngine.Execute(templatingContext.Input.LoadContent(file), scriptScope);
+					break;
+				default:
+					result = null;
+					break;
+			}
 
 			return result;
 		}
@@ -102,63 +204,12 @@ namespace TextMetal.Framework.ExpressionModel
 			#endregion
 		}
 
-		private sealed class RubyProxy
+		public enum RubySource
 		{
-			#region Constructors/Destructors
-
-			public RubyProxy(DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy)
-			{
-				if ((object)dynamicWildcardTokenReplacementStrategy == null)
-					throw new ArgumentNullException("dynamicWildcardTokenReplacementStrategy");
-
-				this.dynamicWildcardTokenReplacementStrategy = dynamicWildcardTokenReplacementStrategy;
-			}
-
-			#endregion
-
-			#region Fields/Constants
-
-			private readonly DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
-
-			#endregion
-
-			#region Properties/Indexers/Events
-
-			private DynamicWildcardTokenReplacementStrategy DynamicWildcardTokenReplacementStrategy
-			{
-				get
-				{
-					return this.dynamicWildcardTokenReplacementStrategy;
-				}
-			}
-
-			#endregion
-
-			#region Methods/Operators
-
-			public bool Def(string token)
-			{
-				object value;
-
-				return this.DynamicWildcardTokenReplacementStrategy.GetByPath(token, out value);
-			}
-
-			public object Get(string token)
-			{
-				object value;
-
-				if (!this.DynamicWildcardTokenReplacementStrategy.GetByPath(token, out value))
-					return null;
-
-				return value;
-			}
-
-			public bool Set(string token, object value)
-			{
-				return this.DynamicWildcardTokenReplacementStrategy.SetByPath(token, value);
-			}
-
-			#endregion
+			Unknown = 0,
+			Script,
+			Expr,
+			File
 		}
 
 		#endregion

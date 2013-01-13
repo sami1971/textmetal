@@ -16,7 +16,7 @@ namespace TextMetal.Framework.ExpressionModel
 	/// <summary>
 	/// This class uses the C# compiler style of numeric promotions.
 	/// </summary>
-	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "UnaryExpression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class UnaryExpressionConstruct : ExpressionXmlObject, IUnaryExpression
 	{
 		#region Constructors/Destructors
@@ -39,7 +39,7 @@ namespace TextMetal.Framework.ExpressionModel
 
 		#region Properties/Indexers/Events
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "TheExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "TheExpression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct TheExpression
 		{
 			get

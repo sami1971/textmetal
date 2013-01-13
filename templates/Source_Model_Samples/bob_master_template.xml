@@ -4,7 +4,7 @@
 	Copyright ©2002-2013 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+<Template xmlns="http://www.textmetal.com/api/v5.0.0">
 
 	<Alloc token="test" />
 	
@@ -32,7 +32,7 @@
 
 	<Include name="bob_include_content.txt" />
 	
-	<Alias local-name="Scrizzle" namespace-uri="http://www.textmetal.com/api/v4.4.0" aqt-name="TextMetal.Framework.TemplateModel.WriteConstruct, TextMetal.Framework.TemplateModel" />
+	<Alias local-name="Scrizzle" namespace-uri="http://www.textmetal.com/api/v5.0.0" aqt-name="TextMetal.Framework.TemplateModel.WriteConstruct, TextMetal.Framework.TemplateModel" />
 
 	<Import name="bob_import_template.xml" />
 	
@@ -63,29 +63,12 @@
 	
 	<Assign token="test">
 		<Assign.Expression>
-			<PowerShell>
-				<Script>										
-					$x = $__tm__.Get("test");
-					return $x
-				</Script>
-			</PowerShell>			
-		</Assign.Expression>
-	</Assign>
-	
-	<![CDATA[	
-${test}
-*ps1*	
-]]>
-	
-	
-	<Assign token="test">
-		<Assign.Expression>
-			<Ruby>
+			<Ruby src="File" expr="((self.test + textMetal.EvaluateToken.invoke(&quot;test&quot;)) / 2) * -2" file="sample.rb">
 				<Script>
-					puts "test ruby"
-					x = __tm__.Get("test");
-					y = 100 * -1
-					return x;
+					puts "go ruby";
+					z1 = self.test;
+					z2 = textMetal.EvaluateToken.invoke("test");
+					return ((z1 + z2) / 2) * -1;
 				</Script>
 			</Ruby>			
 		</Assign.Expression>

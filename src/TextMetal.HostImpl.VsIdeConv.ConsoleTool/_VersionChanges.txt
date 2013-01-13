@@ -1,0 +1,114 @@
+﻿+++ ALL VERSIONS OF VISUAL STUDIO PRIOR TO 2005 USING MSBUILD IS NOT SUPPORTED +++
+
++++ VS 2005(8.0) RTM +++
+
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+8.0.30703
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+
++++ VS 2005(8.0) SP1 +++
+
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+8.0.50727
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+
++++ VS 2008(9.0) RTM +++
+
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+9.0.21022
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+
++++ VS 2008(9.0) SP1 +++
+
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+9.0.30729
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+
++++ VS 2010(10.0) RTM +++
+
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+8.0.30703 (yes this is correct, its a bug)
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+
++++ VS 2010(10.0) SP1 +++
+
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+8.0.30703 (yes this is correct, its a bug)
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+
++++ VS 2012(11.0) RTM +++
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+8.0.30703
+$(MSBuildBinPath)\Microsoft.CSharp.targets
+$(MSBuildToolsPath)\Microsoft.VisualBasic.targets
+$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v11.0\WebApplications\Microsoft.WebApplication.targets
+Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+
+*** MSSCCI (Microsoft Source Code Control Interface, e.g. Visual Source Safe, SourceGear Vault) ***
+
+SourceCodeControl
+
+
+*** Team Foundation Server ***
+
+TeamFoundationVersionControl
+
+
+*** ASP.NET MVC 1.0 ***
+
+{603c0e0b-db56-11dc-be95-000d561079b0}
+System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL
+System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL
+
+
+*** ASP.NET MVC 2.0 ***
+
+{F85E285D-A4E0-4152-9332-AB1D724D3325}
+System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL
+System.Web.Extensions
+
+
+*** ASP.NET MVC 3.0 ***
+
+{E53F8FEA-EAE0-44A6-8774-FFD645390401}
+System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL
+System.Web.Extensions
+
+
+*** ASP.NET MVC 4.0 ***
+
+{E3E379DF-F4C6-4180-9B81-6769533ABE47}
+System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL
+System.Web.Extensionss

@@ -17,7 +17,7 @@ namespace TextMetal.Framework.ExpressionModel
 	/// <summary>
 	/// This class uses the C# compiler style of numeric promotions.
 	/// </summary>
-	[XmlElementMapping(LocalName = "BinaryExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0", ChildElementModel = ChildElementModel.Sterile)]
+	[XmlElementMapping(LocalName = "BinaryExpression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Sterile)]
 	public sealed class BinaryExpressionConstruct : ExpressionXmlObject, IBinaryExpression
 	{
 		#region Constructors/Destructors
@@ -62,7 +62,7 @@ namespace TextMetal.Framework.ExpressionModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "LeftExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "LeftExpression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct LeftExpression
 		{
 			get
@@ -83,7 +83,7 @@ namespace TextMetal.Framework.ExpressionModel
 			}
 		}
 
-		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "RightExpression", NamespaceUri = "http://www.textmetal.com/api/v4.4.0")]
+		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "RightExpression", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
 		public ExpressionContainerConstruct RightExpression
 		{
 			get

@@ -21,7 +21,7 @@ using TextMetal.Framework.TemplateModel;
 namespace TextMetal.HostImpl.Web.Email
 {
 	[Serializable]
-	[XmlRoot(ElementName = "MessageTemplate", Namespace = "http://www.textmetal.com/api/v4.4.0")]
+	[XmlRoot(ElementName = "MessageTemplate", Namespace = "http://www.textmetal.com/api/v5.0.0")]
 	public class MessageTemplate
 	{
 		#region Constructors/Destructors

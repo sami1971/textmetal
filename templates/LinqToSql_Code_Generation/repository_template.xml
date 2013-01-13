@@ -4,7 +4,7 @@
 	Copyright ©2002-2013 Daniel Bullington (dpbullington@gmail.com)
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 -->
-<Template xmlns="http://www.textmetal.com/api/v4.4.0">
+<Template xmlns="http://www.textmetal.com/api/v5.0.0">
 
 	<OutputScope name="${ClrNamespace}\Repository.g.cs">
 		<Include name="include_gen_cprt_message.cs.txt" />
