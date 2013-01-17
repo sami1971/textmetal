@@ -41,7 +41,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		protected override void OnExecute(FileInfo fileInfo)
 		{
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			Debug.WriteLine("Deleting: " + fileInfo.FullName);

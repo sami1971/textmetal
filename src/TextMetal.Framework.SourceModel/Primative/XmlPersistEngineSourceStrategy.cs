@@ -55,8 +55,8 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 		protected virtual IXmlPersistEngine GetXmlPersistEngine(IDictionary<string, IList<string>> properties)
 		{
-			const string CMDLN_TOKEN_KNOWN_XML_OBJECT_AQTN = "KnownXmlObjectType";
-			const string CMDLN_TOKEN_KNOWN_XML_TEXT_OBJECT_AQTN = "KnownXmlTextObjectType";
+			const string PROP_TOKEN_KNOWN_XML_OBJECT_AQTN = "KnownXmlObjectType";
+			const string PROP_TOKEN_KNOWN_XML_TEXT_OBJECT_AQTN = "KnownXmlTextObjectType";
 			IXmlPersistEngine xpe;
 			IList<string> values;
 			string xmlObjectAqtn;
@@ -68,7 +68,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 			xpe = new XmlPersistEngine();
 
 			xmlObjectAqtn = null;
-			if (properties.TryGetValue(CMDLN_TOKEN_KNOWN_XML_TEXT_OBJECT_AQTN, out values))
+			if (properties.TryGetValue(PROP_TOKEN_KNOWN_XML_TEXT_OBJECT_AQTN, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 				{
@@ -84,9 +84,9 @@ namespace TextMetal.Framework.SourceModel.Primative
 				throw new InvalidOperationException(string.Format("The XML text object type is not assignable to type '{0}'.", typeof(IXmlTextObject).FullName));
 
 			xpe.RegisterKnownXmlTextObject(xmlObjectType);
+			
 			xmlObjectType = null;
-
-			if (properties.TryGetValue(CMDLN_TOKEN_KNOWN_XML_OBJECT_AQTN, out values))
+			if (properties.TryGetValue(PROP_TOKEN_KNOWN_XML_OBJECT_AQTN, out values))
 			{
 				if ((object)values != null)
 				{

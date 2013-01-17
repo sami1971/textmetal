@@ -30,7 +30,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 		private static object LoadFrom(Stream stream)
 		{
-			object sketch;
+			object obj;
 			//DataContractJsonSerializer serializer;
 			JsonSerializer serializer;
 			string jsonText;
@@ -47,15 +47,15 @@ namespace TextMetal.Framework.SourceModel.Primative
 			using (StreamReader streamReader = new StreamReader(stream))
 			{
 				using (JsonReader jsonReader = new JsonTextReader(streamReader))
-					sketch = (object)serializer.Deserialize<object>(jsonReader);
+					obj = (object)serializer.Deserialize<object>(jsonReader);
 			}
 
-			return sketch;
+			return obj;
 		}
 
 		private static object LoadFromFile(string filePath)
 		{
-			object sketch;
+			object obj;
 
 			if ((object)filePath == null)
 				throw new ArgumentNullException("filePath");
@@ -67,9 +67,9 @@ namespace TextMetal.Framework.SourceModel.Primative
 				return null;
 
 			using (Stream stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-				sketch = LoadFrom(stream);
+				obj = LoadFrom(stream);
 
-			return sketch;
+			return obj;
 		}
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)

@@ -157,10 +157,10 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
 		{
-			const string CMDLN_TOKEN_CONNECTION_AQTN = "ConnectionType";
-			const string CMDLN_TOKEN_CONNECTION_STRING = "ConnectionString";
-			const string CMDLN_TOKEN_DATA_SOURCE_TAG = "DataSourceTag";
-			const string CMDLN_TOKEN_SCHEMA_FILTER = "SchemaFilter";
+			const string PROP_TOKEN_CONNECTION_AQTN = "ConnectionType";
+			const string PROP_TOKEN_CONNECTION_STRING = "ConnectionString";
+			const string PROP_TOKEN_DATA_SOURCE_TAG = "DataSourceTag";
+			const string PROP_TOKEN_SCHEMA_FILTER = "SchemaFilter";
 			string connectionAqtn;
 			Type connectionType = null;
 			string connectionString = null;
@@ -175,7 +175,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 				throw new ArgumentNullException("properties");
 
 			connectionAqtn = null;
-			if (properties.TryGetValue(CMDLN_TOKEN_CONNECTION_AQTN, out values))
+			if (properties.TryGetValue(PROP_TOKEN_CONNECTION_AQTN, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 				{
@@ -190,7 +190,7 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 			if (!typeof(IDbConnection).IsAssignableFrom(connectionType))
 				throw new InvalidOperationException(string.Format("The connection type is not assignable to type '{0}'.", typeof(IDbConnection).FullName));
 
-			if (properties.TryGetValue(CMDLN_TOKEN_CONNECTION_STRING, out values))
+			if (properties.TryGetValue(PROP_TOKEN_CONNECTION_STRING, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 					connectionString = values[0];
@@ -203,14 +203,14 @@ namespace TextMetal.Framework.SourceModel.DatabaseSchema
 				throw new InvalidOperationException(string.Format("The connection string cannot be null or whitespace."));
 
 			dataSourceTag = null;
-			if (properties.TryGetValue(CMDLN_TOKEN_DATA_SOURCE_TAG, out values))
+			if (properties.TryGetValue(PROP_TOKEN_DATA_SOURCE_TAG, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 					dataSourceTag = values[0];
 			}
 
 			schemaFilter = null;
-			if (properties.TryGetValue(CMDLN_TOKEN_SCHEMA_FILTER, out values))
+			if (properties.TryGetValue(PROP_TOKEN_SCHEMA_FILTER, out values))
 			{
 				if ((object)values != null && values.Count > 0)
 					schemaFilter = values.ToArray();

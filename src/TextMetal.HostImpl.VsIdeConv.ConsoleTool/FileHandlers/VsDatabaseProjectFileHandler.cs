@@ -54,7 +54,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 			bool foundSccAuxPath = false;
 			bool foundSccProvider = false;
 
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			if (ConversionConfig.ConversionSettings.BackupFiles)
@@ -110,7 +110,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		protected override void OnExecute(FileInfo fileInfo)
 		{
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			Debug.WriteLine("Visual Studio database project: " + fileInfo.FullName);
@@ -130,7 +130,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 			bool shouldCommit;
 			string[] solutionLines;
 
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			if (ConversionConfig.ConversionSettings.BackupFiles)

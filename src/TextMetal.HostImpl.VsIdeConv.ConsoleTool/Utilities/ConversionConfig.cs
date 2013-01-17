@@ -77,6 +77,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.Utilities
 			{
 				if (dictionary.ContainsKey(key))
 					throw new InvalidOperationException(string.Format("Key {0} already in app.cofig", key));
+
 				dictionary.Add(key, nvc[key]);
 			}
 

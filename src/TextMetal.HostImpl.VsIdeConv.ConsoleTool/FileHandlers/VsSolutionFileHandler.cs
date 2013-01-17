@@ -60,10 +60,10 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 			Match matchSlnFileVer, matchVsVer, matchProjectPath;
 			List<string> projectPaths;
 
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
-			if (solutionLines == null)
+			if ((object)solutionLines == null)
 				throw new ArgumentNullException("solutionLines");
 
 			lines = new List<string>();
@@ -167,7 +167,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		protected override void OnExecute(FileInfo fileInfo)
 		{
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			Debug.WriteLine("Visual Studio solution file: " + fileInfo.FullName);
@@ -187,7 +187,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 			bool shouldCommit;
 			string[] solutionLines;
 
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			if (ConversionConfig.ConversionSettings.BackupFiles)

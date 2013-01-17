@@ -80,7 +80,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 				{
 					propertyConstruct = new PropertyConstruct();
 					propertyConstruct.Name = "RowCount";
-					propertyConstruct.Value = objs.Count.ToString();
+					propertyConstruct.RawValue = objs.Count;
 					arrayConstruct.Items.Add(propertyConstruct);
 
 					foreach (IDictionary<string, object> obj in objs)
@@ -94,10 +94,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 							{
 								propertyConstruct = new PropertyConstruct();
 								propertyConstruct.Name = keyValuePair.Key;
-								propertyConstruct.Value = keyValuePair.Value.SafeToString();
-
-								if ((object)keyValuePair.Value != null)
-									propertyConstruct.Type = keyValuePair.Value.GetType().FullName;
+								propertyConstruct.RawValue = keyValuePair.Value;
 
 								objectConstruct.Items.Add(propertyConstruct);
 							}
@@ -112,9 +109,9 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
 		{
-			const string CMDLN_TOKEN_CONNECTION_AQTN = "ConnectionType";
-			const string CMDLN_TOKEN_CONNECTION_STRING = "ConnectionString";
-			const string CMDLN_TOKEN_GET_SCHEMA_ONLY = "GetSchemaOnly";
+			const string PROP_TOKEN_CONNECTION_AQTN = "ConnectionType";
+			const string PROP_TOKEN_CONNECTION_STRING = "ConnectionString";
+			const string PROP_TOKEN_GET_SCHEMA_ONLY = "GetSchemaOnly";
 			string connectionAqtn;
 			Type connectionType = null;
 			string connectionString = null;
@@ -134,7 +131,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 				throw new ArgumentOutOfRangeException("sourceFilePath");
 
 			connectionAqtn = null;
-			if (properties.TryGetValue(CMDLN_TOKEN_CONNECTION_AQTN, out values))
+			if (properties.TryGetValue(PROP_TOKEN_CONNECTION_AQTN, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 				{
@@ -149,7 +146,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 			if (!typeof(IDbConnection).IsAssignableFrom(connectionType))
 				throw new InvalidOperationException(string.Format("The connection type is not assignable to type '{0}'.", typeof(IDbConnection).FullName));
 
-			if (properties.TryGetValue(CMDLN_TOKEN_CONNECTION_STRING, out values))
+			if (properties.TryGetValue(PROP_TOKEN_CONNECTION_STRING, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 					connectionString = values[0];
@@ -158,7 +155,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 			if (DataType.IsWhiteSpace(connectionString))
 				throw new InvalidOperationException(string.Format("The connection string cannot be null or whitespace."));
 
-			if (properties.TryGetValue(CMDLN_TOKEN_GET_SCHEMA_ONLY, out values))
+			if (properties.TryGetValue(PROP_TOKEN_GET_SCHEMA_ONLY, out values))
 			{
 				if ((object)values != null && values.Count == 1)
 					DataType.TryParse<bool>(values[0], out getSchemaOnly);

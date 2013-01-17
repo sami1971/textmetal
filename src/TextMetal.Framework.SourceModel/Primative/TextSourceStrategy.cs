@@ -29,15 +29,16 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
 		{
-			const string CMDLN_TOKEN_FIRST_ROW_CONTAINS_COLUMN_HEADINGS = "FirstRowIsHeader";
-			const string CMDLN_TOKEN_FIELD_DELIMITER = "FieldDelimiter";
-			//const string CMDLN_TOKEN_ROW_DELIMITER = "RowDelimiter";
+			const string PROP_TOKEN_FIRST_ROW_CONTAINS_COLUMN_HEADINGS = "FirstRowIsHeader";
+			const string PROP_TOKEN_FIELD_DELIMITER = "FieldDelimiter";
+			//const string PROP_TOKEN_ROW_DELIMITER = "RowDelimiter";
 			string line;
 			ModelConstruct modelConstruct;
 			ArrayConstruct arrayConstruct;
 			IList<string> values;
 			bool firstRowIsHeader = false;
-			string fieldDelimiter = null;
+			string firstRowIsHeaderStr;
+			string fieldDelimiter;
 			string[] headers = null;
 
 			if ((object)sourceFilePath == null)
@@ -56,20 +57,24 @@ namespace TextMetal.Framework.SourceModel.Primative
 			arrayConstruct.Name = "TextFileLines";
 			modelConstruct.Items.Add(arrayConstruct);
 
-			if (properties.TryGetValue(CMDLN_TOKEN_FIELD_DELIMITER, out values))
+			firstRowIsHeaderStr = null;
+			if (properties.TryGetValue(PROP_TOKEN_FIRST_ROW_CONTAINS_COLUMN_HEADINGS, out values))
 			{
-				if (values.Count == 1 && DataType.TryParse<string>(values[0], out fieldDelimiter))
-#pragma warning disable 1717
-					fieldDelimiter = fieldDelimiter;
-#pragma warning restore 1717
+				if ((object)values != null && values.Count == 1)
+				{
+					firstRowIsHeaderStr = values[0];
+					if (!DataType.TryParse<bool>(firstRowIsHeaderStr, out firstRowIsHeader))
+						firstRowIsHeader = false;
+				}
 			}
 
-			if (properties.TryGetValue(CMDLN_TOKEN_FIRST_ROW_CONTAINS_COLUMN_HEADINGS, out values))
+			fieldDelimiter = null;
+			if (properties.TryGetValue(PROP_TOKEN_FIELD_DELIMITER, out values))
 			{
-				if (values.Count == 1 && DataType.TryParse<bool>(values[0], out firstRowIsHeader))
-#pragma warning disable 1717
-					firstRowIsHeader = firstRowIsHeader;
-#pragma warning restore 1717
+				if ((object)values != null && values.Count == 1)
+				{
+					fieldDelimiter = values[0];
+				}
 			}
 
 			using (StreamReader streamReader = File.OpenText(sourceFilePath))
@@ -89,7 +94,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 					{
 						propertyConstruct = new PropertyConstruct();
 						propertyConstruct.Name = "TextFileLine";
-						propertyConstruct.Value = line;
+						propertyConstruct.RawValue = line;
 						objectConstruct.Items.Add(propertyConstruct);
 					}
 					else
@@ -117,7 +122,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 								else
 									propertyConstruct.Name = string.Format("TextFileField_{0:00000000}", j++);
 
-								propertyConstruct.Value = pmet;
+								propertyConstruct.RawValue = pmet;
 								objectConstruct.Items.Add(propertyConstruct);
 							}
 						}

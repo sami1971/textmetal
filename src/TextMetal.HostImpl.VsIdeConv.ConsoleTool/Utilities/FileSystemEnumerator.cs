@@ -64,7 +64,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.Utilities
 				directories = Directory.GetDirectories(directoryPath);
 			}
 
-			if (files != null)
+			if ((object)files != null)
 			{
 				foreach (string file in files)
 				{
@@ -76,7 +76,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.Utilities
 				}
 			}
 
-			if (directories != null)
+			if ((object)directories != null)
 			{
 				foreach (string directory in directories)
 				{

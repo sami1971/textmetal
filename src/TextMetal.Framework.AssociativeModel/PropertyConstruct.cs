@@ -39,6 +39,22 @@ namespace TextMetal.Framework.AssociativeModel
 		#region Properties/Indexers/Events
 
 		/// <summary>
+		/// Gets an object representation of the value of this associative XML object value.
+		/// </summary>
+		public object RawValue
+		{
+			get
+			{
+				return this.GetAssociativeObjectValue();
+			}
+			set
+			{
+				this.Type = (value ?? "").GetType().FullName;
+				this.Value = value.SafeToString();
+			}
+		}
+
+		/// <summary>
 		/// Gts or sets the assembly qualified type of the value, used during strongly-typed parsing.
 		/// </summary>
 		[XmlAttributeMapping(LocalName = "type", NamespaceUri = "")]
@@ -160,7 +176,7 @@ namespace TextMetal.Framework.AssociativeModel
 			Type valueType;
 
 			if (DataType.IsNullOrWhiteSpace(this.Type))
-				valueType = typeof(string);
+				valueType = typeof(String);
 			else
 				valueType = System.Type.GetType(this.Type, false);
 

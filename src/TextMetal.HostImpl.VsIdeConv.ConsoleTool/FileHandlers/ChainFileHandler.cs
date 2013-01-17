@@ -15,7 +15,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		private ChainFileHandler(IFileHandler[] fileHandlerChain)
 		{
-			if (fileHandlerChain == null)
+			if ((object)fileHandlerChain == null)
 				throw new ArgumentNullException("fileHandlerChain");
 
 			this.fileHandlerChain = fileHandlerChain;
@@ -41,7 +41,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		public static ChainFileHandler GetChain(params IFileHandler[] fileHandlerChain)
 		{
-			if (fileHandlerChain == null)
+			if ((object)fileHandlerChain == null)
 				throw new ArgumentNullException("fileHandlerChain");
 
 			return new ChainFileHandler(fileHandlerChain);
@@ -49,12 +49,12 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		protected override void OnExecute(FileInfo fileInfo)
 		{
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			Debug.WriteLine("<< Enter: {0}", fileInfo.FullName);
 
-			if (this.FileHandlerChain != null)
+			if ((object)this.FileHandlerChain != null)
 			{
 				foreach (IFileHandler fileHandler in this.FileHandlerChain)
 					fileHandler.Execute(fileInfo);

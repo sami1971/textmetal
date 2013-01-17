@@ -50,6 +50,7 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Primative\FileSystemSourceStrategy.cs" />
     <Compile Include="Primative\SqlQuery.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="DatabaseSchema\Odbc\OdbcSchemaSourceStrategy.cs" />

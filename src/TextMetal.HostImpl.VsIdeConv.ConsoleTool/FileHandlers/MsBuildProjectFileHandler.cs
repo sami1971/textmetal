@@ -49,10 +49,10 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 			XmlAttribute a;
 			XmlNodeList elements;
 
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
-			if (projectXml == null)
+			if ((object)projectXml == null)
 				throw new ArgumentNullException("projectXml");
 
 			// Project
@@ -248,7 +248,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		protected override void OnExecute(FileInfo fileInfo)
 		{
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			Debug.WriteLine("MSBuild project file: " + fileInfo.FullName);
@@ -273,7 +273,7 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 			StreamReader streamReader;
 			bool shouldCommit;
 
-			if (fileInfo == null)
+			if ((object)fileInfo == null)
 				throw new ArgumentNullException("fileInfo");
 
 			if (ConversionConfig.ConversionSettings.BackupFiles)

@@ -36,9 +36,9 @@ namespace TextMetal.Framework.SourceModel.Primative
 			XmlSchemaComplexType xmlSchemaComplexType;
 			XmlSchemaSequence xmlSchemaSequence;
 			XmlSchemaSimpleType xmlSchemaSimpleType;
-			ArrayConstruct arrayConstruct, arrayConstruct2;
-			ObjectConstruct objectConstruct, objectConstruct2;
-			PropertyConstruct propertyConstruct, propertyConstruct2;
+			ArrayConstruct arrayConstruct00, arrayConstruct01;
+			ObjectConstruct objectConstruct00, objectConstruct01;
+			PropertyConstruct propertyConstruct00, propertyConstruct01;
 
 			if ((object)parentAssociativeXmlObject == null)
 				throw new ArgumentNullException("parentAssociativeXmlObject");
@@ -46,14 +46,14 @@ namespace TextMetal.Framework.SourceModel.Primative
 			if ((object)currentXmlSchemaObjectCollection == null)
 				throw new ArgumentNullException("currentXmlSchemaObjectCollection");
 
-			arrayConstruct = new ArrayConstruct();
-			arrayConstruct.Name = "XmlSchemaElements";
-			parentAssociativeXmlObject.Items.Add(arrayConstruct);
+			arrayConstruct00 = new ArrayConstruct();
+			arrayConstruct00.Name = "XmlSchemaElements";
+			parentAssociativeXmlObject.Items.Add(arrayConstruct00);
 
 			foreach (XmlSchemaObject xmlSchemaObject in currentXmlSchemaObjectCollection)
 			{
-				objectConstruct = new ObjectConstruct();
-				arrayConstruct.Items.Add(objectConstruct);
+				objectConstruct00 = new ObjectConstruct();
+				arrayConstruct00.Items.Add(objectConstruct00);
 
 				xmlSchemaElement = xmlSchemaObject as XmlSchemaElement;
 
@@ -62,84 +62,84 @@ namespace TextMetal.Framework.SourceModel.Primative
 					if (DataType.IsNullOrWhiteSpace(xmlSchemaElement.Name) &&
 					    !DataType.IsNullOrWhiteSpace(xmlSchemaElement.RefName.Name))
 					{
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "XmlSchemaElementIsRef";
-						propertyConstruct.Value = "true";
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct00 = new PropertyConstruct();
+						propertyConstruct00.Name = "XmlSchemaElementIsRef";
+						propertyConstruct00.RawValue = true;
+						objectConstruct00.Items.Add(propertyConstruct00);
 
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "XmlSchemaElementLocalName";
-						propertyConstruct.Value = xmlSchemaElement.RefName.Name;
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct00 = new PropertyConstruct();
+						propertyConstruct00.Name = "XmlSchemaElementLocalName";
+						propertyConstruct00.RawValue = xmlSchemaElement.RefName.Name;
+						objectConstruct00.Items.Add(propertyConstruct00);
 
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "XmlSchemaElementNamespace";
-						propertyConstruct.Value = xmlSchemaElement.RefName.Namespace;
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct00 = new PropertyConstruct();
+						propertyConstruct00.Name = "XmlSchemaElementNamespace";
+						propertyConstruct00.RawValue = xmlSchemaElement.RefName.Namespace;
+						objectConstruct00.Items.Add(propertyConstruct00);
 
 						continue;
 					}
 					else
 					{
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "XmlSchemaElementIsRef";
-						propertyConstruct.Value = "false";
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct00 = new PropertyConstruct();
+						propertyConstruct00.Name = "XmlSchemaElementIsRef";
+						propertyConstruct00.RawValue = false;
+						objectConstruct00.Items.Add(propertyConstruct00);
 
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "XmlSchemaElementLocalName";
-						propertyConstruct.Value = xmlSchemaElement.QualifiedName.Name;
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct00 = new PropertyConstruct();
+						propertyConstruct00.Name = "XmlSchemaElementLocalName";
+						propertyConstruct00.RawValue = xmlSchemaElement.QualifiedName.Name;
+						objectConstruct00.Items.Add(propertyConstruct00);
 
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "XmlSchemaElementNamespace";
-						propertyConstruct.Value = xmlSchemaElement.QualifiedName.Namespace;
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct00 = new PropertyConstruct();
+						propertyConstruct00.Name = "XmlSchemaElementNamespace";
+						propertyConstruct00.RawValue = xmlSchemaElement.QualifiedName.Namespace;
+						objectConstruct00.Items.Add(propertyConstruct00);
 
 						xmlSchemaComplexType = xmlSchemaElement.ElementSchemaType as XmlSchemaComplexType;
 						xmlSchemaSimpleType = xmlSchemaElement.ElementSchemaType as XmlSchemaSimpleType;
 
 						if ((object)xmlSchemaSimpleType != null)
 						{
-							propertyConstruct = new PropertyConstruct();
-							propertyConstruct.Name = "XmlSchemaElementSimpleType";
-							propertyConstruct.Value = xmlSchemaSimpleType.Datatype.TypeCode.SafeToString();
-							objectConstruct.Items.Add(propertyConstruct);
+							propertyConstruct00 = new PropertyConstruct();
+							propertyConstruct00.Name = "XmlSchemaElementSimpleType";
+							propertyConstruct00.RawValue = xmlSchemaSimpleType.Datatype.TypeCode;
+							objectConstruct00.Items.Add(propertyConstruct00);
 						}
 						else if ((object)xmlSchemaComplexType != null)
 						{
-							arrayConstruct2 = new ArrayConstruct();
-							arrayConstruct2.Name = "XmlSchemaAttributes";
-							objectConstruct.Items.Add(arrayConstruct2);
+							arrayConstruct01 = new ArrayConstruct();
+							arrayConstruct01.Name = "XmlSchemaAttributes";
+							objectConstruct00.Items.Add(arrayConstruct01);
 
 							if ((object)xmlSchemaComplexType.Attributes != null)
 							{
 								foreach (XmlSchemaAttribute xmlSchemaAttribute in xmlSchemaComplexType.Attributes)
 								{
-									objectConstruct2 = new ObjectConstruct();
-									arrayConstruct2.Items.Add(objectConstruct2);
+									objectConstruct01 = new ObjectConstruct();
+									arrayConstruct01.Items.Add(objectConstruct01);
 
-									propertyConstruct2 = new PropertyConstruct();
-									propertyConstruct2.Name = "XmlSchemaElementLocalName";
-									propertyConstruct2.Value = xmlSchemaAttribute.QualifiedName.Name;
-									objectConstruct2.Items.Add(propertyConstruct2);
+									propertyConstruct01 = new PropertyConstruct();
+									propertyConstruct01.Name = "XmlSchemaElementLocalName";
+									propertyConstruct01.RawValue = xmlSchemaAttribute.QualifiedName.Name;
+									objectConstruct01.Items.Add(propertyConstruct01);
 
-									propertyConstruct2 = new PropertyConstruct();
-									propertyConstruct2.Name = "XmlSchemaElementNamespace";
-									propertyConstruct2.Value = xmlSchemaAttribute.QualifiedName.Namespace;
-									objectConstruct2.Items.Add(propertyConstruct2);
+									propertyConstruct01 = new PropertyConstruct();
+									propertyConstruct01.Name = "XmlSchemaElementNamespace";
+									propertyConstruct01.RawValue = xmlSchemaAttribute.QualifiedName.Namespace;
+									objectConstruct01.Items.Add(propertyConstruct01);
 
-									propertyConstruct2 = new PropertyConstruct();
-									propertyConstruct2.Name = "XmlSchemaElementNamespace";
-									propertyConstruct2.Value = xmlSchemaAttribute.AttributeSchemaType.TypeCode.SafeToString();
-									objectConstruct2.Items.Add(propertyConstruct2);
+									propertyConstruct01 = new PropertyConstruct();
+									propertyConstruct01.Name = "XmlSchemaElementNamespace";
+									propertyConstruct01.RawValue = xmlSchemaAttribute.AttributeSchemaType.TypeCode;
+									objectConstruct01.Items.Add(propertyConstruct01);
 								}
 							}
 
 							xmlSchemaSequence = xmlSchemaComplexType.ContentTypeParticle as XmlSchemaSequence;
 
 							if ((object)xmlSchemaSequence != null)
-								EnumSchema(objectConstruct, xmlSchemaSequence.Items);
+								EnumSchema(objectConstruct00, xmlSchemaSequence.Items);
 						}
 					}
 				}
