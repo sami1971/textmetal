@@ -19,12 +19,17 @@ namespace TextMetal.Framework.InputOutputModel
 		/// Initializes a new instance of the FileOutputMechanism class.
 		/// </summary>
 		/// <param name="baseDirectoryPath"> The base output directory path. </param>
-		public FileOutputMechanism(string baseDirectoryPath)
+		/// <param name="logFileName"> The file name of the log file (relative to base directory path) or empty string for console output. </param>
+		public FileOutputMechanism(string baseDirectoryPath, string logFileName)
 		{
 			if ((object)baseDirectoryPath == null)
 				throw new ArgumentNullException("baseDirectoryPath");
 
+			if ((object)logFileName == null)
+				throw new ArgumentNullException("logFileName");
+
 			this.baseDirectoryPath = baseDirectoryPath;
+			this.logFileName = logFileName;
 
 			this.SetupLogger();
 		}
@@ -34,6 +39,7 @@ namespace TextMetal.Framework.InputOutputModel
 		#region Fields/Constants
 
 		private readonly string baseDirectoryPath;
+		private readonly string logFileName;
 
 		#endregion
 
@@ -44,6 +50,14 @@ namespace TextMetal.Framework.InputOutputModel
 			get
 			{
 				return this.baseDirectoryPath;
+			}
+		}
+
+		private string LogFileName
+		{
+			get
+			{
+				return this.logFileName;
 			}
 		}
 
@@ -90,23 +104,25 @@ namespace TextMetal.Framework.InputOutputModel
 		private void SetupLogger()
 		{
 			FileStream stream;
-			TextWriter textWriter;
+			TextWriter textWriter = null;
 			string fullFilePath;
 			string fullDirectoryPath;
-			const string LOG_FILE_NAME = "#textmetal.log";
 
-			fullFilePath = Path.GetFullPath(Path.Combine(this.BaseDirectoryPath, LOG_FILE_NAME));
-			fullDirectoryPath = Path.GetDirectoryName(fullFilePath);
-			//Console.Error.WriteLine(fullFilePath);
+			if (!DataType.IsWhiteSpace(this.LogFileName))
+			{
+				fullFilePath = Path.GetFullPath(Path.Combine(this.BaseDirectoryPath, this.LogFileName));
+				fullDirectoryPath = Path.GetDirectoryName(fullFilePath);
+				//Console.Error.WriteLine(fullFilePath);
 
-			if (!Directory.Exists(fullDirectoryPath))
-				Directory.CreateDirectory(fullDirectoryPath);
+				if (!Directory.Exists(fullDirectoryPath))
+					Directory.CreateDirectory(fullDirectoryPath);
 
-			// do not dispose here!
-			stream = new FileStream(fullFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-			textWriter = new StreamWriter(stream, Encoding.UTF8);
+				// do not dispose here!
+				stream = new FileStream(fullFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
+				textWriter = new StreamWriter(stream, Encoding.UTF8);
+			}
 
-			this.LogTextWriter = textWriter;
+			base.SetLogTextWriter(textWriter);
 		}
 
 		#endregion

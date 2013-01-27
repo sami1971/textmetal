@@ -11,7 +11,7 @@
 	<Expando>
 	
 		<Expando.Dynamic>
-			<Model>
+			<Model>			
 				<Property name="mono" type="" value="no" />
 				
 				<Array name="TextFileLines">
@@ -39,4 +39,10 @@
 		</Expando.Dynamic>
 		
 	</Expando>
+	
+	<!--<Write newline="true">
+		<Write.Text>
+			<Facet name="TextFileLines" />
+		</Write.Text>
+	</Write>-->
 </Template>

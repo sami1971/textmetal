@@ -83,6 +83,10 @@
       <Project>{D1860A67-7EFB-4C0F-89CD-A641D99DCC2A}</Project>
       <Name>TextMetal.Common.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TextMetal.Common.Solder\TextMetal.Common.Solder.csproj">
+      <Project>{3B0EFC3C-AA91-4FB4-B2EE-BD8727230A94}</Project>
+      <Name>TextMetal.Common.Solder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TextMetal.Framework.SourceModel\TextMetal.Framework.SourceModel.csproj">
       <Project>{9ca823f7-d73b-4ce5-bf71-1515f3c6940d}</Project>
       <Name>TextMetal.Framework.SourceModel</Name>

@@ -102,6 +102,7 @@ namespace TextMetal.Framework.TemplateModel
 				}.ExpandTemplate(templatingContext);
 			}
 
+			templatingContext.Output.LogTextWriter.WriteLine("['{0:O}' (UTC)]\tEntering output scope '{1}'.", DateTime.UtcNow, name);
 			templatingContext.Output.EnterScope(name);
 
 			if ((object)this.Items != null)
@@ -111,6 +112,7 @@ namespace TextMetal.Framework.TemplateModel
 			}
 
 			templatingContext.Output.LeaveScope(name);
+			templatingContext.Output.LogTextWriter.WriteLine("['{0:O}' (UTC)]\tLeaving output scope '{1}'.", DateTime.UtcNow, name);
 
 			if (!DataType.IsNullOrWhiteSpace(name))
 			{

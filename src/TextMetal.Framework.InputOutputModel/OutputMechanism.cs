@@ -63,17 +63,9 @@ namespace TextMetal.Framework.InputOutputModel
 			{
 				return this.logTextWriter;
 			}
-			protected set
+			private set
 			{
-				if (this.Disposed &&
-				    this.LogTextWriter != value)
-				{
-					this.LogTextWriter.Flush();
-					this.LogTextWriter.Dispose();
-				}
-
-				this.logTextWriter = value ?? Console.Out;
-				this.Disposed = (object)value == null;
+				this.logTextWriter = value;
 			}
 		}
 
@@ -112,8 +104,12 @@ namespace TextMetal.Framework.InputOutputModel
 					}
 				}
 
-				this.LogTextWriter.Flush();
-				this.LogTextWriter.Dispose();
+				if ((object)this.LogTextWriter != null)
+				{
+					this.LogTextWriter.Flush();
+					this.LogTextWriter.Dispose();
+					this.LogTextWriter = null;
+				}
 			}
 			finally
 			{
@@ -130,6 +126,19 @@ namespace TextMetal.Framework.InputOutputModel
 		public void LeaveScope(string scopeName)
 		{
 			this.CoreLeave(scopeName);
+		}
+
+		protected void SetLogTextWriter(TextWriter activeLogTextWriter)
+		{
+			if ((object)this.LogTextWriter != null &&
+			    (object)this.LogTextWriter != activeLogTextWriter)
+			{
+				this.LogTextWriter.Flush();
+				this.LogTextWriter.Dispose();
+				this.LogTextWriter = null;
+			}
+
+			this.LogTextWriter = activeLogTextWriter ?? Console.Out;
 		}
 
 		#endregion

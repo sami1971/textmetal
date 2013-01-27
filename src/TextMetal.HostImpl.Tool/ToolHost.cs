@@ -50,6 +50,7 @@ namespace TextMetal.HostImpl.Tool
 		public void Host(string templateFilePath, string sourceFilePath, string baseDirectoryPath,
 		                 string sourceStrategyAssemblyQualifiedTypeName, bool strictMatching, IDictionary<string, IList<string>> properties)
 		{
+			DateTime startUtc = DateTime.UtcNow, endUtc;
 			IXmlPersistEngine xpe;
 			TemplateConstruct template;
 			object source;
@@ -126,8 +127,10 @@ namespace TextMetal.HostImpl.Tool
 
 			using (IInputMechanism inputMechanism = new FileInputMechanism(templateDirectoryPath, xpe)) // relative to template
 			{
-				using (IOutputMechanism outputMechanism = new FileOutputMechanism(baseDirectoryPath))
+				using (IOutputMechanism outputMechanism = new FileOutputMechanism(baseDirectoryPath, "#textmetal.log"))
 				{
+					outputMechanism.LogTextWriter.WriteLine("['{0:O}' (UTC)]\tText templating started.", startUtc);
+
 					templatingContext = new TemplatingContext(xpe, new Tokenizer(strictMatching), inputMechanism, outputMechanism);
 
 					templatingContext.Tokenizer.TokenReplacementStrategies.Add("StaticPropertyResolver", new DynamicValueTokenReplacementStrategy(DynamicValueTokenReplacementStrategy.StaticPropertyResolver));
@@ -152,6 +155,9 @@ namespace TextMetal.HostImpl.Tool
 					template.ExpandTemplate(templatingContext);
 					templatingContext.IteratorModels.Pop();
 					templatingContext.VariableTables.Pop();
+
+					endUtc = DateTime.UtcNow;
+					outputMechanism.LogTextWriter.WriteLine("['{0:O}' (UTC)]\tText templating completed with duration: '{1}'.", endUtc, (endUtc - startUtc));
 				}
 			}
 		}

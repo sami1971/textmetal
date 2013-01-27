@@ -8,7 +8,7 @@ REM
 echo *** reflection_execute ***
 "..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.exe" ^
 	-templatefile:"empty_template.xml" ^
-	-sourcefile:"..\..\src\TextMetal.HostImpl.ConsoleTool\bin\Debug\TextMetal.Framework.Core.dll" ^
+	-sourcefile:"..\..\src\TextMetal.HostImpl.Tool\bin\Debug\TextMetal.Common.Core.dll" ^
 	-basedir:".\output" ^
 	-sourcestrategy:"TextMetal.Framework.SourceModel.Primative.ReflectionSourceStrategy, TextMetal.Framework.SourceModel" ^
 	-strict:"true" ^

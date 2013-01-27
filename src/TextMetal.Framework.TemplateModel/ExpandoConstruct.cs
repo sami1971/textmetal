@@ -34,7 +34,7 @@ namespace TextMetal.Framework.TemplateModel
 		#region Properties/Indexers/Events
 
 		[XmlChildElementMapping(ChildElementType = ChildElementType.ParentQualified, LocalName = "Dynamic", NamespaceUri = "http://www.textmetal.com/api/v5.0.0")]
-		public AssociativeContainerConstruct Expression
+		public AssociativeContainerConstruct Dynamic
 		{
 			get
 			{
@@ -54,6 +54,9 @@ namespace TextMetal.Framework.TemplateModel
 		{
 			if ((object)templatingContext == null)
 				throw new ArgumentNullException("templatingContext");
+
+			//templatingContext.IteratorModels.Push(this.Dynamic.Content);
+			// BUG: this never gets popped !!!
 		}
 
 		#endregion

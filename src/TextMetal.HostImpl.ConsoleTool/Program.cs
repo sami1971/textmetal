@@ -100,7 +100,6 @@ namespace TextMetal.HostImpl.ConsoleTool
 			bool strictMatching;
 			IDictionary<string, IList<string>> properties;
 			IList<string> _arguments;
-			DateTime startUtc = DateTime.UtcNow;
 
 			const string CMDLN_TOKEN_TEMPLATEFILE = "templatefile";
 			const string CMDLN_TOKEN_SOURCEFILE = "sourcefile";
@@ -182,8 +181,7 @@ namespace TextMetal.HostImpl.ConsoleTool
 			}
 
 			new ToolHost().Host(templateFilePath, sourceFilePath, baseDirectoryPath, sourceStrategyAssemblyQualifiedTypeName, strictMatching, properties);
-
-			Console.WriteLine("The operation completed successfully; duration: '{0}'.", (DateTime.UtcNow - startUtc));
+			
 			return 0;
 		}
 
