@@ -1,5 +1,5 @@
 ﻿/*
-	Copyright �2002-2010 D. P. Bullington
+	Copyright ©2002-2010 D. P. Bullington
 	Distributed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 */
 

@@ -201,22 +201,22 @@ namespace TextMetal.Framework.SourceModel.Primative
 			propertyConstruct00.Name = "AssemblyCodeBase";
 			propertyConstruct00.RawValue = assemblyName.CodeBase;
 			parent.Items.Add(propertyConstruct00);
-
+#if !__MonoCS__
 			propertyConstruct00 = new PropertyConstruct();
 			propertyConstruct00.Name = "AssemblyContentType";
 			propertyConstruct00.RawValue = assemblyName.ContentType;
 			parent.Items.Add(propertyConstruct00);
-
+#endif
 			propertyConstruct00 = new PropertyConstruct();
 			propertyConstruct00.Name = "AssemblyCultureInfoDisplayName";
 			propertyConstruct00.RawValue = assemblyName.CultureInfo.DisplayName;
 			parent.Items.Add(propertyConstruct00);
-
+#if !__MonoCS__
 			propertyConstruct00 = new PropertyConstruct();
 			propertyConstruct00.Name = "AssemblyCultureName";
 			propertyConstruct00.RawValue = assemblyName.CultureName;
 			parent.Items.Add(propertyConstruct00);
-
+#endif
 			propertyConstruct00 = new PropertyConstruct();
 			propertyConstruct00.Name = "AssemblyHashAlgorithm";
 			propertyConstruct00.RawValue = assemblyName.HashAlgorithm;
@@ -397,12 +397,12 @@ namespace TextMetal.Framework.SourceModel.Primative
 				propertyConstruct00.Name = "ConstructorIsVirtual";
 				propertyConstruct00.RawValue = constructorInfo.IsVirtual;
 				objectConstruct00.Items.Add(propertyConstruct00);
-
+#if !__MonoCS__
 				propertyConstruct00 = new PropertyConstruct();
 				propertyConstruct00.Name = "ConstructorMethodImplementationFlags";
 				propertyConstruct00.RawValue = constructorInfo.MethodImplementationFlags;
 				objectConstruct00.Items.Add(propertyConstruct00);
-
+#endif
 				ModelCustomAttributes(constructorInfo, objectConstruct00);
 
 				parameterInfos = constructorInfo.GetParameters();
@@ -835,12 +835,12 @@ namespace TextMetal.Framework.SourceModel.Primative
 				propertyConstruct00.Name = "MethodIsVirtual";
 				propertyConstruct00.RawValue = methodInfo.IsVirtual;
 				objectConstruct00.Items.Add(propertyConstruct00);
-
+#if !__MonoCS__
 				propertyConstruct00 = new PropertyConstruct();
 				propertyConstruct00.Name = "MethodImplementationFlags";
 				propertyConstruct00.RawValue = methodInfo.MethodImplementationFlags;
 				objectConstruct00.Items.Add(propertyConstruct00);
-
+#endif
 				propertyConstruct00 = new PropertyConstruct();
 				propertyConstruct00.Name = "MethodReturnTypeName";
 				propertyConstruct00.RawValue = methodInfo.ReturnType.Name;
@@ -930,12 +930,12 @@ namespace TextMetal.Framework.SourceModel.Primative
 				propertyConstruct00.Name = "ParameterDefaultValue";
 				propertyConstruct00.RawValue = parameterInfo.DefaultValue;
 				objectConstruct00.Items.Add(propertyConstruct00);
-
+#if !__MonoCS__
 				propertyConstruct00 = new PropertyConstruct();
 				propertyConstruct00.Name = "ParameterHasDefaultValue";
 				propertyConstruct00.RawValue = parameterInfo.HasDefaultValue;
 				objectConstruct00.Items.Add(propertyConstruct00);
-
+#endif
 				propertyConstruct00 = new PropertyConstruct();
 				propertyConstruct00.Name = "ParameterIsIn";
 				propertyConstruct00.RawValue = parameterInfo.IsIn;
