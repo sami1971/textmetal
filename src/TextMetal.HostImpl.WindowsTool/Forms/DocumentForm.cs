@@ -281,14 +281,14 @@ namespace TextMetal.HostImpl.WindowsTool.Forms
 				public object LoadDocument(string filePath)
 				{
 					if (DataType.IsNullOrWhiteSpace(filePath))
-						return new ModelConstruct();
+						return new ObjectConstruct();
 					else
 						return new ToolHost().LoadModelOnly(filePath);
 				}
 
 				public void SaveDocument(object document, string filePath)
 				{
-					new ToolHost().SaveModelOnly((ModelConstruct)document, filePath);
+					new ToolHost().SaveModelOnly((ObjectConstruct)document, filePath);
 				}
 
 				public object UpdateDocumentProps(object document)

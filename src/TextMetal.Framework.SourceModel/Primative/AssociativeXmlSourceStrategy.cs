@@ -32,7 +32,6 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 			xpe = new XmlPersistEngine();
 			xpe.RegisterKnownXmlObject<ArrayConstruct>();
-			xpe.RegisterKnownXmlObject<ModelConstruct>();
 			xpe.RegisterKnownXmlObject<ObjectConstruct>();
 			xpe.RegisterKnownXmlObject<PropertyConstruct>();
 

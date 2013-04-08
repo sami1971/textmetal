@@ -112,18 +112,21 @@ namespace ${ClrNamespace}.UnitTests
 				<ForEach in="Tables" var-ct="#LoopCount" var-ix="#LoopIndex">
 					<ForEach.Filter></ForEach.Filter>
 					<ForEach.Body>
-						<![CDATA[		[Test]
+						<![CDATA[		[Ignore]
+		[Test]
 		public void ShouldSave${TableNameSingularPascalCase}Test()
 		{
 			throw new NotImplementedException();
 		}
 		
+		[Ignore]
 		[Test]
 		public void ShouldLoad${TableNameSingularPascalCase}Test()
 		{
 			throw new NotImplementedException();
 		}
 		
+		[Ignore]
 		[Test]
 		public void ShouldGetAll${TableNamePluralPascalCase}Test()
 		{

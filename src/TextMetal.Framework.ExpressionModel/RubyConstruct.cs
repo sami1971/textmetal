@@ -164,7 +164,7 @@ namespace TextMetal.Framework.ExpressionModel
 
 				scriptScope.SetVariable(variableEntry.Key, variableEntry.Value);
 			}
-			
+
 			switch (this.Src)
 			{
 				case RubySource.Script:

@@ -11,7 +11,7 @@
 	<Expando>
 	
 		<Expando.Dynamic>
-			<Model>			
+			<Object>			
 				<Property name="mono" type="" value="no" />
 				
 				<Array name="TextFileLines">
@@ -35,7 +35,7 @@
 						<Property name="LAST_LOGIN" type="" value="" />
 					</Object>		
 				</Array>
-			</Model>
+			</Object>
 		</Expando.Dynamic>
 		
 	</Expando>

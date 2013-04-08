@@ -65,7 +65,8 @@ namespace ${ClrNamespace}.IntegrationTests
 				<ForEach in="Procedures" var-ct="#LoopCount" var-ix="#LoopIndex">
 					<ForEach.Filter></ForEach.Filter>
 					<ForEach.Body>
-						<![CDATA[		[Test]
+						<![CDATA[		[Ignore]
+		[Test]
 		public void ShouldExecute${ProcedureNamePascalCase}Test()
 		{
 			throw new NotImplementedException();

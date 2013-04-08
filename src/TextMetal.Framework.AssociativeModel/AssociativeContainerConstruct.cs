@@ -6,6 +6,7 @@
 using System;
 
 using TextMetal.Common.Xml;
+using TextMetal.Framework.Core;
 
 namespace TextMetal.Framework.AssociativeModel
 {
@@ -13,7 +14,7 @@ namespace TextMetal.Framework.AssociativeModel
 	/// Provides an XML construct for associative model containers.
 	/// </summary>
 	[XmlElementMapping(LocalName = "AssociativeContainer", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Content)]
-	public sealed class AssociativeContainerConstruct : AssociativeXmlObject
+	public sealed class AssociativeContainerConstruct : AssociativeXmlObject, IContentContainerXmlObject<AssociativeXmlObject>
 	{
 		#region Constructors/Destructors
 

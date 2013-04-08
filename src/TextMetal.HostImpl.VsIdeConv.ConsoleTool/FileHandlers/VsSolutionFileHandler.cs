@@ -85,14 +85,14 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 				else if ((object)matchSlnFileVer != null && matchSlnFileVer.Success)
 				{
 					line = !DataType.IsNullOrWhiteSpace(ConversionConfig.ConversionSettings.SolutionInternalVersion) ?
-					                                                                                                 	"Microsoft Visual Studio Solution File, Format Version " + ConversionConfig.ConversionSettings.SolutionInternalVersion : line;
+						       "Microsoft Visual Studio Solution File, Format Version " + ConversionConfig.ConversionSettings.SolutionInternalVersion : line;
 
 					foundSlnFileVer = true;
 				}
 				else if ((object)matchVsVer != null && matchVsVer.Success)
 				{
 					line = !DataType.IsNullOrWhiteSpace(ConversionConfig.ConversionSettings.SolutionExternalVersion) ?
-					                                                                                                 	"# Visual Studio " + ConversionConfig.ConversionSettings.SolutionExternalVersion : line;
+						       "# Visual Studio " + ConversionConfig.ConversionSettings.SolutionExternalVersion : line;
 
 					foundVsVer = true;
 				}
@@ -106,22 +106,22 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 				else if (foundSlnFileVer && foundVsVer && insideProject && insideWebSiteProject && Regex.IsMatch(line, "\\s*SccProjectName\\s*=\\s*\"(.*)\""))
 				{
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProjectName : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProjectName : line);
 				}
 				else if (foundSlnFileVer && foundVsVer && insideProject && insideWebSiteProject && Regex.IsMatch(line, "\\s*SccAuxPath\\s*=\\s*\"(.*)\""))
 				{
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccAuxPath : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccAuxPath : line);
 				}
 				else if (foundSlnFileVer && foundVsVer && insideProject && insideWebSiteProject && Regex.IsMatch(line, "\\s*SccLocalPath\\s*=\\s*\"(.*)\""))
 				{
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccLocalPath : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccLocalPath : line);
 				}
 				else if (foundSlnFileVer && foundVsVer && insideProject && insideWebSiteProject && Regex.IsMatch(line, "\\s*SccProvider\\s*=\\s*\"(.*)\""))
 				{
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProvider : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProvider : line);
 				}
 
 				else if (foundSlnFileVer && foundVsVer && insideProject && insideWebSiteProject && Regex.IsMatch(line, @"\s*EndProjectSection"))

@@ -33,8 +33,8 @@ namespace TextMetal.Framework.SourceModel.Primative
 			const string PROP_TOKEN_FIELD_DELIMITER = "FieldDelimiter";
 			//const string PROP_TOKEN_ROW_DELIMITER = "RowDelimiter";
 			string line;
-			ModelConstruct modelConstruct;
-			ArrayConstruct arrayConstruct;
+			ObjectConstruct objectConstruct00;
+			ArrayConstruct arrayConstruct00;
 			IList<string> values;
 			bool firstRowIsHeader = false;
 			string firstRowIsHeaderStr;
@@ -52,10 +52,10 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 			sourceFilePath = Path.GetFullPath(sourceFilePath);
 
-			modelConstruct = new ModelConstruct();
-			arrayConstruct = new ArrayConstruct();
-			arrayConstruct.Name = "TextFileLines";
-			modelConstruct.Items.Add(arrayConstruct);
+			objectConstruct00 = new ObjectConstruct();
+			arrayConstruct00 = new ArrayConstruct();
+			arrayConstruct00.Name = "TextFileLines";
+			objectConstruct00.Items.Add(arrayConstruct00);
 
 			firstRowIsHeaderStr = null;
 			if (properties.TryGetValue(PROP_TOKEN_FIRST_ROW_CONTAINS_COLUMN_HEADINGS, out values))
@@ -72,9 +72,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 			if (properties.TryGetValue(PROP_TOKEN_FIELD_DELIMITER, out values))
 			{
 				if ((object)values != null && values.Count == 1)
-				{
 					fieldDelimiter = values[0];
-				}
 			}
 
 			using (StreamReader streamReader = File.OpenText(sourceFilePath))
@@ -83,19 +81,19 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 				while (((line = streamReader.ReadLine()) ?? "").Trim() != "")
 				{
-					ObjectConstruct objectConstruct;
-					PropertyConstruct propertyConstruct;
+					ObjectConstruct objectConstruct01;
+					PropertyConstruct propertyConstruct01;
 					string[] temp;
 
-					objectConstruct = new ObjectConstruct();
-					arrayConstruct.Items.Add(objectConstruct);
+					objectConstruct01 = new ObjectConstruct();
+					arrayConstruct00.Items.Add(objectConstruct01);
 
 					if (DataType.IsNullOrWhiteSpace(fieldDelimiter))
 					{
-						propertyConstruct = new PropertyConstruct();
-						propertyConstruct.Name = "TextFileLine";
-						propertyConstruct.RawValue = line;
-						objectConstruct.Items.Add(propertyConstruct);
+						propertyConstruct01 = new PropertyConstruct();
+						propertyConstruct01.Name = "TextFileLine";
+						propertyConstruct01.RawValue = line;
+						objectConstruct01.Items.Add(propertyConstruct01);
 					}
 					else
 					{
@@ -104,7 +102,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 						if (firstRowIsHeader && i == 0)
 						{
 							headers = temp;
-							arrayConstruct.Items.Remove(objectConstruct);
+							arrayConstruct00.Items.Remove(objectConstruct01);
 							i++;
 							continue;
 						}
@@ -115,15 +113,15 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 							foreach (string pmet in temp)
 							{
-								propertyConstruct = new PropertyConstruct();
+								propertyConstruct01 = new PropertyConstruct();
 
 								if (firstRowIsHeader && (object)headers != null)
-									propertyConstruct.Name = string.Format("{0}", headers[j++]);
+									propertyConstruct01.Name = string.Format("{0}", headers[j++]);
 								else
-									propertyConstruct.Name = string.Format("TextFileField_{0:00000000}", j++);
+									propertyConstruct01.Name = string.Format("TextFileField_{0:00000000}", j++);
 
-								propertyConstruct.RawValue = pmet;
-								objectConstruct.Items.Add(propertyConstruct);
+								propertyConstruct01.RawValue = pmet;
+								objectConstruct01.Items.Add(propertyConstruct01);
 							}
 						}
 					}
@@ -132,7 +130,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 				}
 			}
 
-			return modelConstruct;
+			return objectConstruct00;
 		}
 
 		#endregion

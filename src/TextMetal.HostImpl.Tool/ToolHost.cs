@@ -54,7 +54,7 @@ namespace TextMetal.HostImpl.Tool
 			IXmlPersistEngine xpe;
 			TemplateConstruct template;
 			object source;
-			ModelConstruct modelConstruct = null;
+			ObjectConstruct objectConstruct = null;
 			TemplatingContext templatingContext;
 			Dictionary<string, object> globalVariableTable;
 			string toolVersion;
@@ -116,12 +116,12 @@ namespace TextMetal.HostImpl.Tool
 			if ((object)source == null)
 				return;
 
-			modelConstruct = source as ModelConstruct;
+			objectConstruct = source as ObjectConstruct;
 
 			xpe.SerializeToXml(template, Path.Combine(baseDirectoryPath, "#template.xml"));
 
-			if ((object)modelConstruct != null)
-				xpe.SerializeToXml(modelConstruct, Path.Combine(baseDirectoryPath, "#source.xml"));
+			if ((object)objectConstruct != null)
+				xpe.SerializeToXml(objectConstruct, Path.Combine(baseDirectoryPath, "#source.xml"));
 			else if ((object)source != null && (object)Reflexion.GetOneAttribute<SerializableAttribute>(source.GetType()) != null)
 				Cerealization.SetObjectToFile(Path.Combine(baseDirectoryPath, "#source.xml"), source);
 
@@ -165,7 +165,7 @@ namespace TextMetal.HostImpl.Tool
 		public object LoadModelOnly(string filePath)
 		{
 			IXmlPersistEngine xpe;
-			ModelConstruct model;
+			ObjectConstruct model;
 
 			if ((object)filePath == null)
 				throw new ArgumentNullException("filePath");
@@ -178,7 +178,7 @@ namespace TextMetal.HostImpl.Tool
 			xpe = new XmlPersistEngine();
 			xpe.RegisterWellKnownConstructs();
 
-			model = (ModelConstruct)xpe.DeserializeFromXml(filePath);
+			model = (ObjectConstruct)xpe.DeserializeFromXml(filePath);
 
 			return model;
 		}
@@ -217,7 +217,7 @@ namespace TextMetal.HostImpl.Tool
 			return template;
 		}
 
-		public void SaveModelOnly(ModelConstruct model, string filePath)
+		public void SaveModelOnly(ObjectConstruct model, string filePath)
 		{
 			IXmlPersistEngine xpe;
 

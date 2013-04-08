@@ -27,6 +27,10 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 
 		private readonly IFileHandler[] fileHandlerChain;
 
+		#endregion
+
+		#region Properties/Indexers/Events
+
 		private IFileHandler[] FileHandlerChain
 		{
 			get

@@ -71,28 +71,28 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool.FileHandlers
 					foundSccProjectName = true;
 
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProjectName : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProjectName : line);
 				}
 				else if (Regex.IsMatch(line, "\\s*SccLocalPath\\s*=\\s*\"(.*)\""))
 				{
 					foundSccLocalPath = true;
 
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccLocalPath : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccLocalPath : line);
 				}
 				else if (Regex.IsMatch(line, "\\s*SccAuxPath\\s*=\\s*\"(.*)\""))
 				{
 					foundSccAuxPath = true;
 
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccAuxPath : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccAuxPath : line);
 				}
 				else if (Regex.IsMatch(line, "\\s*SccProvider\\s*=\\s*\"(.*)\""))
 				{
 					foundSccProvider = true;
 
 					line = ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Remove ? "" :
-					                                                                                                                  	(ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProvider : line);
+						       (ConversionConfig.ConversionSettings.VersionControlBindingAction == VersionControlBindingAction.Modify ? ConversionConfig.ConversionSettings.SccProvider : line);
 				}
 				else
 					line = line;

@@ -84,7 +84,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 				throw new InvalidOperationException(string.Format("The XML text object type is not assignable to type '{0}'.", typeof(IXmlTextObject).FullName));
 
 			xpe.RegisterKnownXmlTextObject(xmlObjectType);
-			
+
 			xmlObjectType = null;
 			if (properties.TryGetValue(PROP_TOKEN_KNOWN_XML_OBJECT_AQTN, out values))
 			{

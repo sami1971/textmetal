@@ -118,7 +118,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 			bool getSchemaOnly = false;
 			IList<string> values;
 
-			ModelConstruct modelConstruct;
+			ObjectConstruct objectConstruct00;
 			SqlQuery sqlQuery;
 
 			if ((object)sourceFilePath == null)
@@ -165,11 +165,11 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 			sqlQuery = Cerealization.GetObjectFromFile<SqlQuery>(sourceFilePath);
 
-			modelConstruct = new ModelConstruct();
+			objectConstruct00 = new ObjectConstruct();
 
-			WriteSqlQuery(new SqlQuery[] { sqlQuery }, modelConstruct, connectionType, connectionString, getSchemaOnly);
+			WriteSqlQuery(new SqlQuery[] { sqlQuery }, objectConstruct00, connectionType, connectionString, getSchemaOnly);
 
-			return modelConstruct;
+			return objectConstruct00;
 		}
 
 		#endregion

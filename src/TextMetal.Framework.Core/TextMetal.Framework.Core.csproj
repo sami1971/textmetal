@@ -43,9 +43,12 @@
     <Compile Include="..\SolutionAssemblyInfo.cs">
       <Link>SolutionAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="IItemsContainerXmlObject~1.cs" />
+    <Compile Include="IContainerXmlObject.cs" />
     <Compile Include="IActualThing.cs" />
     <Compile Include="IAssociativeMechanism.cs" />
     <Compile Include="IAssociativeXmlObject.cs" />
+    <Compile Include="IContentContainerXmlObject~1.cs" />
     <Compile Include="IExpressionMechanism.cs" />
     <Compile Include="IExpressionXmlObject.cs" />
     <Compile Include="IInputMechanism.cs" />

@@ -154,7 +154,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 		{
 			XmlSchemaSet xmlSchemaSet;
 			XmlSchema xmlSchema;
-			ModelConstruct modelConstruct;
+			ObjectConstruct objectConstruct00;
 
 			if ((object)sourceFilePath == null)
 				throw new ArgumentNullException("sourceFilePath");
@@ -167,7 +167,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 			sourceFilePath = Path.GetFullPath(sourceFilePath);
 
-			modelConstruct = new ModelConstruct();
+			objectConstruct00 = new ObjectConstruct();
 
 			using (Stream stream = File.Open(sourceFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
 				xmlSchema = XmlSchema.Read(stream, ValidationCallback);
@@ -178,9 +178,9 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 			xmlSchema = xmlSchemaSet.Schemas().Cast<XmlSchema>().ToList()[0];
 
-			EnumSchema(modelConstruct, xmlSchema.Items);
+			EnumSchema(objectConstruct00, xmlSchema.Items);
 
-			return modelConstruct;
+			return objectConstruct00;
 		}
 
 		#endregion

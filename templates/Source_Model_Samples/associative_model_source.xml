@@ -1,4 +1,4 @@
-﻿<Model name="" xmlns="http://www.textmetal.com/api/v5.0.0">	
+﻿<Object name="" xmlns="http://www.textmetal.com/api/v5.0.0">	
 	<Property name="mono" type="" value="no" />
 	
 	<Array name="TextFileLines">
@@ -22,4 +22,4 @@
 			<Property name="LAST_LOGIN" type="" value="" />
 		</Object>		
 	</Array>
-</Model>
+</Object>

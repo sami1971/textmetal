@@ -28,7 +28,7 @@ namespace TextMetal.HostImpl.Tool
 
 		TemplateConstruct LoadTemplateOnly(string templateFilePath);
 
-		void SaveModelOnly(ModelConstruct document, string filePath);
+		void SaveModelOnly(ObjectConstruct document, string filePath);
 
 		void SaveSqlQueryOnly(SqlQuery document, string filePath);
 

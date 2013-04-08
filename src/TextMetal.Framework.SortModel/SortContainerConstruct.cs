@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 using TextMetal.Common.Core.StringTokens;
 using TextMetal.Common.Xml;
@@ -14,7 +13,7 @@ using TextMetal.Framework.Core;
 namespace TextMetal.Framework.SortModel
 {
 	[XmlElementMapping(LocalName = "SortContainer", NamespaceUri = "http://www.textmetal.com/api/v5.0.0", ChildElementModel = ChildElementModel.Items)]
-	public sealed class SortContainerConstruct : SortXmlObject
+	public sealed class SortContainerConstruct : SortXmlObject, IItemsContainerXmlObject<SortXmlObject>
 	{
 		#region Constructors/Destructors
 
@@ -48,7 +47,7 @@ namespace TextMetal.Framework.SortModel
 			}
 		}
 
-		public new IList<SortXmlObject> Items
+		public new IXmlObjectCollection<SortXmlObject> Items
 		{
 			get
 			{

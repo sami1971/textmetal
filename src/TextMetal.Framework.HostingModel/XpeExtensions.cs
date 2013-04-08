@@ -36,7 +36,6 @@ namespace TextMetal.Framework.HostingModel
 
 			xpe.RegisterKnownXmlObject<AssociativeContainerConstruct>();
 			xpe.RegisterKnownXmlObject<ArrayConstruct>();
-			xpe.RegisterKnownXmlObject<ModelConstruct>();
 			xpe.RegisterKnownXmlObject<ObjectConstruct>();
 			xpe.RegisterKnownXmlObject<PropertyConstruct>();
 			xpe.RegisterKnownXmlObject<ProxyConstruct>();

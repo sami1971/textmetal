@@ -181,7 +181,7 @@ namespace TextMetal.HostImpl.ConsoleTool
 			}
 
 			new ToolHost().Host(templateFilePath, sourceFilePath, baseDirectoryPath, sourceStrategyAssemblyQualifiedTypeName, strictMatching, properties);
-			
+
 			return 0;
 		}
 

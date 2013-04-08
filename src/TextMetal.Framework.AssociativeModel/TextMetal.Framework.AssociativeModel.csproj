@@ -46,7 +46,6 @@
     </Compile>
     <Compile Include="ArrayConstruct.cs" />
     <Compile Include="AssociativeXmlObject.cs" />
-    <Compile Include="ModelConstruct.cs" />
     <Compile Include="ObjectConstruct.cs" />
     <Compile Include="PropertyConstruct.cs" />
     <Compile Include="ProxyConstruct.cs" />

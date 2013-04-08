@@ -1117,7 +1117,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 				objectConstruct00 = new ObjectConstruct();
 				arrayConstruct00.Items.Add(objectConstruct00);
-				
+
 				propertyConstruct00 = new PropertyConstruct();
 				propertyConstruct00.Name = "TypeName";
 				propertyConstruct00.RawValue = type.Name;
@@ -1454,7 +1454,7 @@ namespace TextMetal.Framework.SourceModel.Primative
 
 		protected override object CoreGetSourceObject(string sourceFilePath, IDictionary<string, IList<string>> properties)
 		{
-			ModelConstruct modelConstruct;
+			ObjectConstruct objectConstruct00;
 
 			List<Assembly> assemblies;
 			Assembly assembly;
@@ -1492,11 +1492,11 @@ namespace TextMetal.Framework.SourceModel.Primative
 				}
 			}
 
-			modelConstruct = new ModelConstruct();
+			objectConstruct00 = new ObjectConstruct();
 
-			ModelAssemblies(assemblies.ToArray(), modelConstruct);
+			ModelAssemblies(assemblies.ToArray(), objectConstruct00);
 
-			return modelConstruct;
+			return objectConstruct00;
 		}
 
 		#endregion

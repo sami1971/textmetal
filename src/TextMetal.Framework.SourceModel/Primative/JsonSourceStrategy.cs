@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-using TextMetal.Common.Core;
-
 using Newtonsoft.Json;
+
+using TextMetal.Common.Core;
 
 namespace TextMetal.Framework.SourceModel.Primative
 {

@@ -20,6 +20,10 @@ namespace TextMetal.HostImpl.VsIdeConv.ConsoleTool
 		private static readonly Dictionary<string, IFileHandler> registeredFileExtensionHandlers = new Dictionary<string, IFileHandler>(StringComparer.InvariantCultureIgnoreCase);
 		private static readonly Dictionary<string, IFileHandler> registeredFileNameHandlers = new Dictionary<string, IFileHandler>(StringComparer.InvariantCultureIgnoreCase);
 
+		#endregion
+
+		#region Properties/Indexers/Events
+
 		private static Dictionary<string, IFileHandler> RegisteredFileExtensionHandlers
 		{
 			get

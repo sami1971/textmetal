@@ -269,8 +269,8 @@ namespace TextMetal.Framework.SourceModel.Primative
 		{
 			const string PROP_TOKEN_RECURSIVE = "Recursive";
 			const string PROP_TOKEN_WILDCARD = "Wildcard";
-			ModelConstruct modelConstruct;
-			PropertyConstruct propertyConstruct;
+			ObjectConstruct objectConstruct00;
+			PropertyConstruct propertyConstruct00;
 			IList<string> values;
 			bool recursive = false;
 			string recursiveStr;
@@ -305,26 +305,26 @@ namespace TextMetal.Framework.SourceModel.Primative
 					wildcard = values[0];
 			}
 
-			modelConstruct = new ModelConstruct();
+			objectConstruct00 = new ObjectConstruct();
 
-			propertyConstruct = new PropertyConstruct();
-			propertyConstruct.Name = "SourceFullPath";
-			propertyConstruct.RawValue = sourceFilePath;
-			modelConstruct.Items.Add(propertyConstruct);
+			propertyConstruct00 = new PropertyConstruct();
+			propertyConstruct00.Name = "SourceFullPath";
+			propertyConstruct00.RawValue = sourceFilePath;
+			objectConstruct00.Items.Add(propertyConstruct00);
 
-			propertyConstruct = new PropertyConstruct();
-			propertyConstruct.Name = "Recursive";
-			propertyConstruct.RawValue = recursive;
-			modelConstruct.Items.Add(propertyConstruct);
+			propertyConstruct00 = new PropertyConstruct();
+			propertyConstruct00.Name = "Recursive";
+			propertyConstruct00.RawValue = recursive;
+			objectConstruct00.Items.Add(propertyConstruct00);
 
-			propertyConstruct = new PropertyConstruct();
-			propertyConstruct.Name = "Wildcard";
-			propertyConstruct.RawValue = wildcard;
-			modelConstruct.Items.Add(propertyConstruct);
+			propertyConstruct00 = new PropertyConstruct();
+			propertyConstruct00.Name = "Wildcard";
+			propertyConstruct00.RawValue = wildcard;
+			objectConstruct00.Items.Add(propertyConstruct00);
 
-			EnumerateFileSystem(sourceFilePath, recursive, wildcard, modelConstruct, sourceFilePath);
+			EnumerateFileSystem(sourceFilePath, recursive, wildcard, objectConstruct00, sourceFilePath);
 
-			return modelConstruct;
+			return objectConstruct00;
 		}
 
 		#endregion

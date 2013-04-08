@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !__MonoCS__ && DEFINE_ASP_NET_MVC_VERSION_40
+using System;
 using System.Web.Http;
 
 namespace TextMetal.HostImpl.AspNetSample.App_Start
@@ -22,3 +23,5 @@ namespace TextMetal.HostImpl.AspNetSample.App_Start
 		#endregion
 	}
 }
+
+#endif
