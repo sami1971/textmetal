@@ -11,6 +11,7 @@ _ReSharper.*
 # file specs
 thumbs.db
 desktop.ini
+.DS_Store
 
 # file extension specs
 *.suo
