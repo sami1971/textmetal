@@ -264,8 +264,8 @@ EndGlobal
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>${ClrNamespace}</RootNamespace>
     <AssemblyName>${ClrNamespace}</AssemblyName>
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\${ClrNamespace}.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>${csproj_target_framework_version}</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
@@ -313,7 +313,11 @@ EndGlobal
 	<Reference Include="TextMetal.Common.Xml">
       <HintPath>..\..\lib\TextMetal\TextMetal.Common.Xml.dll</HintPath>
     </Reference>
-	
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\${ClrNamespace}.snk">
+      <Link>${ClrNamespace}.snk</Link>
+    </None>
   </ItemGroup>
   <ItemGroup> 
 	<Compile Include="..\SolutionAssemblyInfo.cs">
