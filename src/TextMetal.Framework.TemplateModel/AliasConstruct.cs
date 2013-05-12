@@ -79,7 +79,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Methods/Operators
 
-		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(ITemplatingContext templatingContext)
 		{
 			string localName, namespaceUri, aqtn;
 			Type aliasedType;

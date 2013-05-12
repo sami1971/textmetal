@@ -27,7 +27,7 @@ namespace TextMetal.Framework.ExpressionModel
 
 		#region Methods/Operators
 
-		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
+		protected override object CoreEvaluateExpression(ITemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object obj;

@@ -108,7 +108,7 @@ namespace TextMetal.Framework.ExpressionModel
 
 		#region Methods/Operators
 
-		private void Assign(string token, ExpressionContainerConstruct expressionContainerConstruct, TemplatingContext templatingContext)
+		private void Assign(string token, ExpressionContainerConstruct expressionContainerConstruct, ITemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object obj = null;
@@ -127,7 +127,7 @@ namespace TextMetal.Framework.ExpressionModel
 				throw new InvalidOperationException(string.Format("The facet name '{0}' was not found on the target model.", token));
 		}
 
-		protected override object CoreEvaluateExpression(TemplatingContext templatingContext)
+		protected override object CoreEvaluateExpression(ITemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object leftObj = null, rightObj = null;

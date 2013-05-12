@@ -37,7 +37,7 @@ namespace TextMetal.HostImpl.Web.AspNet
 		{
 			IXmlPersistEngine xpe;
 			TemplateConstruct template;
-			TemplatingContext templatingContext;
+			ITemplatingContext templatingContext;
 			Dictionary<string, object> globalVariableTable;
 			string toolVersion;
 			string templateDirectoryPath;

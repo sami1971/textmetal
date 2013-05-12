@@ -18,7 +18,7 @@ namespace TextMetal.Framework.Core
 		/// Expands the template tree into the templating context current output.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
-		void ExpandTemplate(TemplatingContext templatingContext);
+		void ExpandTemplate(ITemplatingContext templatingContext);
 
 		#endregion
 	}

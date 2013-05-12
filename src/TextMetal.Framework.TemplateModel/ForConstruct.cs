@@ -116,7 +116,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Methods/Operators
 
-		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(ITemplatingContext templatingContext)
 		{
 			const uint MAX_ITERATIONS_INFINITE_LOOP_CHECK = 999999;
 			string varIx;

@@ -50,7 +50,7 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Methods/Operators
 
-		protected override void CoreExpandTemplate(TemplatingContext templatingContext)
+		protected override void CoreExpandTemplate(ITemplatingContext templatingContext)
 		{
 			if ((object)templatingContext == null)
 				throw new ArgumentNullException("templatingContext");

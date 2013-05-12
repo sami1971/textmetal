@@ -147,9 +147,9 @@ namespace ${ClrNamespace}.IntegrationTests
 					Assert.IsNotNull(UnitOfWorkContext.Current);
 					
 					// do INSERT first
-					Assert.IsTrue(@${TableNameSingularCamelCase}.IsNew);
 					
-					@${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();			
+					@${TableNameSingularCamelCase} = new ${TableNameSingularPascalCase}();
+					Assert.IsTrue(@${TableNameSingularCamelCase}.IsNew);
 ]]>
 
 								<ForEach in="Columns" var-ct="#LoopCount" var-ix="#LoopIndex">

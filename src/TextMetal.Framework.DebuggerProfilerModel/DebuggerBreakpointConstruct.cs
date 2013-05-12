@@ -121,7 +121,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <returns> An expression return value or null. </returns>
-		public object EvaluateExpression(TemplatingContext templatingContext)
+		public object EvaluateExpression(ITemplatingContext templatingContext)
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();
@@ -135,7 +135,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <param name="values"> </param>
 		/// <returns> </returns>
-		public IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
+		public IEnumerable EvaluateSort(ITemplatingContext templatingContext, IEnumerable values)
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();
@@ -147,7 +147,7 @@ namespace TextMetal.Framework.DebuggerProfilerModel
 		/// Expands the template tree into the templating context current output.
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		public void ExpandTemplate(ITemplatingContext templatingContext)
 		{
 			if (!Debugger.IsAttached)
 				Debugger.Break();

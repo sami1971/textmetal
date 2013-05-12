@@ -26,9 +26,9 @@ namespace TextMetal.Framework.SortModel
 
 		#region Methods/Operators
 
-		protected abstract IEnumerable CoreEvaluateSort(TemplatingContext templatingContext, IEnumerable values);
+		protected abstract IEnumerable CoreEvaluateSort(ITemplatingContext templatingContext, IEnumerable values);
 
-		public IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values)
+		public IEnumerable EvaluateSort(ITemplatingContext templatingContext, IEnumerable values)
 		{
 			return this.EvaluateSort(templatingContext, values);
 		}

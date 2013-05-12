@@ -11,7 +11,7 @@ using TextMetal.Common.Xml;
 
 namespace TextMetal.Framework.Core
 {
-	public sealed class TemplatingContext
+	public sealed class TemplatingContext : ITemplatingContext
 	{
 		#region Constructors/Destructors
 

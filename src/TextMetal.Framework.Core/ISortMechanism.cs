@@ -21,7 +21,7 @@ namespace TextMetal.Framework.Core
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <param name="values"> </param>
 		/// <returns> </returns>
-		IEnumerable EvaluateSort(TemplatingContext templatingContext, IEnumerable values);
+		IEnumerable EvaluateSort(ITemplatingContext templatingContext, IEnumerable values);
 
 		#endregion
 	}

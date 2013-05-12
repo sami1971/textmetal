@@ -58,6 +58,7 @@
     <Compile Include="ISourceStrategy.cs" />
     <Compile Include="ITemplateMechanism.cs" />
     <Compile Include="ITemplateXmlObject.cs" />
+    <Compile Include="ITemplatingContext.cs" />
     <Compile Include="ProjectAssemblyInfo.cs" />
     <Compile Include="TemplatingContext.cs" />
   </ItemGroup>

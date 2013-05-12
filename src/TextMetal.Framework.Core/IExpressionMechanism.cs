@@ -19,7 +19,7 @@ namespace TextMetal.Framework.Core
 		/// </summary>
 		/// <param name="templatingContext"> The templating context. </param>
 		/// <returns> An expression return value or null. </returns>
-		object EvaluateExpression(TemplatingContext templatingContext);
+		object EvaluateExpression(ITemplatingContext templatingContext);
 
 		#endregion
 	}

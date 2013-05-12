@@ -26,9 +26,9 @@ namespace TextMetal.Framework.ExpressionModel
 
 		#region Methods/Operators
 
-		protected abstract object CoreEvaluateExpression(TemplatingContext templatingContext);
+		protected abstract object CoreEvaluateExpression(ITemplatingContext templatingContext);
 
-		public object EvaluateExpression(TemplatingContext templatingContext)
+		public object EvaluateExpression(ITemplatingContext templatingContext)
 		{
 			return this.CoreEvaluateExpression(templatingContext);
 		}

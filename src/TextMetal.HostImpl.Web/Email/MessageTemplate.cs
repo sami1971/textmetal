@@ -343,7 +343,7 @@ namespace TextMetal.HostImpl.Web.Email
 		{
 			XmlPersistEngine xpe;
 			TemplateConstruct template;
-			TemplatingContext templatingContext;
+			ITemplatingContext templatingContext;
 			NullInputMechanism nullInputMechanism;
 			StringOutputMechanism stringOutputMechanism;
 			XmlTextReader templateXmlTextReader;

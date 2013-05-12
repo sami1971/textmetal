@@ -65,7 +65,7 @@ namespace TextMetal.Framework.SortModel
 
 		#region Methods/Operators
 
-		protected override IEnumerable CoreEvaluateSort(TemplatingContext templatingContext, IEnumerable values)
+		protected override IEnumerable CoreEvaluateSort(ITemplatingContext templatingContext, IEnumerable values)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 			object obj;

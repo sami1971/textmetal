@@ -39,9 +39,9 @@ namespace TextMetal.Framework.TemplateModel
 
 		#region Methods/Operators
 
-		protected abstract void CoreExpandTemplate(TemplatingContext templatingContext);
+		protected abstract void CoreExpandTemplate(ITemplatingContext templatingContext);
 
-		public void ExpandTemplate(TemplatingContext templatingContext)
+		public void ExpandTemplate(ITemplatingContext templatingContext)
 		{
 			DynamicWildcardTokenReplacementStrategy dynamicWildcardTokenReplacementStrategy;
 

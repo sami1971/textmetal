@@ -55,7 +55,7 @@ namespace TextMetal.HostImpl.Tool
 			TemplateConstruct template;
 			object source;
 			ObjectConstruct objectConstruct = null;
-			TemplatingContext templatingContext;
+			ITemplatingContext templatingContext;
 			Dictionary<string, object> globalVariableTable;
 			string toolVersion;
 			string templateDirectoryPath;
